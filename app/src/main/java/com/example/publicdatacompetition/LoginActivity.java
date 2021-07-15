@@ -48,25 +48,27 @@ public class LoginActivity extends AppCompatActivity {
 //                mTask.execute(mId,mPassword);
 
                 RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-                mRESTApi.login(mId,mPassword).enqueue(new Callback<List<Map<String, Object>>>() {
+                mRESTApi.login(mId,mPassword).enqueue(new Callback<Map<String, Object>>() {
                     @Override
-                    public void onResponse(Call<List<Map<String, Object>>> call, Response<List<Map<String, Object>>> response) {
+                    public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                         if (response.isSuccessful()) {
-                            if (response.code() == 00) {
+                            Map<String, Object> code = response.body();
+                            String aa = code.get("code").toString();
+                            if (aa.equals("0.0")) {
                                 Log.d("LoginActivity", "login successful !");
                                 Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(i);
                             } else {
                                 Log.d("LoginActivity", "login failure !" + response.code());
-                                Toast.makeText(getApplicationContext(),"로그인 실패 response code : " + response.code(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"로그인 실패 response code : " + aa, Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<List<Map<String, Object>>> call, Throwable throwable) {
-                        Log.d("LoginActivity", "retrofit failure !");
+                    public void onFailure(Call<Map<String, Object>> call, Throwable throwable) {
+                        Log.d("LoginActivity", "retrofit failure !"+throwable);
                         Toast.makeText(getApplicationContext(),"통신 실패", Toast.LENGTH_SHORT).show();
                     }
                 });

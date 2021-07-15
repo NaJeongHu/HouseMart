@@ -20,7 +20,7 @@ public interface RESTApi {
 //    Call<List<Map<String,Object>>> login(@Body RequestBody body);
 
     @GET("/loginRequest")
-    Call<List<Map<String,Object>>> login(@Query("id") String id,
+    Call<Map<String,Object>> login(@Query("id") String id,
                                            @Query("password") String password);
 
     public static final Retrofit retrofit = new Retrofit.Builder()
