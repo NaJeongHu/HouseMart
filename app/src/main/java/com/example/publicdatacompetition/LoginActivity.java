@@ -28,16 +28,19 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText mEditId, mEditPassword;
-    private Button mLoginButton;
+    private Button mLoginButton, mJoinButton;
     private String mId, mPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
-        mEditId = findViewById(R.id.id);
-        mEditPassword = findViewById(R.id.password);
-        mLoginButton = findViewById(R.id.login);
+        mEditId = findViewById(R.id.edit_login_id);
+        mEditPassword = findViewById(R.id.edit_login_password);
+        mLoginButton = findViewById(R.id.btn_login);
+        mJoinButton = findViewById(R.id.btn_join);
+
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,50 +77,13 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-    }
 
-//    private class validateUserTask extends AsyncTask<String, Void, String> {
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//            JSONObject json = new JSONObject();
-//
-//            try {
-//                json.put("id",params[0]);
-//                json.put("password",params[1]);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-////            try {
-////                json.put("password",params[1]);
-////            } catch (JSONException e) {
-////                e.printStackTrace();
-////            }
-//
-//            RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),json.toString());
-//
-//            try {
-//                RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-//                Call<List<Map<String,Object>>> login = mRESTApi.login(body);
-//                Response res = login.execute();
-//
-//                if(res.isSuccessful()){
-//                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//                    startActivity(i);
-//                } else{ }
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            String res = null;
-//            return res;
-//        }//close doInBackground
-//
-//        @Override
-//        protected void onPostExecute(String result) {
-//
-//        }//close onPostExecute
-//
-//    }// close validateUserTask
+        mJoinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 }
