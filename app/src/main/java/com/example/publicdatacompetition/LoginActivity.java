@@ -21,6 +21,7 @@ import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,26 +52,37 @@ public class LoginActivity extends AppCompatActivity {
 //                mTask.execute(mId,mPassword);
 
                 RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-                mRESTApi.login(mId,mPassword).enqueue(new Callback<Map<String, Object>>() {
+                mRESTApi.login(mId,mPassword).enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                        if (response.isSuccessful()) {
-                            Map<String, Object> code = response.body();
-                            String aa = code.get("code").toString();
-                            if (aa.equals("0.0")) {
-                                Log.d("LoginActivity", "login successful !");
-                                Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(i);
-                            } else {
-                                Log.d("LoginActivity", "login failure !" + response.code());
-                                Toast.makeText(getApplicationContext(),"로그인 실패 response code : " + aa, Toast.LENGTH_SHORT).show();
-                            }
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        String aa = response.headers().get("code");
+
+                        Toast.makeText(getApplicationContext(),"aa = "+response.headers() , Toast.LENGTH_SHORT).show();
+                        Log.d("LoginActivity", "통신 성공 !" + response.headers());
+
+//                            if (response.code() == 0) {
+//                                Log.d("LoginActivity", "login successful !");
+//                                Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENGTH_SHORT).show();
+//                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//                                startActivity(i);
+//                            } else {
+//                                Log.d("LoginActivity", "login failure !" + response.code());
+//                                Toast.makeText(getApplicationContext(),"로그인 실패 response code : " + aa, Toast.LENGTH_SHORT).show();
+//                            }
+
+                        if (aa != null && aa.equals("00")) {
+                            Log.d("LoginActivity", "login successful !");
+                            Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(i);
+                        } else {
+                            Log.d("LoginActivity", "login failure !" + response.code());
+                            Toast.makeText(getApplicationContext(),"로그인 실패 response code : " + aa, Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Map<String, Object>> call, Throwable throwable) {
+                    public void onFailure(Call<ResponseBody> call, Throwable throwable) {
                         Log.d("LoginActivity", "retrofit failure !"+throwable);
                         Toast.makeText(getApplicationContext(),"통신 실패", Toast.LENGTH_SHORT).show();
                     }

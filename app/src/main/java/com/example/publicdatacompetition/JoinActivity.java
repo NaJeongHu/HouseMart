@@ -15,6 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,7 +73,11 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_join_join:
                 // 에딧텍스트 다 채워져 있는지, 무결성 검사 진행해야함.
                 // 비트맵 null인지 아닌지 검사해서 있으면 서버로 보내고, 없으면 null 서버로 보냄
-                sendUserInfoToServer();
+                if (img != null) {
+                    sendUserInfoToServer();
+                } else {
+                    Toast.makeText(getApplicationContext(),"사진을 넣어주세요", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -95,7 +102,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 //Convert bitmap to byte array
         //Bitmap bitmap = your bitmap;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        img.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos);
+
+        img.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
         byte[] bitmapdata = bos.toByteArray();
 
 //write the bytes in file
@@ -128,9 +136,23 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         Log.d("JoinActivity", "통신 성공 !");
-                        Log.d("JoinActivity", "통신 성공 !" + response.message());
+                        Log.d("JoinActivity", "통신 성공 !" + response.body().toString());
                         Log.d("JoinActivity", "통신 성공 !" + response.code());
                         Log.d("JoinActivity", "통신 성공 !" + response.headers());
+
+                        String test = response.headers().get("code");
+                        if (test.equals("00")) {
+                            Intent i = new Intent(JoinActivity.this, MainActivity.class);
+                            startActivity(i);
+                        } else {
+                            Toast.makeText(getApplicationContext(),"회원가입 실패" + test , Toast.LENGTH_SHORT).show();
+                        }
+
+//                        Toast.makeText(getApplicationContext(),"통신 성공" + test , Toast.LENGTH_SHORT).show();
+//                        if (response.code() == 0) {
+//                            Intent i = new Intent(JoinActivity.this, MainActivity.class);
+//                            startActivity(i);
+//                        }
                     }
 
                     @Override

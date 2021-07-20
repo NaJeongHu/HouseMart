@@ -23,9 +23,10 @@ public interface RESTApi {
 //    @POST("/loginRequest")
 //    Call<List<Map<String,Object>>> login(@Body RequestBody body);
 
-    @GET("/loginRequest")
-    Call<Map<String,Object>> login(@Query("id") String id,
-                                           @Query("password") String password);
+    @POST("/loginRequest")
+    Call<ResponseBody> login(
+            @Query("id") String id,
+            @Query("password") String password);
 
     @Multipart
     @POST("/joinRequest")
