@@ -44,7 +44,7 @@
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10.0dip"
-                    android:text="의원"
+                    android:text="아파트"
                     android:maxLines="1"
                     android:layout_weight="1.0"
                     android:textAlignment="center" />
@@ -102,11 +102,13 @@
                     android:fontFamily="@font/applesdgothicneob"
                     android:background="@drawable/btn_top"
                     android:textSize="14dp"
-                    android:text=" 병원명을 검색해보세요 "
+                    android:text=" 아파트를 검색해보세요 "
                     android:stateListAnimator="@null"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"/>
+
             </LinearLayout>
+
         </HorizontalScrollView>
 
     </com.google.android.material.appbar.AppBarLayout>

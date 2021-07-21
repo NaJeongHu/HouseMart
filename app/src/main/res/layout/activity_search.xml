@@ -88,7 +88,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/applesdgothicneob"
-                android:text="prodoc"
+                android:text="HouseMart"
                 android:textColor="#253628"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -102,7 +102,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:theme="@style/EditTheme"
-                android:hint="병원명을 검색해보세요"
+                android:hint="아파트를 검색해보세요"
                 android:maxLines="1"
                 android:textCursorDrawable="@drawable/cursor">
 
