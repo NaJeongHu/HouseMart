@@ -21,12 +21,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="right">
+            android:gravity="right"
+            android:orientation="horizontal">
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -39,7 +39,6 @@
 
 
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -72,33 +71,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="200dp"
             android:orientation="horizontal">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/applesdgothicneob"
-                    android:gravity="center"
-                    android:textSize="12dp" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:fontFamily="@font/applesdgothicneob"
-                android:gravity="center"
-                android:text="억"
-                android:textSize="15dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -118,10 +92,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/applesdgothicneob"
                 android:gravity="center|right"
-                android:text="만원"
+                android:text="원"
                 android:textSize="15dp" />
 
         </LinearLayout>
@@ -158,12 +132,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="200dp"
             android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -183,10 +153,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/applesdgothicneob"
                 android:gravity="center|right"
-                android:layout_marginLeft="20dp"
-                android:text="만원"
+                android:text="원"
                 android:textSize="15dp" />
 
         </LinearLayout>
@@ -223,33 +193,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="200dp"
             android:orientation="horizontal">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/applesdgothicneob"
-                    android:gravity="center"
-                    android:textSize="12dp" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:fontFamily="@font/applesdgothicneob"
-                android:gravity="center"
-                android:text="억"
-                android:textSize="15dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -269,13 +214,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/applesdgothicneob"
                 android:gravity="center|right"
-                android:text="만원"
+                android:text="원"
                 android:textSize="15dp" />
 
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -310,10 +256,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="5"/>
+                android:layout_weight="5" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -333,10 +280,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/applesdgothicneob"
                 android:gravity="center|right"
-                android:layout_marginLeft="20dp"
-                android:text="만원"
+                android:text="원"
                 android:textSize="15dp" />
 
         </LinearLayout>
