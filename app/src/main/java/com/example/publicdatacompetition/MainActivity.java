@@ -23,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private GPSTracker gps;
+    private Button mUserInfo, mBuy, mSell;
 
     public double mLatitude;
     public double mLongitude;
@@ -32,10 +33,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        init();
         getpermisson();
         getLocation();
 
         // todo : data binding 없이 작동하는지 확인
+    }
+
+    private void init() {
+        mUserInfo = findViewById(R.id.btn_main_info);
+        mBuy = findViewById(R.id.btn_main_buy_apart);
+        mSell = findViewById(R.id.btn_main_sell);
+
+        mUserInfo.setOnClickListener(this);
+        mBuy.setOnClickListener(this);
+        mSell.setOnClickListener(this);
     }
 
     @Override
