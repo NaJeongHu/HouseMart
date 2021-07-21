@@ -10,4 +10,16 @@
         android:layout_height="wrap_content"
         android:text="계정정보"/>
 
+    <Button
+        android:id="@+id/btn_main_buy_apart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="구해요 아파트"/>
+
+    <Button
+        android:id="@+id/btn_main_sell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="팔아요 아파트"/>
+
 </LinearLayout>

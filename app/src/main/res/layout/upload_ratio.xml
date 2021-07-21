@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/applesdgothicneob"
+        android:text="계약"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="계약금:중도금:잔금 (%)"
+                android:fontFamily="@font/applesdgothicneob"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="현재 비율"
+                android:textColor="@color/custom_blue"
+                android:textSize="12dp"
+                android:gravity="right"/>
+        </LinearLayout>
+
+        <com.google.android.material.slider.RangeSlider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:values="@array/ratio1"
+            app:thumbColor="#C4E8FA"
+            app:trackColor="@color/custom_blue"
+            app:tickColor="@color/custom_blue"
+            android:stepSize="1"
+            android:valueFrom="0"
+            android:valueTo="100"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:textSize="12dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="100"
+                android:textSize="12dp"
+                android:gravity="right"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="일반적으로 10% 40% 50%의 비율로 책정합니다"
+            android:textColor="@color/custom_blue"
+            android:textSize="12dp"
+            android:gravity="left"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="계약금 : 30,000,000 원 중도금 : 120,000,000 원 잔금 : 150,000,000 원"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="가계약금 / 계약금 (%)"
+            android:fontFamily="@font/applesdgothicneob"
+            android:textSize="15dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="현재 비율"
+            android:textColor="@color/custom_blue"
+            android:textSize="12dp"
+            android:gravity="right"/>
+    </LinearLayout>
+
+    <com.google.android.material.slider.RangeSlider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:values="@array/ratio2"
+        app:thumbColor="#C4E8FA"
+        app:trackColor="@color/custom_blue"
+        app:tickColor="@color/custom_blue"
+        android:stepSize="1"
+        android:valueFrom="0"
+        android:valueTo="50"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="12dp" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="25"
+            android:textSize="12dp"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="50"
+            android:textSize="12dp"
+            android:gravity="right"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="일반적으로 계약금의 10%를 가계약금으로 책정합니다"
+        android:textColor="@color/custom_blue"
+        android:textSize="12dp"
+        android:gravity="left"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="가계약금 : 3,000,000 원"
+        android:textSize="12dp"
+        android:gravity="left"/>
+
+</LinearLayout>

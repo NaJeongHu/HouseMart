@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/applesdgothicneob"
+        android:text="가격"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전세금(보증금)"
+                android:fontFamily="@font/applesdgothicneob"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="가격"
+                android:textColor="@color/custom_blue"
+                android:textSize="12dp"
+                android:gravity="right"/>
+        </LinearLayout>
+
+        <com.google.android.material.slider.RangeSlider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:values="@array/ratio3"
+            app:thumbColor="@color/custom_skyblue"
+            app:trackColor="@color/custom_blue"
+            app:tickColor="@color/custom_blue"
+            app:labelBehavior="gone"
+            android:stepSize="1"
+            android:valueFrom="0"
+            android:valueTo="100"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="최소"
+                android:textSize="12dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="5억원"
+                android:textSize="12dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="최대"
+                android:textSize="12dp"
+                android:gravity="right"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="월세"
+                android:fontFamily="@font/applesdgothicneob"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="가격"
+                android:textColor="@color/custom_blue"
+                android:textSize="12dp"
+                android:gravity="right"/>
+        </LinearLayout>
+
+        <com.google.android.material.slider.RangeSlider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:values="@array/ratio3"
+            app:thumbColor="@color/custom_skyblue"
+            app:trackColor="@color/custom_blue"
+            app:tickColor="@color/custom_blue"
+            app:labelBehavior="gone"
+            android:stepSize="1"
+            android:valueFrom="0"
+            android:valueTo="100"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="최소"
+                android:textSize="12dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="100만원"
+                android:textSize="12dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="최대"
+                android:textSize="12dp"
+                android:gravity="right"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="매매"
+                android:fontFamily="@font/applesdgothicneob"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="가격"
+                android:textColor="@color/custom_blue"
+                android:textSize="12dp"
+                android:gravity="right"/>
+        </LinearLayout>
+
+        <com.google.android.material.slider.RangeSlider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:values="@array/ratio3"
+            app:thumbColor="@color/custom_skyblue"
+            app:trackColor="@color/custom_blue"
+            app:tickColor="@color/custom_blue"
+            app:labelBehavior="gone"
+            android:stepSize="1"
+            android:valueFrom="0"
+            android:valueTo="100"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="최소"
+                android:textSize="12dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="5억원"
+                android:textSize="12dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="최대"
+                android:textSize="12dp"
+                android:gravity="right"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

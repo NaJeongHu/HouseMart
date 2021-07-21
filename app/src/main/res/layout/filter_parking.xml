@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/applesdgothicneob"
+        android:text="주차대수"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round_blue"
+            android:text="상관없음"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_round_blue"
+            android:text="1대 이상"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_round_blue"
+            android:text="2대 이상"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

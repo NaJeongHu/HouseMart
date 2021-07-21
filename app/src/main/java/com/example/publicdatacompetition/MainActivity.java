@@ -16,10 +16,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // todo data binding 없이 작동하는지 확인
         btn_info = findViewById(R.id.btn_main_info);
-
         btn_info.setOnClickListener(this);
-
     }
 
     @Override
@@ -28,6 +27,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_main_info:
                 Intent i = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(i);
+                break;
+            case R.id.btn_main_buy_apart:
+                Intent ii = new Intent(MainActivity.this, ListActivity.class);
+                startActivity(ii);
+                break;
+            case R.id.btn_main_sell:
+                Intent iii = new Intent(MainActivity.this, UploadActivity.class);
+                startActivity(iii);
                 break;
         }
     }

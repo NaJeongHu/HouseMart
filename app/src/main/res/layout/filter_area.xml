@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/applesdgothicneob"
+        android:text="크기"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="공급면적"
+                android:fontFamily="@font/applesdgothicneob"
+                android:textSize="15dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="평수로 전환"
+                android:textColor="@color/custom_blue"
+                android:textSize="12dp"
+                android:gravity="right"/>
+        </LinearLayout>
+
+        <com.google.android.material.slider.RangeSlider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:values="@array/ratio0"
+            app:thumbColor="#C4E8FA"
+            app:trackColor="@color/custom_blue"
+            app:tickColor="@color/custom_blue"
+            app:labelBehavior="gone"
+            android:stepSize="1"
+            android:valueFrom="0"
+            android:valueTo="214"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="최소"
+                android:textSize="12dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="107m²(32평)"
+                android:textSize="12dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="최대"
+                android:textSize="12dp"
+                android:gravity="right"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

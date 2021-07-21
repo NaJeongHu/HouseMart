@@ -13,4 +13,5 @@
     <color name="custom_blue">#2265DA</color>
     <color name="custom_skyblue">#C4E8FA</color>
     <color name="custom_blue2">#DDE7F8</color>
+    <color name="cursorColor">#49654C</color>
 </resources>

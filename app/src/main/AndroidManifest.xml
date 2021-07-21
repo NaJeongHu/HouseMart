@@ -11,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC5222FEBgQ14yfr_a2bDRmkWYXS1AIpFU" />
+
         <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +26,9 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".JoinActivity"/>
         <activity android:name=".SettingActivity"/>
+        <activity android:name=".ListActivity"/>
+        <activity android:name=".MapActivity"/>
+        <activity android:name=".UploadActivity"/>
     </application>
 
 </manifest>

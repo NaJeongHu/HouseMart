@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="상세정보"
+        android:textSize="15dp"
+        android:fontFamily="@font/applesdgothicneob"
+        android:textColor="@color/black"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="#DDE7F8">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDE7F8"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:text="종류"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@color/white"
+                android:layout_marginRight="1dp"
+                android:text="아파트" />
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/custom_blue2"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:text="해당층/건물층"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@color/white"
+                android:layout_marginRight="1dp"
+                android:text="11층/15층" />
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/custom_blue2"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:text="전용/공급 면적"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginRight="1dp"
+                android:background="@color/white"
+                android:text="118.9m²/144.68m²" />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/custom_blue2"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:text="방 수/욕실 수"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginRight="1dp"
+                android:background="@color/white"
+                android:text="4개/2개" />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/custom_blue2"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:text="세대 당 주차수"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginRight="1dp"
+                android:background="@color/white"
+                android:text="2대" />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/custom_blue2"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:text="입주가능일"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginRight="1dp"
+                android:background="@color/white"
+                android:text="즉시 입주" />
+
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/custom_blue2"/>
+
+    </TableLayout>
+
+</LinearLayout>
