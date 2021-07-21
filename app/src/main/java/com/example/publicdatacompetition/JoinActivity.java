@@ -5,9 +5,13 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -59,12 +63,12 @@ import retrofit2.Response;
 
 public class JoinActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "JoinActivity";
+
     private EditText mEditEmail, mEditPassword, mEditPasswordConfirm, mEditPhoneNumber, mEditName, mEditNicname;
     private ImageView mIvPicture;
     private Button mJoinButton;
     private static final int IMAGE_REQUEST = 0;
-    private Bitmap img;
-    private String mId, mPassword, mPasswordConfirm, mPhoneNumber, mName, mNickname;
 
     private FirebaseAuth auth;
     private DatabaseReference reference;
@@ -73,6 +77,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     private StorageReference storageReference;
     private Uri imageUri;
     private StorageTask uploadTask;
+
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,15 +119,18 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 String txt_nickname = mEditNicname.getText().toString();
                 String txt_phone = mEditPhoneNumber.getText().toString();
 
-                if(TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_nickname) || TextUtils.isEmpty(txt_phone)){
-                    Toast.makeText(this, "모든 정보를 채워주세요", Toast.LENGTH_SHORT).show();
-                } else if(!checkPass(txt_password)){
-                    Toast.makeText(this, "비밀번호는 영문, 숫자를 포함하여 8~20자로 작성해주세요.", Toast.LENGTH_SHORT).show();
-                } else if(!txt_password.equals(txt_password_confirm)){
-                    Toast.makeText(this, "비밀번호 재입력이 틀렸습니다.", Toast.LENGTH_SHORT).show();
-                }else {
-                    register(txt_email, txt_password, txt_username, txt_nickname, txt_phone);
-                }
+                sendUserInfoToServer(txt_email, txt_password, txt_password_confirm, txt_phone, txt_username, txt_nickname);
+//
+//                if(TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_nickname) || TextUtils.isEmpty(txt_phone)){
+//                    Toast.makeText(this, "모든 정보를 채워주세요", Toast.LENGTH_SHORT).show();
+//                } else if(!checkPass(txt_password)){
+//                    Toast.makeText(this, "비밀번호는 영문, 숫자를 포함하여 8~20자로 작성해주세요.", Toast.LENGTH_SHORT).show();
+//                } else if(!txt_password.equals(txt_password_confirm)){
+//                    Toast.makeText(this, "비밀번호 재입력이 틀렸습니다.", Toast.LENGTH_SHORT).show();
+//                }else {
+//                    register(txt_email, txt_password, txt_password_confirm, txt_username, txt_nickname, txt_phone);
+//
+//                }
                 break;
         }
     }
@@ -154,11 +163,13 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void uploadImage() {
-        final ProgressDialog pd = new ProgressDialog(JoinActivity.this); //context에 표시하는 progressdialog 인스턴스 생성
-        pd.setMessage("Uploading"); //progressdialog에 나타낼 text
-        pd.show(); //progressdialog를 보여주기
+        pd = new ProgressDialog(JoinActivity.this);
+        pd.setMessage("Uploading");
+        pd.show();
 
         if(imageUri != null) { //intent의 결과로 imageUri가 넘어왔다면,
+            Log.d(TAG, "imageUri != null");
+
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis() //FirebaseStorage 내부에 upload 내부에
                     +"."+getFileExtension(imageUri)); //"현재시간.형식"라는 이름의 StorageReference 만들기
 
@@ -176,6 +187,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     if(task.isSuccessful()){
+                        Log.d(TAG, "task.isSuccesstul()");
+
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
@@ -185,6 +198,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                         reference.updateChildren(map);
 
                         pd.dismiss();
+
+                        Log.d(TAG, "pd.dismiss()");
                     } else {
                         Toast.makeText(JoinActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                     }
@@ -207,7 +222,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         finish();
     }
 
-    private void register(String email, String password, final String username, final String nickname, final String phone) {
+    private void register(String email, String password, String password_confirm, final String username, final String nickname, final String phone) {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -219,8 +234,6 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()) {
-                                                uploadImage();
-
                                                 String userid = fuser.getUid(); // 현재 사용자의 userid
 
                                                 reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
@@ -237,7 +250,11 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if(task.isSuccessful()){
-                                                            sendUserInfoToServer();
+                                                            if(imageUri != null) {
+                                                                uploadImage();
+                                                            }
+
+                                                            sendUserInfoToServer(email, password, password_confirm, phone, username, nickname);
                                                         }
                                                     }
                                                 });
@@ -251,69 +268,72 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-    private void sendUserInfoToServer() {
+    private void sendUserInfoToServer(String email, String password, String password_confirm,  final String phone, final String username, final String nickname) {
         File imageFile = null;
+        MultipartBody.Part filePart = null;
+        Bitmap img = null;
 
-        if (img != null) {
+        //change Uri to Bitmap
+        if(imageUri != null) {
             try {
-                imageFile = savebitmap(img);
-            } catch (Exception e) {}
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    img = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), imageUri));
+                } else {
+                    img = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            img  = BitmapFactory.decodeResource(getResources(), R.drawable.preview);
         }
 
-        //create a file to write bitmap data
-        File f = new File(this.getCacheDir(), "filename");
         try {
-            f.createNewFile();
-        } catch (IOException e) {
+            imageFile = savebitmap(img);
+
+            //Convert bitmap to byte array
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            img.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
+            byte[] bitmapdata = bos.toByteArray();
+
+            //create a file to write bitmap data
+            File f = new File(this.getCacheDir(), "filename");
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //write the bytes in file
+            FileOutputStream fos = null;
+            try {
+                fos = new FileOutputStream(f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            filePart = MultipartBody.Part.createFormData("file",
+                    f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-//Convert bitmap to byte array
-        //Bitmap bitmap = your bitmap;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-        img.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
-        byte[] bitmapdata = bos.toByteArray();
-
-//write the bytes in file
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(f);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            fos.write(bitmapdata);
-            fos.flush();
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        mId = mEditEmail.getText().toString();
-        mPassword = mEditPassword.getText().toString();
-        mPasswordConfirm = mEditPasswordConfirm.getText().toString();
-        mPhoneNumber = mEditPhoneNumber.getText().toString();
-        mName = mEditName.getText().toString();
-        mNickname = mEditNicname.getText().toString();
-
-        MultipartBody.Part filePart = MultipartBody.Part.createFormData("file",
-                f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-        mRESTApi.joinRequest(mId,mPassword,mPasswordConfirm,mPhoneNumber,mName,mNickname,filePart)
+        mRESTApi.joinRequest(email,password,password_confirm,phone,username,nickname,filePart)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Log.d("JoinActivity", "통신 성공 !");
-                        Log.d("JoinActivity", "통신 성공 !" + response.body().toString());
-                        Log.d("JoinActivity", "통신 성공 !" + response.code());
-                        Log.d("JoinActivity", "통신 성공 !" + response.headers());
-
                         String test = response.headers().get("code");
 
                         if (test.equals("00")) {
-                            //로그인부터 해야할 것 같아서 LoginActivity로 넘어가도록 함
-                            Intent intent = new Intent(JoinActivity.this, MainActivity.class);
+                            Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
@@ -324,7 +344,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                        Log.d("JoinActivity", "통신 실패 !");
+                        Log.d("JoinActivity", throwable.getMessage());
                     }
                 });
     }
@@ -336,16 +356,6 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         if(requestCode == IMAGE_REQUEST){
             if(resultCode == RESULT_OK && data != null && data.getData() != null) {
                 imageUri = data.getData();
-
-                //change Uri to Bitmap
-                try {
-                    InputStream in = getContentResolver().openInputStream(imageUri);
-
-                    img = BitmapFactory.decodeStream(in);
-                    in.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
                 //set Image to mIvPicture
                 if (imageUri != null) {
@@ -365,5 +375,14 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         return matcher.find();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(pd != null) {
+            pd.dismiss();
+        }
     }
 }
