@@ -119,18 +119,15 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 String txt_nickname = mEditNicname.getText().toString();
                 String txt_phone = mEditPhoneNumber.getText().toString();
 
-                sendUserInfoToServer(txt_email, txt_password, txt_password_confirm, txt_phone, txt_username, txt_nickname);
-//
-//                if(TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_nickname) || TextUtils.isEmpty(txt_phone)){
-//                    Toast.makeText(this, "모든 정보를 채워주세요", Toast.LENGTH_SHORT).show();
-//                } else if(!checkPass(txt_password)){
-//                    Toast.makeText(this, "비밀번호는 영문, 숫자를 포함하여 8~20자로 작성해주세요.", Toast.LENGTH_SHORT).show();
-//                } else if(!txt_password.equals(txt_password_confirm)){
-//                    Toast.makeText(this, "비밀번호 재입력이 틀렸습니다.", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    register(txt_email, txt_password, txt_password_confirm, txt_username, txt_nickname, txt_phone);
-//
-//                }
+                if(TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_nickname) || TextUtils.isEmpty(txt_phone)){
+                    Toast.makeText(this, "모든 정보를 채워주세요", Toast.LENGTH_SHORT).show();
+                } else if(!checkPass(txt_password)){
+                    Toast.makeText(this, "비밀번호는 영문, 숫자를 포함하여 8~20자로 작성해주세요.", Toast.LENGTH_SHORT).show();
+                } else if(!txt_password.equals(txt_password_confirm)){
+                    Toast.makeText(this, "비밀번호 재입력이 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                }else {
+                    register(txt_email, txt_password, txt_password_confirm, txt_username, txt_nickname, txt_phone);
+                }
                 break;
         }
     }
