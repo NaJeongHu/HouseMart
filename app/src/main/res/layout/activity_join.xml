@@ -6,21 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/edit_join_id"
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edit_join_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="24dp"
-        android:hint="ID를 입력하세요!"
+        android:hint="Email을 입력하세요!"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/edit_join_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,9 +33,9 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_join_id" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_join_email" />
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/edit_join_password_confirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_join_password" />
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/edit_join_phonenumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -59,13 +59,13 @@
         android:layout_marginEnd="24dp"
         android:hint="휴대폰 번호"
         android:imeOptions="actionDone"
-        android:inputType="textPassword"
+        android:inputType="phone"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_join_password_confirm" />
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/edit_join_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -74,13 +74,13 @@
         android:layout_marginEnd="24dp"
         android:hint="이름"
         android:imeOptions="actionDone"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_join_phonenumber" />
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/edit_join_nickname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
         android:layout_marginEnd="24dp"
         android:hint="닉네임"
         android:imeOptions="actionDone"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +104,6 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_join_nickname"
         android:scaleType="fitCenter"
         android:src="@drawable/preview"/>
-
 
     <Button
         android:id="@+id/btn_join_join"

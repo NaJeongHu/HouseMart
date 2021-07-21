@@ -3,14 +3,22 @@ package com.example.publicdatacompetition;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,65 +36,48 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText mEditId, mEditPassword;
+    private static final String TAG = "LoginActivity.java";
+
+    private EditText mEditEmail, mEditPassword;
     private Button mLoginButton, mJoinButton;
-    private String mId, mPassword;
+    private TextView mResetPassword;
+
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
-        mEditId = findViewById(R.id.edit_login_id);
+
+        mEditEmail = findViewById(R.id.edit_login_email);
         mEditPassword = findViewById(R.id.edit_login_password);
         mLoginButton = findViewById(R.id.btn_login);
         mJoinButton = findViewById(R.id.btn_join);
+        mResetPassword = findViewById(R.id.reset_password);
+
+        auth = FirebaseAuth.getInstance();
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                mId = mEditId.getText().toString();
-                mPassword = mEditPassword.getText().toString();
+            public void onClick(View v) {
+                String txt_email = mEditEmail.getText().toString();
+                String txt_password = mEditPassword.getText().toString();
 
-//                validateUserTask mTask = new validateUserTask();
-//                mTask.execute(mId,mPassword);
-
-                RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-                mRESTApi.login(mId,mPassword).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        String aa = response.headers().get("code");
-
-                        Toast.makeText(getApplicationContext(),"aa = "+response.headers() , Toast.LENGTH_SHORT).show();
-                        Log.d("LoginActivity", "통신 성공 !" + response.headers());
-
-//                            if (response.code() == 0) {
-//                                Log.d("LoginActivity", "login successful !");
-//                                Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENGTH_SHORT).show();
-//                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//                                startActivity(i);
-//                            } else {
-//                                Log.d("LoginActivity", "login failure !" + response.code());
-//                                Toast.makeText(getApplicationContext(),"로그인 실패 response code : " + aa, Toast.LENGTH_SHORT).show();
-//                            }
-
-                        if (aa != null && aa.equals("00")) {
-                            Log.d("LoginActivity", "login successful !");
-                            Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(i);
-                        } else {
-                            Log.d("LoginActivity", "login failure !" + response.code());
-                            Toast.makeText(getApplicationContext(),"로그인 실패 response code : " + aa, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                        Log.d("LoginActivity", "retrofit failure !"+throwable);
-                        Toast.makeText(getApplicationContext(),"통신 실패", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if(TextUtils.isEmpty(txt_email)){
+                    Toast.makeText(LoginActivity.this, "이메일을 입력하세요", Toast.LENGTH_SHORT).show();
+                } else if(TextUtils.isEmpty(txt_password)){
+                    Toast.makeText(LoginActivity.this, "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
+                } else {
+                    auth.signInWithEmailAndPassword(txt_email, txt_password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        loginServer(txt_email, txt_password);
+                                    }
+                                }
+                            });
+                }
             }
         });
 
@@ -95,6 +86,47 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        mResetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+            }
+        });
+    }
+
+    private void loginServer(String mEmail, String mPassword) {
+
+        Log.d(TAG, "loginServer");
+
+        RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
+        mRESTApi.login(mEmail,mPassword).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "onResponse");
+
+                String code = response.headers().get("code");
+
+                Toast.makeText(getApplicationContext(),"code = "+response.headers() , Toast.LENGTH_SHORT).show();
+
+                if (code != null && code.equals("00")) {
+                    Log.d(TAG, "code.equlas('00')");
+
+                    Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(),"로그인 실패 response code : " + code, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                Toast.makeText(getApplicationContext(),"통신 실패", Toast.LENGTH_SHORT).show();
             }
         });
     }
