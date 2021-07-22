@@ -25,37 +25,37 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
-        <Button
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_type1"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_round_blue"
             android:text="월세"
-            android:textSize="12dp"
             android:textColor="@color/white"
+            android:textSize="12dp"
             android:textStyle="bold" />
-        <Button
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_type2"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_round_blue"
+            android:background="@drawable/button_round_whitegray"
             android:layout_marginLeft="10dp"
             android:text="전세"
             android:textSize="12dp"
-            android:textColor="@color/white"
             android:textStyle="bold" />
-        <Button
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_type3"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/button_round_blue"
+            android:background="@drawable/button_round_whitegray"
             android:text="매매"
             android:textSize="12dp"
-            android:textColor="@color/white"
             android:textStyle="bold" />
 
     </LinearLayout>
-
-
-
-
 
 </LinearLayout>
