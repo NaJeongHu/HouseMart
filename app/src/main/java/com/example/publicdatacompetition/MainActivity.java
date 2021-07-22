@@ -10,6 +10,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,13 +22,15 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private GPSTracker gps;
     private Button mUserInfo, mBuy, mSell;
-
-    public double mLatitude;
-    public double mLongitude;
+    private double mLatitude, mLongitude;
+    private String mSido, mSigungu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_main_buy_apart:
                 Intent ii = new Intent(MainActivity.this, ListActivity.class);
+                ii.putExtra("subject","아파트");
                 startActivity(ii);
                 break;
             case R.id.btn_main_sell:
@@ -73,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mLatitude = 0;
         mLongitude = 0;
 
+        final Geocoder geocoder = new Geocoder(this);
+
         if (gps.canGetLocation()) {
             mLatitude = gps.getLatitude();
             mLongitude = gps.getLongitude();
@@ -85,6 +92,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             gps.showSettingsAlert();
         }
+
+        List<Address> list = null;
+        try {
+            list = geocoder.getFromLocation(mLatitude, mLongitude, 1); // 얻어올 값의 개수
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (list != null) {
+            if (list.size()==0) {
+                mSido = "대구광역시";
+                mSigungu = "북구";
+            } else {
+                mSido = list.get(0).getAdminArea();
+                if (list.get(0).getLocality() != null && list.get(0).getLocality().length() > 0) {
+                    mSigungu = list.get(0).getLocality();
+                } else {
+                    mSigungu = list.get(0).getSubLocality();
+                }
+            }
+        } else {
+            mSido = "대구광역시";
+            mSigungu = "북구";
+        }
+
+        MyLocation.getInstance().setLATITUDE(mLatitude);
+        MyLocation.getInstance().setLONGITUDE(mLongitude);
+        MyLocation.getInstance().setSIDO(mSido);
+        MyLocation.getInstance().setSIGUNGU(mSigungu);
     }
 
     private void getpermisson() {
