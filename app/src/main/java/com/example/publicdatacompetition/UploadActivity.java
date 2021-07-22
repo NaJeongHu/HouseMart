@@ -39,7 +39,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private long price_first, price_second, price_third,price_all,price_zero;
     private Boolean bool_type1, bool_type2, bool_type3, bool_nego, bool_door, bool_air, bool_ref, bool_kimchi, bool_closet;
-    private String apartment,dong,ho,introduce_short,introduce_long;
+    private String apartment;
+    private int dong,ho;
+    private String introduce_short;
+    private String introduce_long;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +69,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
                 }
                 else{
-                    dong = edit_dong.getText().toString();
+                    dong = Integer.parseInt(edit_dong.getText().toString());
                 }
             }
 
@@ -87,7 +90,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
                 }
                 else{
-                    ho = edit_ho.getText().toString();
+                    ho = Integer.parseInt(edit_ho.getText().toString());
                 }
             }
 
