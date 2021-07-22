@@ -13,6 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ListActivity extends AppCompatActivity implements View.OnClickListener{
 
     private RecyclerView mRecyclerView;
@@ -34,8 +42,10 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         init();
         addScrollListenerOnRecyclerView();
         addItemTouchListenerOnRecyclerView();
+        getDataFromServer();
     }
 
+    // when user scroll recycler
     private void addScrollListenerOnRecyclerView() {
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -53,28 +63,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    // when user touch item
     private void addItemTouchListenerOnRecyclerView() {
         mRecyclerView.addOnItemTouchListener(new RecyclerViewOnItemClickListener(getApplicationContext(), mRecyclerView,
                 new RecyclerViewOnItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
-                        /*final Intent intent = new Intent(getApplicationContext(),ListDialogActivity.class);
-                        intent.putExtra("percent",arr.get(position).getPercent());
-                        intent.putExtra("hospitalname",arr.get(position).getHospitalname());
-                        intent.putExtra("distance",arr.get(position).getDistance());
-                        intent.putExtra("addr",arr.get(position).getAddr());
-                        intent.putExtra("sbj",arr.get(position).getSubject());
-                        intent.putExtra("pronum",arr.get(position).getPronum());
-                        intent.putExtra("totalnum", arr.get(position).getTotalnum());
-                        intent.putExtra("tel",arr.get(position).getTel());
-                        intent.putExtra("park",arr.get(position).getPark());
-                        intent.putExtra("url",arr.get(position).getUrl());
-                        intent.putExtra("init_ypos",latitude);
-                        intent.putExtra("init_xpos",longitude);
-                        intent.putExtra("d_ypos",arr.get(position).getYpos());
-                        intent.putExtra("d_xpos",arr.get(position).getXpos());
+                        Intent intent = new Intent(getApplicationContext(),HouseInfoActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);*/
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     }
 
                     @Override
@@ -164,4 +161,45 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void getDataFromServer() {
+        // TODO: 2021-07-23 connect retrofit
+        RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
+        mRESTApi.getList().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+
+            }
+        });
+
+
+        // TODO: 2021-07-23 connect adapter on another thread
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+//                arr = new ArrayList<>();
+//                getcode();
+//                readDataFromCsv();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        if(arr.isEmpty() == false || arr.size() != 0){
+//                            Collections.sort(arr,new Filtering_for_ganada());
+//                            Tv_cnt.setText(arr.size()+ "개의 의원을 나열했어요");
+//                            adapter = new CustomAdapter(getApplicationContext(), arr, subject);
+//                            recyclerView.setAdapter(adapter);
+//                            adapter.notifyDataSetChanged();
+//                        }else if(arr.size() == 0){
+//                            Tv_cnt.setText("검색 결과가 없어요.");
+//                        }
+//                        base_progressBar.setVisibility(View.GONE);
+                    }
+                });
+            }
+        }).start();
+    }
 }

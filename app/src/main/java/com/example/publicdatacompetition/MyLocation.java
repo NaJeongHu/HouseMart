@@ -1,6 +1,8 @@
 package com.example.publicdatacompetition;
 
-public class MyLocation {
+import java.io.Serializable;
+
+public class MyLocation implements Serializable {
 
     private double LATITUDE, LONGITUDE;
     private String SIDO, SIGUNGU;
@@ -38,6 +40,7 @@ public class MyLocation {
     }
 
     private static MyLocation instance = null;
+
     public static synchronized MyLocation getInstance() {
         if (instance == null) {
             instance = new MyLocation();

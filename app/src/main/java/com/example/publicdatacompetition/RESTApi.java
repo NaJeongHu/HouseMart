@@ -39,6 +39,9 @@ public interface RESTApi {
             @Query("nickname") String nickname,
             @Part MultipartBody.Part file);
 
+    @POST("/board/get/list")
+    Call<ResponseBody> getList();
+
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://122.37.239.49:9000/")
             .addConverterFactory(GsonConverterFactory.create())
