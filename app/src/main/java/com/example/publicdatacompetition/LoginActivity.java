@@ -60,9 +60,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //임시
-                Intent intent = new Intent(getBaseContext(),MainActivity.class);
-                startActivity(intent);
                 String txt_email = mEditEmail.getText().toString();
                 String txt_password = mEditPassword.getText().toString();
 
