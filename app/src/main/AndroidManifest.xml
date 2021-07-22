@@ -43,6 +43,10 @@
         <activity android:name=".ListActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".UploadActivity" />
+        <activity android:name=".FilterActivity"/>
+        <activity android:name=".SearchActivity"/>
+        <activity android:name=".SidoActivity"/>
+        <activity android:name=".SigunguActivity"/>
     </application>
 
 </manifest>
