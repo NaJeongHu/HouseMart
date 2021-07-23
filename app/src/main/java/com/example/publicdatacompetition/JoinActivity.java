@@ -65,7 +65,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "JoinActivity";
 
-    private EditText mEditEmail, mEditPassword, mEditPasswordConfirm, mEditPhoneNumber, mEditName, mEditNicname;
+    private EditText mEditEmail, mEditPassword, mEditPasswordConfirm, mEditPhoneNumber, mEditName, mEditNicname, mEditIdNum;
     private ImageView mIvPicture;
     private Button mJoinButton;
     private static final int IMAGE_REQUEST = 0;
@@ -91,6 +91,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         mEditPhoneNumber = findViewById(R.id.edit_join_phonenumber);
         mEditName = findViewById(R.id.edit_join_name);
         mEditNicname = findViewById(R.id.edit_join_nickname);
+        mEditIdNum = findViewById(R.id.edit_join_idNum);
         mJoinButton = findViewById(R.id.btn_join_join);
         mIvPicture = findViewById(R.id.iv_join_picture);
 
@@ -118,6 +119,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 String txt_username = mEditName.getText().toString();
                 String txt_nickname = mEditNicname.getText().toString();
                 String txt_phone = mEditPhoneNumber.getText().toString();
+                String txt_idnum = mEditIdNum.getText().toString();
 
                 if(TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_nickname) || TextUtils.isEmpty(txt_phone)){
                     Toast.makeText(this, "모든 정보를 채워주세요", Toast.LENGTH_SHORT).show();
@@ -126,7 +128,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 } else if(!txt_password.equals(txt_password_confirm)){
                     Toast.makeText(this, "비밀번호 재입력이 틀렸습니다.", Toast.LENGTH_SHORT).show();
                 }else {
-                    register(txt_email, txt_password, txt_password_confirm, txt_username, txt_nickname, txt_phone);
+                    register(txt_email, txt_password, txt_password_confirm, txt_username, txt_nickname, txt_phone, txt_idnum);
                 }
                 break;
         }
@@ -219,7 +221,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         finish();
     }
 
-    private void register(String email, String password, String password_confirm, final String username, final String nickname, final String phone) {
+    private void register(String email, String password, String password_confirm, final String username, final String nickname, final String phone, final String idnum) {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -242,6 +244,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                                                 hashMap.put("imageURL", "default");
                                                 hashMap.put("phone", phone);
                                                 hashMap.put("search", username.toLowerCase());
+//                                                hashMap.put("idnum", idnum);
 
                                                 reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
@@ -251,7 +254,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                                                                 uploadImage();
                                                             }
 
-                                                            sendUserInfoToServer(email, password, password_confirm, phone, username, nickname);
+                                                            sendUserInfoToServer(email, password, password_confirm, phone, username, nickname, idnum);
                                                         }
                                                     }
                                                 });
@@ -265,7 +268,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-    private void sendUserInfoToServer(String email, String password, String password_confirm,  final String phone, final String username, final String nickname) {
+    private void sendUserInfoToServer(String email, String password, String password_confirm,  final String phone, final String username, final String nickname, final String idnum) {
         File imageFile = null;
         MultipartBody.Part filePart = null;
         Bitmap img = null;
@@ -323,11 +326,13 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-        mRESTApi.joinRequest(email,password,password_confirm,phone,username,nickname,filePart)
+        mRESTApi.joinRequest(email,password,password_confirm,phone,username,nickname,idnum,filePart)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Log.d("testtest", "");
                         String test = response.headers().get("code");
+
 
                         if (test.equals("00")) {
                             Intent intent = new Intent(JoinActivity.this, LoginActivity.class);

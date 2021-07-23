@@ -37,6 +37,7 @@ public interface RESTApi {
             @Query("phoneNumber") String phoneNumber,
             @Query("name") String name,
             @Query("nickname") String nickname,
+            @Query("idNum") String idNum,
             @Part MultipartBody.Part file);
 
     @POST("/board/get/list")

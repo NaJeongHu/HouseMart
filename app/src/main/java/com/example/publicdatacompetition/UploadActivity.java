@@ -2,6 +2,8 @@ package com.example.publicdatacompetition;
 
 import android.animation.ArgbEvaluator;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,10 +29,11 @@ import com.example.publicdatacompetition.Model.Pictures;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UploadActivity extends AppCompatActivity implements View.OnClickListener {
+public class UploadActivity extends AppCompatActivity implements View.OnClickListener, PagerAdapter_Picture.OnItemClick {
 
     private ImageView btn_back;
     private AppCompatButton btn_type1, btn_type2, btn_type3,btn_no_dialog_upload,btn_okay_dialog_upload;
@@ -46,10 +49,16 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private int dong,ho;
     private String introduce_short;
     private String introduce_long;
+    private int picture_clicked_position = 0;
+
+    private PagerAdapter_Picture pagerAdapter_picture;
 
     ViewPager viewPager;
     PagerAdapter_Picture adapter;
     List<Pictures> models;
+
+    private static final int IMAGE_REQUEST = 0;
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,20 +67,22 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         init();
         models = new ArrayList<>();
-        models.add(new Pictures("아파트 외관 사진을 등록해주세요",R.drawable.image_apartment));
-        models.add(new Pictures("현관 사진을 등록해주세요",R.drawable.image_entrance));
-        models.add(new Pictures("거실 사진을 등록해주세요",R.drawable.image_livingroom));
-        models.add(new Pictures("베란다 사진을 등록해주세요",R.drawable.image_veranda));
-        models.add(new Pictures("주방 사진을 등록해주세요",R.drawable.image_kitchen));
-        models.add(new Pictures("방1 사진을 등록해주세요",R.drawable.image_room1));
-        models.add(new Pictures("방2 사진을 등록해주세요",R.drawable.image_room2));
-        models.add(new Pictures("방3 사진을 등록해주세요",R.drawable.image_room3));
-        models.add(new Pictures("방4 사진을 등록해주세요",R.drawable.image_room4));
-        models.add(new Pictures("화장실1 사진을 등록해주세요",R.drawable.image_toilet1));
-        models.add(new Pictures("화장실2 사진을 등록해주세요",R.drawable.image_toilet2));
-        models.add(new Pictures("화장실3 사진을 등록해주세요",R.drawable.image_toilet3));
+        models.add(new Pictures("아파트 외관 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("현관 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("거실 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("베란다 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("주방 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("방1 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("방2 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("방3 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("방4 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("화장실1 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("화장실2 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("화장실3 사진을 등록해주세요",R.drawable.preview));
 
-        adapter = new PagerAdapter_Picture(models,this);
+        pagerAdapter_picture = new PagerAdapter_Picture();
+
+        adapter = new PagerAdapter_Picture(models,this,this);
 
         viewPager = findViewById(R.id.viewPager_upload_picture);
         int dpValue = 54;
@@ -550,6 +561,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
+
+                // todo : retrofit
+
                 Intent intent = new Intent(getBaseContext(),MainActivity.class);
                 startActivity(intent);
             }
@@ -564,4 +578,28 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IMAGE_REQUEST) {
+            if(resultCode == RESULT_OK && data != null && data.getData() != null) {
+                imageUri = data.getData();
+
+                //set Image to mIvPicture
+                if (imageUri != null) {
+                    models.get(picture_clicked_position).setUri(imageUri);
+                    viewPager.setAdapter(adapter);
+                    //mIvPicture.setImageURI(imageUri);
+                }
+            } else if(resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
+    @Override
+    public void onClick(int value) {
+        picture_clicked_position = value;
+    }
 }
