@@ -40,7 +40,7 @@ public interface RESTApi {
             @Part MultipartBody.Part file);
 
     @POST("/board/get/list")
-    Call<ResponseBody> getList();
+    Call<List<PermittedHouse>> getList();
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://122.37.239.49:9000/")

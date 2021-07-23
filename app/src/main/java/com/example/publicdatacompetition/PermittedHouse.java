@@ -5,7 +5,23 @@ import java.io.Serializable;
 public class PermittedHouse implements Serializable {
 
     private int idx, dong, ho, leaseable_area, sale_price, monthly_price, monthly_deposit, deposit;
-    private String apartmentName, type, titleImg;
+    private String residence_name, type, titleImg, residence_type;
+
+    public String getResidence_name() {
+        return residence_name;
+    }
+
+    public void setResidence_name(String residence_name) {
+        this.residence_name = residence_name;
+    }
+
+    public String getResidence_type() {
+        return residence_type;
+    }
+
+    public void setResidence_type(String residence_type) {
+        this.residence_type = residence_type;
+    }
 
     public int getIdx() {
         return idx;
@@ -69,14 +85,6 @@ public class PermittedHouse implements Serializable {
 
     public void setDeposit(int deposit) {
         this.deposit = deposit;
-    }
-
-    public String getApartmentName() {
-        return apartmentName;
-    }
-
-    public void setApartmentName(String apartmentName) {
-        this.apartmentName = apartmentName;
     }
 
     public String getType() {

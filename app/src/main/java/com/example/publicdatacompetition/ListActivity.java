@@ -2,6 +2,7 @@ package com.example.publicdatacompetition;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -164,15 +168,20 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private void getDataFromServer() {
         // TODO: 2021-07-23 connect retrofit
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-        mRESTApi.getList().enqueue(new Callback<ResponseBody>() {
+        mRESTApi.getList().enqueue(new Callback<List<PermittedHouse>>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+            public void onResponse(Call<List<PermittedHouse>> call, Response<List<PermittedHouse>> response) {
+                List<PermittedHouse> Result = (List<PermittedHouse>) response.body();
+                ArrayList<PermittedHouse> PermittedList = (ArrayList) Result;
+                mItemCount.setText(PermittedList.size() + "채의 집을 구경하세요");
+                Log.d("PermittedList", String.valueOf(PermittedList.get(0)));
+                Log.d("PermittedList", PermittedList.get(0).getResidence_name());
+                Log.d("PermittedList", "" + PermittedList.get(0).getTitleImg());
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-
+            public void onFailure(Call<List<PermittedHouse>> call, Throwable throwable) {
+                Log.d("ListActivity 통신 실패", "");
             }
         });
 
