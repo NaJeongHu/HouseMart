@@ -1,0 +1,244 @@
+Index: app/src/main/java/com/example/publicdatacompetition/LoginActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.publicdatacompetition;\r\n\r\nimport android.content.Intent;\r\nimport android.os.AsyncTask;\r\nimport android.os.Bundle;\r\nimport android.text.TextUtils;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport com.google.android.gms.tasks.OnCompleteListener;\r\nimport com.google.android.gms.tasks.Task;\r\nimport com.google.firebase.auth.AuthResult;\r\nimport com.google.firebase.auth.FirebaseAuth;\r\n\r\nimport org.json.JSONException;\r\nimport org.json.JSONObject;\r\n\r\nimport java.io.IOException;\r\nimport java.util.List;\r\nimport java.util.Map;\r\n\r\nimport okhttp3.MediaType;\r\nimport okhttp3.RequestBody;\r\nimport okhttp3.ResponseBody;\r\nimport retrofit2.Call;\r\nimport retrofit2.Callback;\r\nimport retrofit2.Response;\r\n\r\npublic class LoginActivity extends AppCompatActivity {\r\n\r\n    private static final String TAG = \"LoginActivity.java\";\r\n\r\n    private EditText mEditEmail, mEditPassword;\r\n    private Button mLoginButton, mJoinButton;\r\n    private TextView mResetPassword;\r\n\r\n    private FirebaseAuth auth;\r\n\r\n    @Override\r\n    protected void onCreate(@Nullable Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_login);\r\n\r\n        mEditEmail = findViewById(R.id.edit_login_email);\r\n        mEditPassword = findViewById(R.id.edit_login_password);\r\n        mLoginButton = findViewById(R.id.btn_login);\r\n        mJoinButton = findViewById(R.id.btn_join);\r\n        mResetPassword = findViewById(R.id.reset_password);\r\n\r\n        auth = FirebaseAuth.getInstance();\r\n\r\n        mLoginButton.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                String txt_email = mEditEmail.getText().toString();\r\n                String txt_password = mEditPassword.getText().toString();\r\n\r\n                if(TextUtils.isEmpty(txt_email)){\r\n                    Toast.makeText(LoginActivity.this, \"이메일을 입력하세요\", Toast.LENGTH_SHORT).show();\r\n                } else if(TextUtils.isEmpty(txt_password)){\r\n                    Toast.makeText(LoginActivity.this, \"비밀번호를 입력하세요\", Toast.LENGTH_SHORT).show();\r\n                } else {\r\n                    auth.signInWithEmailAndPassword(txt_email, txt_password)\r\n                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {\r\n                                @Override\r\n                                public void onComplete(@NonNull Task<AuthResult> task) {\r\n                                    if(task.isSuccessful()){\r\n                                        loginServer(txt_email, txt_password);\r\n                                    }\r\n                                }\r\n                            });\r\n                }\r\n            }\r\n        });\r\n\r\n        mJoinButton.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                Intent intent = new Intent(LoginActivity.this, JoinActivity.class);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n\r\n        mResetPassword.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));\r\n            }\r\n        });\r\n    }\r\n\r\n    private void loginServer(String mEmail, String mPassword) {\r\n\r\n        Log.d(TAG, \"loginServer\");\r\n\r\n        RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);\r\n        mRESTApi.login(mEmail,mPassword).enqueue(new Callback<ResponseBody>() {\r\n            @Override\r\n            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {\r\n                Log.d(TAG, \"onResponse\");\r\n\r\n                String code = response.headers().get(\"code\");\r\n\r\n                Toast.makeText(getApplicationContext(),\"code = \"+response.headers() , Toast.LENGTH_SHORT).show();\r\n\r\n                if (code != null && code.equals(\"00\")) {\r\n                    Log.d(TAG, \"code.equlas('00')\");\r\n\r\n                    Toast.makeText(getApplicationContext(),\"로그인 성공\", Toast.LENGTH_SHORT).show();\r\n\r\n                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);\r\n                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);\r\n                    startActivity(intent);\r\n                } else {\r\n                    Toast.makeText(getApplicationContext(),\"로그인 실패 response code : \" + code, Toast.LENGTH_SHORT).show();\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void onFailure(Call<ResponseBody> call, Throwable throwable) {\r\n                Toast.makeText(getApplicationContext(),\"통신 실패\", Toast.LENGTH_SHORT).show();\r\n            }\r\n        });\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/publicdatacompetition/LoginActivity.java	(revision 0e08a41eecb1f56cf8d08010bc525eda42c4deee)
++++ app/src/main/java/com/example/publicdatacompetition/LoginActivity.java	(date 1627033160525)
+@@ -60,6 +60,7 @@
+         mLoginButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
++
+                 String txt_email = mEditEmail.getText().toString();
+                 String txt_password = mEditPassword.getText().toString();
+ 
+Index: app/src/main/java/com/example/publicdatacompetition/UploadActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.publicdatacompetition;\r\n\r\nimport android.app.Dialog;\r\nimport android.content.Intent;\r\nimport android.graphics.Color;\r\nimport android.graphics.drawable.ColorDrawable;\r\nimport android.os.Bundle;\r\nimport android.text.Editable;\r\nimport android.text.TextWatcher;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.CheckBox;\r\nimport android.widget.ImageView;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.appcompat.content.res.AppCompatResources;\r\nimport androidx.appcompat.widget.AppCompatButton;\r\nimport androidx.core.content.ContextCompat;\r\n\r\nimport com.google.android.material.slider.RangeSlider;\r\nimport com.google.android.material.textfield.TextInputEditText;\r\n\r\nimport java.util.List;\r\n\r\npublic class UploadActivity extends AppCompatActivity implements View.OnClickListener {\r\n\r\n    private ImageView btn_back;\r\n    private AppCompatButton btn_type1, btn_type2, btn_type3,btn_no_dialog_upload,btn_okay_dialog_upload;\r\n    private LinearLayout lin_price_month;\r\n    private TextInputEditText edit_apartment, edit_dong, edit_ho, edit_area1, edit_area2, edit_price_all, edit_price_month, edit_price_manage,edit_introduce_short,edit_introduce_long;\r\n    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage,tv_complete;\r\n    private RangeSlider slider_ratio1, slider_ratio2;\r\n    private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet;\r\n\r\n    private long price_first, price_second, price_third,price_all,price_zero;\r\n    private Boolean bool_type1, bool_type2, bool_type3, bool_nego, bool_door, bool_air, bool_ref, bool_kimchi, bool_closet;\r\n    private String apartment;\r\n    private int dong,ho;\r\n    private String introduce_short;\r\n    private String introduce_long;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_upload);\r\n\r\n        init();\r\n\r\n    }\r\n\r\n    @Override\r\n    protected void onResume() {\r\n        super.onResume();\r\n\r\n        edit_dong.addTextChangedListener(new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                if(edit_dong.getText().toString().equals(\"\") || edit_dong.getText().toString() == null){\r\n\r\n                }\r\n                else{\r\n                    dong = Integer.parseInt(edit_dong.getText().toString());\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {\r\n\r\n            }\r\n        });\r\n        edit_ho.addTextChangedListener(new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                if(edit_ho.getText().toString().equals(\"\") || edit_ho.getText().toString() == null){\r\n\r\n                }\r\n                else{\r\n                    ho = Integer.parseInt(edit_ho.getText().toString());\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {\r\n\r\n            }\r\n        });\r\n        edit_introduce_short.addTextChangedListener(new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                if(edit_introduce_short.getText().toString().equals(\"\") || edit_introduce_short.getText().toString() == null){\r\n\r\n                }\r\n                else{\r\n                    introduce_short = edit_introduce_short.getText().toString();\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {\r\n\r\n            }\r\n        });\r\n        edit_introduce_long.addTextChangedListener(new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                if(edit_introduce_long.getText().toString().equals(\"\") || edit_introduce_long.getText().toString() == null){\r\n\r\n                }\r\n                else{\r\n                    introduce_long = edit_introduce_long.getText().toString();\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {\r\n\r\n            }\r\n        });\r\n\r\n        edit_area1.addTextChangedListener(new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                if (edit_area1.getText().toString().equals(\"\") || edit_area1.getText().toString() == null) {\r\n                    tv_area1.setText(\"평수\");\r\n                } else {\r\n                    try {\r\n                        Double area = Double.parseDouble(edit_area1.getText().toString().trim());\r\n                        tv_area1.setText(translateArea(area));\r\n                    } catch (NumberFormatException e) {\r\n                        tv_area1.setText(\"평수\");\r\n                        Toast.makeText(getBaseContext(), \"숫자만 입력해주세요\", Toast.LENGTH_SHORT).show();\r\n                    }\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {\r\n\r\n            }\r\n        });\r\n        edit_area2.addTextChangedListener(new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                if (edit_area2.getText().toString().equals(\"\") || edit_area2.getText().toString() == null) {\r\n                    tv_area2.setText(\"평수\");\r\n                } else {\r\n                    try {\r\n                        Double area = Double.parseDouble(edit_area2.getText().toString().trim());\r\n                        tv_area2.setText(translateArea(area));\r\n                    } catch (NumberFormatException e) {\r\n                        tv_area2.setText(\"평수\");\r\n                        Toast.makeText(getBaseContext(), \"숫자만 입력해주세요\", Toast.LENGTH_SHORT).show();\r\n\r\n                    }\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {\r\n\r\n            }\r\n        });\r\n\r\n        edit_price_all.addTextChangedListener(new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                if (edit_price_all.getText().toString().equals(\"\") || edit_price_all.getText().toString() == null) {\r\n                    tv_price_all.setText(\"가격\");\r\n                } else {\r\n                    price_all = Long.parseLong(edit_price_all.getText().toString().trim());\r\n                    tv_price_all.setText(translatePrice(price_all));\r\n                    tv_price_ratio1.setText(\"슬라이더를 움직여서 상세금액을 확인해주세요\");\r\n                    tv_price_ratio2.setText(\"슬라이더를 움직여서 상세금액을 확인해주세요\");\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {\r\n\r\n            }\r\n        });\r\n        edit_price_month.addTextChangedListener(new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                if (edit_price_month.getText().toString().equals(\"\") || edit_price_month.getText().toString() == null) {\r\n                    tv_price_month.setText(\"가격\");\r\n                } else {\r\n                    Long price = Long.parseLong(edit_price_month.getText().toString().trim());\r\n                    tv_price_month.setText(translatePrice(price));\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {\r\n\r\n            }\r\n        });\r\n        edit_price_manage.addTextChangedListener(new TextWatcher() {\r\n            @Override\r\n            public void beforeTextChanged(CharSequence s, int start, int count, int after) {\r\n\r\n            }\r\n\r\n            @Override\r\n            public void onTextChanged(CharSequence s, int start, int before, int count) {\r\n                if (edit_price_manage.getText().toString().equals(\"\") || edit_price_manage.getText().toString() == null) {\r\n                    tv_price_manage.setText(\"가격\");\r\n                } else {\r\n                    Long price = Long.parseLong(edit_price_manage.getText().toString().trim());\r\n                    tv_price_manage.setText(translatePrice(price));\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void afterTextChanged(Editable s) {\r\n\r\n            }\r\n        });\r\n\r\n        slider_ratio1.addOnChangeListener(new RangeSlider.OnChangeListener() {\r\n            @Override\r\n            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {\r\n                if (price_all == -1){\r\n                    tv_price_ratio1.setText(\"슬라이더를 움직여서 상세금액을 확인해주세요\");\r\n                }\r\n                else {\r\n                    List<Float> thumbs = slider.getValues();\r\n                    price_first = Math.round(thumbs.get(0));\r\n                    price_second = Math.round(thumbs.get(1));\r\n                    price_second = price_second - price_first;\r\n                    price_third = 100 - price_first - price_second;\r\n                    tv_ratio1.setText(price_first + \"% : \" + price_second + \"% : \" + price_third+\"%\");\r\n                    price_all = Long.parseLong(edit_price_all.getText().toString().trim());\r\n                    price_first = price_all * price_first / 100;\r\n                    price_second = price_all * price_second / 100;\r\n                    price_third = price_all * price_third / 100;\r\n                    tv_price_ratio1.setText(\"계약금 : \"+translatePrice(price_first) + \"\\n중도금 : \" + translatePrice(price_second) + \"\\n    잔금 : \" + translatePrice(price_third));\r\n                    tv_price_ratio2.setText(\"슬라이더를 움직여서 상세금액을 확인해주세요\");\r\n                }\r\n            }\r\n        });\r\n        slider_ratio2.addOnChangeListener(new RangeSlider.OnChangeListener() {\r\n            @Override\r\n            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {\r\n                if (price_first==-1){\r\n                    tv_price_ratio2.setText(\"슬라이더를 움직여서 상세금액을 확인해주세요\");\r\n                }\r\n                else {\r\n                    List<Float> thumbs = slider.getValues();\r\n                    long first = Math.round(thumbs.get(0));\r\n                    long second = 100 - first;\r\n                    tv_ratio2.setText(first + \"% : \" + second+\"%\");\r\n                    first = price_first * first / 100;\r\n                    second = price_first * second / 100;\r\n                    tv_price_ratio2.setText(\"        가계약금 : \"+translatePrice(first) + \"\\n나머지 계약금 : \" + translatePrice(second));\r\n                }\r\n            }\r\n        });\r\n\r\n    }\r\n\r\n    private void init() {\r\n        btn_back = findViewById(R.id.btn_back_upload);\r\n\r\n        btn_type1 = findViewById(R.id.btn_type1);\r\n        btn_type2 = findViewById(R.id.btn_type2);\r\n        btn_type3 = findViewById(R.id.btn_type3);\r\n\r\n        lin_price_month = findViewById(R.id.lin_price_month);\r\n\r\n        edit_apartment = findViewById(R.id.edit_apartment);\r\n        edit_dong = findViewById(R.id.edit_dong);\r\n        edit_ho = findViewById(R.id.edit_ho);\r\n        edit_area1 = findViewById(R.id.edit_area1);\r\n        edit_area2 = findViewById(R.id.edit_area2);\r\n        edit_price_all = findViewById(R.id.edit_price_all);\r\n        edit_price_month = findViewById(R.id.edit_price_month);\r\n        edit_price_manage = findViewById(R.id.edit_price_manage);\r\n        edit_introduce_short = findViewById(R.id.edit_introduce_short);\r\n        edit_introduce_long = findViewById(R.id.edit_introduce_long);\r\n\r\n        tv_area1 = findViewById(R.id.tv_area1);\r\n        tv_area2 = findViewById(R.id.tv_area2);\r\n        tv_ratio1 = findViewById(R.id.tv_ratio1);\r\n        tv_ratio2 = findViewById(R.id.tv_ratio2);\r\n        tv_price_ratio1 = findViewById(R.id.tv_price_ratio1);\r\n        tv_price_ratio2 = findViewById(R.id.tv_price_ratio2);\r\n        tv_price_type = findViewById(R.id.tv_price_type);\r\n        tv_price_all = findViewById(R.id.tv_price_all);\r\n        tv_price_month = findViewById(R.id.tv_price_month);\r\n        tv_price_manage = findViewById(R.id.tv_price_manage);\r\n        tv_complete = findViewById(R.id.tv_complete);\r\n\r\n        slider_ratio1 = findViewById(R.id.slider_ratio1);\r\n        slider_ratio2 = findViewById(R.id.slider_ratio2);\r\n\r\n        chk_nego = findViewById(R.id.chk_nego);\r\n        chk_door = findViewById(R.id.chk_door);\r\n        chk_air = findViewById(R.id.chk_air);\r\n        chk_ref = findViewById(R.id.chk_ref);\r\n        chk_kimchi = findViewById(R.id.chk_kimchi);\r\n        chk_closet = findViewById(R.id.chk_closet);\r\n\r\n        btn_back.setOnClickListener(this);\r\n        btn_type1.setOnClickListener(this);\r\n        btn_type2.setOnClickListener(this);\r\n        btn_type3.setOnClickListener(this);\r\n        chk_nego.setOnClickListener(this);\r\n        chk_door.setOnClickListener(this);\r\n        chk_air.setOnClickListener(this);\r\n        chk_ref.setOnClickListener(this);\r\n        chk_kimchi.setOnClickListener(this);\r\n        chk_closet.setOnClickListener(this);\r\n        tv_complete.setOnClickListener(this);\r\n\r\n        bool_type1 = true;\r\n        bool_type2 = false;\r\n        bool_type3 = false;\r\n        bool_nego = false;\r\n        bool_air = false;\r\n        bool_door = false;\r\n        bool_ref = false;\r\n        bool_kimchi = false;\r\n        bool_closet = false;\r\n\r\n        price_first = -1;\r\n        price_all = -1;\r\n\r\n    }\r\n\r\n    @Override\r\n    public void onClick(View view) {\r\n        switch (view.getId()) {\r\n            case R.id.btn_back_upload:\r\n                onBackPressed();\r\n                break;\r\n\r\n            case R.id.btn_type1:\r\n                if (!bool_type1) {\r\n                    btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));\r\n                    btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));\r\n                    btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));\r\n                    btn_type2.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));\r\n                    btn_type3.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));\r\n                    btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));\r\n                    lin_price_month.setVisibility(View.VISIBLE);\r\n                    tv_price_type.setText(\"보증금\");\r\n                    bool_type1 = true;\r\n                    bool_type2 = false;\r\n                    bool_type3 = false;\r\n                }\r\n                break;\r\n\r\n            case R.id.btn_type2:\r\n                if (!bool_type2) {\r\n                    btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));\r\n                    btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));\r\n                    btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));\r\n                    btn_type2.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));\r\n                    btn_type3.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));\r\n                    btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));\r\n                    lin_price_month.setVisibility(View.GONE);\r\n                    tv_price_type.setText(\"보증금\");\r\n                    bool_type1 = false;\r\n                    bool_type2 = true;\r\n                    bool_type3 = false;\r\n                }\r\n                break;\r\n\r\n            case R.id.btn_type3:\r\n                if (!bool_type3) {\r\n                    btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));\r\n                    btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));\r\n                    btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));\r\n                    btn_type2.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));\r\n                    btn_type3.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));\r\n                    btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));\r\n                    lin_price_month.setVisibility(View.GONE);\r\n                    tv_price_type.setText(\"매매가\");\r\n                    bool_type1 = false;\r\n                    bool_type2 = false;\r\n                    bool_type3 = true;\r\n                }\r\n                break;\r\n\r\n            case R.id.chk_nego:\r\n                if (chk_nego.isChecked()) {\r\n                    bool_nego = true;\r\n                } else {\r\n                    bool_nego = false;\r\n                }\r\n                break;\r\n            case R.id.chk_door:\r\n                if (chk_door.isChecked()) {\r\n                    bool_door = true;\r\n                } else {\r\n                    bool_door = false;\r\n                }\r\n                break;\r\n            case R.id.chk_air:\r\n                if (chk_air.isChecked()) {\r\n                    bool_air = true;\r\n                } else {\r\n                    bool_air = false;\r\n                }\r\n                break;\r\n            case R.id.chk_ref:\r\n                if (chk_ref.isChecked()) {\r\n                    bool_ref = true;\r\n                } else {\r\n                    bool_ref = false;\r\n                }\r\n                break;\r\n            case R.id.chk_kimchi:\r\n                if (chk_kimchi.isChecked()) {\r\n                    bool_kimchi = true;\r\n                } else {\r\n                    bool_kimchi = false;\r\n                }\r\n                break;\r\n            case R.id.chk_closet:\r\n                if (chk_closet.isChecked()) {\r\n                    bool_closet = true;\r\n                } else {\r\n                    bool_closet = false;\r\n                }\r\n                break;\r\n\r\n            case R.id.tv_complete:\r\n                upload_dialog(view);\r\n                break;\r\n        }\r\n    }\r\n\r\n    public String translatePrice(Long price) {\r\n\r\n        String a = \"\", b = \"\", c = \"\";\r\n\r\n        if (price >= 100000000) {\r\n            Long price1 = price / 100000000;\r\n            price %= 100000000;\r\n            a = price1 + \"억 \";\r\n        }\r\n        if (price >= 10000) {\r\n            Long price2 = price / 10000;\r\n            price %= 10000;\r\n            b = price2 + \"만\";\r\n        }\r\n        if (price > 0) {\r\n            c = \" \" + price.toString();\r\n        }\r\n\r\n        return a + b + c + \"원\";\r\n    }\r\n\r\n    public String translateArea(Double area) {\r\n        area *= 0.3025;\r\n        area = Math.round(area * 10) / 10.0;\r\n        return area.toString() + \" 평\";\r\n    }\r\n\r\n    public void upload_dialog(View v) {\r\n        View dialogView = getLayoutInflater().inflate(R.layout.dialog_upload, null);\r\n\r\n        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());\r\n        builder.setView(dialogView);\r\n\r\n        final AlertDialog alertDialog = builder.create();\r\n        alertDialog.show();\r\n\r\n        Button ok_btn = dialogView.findViewById(R.id.btn_okay_dialog_upload);\r\n        ok_btn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                alertDialog.dismiss();\r\n                Intent intent = new Intent(getBaseContext(),MainActivity.class);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n\r\n        Button cancle_btn = dialogView.findViewById(R.id.btn_no_dialog_upload);\r\n        cancle_btn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                alertDialog.dismiss();\r\n            }\r\n        });\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/publicdatacompetition/UploadActivity.java	(revision 0e08a41eecb1f56cf8d08010bc525eda42c4deee)
++++ app/src/main/java/com/example/publicdatacompetition/UploadActivity.java	(date 1627033091287)
+@@ -1,13 +1,12 @@
+ package com.example.publicdatacompetition;
+ 
+-import android.app.Dialog;
++import android.animation.ArgbEvaluator;
+ import android.content.Intent;
+-import android.graphics.Color;
+-import android.graphics.drawable.ColorDrawable;
+ import android.os.Bundle;
+ import android.text.Editable;
+ import android.text.TextWatcher;
+ import android.view.View;
++import android.widget.Adapter;
+ import android.widget.Button;
+ import android.widget.CheckBox;
+ import android.widget.ImageView;
+@@ -21,10 +20,14 @@
+ import androidx.appcompat.content.res.AppCompatResources;
+ import androidx.appcompat.widget.AppCompatButton;
+ import androidx.core.content.ContextCompat;
++import androidx.viewpager.widget.ViewPager;
+ 
++import com.example.publicdatacompetition.Adapter.PagerAdapter_Picture;
++import com.example.publicdatacompetition.Model.Pictures;
+ import com.google.android.material.slider.RangeSlider;
+ import com.google.android.material.textfield.TextInputEditText;
+ 
++import java.util.ArrayList;
+ import java.util.List;
+ 
+ public class UploadActivity extends AppCompatActivity implements View.OnClickListener {
+@@ -44,12 +47,41 @@
+     private String introduce_short;
+     private String introduce_long;
+ 
++    ViewPager viewPager;
++    PagerAdapter_Picture adapter;
++    List<Pictures> models;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_upload);
+ 
+         init();
++        models = new ArrayList<>();
++        models.add(new Pictures("아파트 외관 사진을 등록해주세요",R.drawable.image_apartment));
++        models.add(new Pictures("현관 사진을 등록해주세요",R.drawable.image_entrance));
++        models.add(new Pictures("거실 사진을 등록해주세요",R.drawable.image_livingroom));
++        models.add(new Pictures("베란다 사진을 등록해주세요",R.drawable.image_veranda));
++        models.add(new Pictures("주방 사진을 등록해주세요",R.drawable.image_kitchen));
++        models.add(new Pictures("방1 사진을 등록해주세요",R.drawable.image_room1));
++        models.add(new Pictures("방2 사진을 등록해주세요",R.drawable.image_room2));
++        models.add(new Pictures("방3 사진을 등록해주세요",R.drawable.image_room3));
++        models.add(new Pictures("방4 사진을 등록해주세요",R.drawable.image_room4));
++        models.add(new Pictures("화장실1 사진을 등록해주세요",R.drawable.image_toilet1));
++        models.add(new Pictures("화장실2 사진을 등록해주세요",R.drawable.image_toilet2));
++        models.add(new Pictures("화장실3 사진을 등록해주세요",R.drawable.image_toilet3));
++
++        adapter = new PagerAdapter_Picture(models,this);
++
++        viewPager = findViewById(R.id.viewPager_upload_picture);
++        int dpValue = 54;
++        float d = getResources().getDisplayMetrics().density;
++        int margin = (int) (dpValue * d);
++        viewPager.setClipToPadding(false);
++        viewPager.setPadding(margin, 0, margin, 0);
++        viewPager.setPageMargin(margin/3);
++
++        viewPager.setAdapter(adapter);
+ 
+     }
+ 
+Index: app/src/main/res/layout/item_picture.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.cardview.widget.CardView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_height=\"match_parent\"\r\n    android:layout_width=\"match_parent\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    app:cardCornerRadius=\"12dp\"\r\n    android:layout_margin=\"10dp\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:padding=\"20dp\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"5\"/>\r\n\r\n        <TextView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"\r\n            android:gravity=\"center\"\r\n            android:textSize=\"20dp\"\r\n            android:text=\"거실 사진을 등록해주세요\"/>\r\n    </LinearLayout>\r\n\r\n</androidx.cardview.widget.CardView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/item_picture.xml	(revision 0e08a41eecb1f56cf8d08010bc525eda42c4deee)
++++ app/src/main/res/layout/item_picture.xml	(date 1627029736992)
+@@ -1,29 +1,40 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
++
++<LinearLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:orientation="vertical"
++    android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:layout_width="match_parent"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    app:cardCornerRadius="12dp"
+-    android:layout_margin="10dp">
++    android:gravity="center_vertical">
++
++
++    <androidx.cardview.widget.CardView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        app:cardCornerRadius="12dp"
++        android:layout_margin="10dp">
+ 
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:padding="20dp"
+-        android:orientation="vertical">
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:orientation="vertical">
+ 
+-        <ImageView
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="5"/>
++            <ImageView
++                android:id="@+id/image_picture"
++                android:layout_width="match_parent"
++                android:layout_height="0dp"
++                android:layout_weight="4"/>
+ 
+-        <TextView
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:layout_weight="1"
+-            android:gravity="center"
+-            android:textSize="20dp"
+-            android:text="거실 사진을 등록해주세요"/>
+-    </LinearLayout>
+-
+-</androidx.cardview.widget.CardView>
+\ No newline at end of file
++            <TextView
++                android:id="@+id/tv_picture_type"
++                android:layout_width="match_parent"
++                android:layout_height="0dp"
++                android:layout_weight="1"
++                android:gravity="center"
++                android:textSize="12dp"
++                android:text="거실 사진을 등록해주세요"/>
++        </LinearLayout>
++
++    </androidx.cardview.widget.CardView>
++</LinearLayout>
+Index: app/src/main/res/layout/upload_picture.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:layout_margin=\"20dp\"\r\n    android:orientation=\"vertical\">\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:fontFamily=\"@font/applesdgothicneob\"\r\n        android:text=\"사진\"\r\n        android:textColor=\"@color/black\"\r\n        android:textSize=\"15dp\" />\r\n\r\n    <androidx.viewpager.widget.ViewPager\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"250dp\"\r\n        android:layout_gravity=\"center\"\r\n        android:layout_margin=\"20dp\"\r\n        android:background=\"@color/custom_blue2\"/>\r\n\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:gravity=\"center\"\r\n        android:textSize=\"12dp\"\r\n        android:text=\"가이드에 따라 알맞은 사진들을 \\n갤러리에서 넣어주세요\"/>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/upload_picture.xml	(revision 0e08a41eecb1f56cf8d08010bc525eda42c4deee)
++++ app/src/main/res/layout/upload_picture.xml	(date 1627029879594)
+@@ -2,7 +2,6 @@
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:layout_margin="20dp"
+     android:orientation="vertical">
+ 
+     <TextView
+@@ -10,21 +9,23 @@
+         android:layout_height="wrap_content"
+         android:fontFamily="@font/applesdgothicneob"
+         android:text="사진"
++        android:layout_margin="20dp"
+         android:textColor="@color/black"
+         android:textSize="15dp" />
+ 
+     <androidx.viewpager.widget.ViewPager
++        android:id="@+id/viewPager_upload_picture"
+         android:layout_width="match_parent"
+-        android:layout_height="250dp"
+-        android:layout_gravity="center"
+-        android:layout_margin="20dp"
+-        android:background="@color/custom_blue2"/>
++        android:layout_height="300dp"
++        android:layout_gravity="center"/>
+ 
+     <TextView
++        android:layout_marginTop="20dp"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:textSize="12dp"
++        android:layout_marginBottom="20dp"
+         android:text="가이드에 따라 알맞은 사진들을 \n갤러리에서 넣어주세요"/>
+ 
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/publicdatacompetition/Model/Apartment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.publicdatacompetition.Model;\r\n\r\npublic class Apartment {\r\n    private String userId;//사용자 이름\r\n    private String aparmentName;//아파트 이름\r\n    private Integer dong,ho;//동,호수\r\n    private Integer net_leaseable_area;//전용면적\r\n    private Integer leaseable_area;//공급면적\r\n\r\n\r\n    private String type;\r\n    private Long sale_price;//매매가\r\n    private Long monthly_price;//월세\r\n    private Long monthly_deposit;//보증금\r\n    private Long deposit;//전세금\r\n    private Long admin_expenses;//관리비\r\n\r\n    private Integer provisional_down_pay_per;//가계약금 비율\r\n    private Integer down_pay_per;//계약금 비율\r\n    private Integer intermediate_pay_per;//중도금 비율\r\n    private Integer balence_per;//잔금 비율\r\n\r\n    private boolean middle_door;//중문\r\n    private boolean air_conditioner;//에어컨\r\n    private boolean refrigerator;//냉장고\r\n    private boolean kimchi_refrigerator;//김치냉장고\r\n    private boolean closet;//붙박이장\r\n\r\n    private boolean nego;//네고가능\r\n\r\n    private String short_descriptioin;//짧은 집 소개\r\n    private String long_description;//긴 집 소개\r\n\r\n    public Apartment(){\r\n\r\n    }\r\n\r\n    public void setUserId(String userId) {\r\n        this.userId = userId;\r\n    }\r\n\r\n    public void setAparmentName(String aparmentName) {\r\n        this.aparmentName = aparmentName;\r\n    }\r\n\r\n    public void setDong(Integer dong) {\r\n        this.dong = dong;\r\n    }\r\n\r\n    public void setHo(Integer ho) {\r\n        this.ho = ho;\r\n    }\r\n\r\n    public void setNet_leaseable_area(Integer net_leaseable_area) {\r\n        this.net_leaseable_area = net_leaseable_area;\r\n    }\r\n\r\n    public void setLeaseable_area(Integer leaseable_area) {\r\n        this.leaseable_area = leaseable_area;\r\n    }\r\n\r\n    public void setType(String type) {\r\n        this.type = type;\r\n    }\r\n\r\n    public void setSale_price(Long sale_price) {\r\n        this.sale_price = sale_price;\r\n    }\r\n\r\n    public void setMonthly_price(Long monthly_price) {\r\n        this.monthly_price = monthly_price;\r\n    }\r\n\r\n    public void setMonthly_deposit(Long monthly_deposit) {\r\n        this.monthly_deposit = monthly_deposit;\r\n    }\r\n\r\n    public void setDeposit(Long deposit) {\r\n        this.deposit = deposit;\r\n    }\r\n\r\n    public void setAdmin_expenses(Long admin_expenses) {\r\n        this.admin_expenses = admin_expenses;\r\n    }\r\n\r\n    public void setProvisional_down_pay_per(Integer provisional_down_pay_per) {\r\n        this.provisional_down_pay_per = provisional_down_pay_per;\r\n    }\r\n\r\n    public void setDown_pay_per(Integer down_pay_per) {\r\n        this.down_pay_per = down_pay_per;\r\n    }\r\n\r\n    public void setIntermediate_pay_per(Integer intermediate_pay_per) {\r\n        this.intermediate_pay_per = intermediate_pay_per;\r\n    }\r\n\r\n    public void setBalence_per(Integer balence_per) {\r\n        this.balence_per = balence_per;\r\n    }\r\n\r\n    public void setMiddle_door(boolean middle_door) {\r\n        this.middle_door = middle_door;\r\n    }\r\n\r\n    public void setAir_conditioner(boolean air_conditioner) {\r\n        this.air_conditioner = air_conditioner;\r\n    }\r\n\r\n    public void setRefrigerator(boolean refrigerator) {\r\n        this.refrigerator = refrigerator;\r\n    }\r\n\r\n    public void setKimchi_refrigerator(boolean kimchi_refrigerator) {\r\n        this.kimchi_refrigerator = kimchi_refrigerator;\r\n    }\r\n\r\n    public void setCloset(boolean closet) {\r\n        this.closet = closet;\r\n    }\r\n\r\n    public void setNego(boolean nego) {\r\n        this.nego = nego;\r\n    }\r\n\r\n    public void setShort_descriptioin(String short_descriptioin) {\r\n        this.short_descriptioin = short_descriptioin;\r\n    }\r\n\r\n    public void setLong_description(String long_description) {\r\n        this.long_description = long_description;\r\n    }\r\n}\r\n\r\n
+===================================================================
+--- app/src/main/java/com/example/publicdatacompetition/Model/Apartment.java	(revision 0e08a41eecb1f56cf8d08010bc525eda42c4deee)
++++ app/src/main/java/com/example/publicdatacompetition/Model/House.java	(date 1627015417997)
+@@ -1,6 +1,6 @@
+ package com.example.publicdatacompetition.Model;
+ 
+-public class Apartment {
++public class House {
+     private String userId;//사용자 이름
+     private String aparmentName;//아파트 이름
+     private Integer dong,ho;//동,호수
+@@ -31,7 +31,7 @@
+     private String short_descriptioin;//짧은 집 소개
+     private String long_description;//긴 집 소개
+ 
+-    public Apartment(){
++    public House(){
+ 
+     }
+ 

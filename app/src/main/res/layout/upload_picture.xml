@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
     android:orientation="vertical">
 
     <TextView
@@ -10,21 +9,23 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/applesdgothicneob"
         android:text="사진"
+        android:layout_margin="20dp"
         android:textColor="@color/black"
         android:textSize="15dp" />
 
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager_upload_picture"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:background="@color/custom_blue2"/>
+        android:layout_height="300dp"
+        android:layout_gravity="center"/>
 
     <TextView
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="12dp"
+        android:layout_marginBottom="20dp"
         android:text="가이드에 따라 알맞은 사진들을 \n갤러리에서 넣어주세요"/>
 
 </LinearLayout>

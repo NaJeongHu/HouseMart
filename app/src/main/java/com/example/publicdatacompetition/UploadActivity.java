@@ -1,13 +1,12 @@
 package com.example.publicdatacompetition;
 
-import android.app.Dialog;
+import android.animation.ArgbEvaluator;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -21,10 +20,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.publicdatacompetition.Adapter.PagerAdapter_Picture;
+import com.example.publicdatacompetition.Model.Pictures;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,12 +47,41 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private String introduce_short;
     private String introduce_long;
 
+    ViewPager viewPager;
+    PagerAdapter_Picture adapter;
+    List<Pictures> models;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
         init();
+        models = new ArrayList<>();
+        models.add(new Pictures("아파트 외관 사진을 등록해주세요",R.drawable.image_apartment));
+        models.add(new Pictures("현관 사진을 등록해주세요",R.drawable.image_entrance));
+        models.add(new Pictures("거실 사진을 등록해주세요",R.drawable.image_livingroom));
+        models.add(new Pictures("베란다 사진을 등록해주세요",R.drawable.image_veranda));
+        models.add(new Pictures("주방 사진을 등록해주세요",R.drawable.image_kitchen));
+        models.add(new Pictures("방1 사진을 등록해주세요",R.drawable.image_room1));
+        models.add(new Pictures("방2 사진을 등록해주세요",R.drawable.image_room2));
+        models.add(new Pictures("방3 사진을 등록해주세요",R.drawable.image_room3));
+        models.add(new Pictures("방4 사진을 등록해주세요",R.drawable.image_room4));
+        models.add(new Pictures("화장실1 사진을 등록해주세요",R.drawable.image_toilet1));
+        models.add(new Pictures("화장실2 사진을 등록해주세요",R.drawable.image_toilet2));
+        models.add(new Pictures("화장실3 사진을 등록해주세요",R.drawable.image_toilet3));
+
+        adapter = new PagerAdapter_Picture(models,this);
+
+        viewPager = findViewById(R.id.viewPager_upload_picture);
+        int dpValue = 54;
+        float d = getResources().getDisplayMetrics().density;
+        int margin = (int) (dpValue * d);
+        viewPager.setClipToPadding(false);
+        viewPager.setPadding(margin, 0, margin, 0);
+        viewPager.setPageMargin(margin/3);
+
+        viewPager.setAdapter(adapter);
 
     }
 

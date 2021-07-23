@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String txt_email = mEditEmail.getText().toString();
                 String txt_password = mEditPassword.getText().toString();
 
