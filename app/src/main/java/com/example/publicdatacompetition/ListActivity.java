@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListActivity extends AppCompatActivity implements View.OnClickListener{
+public class ListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mManager;
@@ -59,8 +59,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (firstVisibleItem > 1) {
                     mToTop.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     mToTop.setVisibility(View.GONE);
                 }
             }
@@ -73,7 +72,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 new RecyclerViewOnItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
-                        Intent intent = new Intent(getApplicationContext(),HouseInfoActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), HouseInfoActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     }
@@ -123,7 +122,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-        mManager = new LinearLayoutManager(ListActivity.this, LinearLayoutManager.VERTICAL,false);
+        mManager = new LinearLayoutManager(ListActivity.this, LinearLayoutManager.VERTICAL, false);
 
         mRecyclerView = findViewById(R.id.recyclerview_list);
         mToMap = findViewById(R.id.fb_tomap);
@@ -158,7 +157,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         if (mSido.length() == 4) {
             name = "" + mSido.charAt(0) + mSido.charAt(2);
         } else {
-            name = mSido.substring(0,2);
+            name = mSido.substring(0, 2);
         }
         if (mSido != null && mSigungu != null) {
             mRegionButton.setText(" " + name + " - " + mSigungu + " ");

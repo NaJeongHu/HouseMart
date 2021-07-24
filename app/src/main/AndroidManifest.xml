@@ -16,18 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC5222FEBgQ14yfr_a2bDRmkWYXS1AIpFU" />
-
-        <activity android:name=".LoginActivity">
+        <activity android:name=".SearchActivity_upload">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC5222FEBgQ14yfr_a2bDRmkWYXS1AIpFU" />
+
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".MainActivity" />
         <activity
             android:name=".JoinActivity"
@@ -44,12 +45,12 @@
             android:parentActivityName=".SettingActivity" />
         <activity android:name=".ListActivity" />
         <activity android:name=".MapActivity" />
-        <activity android:name=".UploadActivity" />
-        <activity android:name=".FilterActivity"/>
-        <activity android:name=".SearchActivity"/>
-        <activity android:name=".SidoActivity"/>
-        <activity android:name=".SigunguActivity"/>
-        <activity android:name=".HouseInfoActivity"/>
+        <activity android:name=".UploadActivity"/>
+        <activity android:name=".FilterActivity" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".SidoActivity" />
+        <activity android:name=".SigunguActivity" />
+        <activity android:name=".HouseInfoActivity" />
     </application>
 
 </manifest>
