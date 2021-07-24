@@ -20,7 +20,7 @@ public class RecyclerViewAdapter_Search extends RecyclerView.Adapter<RecyclerVie
     private LayoutInflater mInflate;
     private Context context;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tv_apartname;
         private TextView tv_apartaddress;

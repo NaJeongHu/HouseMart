@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,7 +22,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity_upload extends AppCompatActivity implements View.OnClickListener {
+public class SearchActivity_upload extends AppCompatActivity {
 
     ArrayList<item_search_name> arr = null;
     private RecyclerViewAdapter_Search adapter;
@@ -29,7 +30,6 @@ public class SearchActivity_upload extends AppCompatActivity implements View.OnC
     private LinearLayoutManager manager;
     private String search;
 
-    private TextView tv_nosearch;
     private EditText edit_search;
 
     @Override
@@ -64,11 +64,24 @@ public class SearchActivity_upload extends AppCompatActivity implements View.OnC
         manager = new LinearLayoutManager(SearchActivity_upload.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         edit_search = findViewById(R.id.edit_search);
-    }
 
-    @Override
-    public void onClick(View v) {
+        recyclerView.addOnItemTouchListener(new RecyclerViewOnItemClickListener(getApplicationContext(), recyclerView, new RecyclerViewOnItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                String code = arr.get(position).getCode();
+                String name = arr.get(position).getName();
+                Intent data = new Intent();
+                data.putExtra("code", code);
+                data.putExtra("name", name);
+                setResult(RESULT_OK,data);
+                finish();
+            }
 
+            @Override
+            public void onItemLongClick(View v, int position) {
+
+            }
+        }));
     }
 
     private void renewlist() {
@@ -121,9 +134,11 @@ public class SearchActivity_upload extends AppCompatActivity implements View.OnC
                 if (entity.getName().contains(search)) {  // 검색어가 포함된 경우
                     arr.add(entity);
                 }
+            } else {
+                adapter = null;
             }
-
-
         }
     }
+
+
 }

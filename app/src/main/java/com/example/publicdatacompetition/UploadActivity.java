@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.publicdatacompetition.Adapter.PagerAdapter_Picture;
+import com.example.publicdatacompetition.Model.House;
 import com.example.publicdatacompetition.Model.Pictures;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,19 +39,17 @@ import java.util.List;
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener, PagerAdapter_Picture.OnItemClick {
 
     private ImageView btn_back;
-    private AppCompatButton btn_type1, btn_type2, btn_type3,btn_no_dialog_upload,btn_okay_dialog_upload;
+    private AppCompatButton btn_type1, btn_type2, btn_type3, btn_no_dialog_upload, btn_okay_dialog_upload;
     private LinearLayout lin_price_month;
-    private TextInputEditText edit_apartment, edit_dong, edit_ho, edit_area1, edit_area2, edit_price_all, edit_price_month, edit_price_manage,edit_introduce_short,edit_introduce_long;
-    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage,tv_complete;
+    private TextInputEditText edit_dong, edit_ho, edit_area1, edit_area2, edit_price_all, edit_price_month, edit_price_manage,
+            edit_introduce_short, edit_introduce_long,edit_room,edit_toilet,edit_introduce_livingroom,edit_introduce_kitchen,
+            edit_introduce_room1,edit_introduce_room2,edit_introduce_room3,edit_introduce_toilet1,edit_introduce_toilet2,edit_introuce_apartment;
+    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage, tv_complete, edit_apartment;
     private RangeSlider slider_ratio1, slider_ratio2;
     private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet;
 
-    private long price_first, price_second, price_third,price_all,price_zero;
-    private Boolean bool_type1, bool_type2, bool_type3, bool_nego, bool_door, bool_air, bool_ref, bool_kimchi, bool_closet;
-    private String apartment;
-    private int dong,ho;
-    private String introduce_short;
-    private String introduce_long;
+    private long price_first, price_second, price_third;
+
     private int picture_clicked_position = 0;
 
     private PagerAdapter_Picture pagerAdapter_picture;
@@ -57,8 +58,53 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     PagerAdapter_Picture adapter;
     List<Pictures> models;
 
+    House mHouse;
+
     private static final int IMAGE_REQUEST = 0;
+    private static final int NAME_REQUEST = 1;
     private Uri imageUri;
+
+    private String userId;//사용자 이름
+    private String residence_name;//아파트 이름
+
+    private String code;//아파트 코드
+    private Integer dong,ho;//동,호수
+    private Double net_leaseable_area;//전용면적
+    private Double leaseable_area;//공급면적
+
+    private String residence_type;//매물 타입(A,V,O)
+    private String sale_type;//"월세","전세","매매"
+    private Long sale_price;//매매가/전세금/보증금
+    private Long monthly_price;//월세
+    private Long admin_expenses;//관리비
+
+    private Integer provisional_down_pay_per;//가계약금 비율
+    private Integer down_pay_per;//계약금 비율
+    private Integer intermediate_pay_per;//중도금 비율
+    private Integer balence_per;//잔금 비율
+
+    private Integer room_num;//방 개수
+    private Integer toilet_num;//욕실 개수
+
+    private boolean middle_door;//중문
+    private boolean air_conditioner;//에어컨
+    private boolean refrigerator;//냉장고
+    private boolean kimchi_refrigerator;//김치냉장고
+    private boolean closet;//붙박이장
+
+    private boolean nego;//네고가능
+
+    private String short_descriptioin;//짧은 집 소개
+    private String long_description;//긴 집 소개
+    private String apartment_descriptioin;//아파트 소개
+    private String livingroom_descriptioin;//거실 소개
+    private String kitchen_description;//주방 소개
+    private String room1_descriptioin;//방1 소개
+    private String room2_description;//방2 소개
+    private String room3_descriptioin;//방3 소개
+    private String toilet1_description;//화장실1 소개
+    private String toilet2_description;//화장실2 소개
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,22 +113,22 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         init();
         models = new ArrayList<>();
-        models.add(new Pictures("아파트 외관 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("현관 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("거실 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("베란다 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("주방 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("방1 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("방2 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("방3 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("방4 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("화장실1 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("화장실2 사진을 등록해주세요",R.drawable.preview));
-        models.add(new Pictures("화장실3 사진을 등록해주세요",R.drawable.preview));
+        models.add(new Pictures("아파트 외관 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("현관 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("거실 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("베란다 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("주방 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("방1 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("방2 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("방3 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("방4 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("화장실1 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("화장실2 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("화장실3 사진을 등록해주세요", R.drawable.preview));
 
         pagerAdapter_picture = new PagerAdapter_Picture();
 
-        adapter = new PagerAdapter_Picture(models,this,this);
+        adapter = new PagerAdapter_Picture(models, this, this);
 
         viewPager = findViewById(R.id.viewPager_upload_picture);
         int dpValue = 54;
@@ -90,264 +136,14 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         int margin = (int) (dpValue * d);
         viewPager.setClipToPadding(false);
         viewPager.setPadding(margin, 0, margin, 0);
-        viewPager.setPageMargin(margin/3);
+        viewPager.setPageMargin(margin / 3);
 
         viewPager.setAdapter(adapter);
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        edit_dong.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(edit_dong.getText().toString().equals("") || edit_dong.getText().toString() == null){
-
-                }
-                else{
-                    dong = Integer.parseInt(edit_dong.getText().toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        edit_ho.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(edit_ho.getText().toString().equals("") || edit_ho.getText().toString() == null){
-
-                }
-                else{
-                    ho = Integer.parseInt(edit_ho.getText().toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        edit_introduce_short.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(edit_introduce_short.getText().toString().equals("") || edit_introduce_short.getText().toString() == null){
-
-                }
-                else{
-                    introduce_short = edit_introduce_short.getText().toString();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        edit_introduce_long.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(edit_introduce_long.getText().toString().equals("") || edit_introduce_long.getText().toString() == null){
-
-                }
-                else{
-                    introduce_long = edit_introduce_long.getText().toString();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edit_area1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (edit_area1.getText().toString().equals("") || edit_area1.getText().toString() == null) {
-                    tv_area1.setText("평수");
-                } else {
-                    try {
-                        Double area = Double.parseDouble(edit_area1.getText().toString().trim());
-                        tv_area1.setText(translateArea(area));
-                    } catch (NumberFormatException e) {
-                        tv_area1.setText("평수");
-                        Toast.makeText(getBaseContext(), "숫자만 입력해주세요", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        edit_area2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (edit_area2.getText().toString().equals("") || edit_area2.getText().toString() == null) {
-                    tv_area2.setText("평수");
-                } else {
-                    try {
-                        Double area = Double.parseDouble(edit_area2.getText().toString().trim());
-                        tv_area2.setText(translateArea(area));
-                    } catch (NumberFormatException e) {
-                        tv_area2.setText("평수");
-                        Toast.makeText(getBaseContext(), "숫자만 입력해주세요", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        edit_price_all.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (edit_price_all.getText().toString().equals("") || edit_price_all.getText().toString() == null) {
-                    tv_price_all.setText("가격");
-                } else {
-                    price_all = Long.parseLong(edit_price_all.getText().toString().trim());
-                    tv_price_all.setText(translatePrice(price_all));
-                    tv_price_ratio1.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
-                    tv_price_ratio2.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        edit_price_month.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (edit_price_month.getText().toString().equals("") || edit_price_month.getText().toString() == null) {
-                    tv_price_month.setText("가격");
-                } else {
-                    Long price = Long.parseLong(edit_price_month.getText().toString().trim());
-                    tv_price_month.setText(translatePrice(price));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        edit_price_manage.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (edit_price_manage.getText().toString().equals("") || edit_price_manage.getText().toString() == null) {
-                    tv_price_manage.setText("가격");
-                } else {
-                    Long price = Long.parseLong(edit_price_manage.getText().toString().trim());
-                    tv_price_manage.setText(translatePrice(price));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        slider_ratio1.addOnChangeListener(new RangeSlider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                if (price_all == -1){
-                    tv_price_ratio1.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
-                }
-                else {
-                    List<Float> thumbs = slider.getValues();
-                    price_first = Math.round(thumbs.get(0));
-                    price_second = Math.round(thumbs.get(1));
-                    price_second = price_second - price_first;
-                    price_third = 100 - price_first - price_second;
-                    tv_ratio1.setText(price_first + "% : " + price_second + "% : " + price_third+"%");
-                    price_all = Long.parseLong(edit_price_all.getText().toString().trim());
-                    price_first = price_all * price_first / 100;
-                    price_second = price_all * price_second / 100;
-                    price_third = price_all * price_third / 100;
-                    tv_price_ratio1.setText("계약금 : "+translatePrice(price_first) + "\n중도금 : " + translatePrice(price_second) + "\n    잔금 : " + translatePrice(price_third));
-                    tv_price_ratio2.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
-                }
-            }
-        });
-        slider_ratio2.addOnChangeListener(new RangeSlider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                if (price_first==-1){
-                    tv_price_ratio2.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
-                }
-                else {
-                    List<Float> thumbs = slider.getValues();
-                    long first = Math.round(thumbs.get(0));
-                    long second = 100 - first;
-                    tv_ratio2.setText(first + "% : " + second+"%");
-                    first = price_first * first / 100;
-                    second = price_first * second / 100;
-                    tv_price_ratio2.setText("        가계약금 : "+translatePrice(first) + "\n나머지 계약금 : " + translatePrice(second));
-                }
-            }
-        });
-
-    }
-
     private void init() {
+
         btn_back = findViewById(R.id.btn_back_upload);
 
         btn_type1 = findViewById(R.id.btn_type1);
@@ -364,8 +160,18 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         edit_price_all = findViewById(R.id.edit_price_all);
         edit_price_month = findViewById(R.id.edit_price_month);
         edit_price_manage = findViewById(R.id.edit_price_manage);
+        edit_room = findViewById(R.id.edit_room);
+        edit_toilet = findViewById(R.id.edit_toilet);
         edit_introduce_short = findViewById(R.id.edit_introduce_short);
         edit_introduce_long = findViewById(R.id.edit_introduce_long);
+        edit_introuce_apartment = findViewById(R.id.edit_introduce_apartment);
+        edit_introduce_livingroom= findViewById(R.id.edit_introduce_livingroom);
+        edit_introduce_kitchen = findViewById(R.id.edit_introduce_kitchen);
+        edit_introduce_room1 = findViewById(R.id.edit_introduce_room1);
+        edit_introduce_room2 = findViewById(R.id.edit_introduce_room2);
+        edit_introduce_room3 = findViewById(R.id.edit_introduce_room3);
+        edit_introduce_toilet1 = findViewById(R.id.edit_introduce_toilet1);
+        edit_introduce_toilet2 = findViewById(R.id.edit_introduce_toilet2);
 
         tv_area1 = findViewById(R.id.tv_area1);
         tv_area2 = findViewById(R.id.tv_area2);
@@ -400,19 +206,473 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         chk_kimchi.setOnClickListener(this);
         chk_closet.setOnClickListener(this);
         tv_complete.setOnClickListener(this);
+        edit_apartment.setOnClickListener(this);
 
-        bool_type1 = true;
-        bool_type2 = false;
-        bool_type3 = false;
-        bool_nego = false;
-        bool_air = false;
-        bool_door = false;
-        bool_ref = false;
-        bool_kimchi = false;
-        bool_closet = false;
+        residence_type="A";
+        sale_type="월세";
+
+        nego = false;
+        air_conditioner = false;
+        middle_door = false;
+        refrigerator = false;
+        kimchi_refrigerator = false;
+        closet = false;
 
         price_first = -1;
-        price_all = -1;
+        sale_price = -1L;
+
+
+        edit_dong.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_dong.getText().toString().equals("") || edit_dong.getText().toString() == null) {
+
+                } else {
+                    dong = Integer.parseInt(edit_dong.getText().toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_ho.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_ho.getText().toString().equals("") || edit_ho.getText().toString() == null) {
+
+                } else {
+                    ho = Integer.parseInt(edit_ho.getText().toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_room.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_room.getText().toString().equals("") || edit_room.getText().toString() == null) {
+
+                } else {
+                    room_num = Integer.parseInt(edit_room.getText().toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_toilet.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_toilet.getText().toString().equals("") || edit_toilet.getText().toString() == null) {
+
+                } else {
+                    toilet_num = Integer.parseInt(edit_toilet.getText().toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_introduce_short.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_introduce_short.getText().toString().equals("") || edit_introduce_short.getText().toString() == null) {
+
+                } else {
+                    short_descriptioin = edit_introduce_short.getText().toString();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_introduce_long.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_introduce_long.getText().toString().equals("") || edit_introduce_long.getText().toString() == null) {
+
+                } else {
+                    long_description = edit_introduce_long.getText().toString();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_introuce_apartment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_introuce_apartment.getText().toString().equals("") || edit_introuce_apartment.getText().toString() == null) {
+
+                } else {
+                    apartment_descriptioin = edit_introuce_apartment.getText().toString();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_introduce_livingroom.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_introduce_livingroom.getText().toString().equals("") || edit_introduce_livingroom.getText().toString() == null) {
+
+                } else {
+                    livingroom_descriptioin = edit_introduce_livingroom.getText().toString();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_introduce_kitchen.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_introduce_kitchen.getText().toString().equals("") || edit_introduce_kitchen.getText().toString() == null) {
+
+                } else {
+                    kitchen_description = edit_introduce_kitchen.getText().toString();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_introduce_room1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_introduce_room1.getText().toString().equals("") || edit_introduce_room1.getText().toString() == null) {
+
+                } else {
+                    room1_descriptioin = edit_introduce_room1.getText().toString();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_introduce_room2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_introduce_room2.getText().toString().equals("") || edit_introduce_room2.getText().toString() == null) {
+
+                } else {
+                    room2_description = edit_introduce_room2.getText().toString();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_introduce_room3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_introduce_room3.getText().toString().equals("") || edit_introduce_room3.getText().toString() == null) {
+
+                } else {
+                    room3_descriptioin = edit_introduce_room3.getText().toString();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_introduce_toilet1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_introduce_toilet1.getText().toString().equals("") || edit_introduce_toilet1.getText().toString() == null) {
+
+                } else {
+                    toilet1_description = edit_introduce_toilet1.getText().toString();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_introduce_toilet2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_introduce_toilet2.getText().toString().equals("") || edit_introduce_toilet2.getText().toString() == null) {
+
+                } else {
+                    toilet2_description = edit_introduce_toilet2.getText().toString();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_area1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_area1.getText().toString().equals("") || edit_area1.getText().toString() == null) {
+                    tv_area1.setText("평수");
+                } else {
+                    try {
+                        net_leaseable_area = Double.parseDouble(edit_area1.getText().toString().trim());
+                        tv_area1.setText(translateArea(net_leaseable_area));
+                    } catch (NumberFormatException e) {
+                        tv_area1.setText("평수");
+                        Toast.makeText(getBaseContext(), "숫자만 입력해주세요", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        edit_area2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_area2.getText().toString().equals("") || edit_area2.getText().toString() == null) {
+                    tv_area2.setText("평수");
+                } else {
+                    try {
+                        leaseable_area = Double.parseDouble(edit_area2.getText().toString().trim());
+                        tv_area2.setText(translateArea(leaseable_area));
+                    } catch (NumberFormatException e) {
+                        tv_area2.setText("평수");
+                        Toast.makeText(getBaseContext(), "숫자만 입력해주세요", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edit_price_all.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_price_all.getText().toString().equals("") || edit_price_all.getText().toString() == null) {
+                    tv_price_all.setText("가격");
+                } else {
+                    sale_price = Long.parseLong(edit_price_all.getText().toString().trim());
+                    tv_price_all.setText(translatePrice(sale_price));
+                    tv_price_ratio1.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
+                    tv_price_ratio2.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        edit_price_month.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_price_month.getText().toString().equals("") || edit_price_month.getText().toString() == null) {
+                    tv_price_month.setText("가격");
+                } else {
+                    monthly_price = Long.parseLong(edit_price_month.getText().toString().trim());
+                    tv_price_month.setText(translatePrice(monthly_price));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        edit_price_manage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (edit_price_manage.getText().toString().equals("") || edit_price_manage.getText().toString() == null) {
+                    tv_price_manage.setText("가격");
+                } else {
+                    admin_expenses = Long.parseLong(edit_price_manage.getText().toString().trim());
+                    tv_price_manage.setText(translatePrice(admin_expenses));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        slider_ratio1.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
+                if (sale_price == -1) {
+                    tv_price_ratio1.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
+                } else {
+                    List<Float> thumbs = slider.getValues();
+                    down_pay_per = Math.round(thumbs.get(0));
+                    intermediate_pay_per = Math.round(thumbs.get(1));
+                    intermediate_pay_per = intermediate_pay_per - down_pay_per;
+                    balence_per = 100 - down_pay_per - intermediate_pay_per;
+                    tv_ratio1.setText(down_pay_per + "% : " + intermediate_pay_per + "% : " + balence_per + "%");
+                    price_first = sale_price * down_pay_per / 100;
+                    price_second = sale_price * intermediate_pay_per / 100;
+                    price_third = sale_price * balence_per / 100;
+                    tv_price_ratio1.setText("계약금 : " + translatePrice(price_first) + "\n중도금 : " + translatePrice(price_second) + "\n    잔금 : " + translatePrice(price_third));
+                    tv_price_ratio2.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
+                }
+            }
+        });
+        slider_ratio2.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
+                if (price_first == -1) {
+                    tv_price_ratio2.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
+                } else {
+                    List<Float> thumbs = slider.getValues();
+                    provisional_down_pay_per = Math.round(thumbs.get(0));
+                    long second = 100 - provisional_down_pay_per;
+                    tv_ratio2.setText(provisional_down_pay_per + "% : " + second + "%");
+                    long first = price_first * provisional_down_pay_per / 100;
+                    second = price_first * second / 100;
+                    tv_price_ratio2.setText("        가계약금 : " + translatePrice(first) + "\n나머지 계약금 : " + translatePrice(second));
+                }
+            }
+        });
+
 
     }
 
@@ -424,7 +684,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.btn_type1:
-                if (!bool_type1) {
+                if (!sale_type.equals("월세")) {
                     btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                     btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
                     btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
@@ -433,14 +693,12 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
                     lin_price_month.setVisibility(View.VISIBLE);
                     tv_price_type.setText("보증금");
-                    bool_type1 = true;
-                    bool_type2 = false;
-                    bool_type3 = false;
+                    sale_type="월세";
                 }
                 break;
 
             case R.id.btn_type2:
-                if (!bool_type2) {
+                if (!sale_type.equals("전세")) {
                     btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
                     btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
                     btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
@@ -448,15 +706,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     btn_type3.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
                     btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
                     lin_price_month.setVisibility(View.GONE);
-                    tv_price_type.setText("보증금");
-                    bool_type1 = false;
-                    bool_type2 = true;
-                    bool_type3 = false;
+                    tv_price_type.setText("전세금");
+                    sale_type="전세";
                 }
                 break;
 
             case R.id.btn_type3:
-                if (!bool_type3) {
+                if (!sale_type.equals("매매")) {
                     btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
                     btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
                     btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
@@ -465,60 +721,64 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
                     lin_price_month.setVisibility(View.GONE);
                     tv_price_type.setText("매매가");
-                    bool_type1 = false;
-                    bool_type2 = false;
-                    bool_type3 = true;
+                    sale_type="매매";
                 }
                 break;
 
             case R.id.chk_nego:
                 if (chk_nego.isChecked()) {
-                    bool_nego = true;
+                    nego = true;
                 } else {
-                    bool_nego = false;
+                    nego = false;
                 }
                 break;
             case R.id.chk_door:
                 if (chk_door.isChecked()) {
-                    bool_door = true;
+                    middle_door = true;
                 } else {
-                    bool_door = false;
+                    middle_door = false;
                 }
                 break;
             case R.id.chk_air:
                 if (chk_air.isChecked()) {
-                    bool_air = true;
+                    air_conditioner = true;
                 } else {
-                    bool_air = false;
+                    air_conditioner = false;
                 }
                 break;
             case R.id.chk_ref:
                 if (chk_ref.isChecked()) {
-                    bool_ref = true;
+                    refrigerator = true;
                 } else {
-                    bool_ref = false;
+                    refrigerator = false;
                 }
                 break;
             case R.id.chk_kimchi:
                 if (chk_kimchi.isChecked()) {
-                    bool_kimchi = true;
+                    kimchi_refrigerator = true;
                 } else {
-                    bool_kimchi = false;
+                    kimchi_refrigerator = false;
                 }
                 break;
             case R.id.chk_closet:
                 if (chk_closet.isChecked()) {
-                    bool_closet = true;
+                    closet = true;
                 } else {
-                    bool_closet = false;
+                    closet = false;
                 }
                 break;
 
             case R.id.tv_complete:
                 upload_dialog(view);
                 break;
+
+            case R.id.edit_apartment:
+                Intent intent = new Intent(getBaseContext(), SearchActivity_upload.class);
+                startActivityForResult(intent,1);
+
         }
     }
+
 
     public String translatePrice(Long price) {
 
@@ -564,8 +824,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
                 // todo : retrofit
 
-                Intent intent = new Intent(getBaseContext(),MainActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                startActivityForResult(intent,0);
             }
         });
 
@@ -582,7 +842,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_REQUEST) {
-            if(resultCode == RESULT_OK && data != null && data.getData() != null) {
+            if (resultCode == RESULT_OK && data != null && data.getData() != null) {
                 imageUri = data.getData();
 
                 //set Image to mIvPicture
@@ -591,8 +851,17 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     viewPager.setAdapter(adapter);
                     //mIvPicture.setImageURI(imageUri);
                 }
-            } else if(resultCode == RESULT_CANCELED) {
+            } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
+            }
+        }
+        if(requestCode == NAME_REQUEST){
+            if (resultCode == RESULT_OK) {
+                code = data.getStringExtra("code");
+                residence_name = data.getStringExtra("name");
+                edit_apartment.setText(residence_name);
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "아파트 선택 취소", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -602,4 +871,5 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(int value) {
         picture_clicked_position = value;
     }
+
 }
