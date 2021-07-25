@@ -80,9 +80,11 @@ public class SearchActivity_upload extends AppCompatActivity {
             public void onItemClick(View v, int position) {
                 String code = arr.get(position).getCode();
                 String name = arr.get(position).getName();
+                String address = arr.get(position).getAddress();
                 Intent data = new Intent();
                 data.putExtra("code", code);
                 data.putExtra("name", name);
+                data.putExtra("address", address);
                 setResult(RESULT_OK,data);
                 finish();
             }

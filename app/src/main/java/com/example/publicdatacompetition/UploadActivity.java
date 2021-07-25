@@ -47,7 +47,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private TextInputEditText edit_dong, edit_ho, edit_area1, edit_area2, edit_price_all, edit_price_month, edit_price_manage,
             edit_introduce_short, edit_introduce_long,edit_room,edit_toilet,edit_introduce_livingroom,edit_introduce_kitchen,
             edit_introduce_room1,edit_introduce_room2,edit_introduce_room3,edit_introduce_toilet1,edit_introduce_toilet2,edit_introuce_apartment;
-    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage, tv_complete, edit_apartment,tv_movedate;
+    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month
+            , tv_price_manage, tv_complete, edit_apartment,tv_movedate,tv_apartaddress_load;
     private RangeSlider slider_ratio1, slider_ratio2;
     private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet,chk_oven,chk_induction,chk_airsystem,chk_movenow;
     private Calendar cal;
@@ -197,6 +198,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         tv_price_manage = findViewById(R.id.tv_price_manage);
         tv_complete = findViewById(R.id.tv_complete);
         tv_movedate = findViewById(R.id.tv_movedate);
+        tv_apartaddress_load = findViewById(R.id.tv_apartaddress_load);
 
         slider_ratio1 = findViewById(R.id.slider_ratio1);
         slider_ratio2 = findViewById(R.id.slider_ratio2);
@@ -926,7 +928,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             if (resultCode == RESULT_OK) {
                 code = data.getStringExtra("code");
                 residence_name = data.getStringExtra("name");
+                String address = data.getStringExtra("address");
                 edit_apartment.setText(residence_name);
+                tv_apartaddress_load.setText(address);
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "아파트 선택 취소", Toast.LENGTH_LONG).show();
             }
