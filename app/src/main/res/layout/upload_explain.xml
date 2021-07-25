@@ -6,21 +6,26 @@
     android:layout_margin="20dp"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="설명"
-        android:textSize="15dp"
-        android:fontFamily="@font/applesdgothicneob"
-        android:textColor="@color/black"/>
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="설명"
+            android:textSize="15dp"
+            android:fontFamily="@font/applesdgothicneob"
+            android:textColor="@color/black"/>
 
-    <TextView
-        android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="방,화장실 등이 더 많이 있으면 각 항목 마지막 소개에 추가해서 적어주세요"
-        android:textSize="12dp"
-        android:textColor="@color/custom_blue"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="각 소개내용을 상세하게 적어주세요"
+            android:textSize="10dp"
+            android:textColor="@color/custom_blue"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +47,8 @@
                 android:id="@+id/edit_introduce_apartment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="위치, 주변 시설, 아파트 정원 등등" />
+                android:textSize="12dp"
+                android:hint="위치, 주변 시설, 아파트 정원 등등 상세하게 적어주세요" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +74,8 @@
                 android:id="@+id/edit_introduce_livingroom"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="베란다 확장 여부, 방향, 바닥재질 등등" />
+                android:textSize="12dp"
+                android:hint="베란다 확장 여부, 방향, 바닥재질 등등 상세하게 적어주세요" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,7 +101,8 @@
                 android:id="@+id/edit_introduce_kitchen"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="수납공간, 빌트인 음식물처리기 여부 등등" />
+                android:textSize="12dp"
+                android:hint="수납공간, 식탁 여부, 인테리어 등등 상세하게 적어주세요" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +128,8 @@
                 android:id="@+id/edit_introduce_room1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="채광이나 방향, 벽지 상태 등등 " />
+                android:textSize="12dp"
+                android:hint="채광이나 방향, 벽지 상태 등등 상세하게 적어주세요" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,7 +153,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_introduce_room2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textSize="12dp"
+                android:hint="채광이나 방향, 벽지 상태 등등 상세하게 적어주세요" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,7 +180,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_introduce_room3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textSize="12dp"
+                android:hint="방이 더 있을 경우 이 곳에 적어주세요" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,7 +208,8 @@
                 android:id="@+id/edit_introduce_toilet1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="수압, 환풍기 상태, 습식/건식 여부 등등" />
+                android:textSize="12dp"
+                android:hint="수압, 환풍기 상태, 습식/건식 여부 등등 상세하게 적어주세요" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -220,7 +234,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_introduce_toilet2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:textSize="12dp"
+                android:hint="화장실이 더 있을 경우 이 곳에 적어주세요" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,7 +263,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="20"
-                android:hint="20자 이내의 한 줄 소개" />
+                android:textSize="12dp"
+                android:hint="20자 이내의 한 줄 소개글을 적어주세요" />
 
         </com.google.android.material.textfield.TextInputLayout>
         <TextView
@@ -266,7 +283,8 @@
                 android:id="@+id/edit_introduce_long"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="매물에 대한 추가 설명/자랑" />
+                android:textSize="12dp"
+                android:hint="매물에 대한 추가 설명/자랑 할 내용들을 적어주세요" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>

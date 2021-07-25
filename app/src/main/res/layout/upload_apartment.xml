@@ -22,8 +22,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/applesdgothicneob"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/custom_blue"
             android:text="집문서를 보고 정확하게 기재해주세요"
             android:textSize="10dp" />
 

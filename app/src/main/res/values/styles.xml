@@ -4,7 +4,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/custom_blue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#03A9F4</item>
     </style>
 
     <style name="EditTheme" parent="Theme.AppCompat.Light.NoActionBar">

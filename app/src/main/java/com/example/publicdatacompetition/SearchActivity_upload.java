@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.publicdatacompetition.Adapter.RecyclerViewAdapter_Search;
@@ -31,6 +32,7 @@ public class SearchActivity_upload extends AppCompatActivity {
     private String search;
 
     private EditText edit_search;
+    private ImageView btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,14 @@ public class SearchActivity_upload extends AppCompatActivity {
         manager = new LinearLayoutManager(SearchActivity_upload.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         edit_search = findViewById(R.id.edit_search);
+
+        btn_back = findViewById(R.id.btn_back_search_upload);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         recyclerView.addOnItemTouchListener(new RecyclerViewOnItemClickListener(getApplicationContext(), recyclerView, new RecyclerViewOnItemClickListener.OnItemClickListener() {
             @Override
@@ -131,7 +141,10 @@ public class SearchActivity_upload extends AppCompatActivity {
             entity.setAddress(str[2]);
 
             if (search != null) {
-                if (entity.getName().contains(search)) {  // 검색어가 포함된 경우
+                int start = entity.getName().indexOf(search);
+                if (start!=-1) {  // 검색어가 포함된 경우
+                    entity.setStart(start);
+                    entity.setEnd(search.length()+start);
                     arr.add(entity);
                 }
             } else {

@@ -1,9 +1,11 @@
 package com.example.publicdatacompetition;
 
 import android.animation.ArgbEvaluator;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,14 +13,14 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -34,6 +36,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener, PagerAdapter_Picture.OnItemClick {
@@ -44,9 +47,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private TextInputEditText edit_dong, edit_ho, edit_area1, edit_area2, edit_price_all, edit_price_month, edit_price_manage,
             edit_introduce_short, edit_introduce_long,edit_room,edit_toilet,edit_introduce_livingroom,edit_introduce_kitchen,
             edit_introduce_room1,edit_introduce_room2,edit_introduce_room3,edit_introduce_toilet1,edit_introduce_toilet2,edit_introuce_apartment;
-    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage, tv_complete, edit_apartment;
+    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage, tv_complete, edit_apartment,tv_movedate;
     private RangeSlider slider_ratio1, slider_ratio2;
-    private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet;
+    private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet,chk_oven,chk_induction,chk_airsystem,chk_movenow;
+    private Calendar cal;
 
     private long price_first, price_second, price_third;
 
@@ -54,9 +58,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private PagerAdapter_Picture pagerAdapter_picture;
 
-    ViewPager viewPager;
-    PagerAdapter_Picture adapter;
-    List<Pictures> models;
+    private DatePickerDialog.OnDateSetListener callbackMethod;
+    private ViewPager viewPager;
+    private PagerAdapter_Picture adapter;
+    private List<Pictures> models;
 
     House mHouse;
 
@@ -87,10 +92,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private Integer toilet_num;//욕실 개수
 
     private boolean middle_door;//중문
-    private boolean air_conditioner;//에어컨
+    private boolean air_conditioner;//시스템 에어컨
     private boolean refrigerator;//냉장고
     private boolean kimchi_refrigerator;//김치냉장고
     private boolean closet;//붙박이장
+    private boolean oven;//빌트인 오븐
+    private boolean induction;//인덕션
+    private boolean airsystem;//공조기 시스템
 
     private boolean nego;//네고가능
 
@@ -105,6 +113,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private String toilet1_description;//화장실1 소개
     private String toilet2_description;//화장실2 소개
 
+    private String movedate;//입주가능일
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,18 +123,18 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         init();
         models = new ArrayList<>();
-        models.add(new Pictures("아파트 외관 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("현관 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("거실 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("베란다 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("주방 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("방1 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("방2 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("방3 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("방4 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("화장실1 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("화장실2 사진을 등록해주세요", R.drawable.preview));
-        models.add(new Pictures("화장실3 사진을 등록해주세요", R.drawable.preview));
+        models.add(new Pictures("아파트 외관 사진을 등록해주세요", R.drawable.image_apartment));
+        models.add(new Pictures("현관 사진을 등록해주세요", R.drawable.image_frontdoor));
+        models.add(new Pictures("거실 사진을 등록해주세요", R.drawable.image_livingroom));
+        models.add(new Pictures("베란다 사진을 등록해주세요", R.drawable.image_veranda));
+        models.add(new Pictures("주방 사진을 등록해주세요", R.drawable.image_kitchen));
+        models.add(new Pictures("방1 사진을 등록해주세요", R.drawable.image_room4));
+        models.add(new Pictures("방2 사진을 등록해주세요", R.drawable.image_room3));
+        models.add(new Pictures("방3 사진을 등록해주세요", R.drawable.image_room2));
+        models.add(new Pictures("방4 사진을 등록해주세요", R.drawable.image_room1));
+        models.add(new Pictures("화장실1 사진을 등록해주세요", R.drawable.image_toilet1));
+        models.add(new Pictures("화장실2 사진을 등록해주세요", R.drawable.image_toilet2));
+        models.add(new Pictures("화장실3 사진을 등록해주세요", R.drawable.image_toilet3));
 
         pagerAdapter_picture = new PagerAdapter_Picture();
 
@@ -143,6 +153,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void init() {
+
+        cal = Calendar.getInstance();
 
         btn_back = findViewById(R.id.btn_back_upload);
 
@@ -184,6 +196,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         tv_price_month = findViewById(R.id.tv_price_month);
         tv_price_manage = findViewById(R.id.tv_price_manage);
         tv_complete = findViewById(R.id.tv_complete);
+        tv_movedate = findViewById(R.id.tv_movedate);
 
         slider_ratio1 = findViewById(R.id.slider_ratio1);
         slider_ratio2 = findViewById(R.id.slider_ratio2);
@@ -194,6 +207,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         chk_ref = findViewById(R.id.chk_ref);
         chk_kimchi = findViewById(R.id.chk_kimchi);
         chk_closet = findViewById(R.id.chk_closet);
+        chk_oven = findViewById(R.id.chk_oven);
+        chk_induction = findViewById(R.id.chk_induction);
+        chk_airsystem = findViewById(R.id.chk_airsystem);
+        chk_movenow = findViewById(R.id.chk_movenow);
 
         btn_back.setOnClickListener(this);
         btn_type1.setOnClickListener(this);
@@ -205,8 +222,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         chk_ref.setOnClickListener(this);
         chk_kimchi.setOnClickListener(this);
         chk_closet.setOnClickListener(this);
+        chk_oven.setOnClickListener(this);
+        chk_induction.setOnClickListener(this);
+        chk_airsystem.setOnClickListener(this);
+        chk_movenow.setOnClickListener(this);
         tv_complete.setOnClickListener(this);
         edit_apartment.setOnClickListener(this);
+        tv_movedate.setOnClickListener(this);
 
         residence_type="A";
         sale_type="월세";
@@ -220,6 +242,14 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         price_first = -1;
         sale_price = -1L;
+
+        callbackMethod = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                movedate = year+"년 "+month+"월 "+dayOfMonth+"일";
+                tv_movedate.setText(movedate);
+            }
+        };
 
 
         edit_dong.addTextChangedListener(new TextWatcher() {
@@ -676,6 +706,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -767,6 +798,27 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     closet = false;
                 }
                 break;
+            case R.id.chk_oven:
+                if (chk_oven.isChecked()) {
+                    oven = true;
+                } else {
+                    oven = false;
+                }
+                break;
+            case R.id.chk_induction:
+                if (chk_induction.isChecked()) {
+                    induction = true;
+                } else {
+                    induction = false;
+                }
+                break;
+            case R.id.chk_airsystem:
+                if (chk_airsystem.isChecked()) {
+                    airsystem = true;
+                } else {
+                    airsystem = false;
+                }
+                break;
 
             case R.id.tv_complete:
                 upload_dialog(view);
@@ -776,6 +828,18 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intent = new Intent(getBaseContext(), SearchActivity_upload.class);
                 startActivityForResult(intent,1);
 
+            case R.id.chk_movenow:
+                if (chk_movenow.isChecked()) {
+                    tv_movedate.setVisibility(View.GONE);
+                    movedate = "즉시 입주";
+                } else {
+                    tv_movedate.setVisibility(View.VISIBLE);
+                }
+                break;
+
+            case R.id.tv_movedate:
+                DatePickerDialog dialog = new DatePickerDialog(UploadActivity.this,callbackMethod, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+                dialog.show();
         }
     }
 
@@ -821,6 +885,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
+                mHouse = new House(userId,  residence_name,  code,  dong,  ho,  net_leaseable_area,  leaseable_area,  residence_type,  sale_type,  sale_price,  monthly_price,  admin_expenses,  provisional_down_pay_per,  down_pay_per,  intermediate_pay_per,  balence_per,  room_num,  toilet_num,  middle_door,  air_conditioner,  refrigerator,  kimchi_refrigerator,  closet,  oven,  induction,  airsystem,  nego,  short_descriptioin,  long_description,  apartment_descriptioin,  livingroom_descriptioin,  kitchen_description,  room1_descriptioin,  room2_description,  room3_descriptioin,  toilet1_description,  toilet2_description,  movedate);
 
                 // todo : retrofit
 
@@ -854,6 +919,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
             }
+
+            viewPager.setCurrentItem(picture_clicked_position,true);
         }
         if(requestCode == NAME_REQUEST){
             if (resultCode == RESULT_OK) {

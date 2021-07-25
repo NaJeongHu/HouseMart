@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/applesdgothicneob"
+            android:text="입주가능일"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/chk_movenow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="right|center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/applesdgothicneob"
+                android:text="즉시 입주가능"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_movedate"
+        android:layout_width="match_parent"
+        android:layout_marginRight="150dp"
+        android:layout_height="50dp"
+        android:text="날짜를 선택해주세요"
+        android:fontFamily="@font/applesdgothicneob"
+        android:gravity="left|center"
+        android:paddingLeft="10dp"
+        android:background="@drawable/button_round_white"/>
+
+</LinearLayout>

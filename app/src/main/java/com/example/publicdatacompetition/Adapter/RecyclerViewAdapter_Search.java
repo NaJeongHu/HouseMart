@@ -1,6 +1,10 @@
 package com.example.publicdatacompetition.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +18,14 @@ import com.example.publicdatacompetition.R;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter_Search extends RecyclerView.Adapter<RecyclerViewAdapter_Search.MyViewHolder>{
+public class RecyclerViewAdapter_Search extends RecyclerView.Adapter<RecyclerViewAdapter_Search.MyViewHolder> {
 
     private ArrayList<item_search_name> mList; //new ArrayList<>();
     private LayoutInflater mInflate;
     private Context context;
+    private String name;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tv_apartname;
         private TextView tv_apartaddress;
@@ -34,7 +39,7 @@ public class RecyclerViewAdapter_Search extends RecyclerView.Adapter<RecyclerVie
         }
 
     }
-    
+
     public RecyclerViewAdapter_Search(Context context, ArrayList<item_search_name> items) {
         this.mList = items;
         this.mInflate = LayoutInflater.from(context);
@@ -45,23 +50,27 @@ public class RecyclerViewAdapter_Search extends RecyclerView.Adapter<RecyclerVie
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = mInflate.inflate(R.layout.item_search_upload, parent, false) ;
-        MyViewHolder vh = new MyViewHolder(view) ;
+        View view = mInflate.inflate(R.layout.item_search_upload, parent, false);
+        MyViewHolder vh = new MyViewHolder(view);
 
-        return vh ;
+        return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.tv_apartaddress.setText(mList.get(position).getAddress());
-        holder.tv_apartname.setText(mList.get(position).getName());
+        if (mList != null) {
+            name = mList.get(position).getName();
+            SpannableStringBuilder builder = new SpannableStringBuilder(name);
+            builder.setSpan(new ForegroundColorSpan(Color.parseColor("#2265DA")), mList.get(position).getStart(),  mList.get(position).getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.tv_apartname.setText(builder);
+            holder.tv_apartaddress.setText(mList.get(position).getAddress());
+        }
     }
 
     @Override
     public int getItemCount() {
         return (null != mList ? mList.size() : 0);
     }
-
 
 
 }
