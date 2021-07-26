@@ -1,5 +1,7 @@
 package com.example.publicdatacompetition;
 
+import com.example.publicdatacompetition.Model.House;
+
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +44,11 @@ public interface RESTApi {
 
     @POST("/board/get/list")
     Call<List<PermittedHouse>> getList();
+
+    @POST("/write/board")
+    Call<ResponseBody> uploadHouse(
+            @Body House house);
+
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://122.37.239.49:9000/")

@@ -3,12 +3,16 @@ package com.example.publicdatacompetition;
 import android.animation.ArgbEvaluator;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
@@ -31,13 +35,27 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.publicdatacompetition.Adapter.PagerAdapter_Picture;
 import com.example.publicdatacompetition.Model.House;
 import com.example.publicdatacompetition.Model.Pictures;
+import com.example.publicdatacompetition.Model.User;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener, PagerAdapter_Picture.OnItemClick {
 
@@ -115,6 +133,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private String toilet2_description;//화장실2 소개
 
     private String movedate;//입주가능일
+
+    private List<MultipartBody.Part> pictures;
 
 
     @Override
@@ -891,12 +911,24 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
-                mHouse = new House(userId,  residence_name,  code,  dong,  ho,  net_leaseable_area,  leaseable_area,  residence_type,  sale_type,  sale_price,  monthly_price,  admin_expenses,  provisional_down_pay_per,  down_pay_per,  intermediate_pay_per,  balance_per,  room_num,  toilet_num,  middle_door,  air_conditioner,  refrigerator,  kimchi_refrigerator,  closet,  oven,  induction,  airsystem,  nego,  short_description,  long_description,  apartment_description,  livingroom_description,  kitchen_description,  room1_description,  room2_description,  room3_description,  toilet1_description,  toilet2_description,  movedate);
+                userId = ((User) getApplication()).getId();
+
+                boolean judge_pic = models.get(2).getUri() != null && models.get(4).getUri() != null && models.get(5).getUri() != null && models.get(9).getUri() != null;
+                if (judge_pic) {
+                    pictures = new ArrayList<>();
+                    getPicturesList();
+                    mHouse = new House(userId,  residence_name,  code,  dong,  ho,  net_leaseable_area,  leaseable_area,  residence_type,  sale_type,  sale_price,  monthly_price,  admin_expenses,  provisional_down_pay_per,  down_pay_per,  intermediate_pay_per,  balance_per,  room_num,  toilet_num,  middle_door,  air_conditioner,  refrigerator,  kimchi_refrigerator,  closet,  oven,  induction,  airsystem,  nego,  short_description,  long_description,  apartment_description,  livingroom_description,  kitchen_description,  room1_description,  room2_description,  room3_description,  toilet1_description,  toilet2_description,  movedate, pictures);
+                    doRetrofit();
+//                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                    startActivity(intent);
+                } else {
+                    Toast.makeText(UploadActivity.this, "필수 사진을 등록해주세요", Toast.LENGTH_SHORT).show();
+                }
 
                 // todo : retrofit
 
-                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                startActivityForResult(intent,0);
+//                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                startActivityForResult(intent,0);
             }
         });
 
@@ -907,6 +939,104 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 alertDialog.dismiss();
             }
         });
+    }
+
+    private void doRetrofit() {
+        RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
+        mRESTApi.uploadHouse(mHouse)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Log.d("testtest", "");
+                        String test_code = response.headers().get("code");
+                        String test_body = response.headers().get("code");
+                        Log.d("UploadActivity", "headercode" + test_code);
+                        Log.d("UploadActivity", "body" + test_body);
+
+
+                        if (test_code != null && test_code.equals("00")) {
+                            Intent intent = new Intent(UploadActivity.this, MainActivity.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(UploadActivity.this,"업로드 실패" + test_code , Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                        Log.d("UploadActivity", throwable.getMessage());
+                    }
+                });
+    }
+
+    private void getPicturesList() {
+        for (int i =0; i<models.size(); i++) {
+            Uri uri = models.get(i).getUri();
+            if (uri != null) {
+                transUriToMultiPartFile(uri, i);
+            }
+        }
+    }
+
+    private void transUriToMultiPartFile(Uri uri, int position) {
+        MultipartBody.Part filePart = null;
+        Bitmap img = null;
+
+        //change Uri to Bitmap
+        if(uri != null) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    img = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), uri));
+                } else {
+                    img = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            img  = BitmapFactory.decodeResource(getResources(), R.drawable.preview);
+        }
+
+        try {
+
+            //Convert bitmap to byte array
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            img.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
+            byte[] bitmapdata = bos.toByteArray();
+
+            //create a file to write bitmap data
+            File f = new File(this.getCacheDir(), "filename");
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //write the bytes in file
+            FileOutputStream fos = null;
+            try {
+                fos = new FileOutputStream(f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            filePart = MultipartBody.Part.createFormData("file",
+                    f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        pictures.add(filePart);
+
     }
 
     @Override

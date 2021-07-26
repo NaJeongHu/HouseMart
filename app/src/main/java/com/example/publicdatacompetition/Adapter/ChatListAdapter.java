@@ -12,9 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.publicdatacompetition.MessageActivity;
+import com.example.publicdatacompetition.ChatActivity;
 import com.example.publicdatacompetition.Model.Chat;
-import com.example.publicdatacompetition.Model.User;
+import com.example.publicdatacompetition.Model.Chatter;
 import com.example.publicdatacompetition.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,51 +28,45 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<User> mUsers;
+    private List<Chatter> mChatters;
 
     private String theLastMessage;
+    private String theLastDateOrTime;
 
-    public UserAdapter(Context mContext, List<User> mUsers){
+    public ChatListAdapter(Context mContext, List<Chatter> mChatters){
         this.mContext = mContext;
-        this.mUsers = mUsers;
+        this.mChatters = mChatters;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.user_item, parent, false);
-        return new UserAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_chat_list, parent, false);
+        return new ChatListAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        User user = mUsers.get(position);
-        holder.username.setText(user.getUsername());
-        if(user.getImageURL().equals("default")){
+        Chatter chatter = mChatters.get(position);
+
+        holder.nickname.setText(chatter.getNickname());
+        if(chatter.getImageURL().equals("default")){
             holder.profile_image.setImageResource(R.drawable.preview);
         } else {
-            Glide.with(mContext).load(user.getImageURL()).into(holder.profile_image);
+            Glide.with(mContext).load(chatter.getImageURL()).into(holder.profile_image);
         }
 
-        lastMessage(user.getId(), holder.last_msg);
-
-//        if(user.getStatus().equals("online")) {
-//            holder.img_on.setVisibility(View.VISIBLE);
-//            holder.img_off.setVisibility(View.GONE);
-//        } else {
-//            holder.img_on.setVisibility(View.GONE);
-//            holder.img_off.setVisibility(View.VISIBLE);
-//        }
+        lastMessage(chatter.getId(), holder.last_msg);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, MessageActivity.class);
-                intent.putExtra("userid", user.getId());
+                Intent intent = new Intent(mContext, ChatActivity.class);
+                intent.putExtra("nickname", chatter.getId());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }
@@ -81,25 +75,27 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return mChatters.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView username;
-        public ImageView profile_image;
-//        public CircleImageView img_on;
-//        public CircleImageView img_off;
+        public CircleImageView profile_image;
+        public TextView nickname;
+        public TextView date;
         public TextView last_msg;
+        public ImageView house_image;
+        public TextView not_read;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            username = itemView.findViewById(R.id.username);
-            profile_image = itemView.findViewById(R.id.profile_image);
-//            img_on = itemView.findViewById(R.id.img_on);
-//            img_off = itemView.findViewById(R.id.img_off);
-            last_msg = itemView.findViewById(R.id.last_msg);
+            profile_image = itemView.findViewById(R.id.chat_list_profile_image);
+            nickname = itemView.findViewById(R.id.chat_list_nickname);
+            date = itemView.findViewById(R.id.chat_list_date);
+            last_msg = itemView.findViewById(R.id.chat_list_last_msg);
+            house_image = itemView.findViewById(R.id.chat_list_img_house);
+            not_read = itemView.findViewById(R.id.chat_list_not_read);
         }
     }
 
@@ -107,6 +103,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private void lastMessage(String userid, TextView last_msg) {
 
         theLastMessage = "default";
+        theLastDateOrTime = "default";
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");

@@ -1,5 +1,7 @@
 package com.example.publicdatacompetition.Model;
 
+import java.util.List;
+
 import okhttp3.MultipartBody;
 
 public class House {
@@ -49,12 +51,13 @@ public class House {
     private String toilet2_description;//화장실2 소개
 
     private String movedate;//입주가능일
+    private List<MultipartBody.Part> fileList;//매물 사진
 
     public House() {
 
     }
 
-    public House(String userId, String residence_name, String code, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
+    public House(String userId, String residence_name, String code, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate, List<MultipartBody.Part> fileList) {
         this.userId = userId;
         this.residence_name = residence_name;
         this.code = code;
@@ -93,6 +96,7 @@ public class House {
         this.toilet1_description = toilet1_description;
         this.toilet2_description = toilet2_description;
         this.movedate = movedate;
+        this.fileList = fileList;
     }
 
     public String getUserId() {
@@ -397,5 +401,13 @@ public class House {
 
     public void setMovedate(String movedate) {
         this.movedate = movedate;
+    }
+
+    public List<MultipartBody.Part> getFileList() {
+        return fileList;
+    }
+
+    public void setFileList(List<MultipartBody.Part> fileList) {
+        this.fileList = fileList;
     }
 }

@@ -1,26 +1,23 @@
 package com.example.publicdatacompetition.Model;
 
-public class User {
+import android.app.Application;
+
+public class Chatter extends Application {
     String id;
-    String username;
     String nickname;
     String phone;
     String imageURL;
-    String status;
     String search;
 
-    public User(String id, String username, String nickname, String phone, String imageURL, String status, String search) {
+    public Chatter(String id, String nickname, String phone, String imageURL, String search) {
         this.id = id;
-        this.username = username;
         this.nickname = nickname;
         this.phone = phone;
         this.imageURL = imageURL;
-        this.status = status;
         this.search = search;
     }
 
-    public User() {
-
+    public Chatter() {
     }
 
     public String getId() {
@@ -29,14 +26,6 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getNickname() {
@@ -61,14 +50,6 @@ public class User {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getSearch() {

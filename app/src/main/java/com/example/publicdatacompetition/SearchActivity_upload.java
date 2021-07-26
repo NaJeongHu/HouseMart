@@ -143,14 +143,14 @@ public class SearchActivity_upload extends AppCompatActivity {
             entity.setAddress(str[2]);
 
             if (search != null) {
-                int start = entity.getName().indexOf(search);
+                int start = entity.getName().indexOf(search); //entity 이름에서 search가 처음 등장하는 idx 반환
                 if (start!=-1) {  // 검색어가 포함된 경우
                     entity.setStart(start);
                     entity.setEnd(search.length()+start);
-                    arr.add(entity);
+                    arr.add(entity); //entity 이름이 search를 포함하기 때문에 arr에 추가
                 }
             } else {
-                adapter = null;
+                adapter = null; //검색하는 것이 없다면 adapter을 null로 만드나??
             }
         }
     }
