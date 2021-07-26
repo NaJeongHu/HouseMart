@@ -34,7 +34,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.ll_chatting:
-                Intent intent = new Intent(SettingActivity.this, ChatActivity.class);
+                Intent intent = new Intent(SettingActivity.this, ChatListActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;

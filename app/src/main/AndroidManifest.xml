@@ -40,10 +40,10 @@
             android:parentActivityName=".LoginActivity" />
         <activity android:name=".SettingActivity" />
         <activity
-            android:name=".MessageActivity"
-            android:parentActivityName=".ChatActivity" />
-        <activity
             android:name=".ChatActivity"
+            android:parentActivityName=".ChatListActivity" />
+        <activity
+            android:name=".ChatListActivity"
             android:parentActivityName=".SettingActivity" />
         <activity android:name=".ListActivity" />
         <activity android:name=".MapActivity" />
