@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatListActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/chat_list_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@android:color/white"
+            android:backgroundTint="@android:color/white"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/chat_list_btn_back"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/icon_back" />
+
+                <TextView
+                    android:id="@+id/chat_list_con_titles"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:text="@string/chat_list_title"
+                    android:textAlignment="center"
+                    android:textSize="18dp"
+                    android:textColor="#000000"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/applesdgothicneob"
+                    android:maxLines="1"/>
+
+                <ImageView
+                    android:id="@+id/chat_list_search"
+                    android:layout_gravity="center|right"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="24dp"
+                    app:srcCompat="@drawable/icon_search" />
+
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/chat_list_appbar"/>
+
+</RelativeLayout>
