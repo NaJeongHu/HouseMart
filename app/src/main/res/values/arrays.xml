@@ -15,4 +15,16 @@
         <item>0</item>
         <item>50</item>
     </array>
+    <array name="ratio4">
+        <item>0</item>
+        <item>40</item>
+    </array>
+    <array name="ratio5">
+        <item>0</item>
+        <item>20</item>
+    </array>
+    <array name="ratio6">
+        <item>0</item>
+        <item>200</item>
+    </array>
 </resources>

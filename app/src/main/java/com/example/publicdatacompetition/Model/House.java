@@ -1,11 +1,14 @@
 package com.example.publicdatacompetition.Model;
 
+import okhttp3.MultipartBody;
+
 public class House {
     private String userId;//사용자 이름
     private String residence_name;//아파트 이름
 
     private String code;//아파트 코드
-    private Integer dong, ho;//동,호수
+    private Integer dong;//동
+    private Integer ho;//호수
     private Double net_leaseable_area;//전용면적
     private Double leaseable_area;//공급면적
 

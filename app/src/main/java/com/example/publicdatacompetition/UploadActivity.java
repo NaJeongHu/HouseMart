@@ -849,7 +849,12 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     public String translatePrice(Long price) {
 
         String a = "", b = "", c = "";
-
+        if(price==0){
+            return "0원";
+        }
+        if(price==-1){
+            return "무제한";
+        }
         if (price >= 100000000) {
             Long price1 = price / 100000000;
             price %= 100000000;
@@ -863,7 +868,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         if (price > 0) {
             c = " " + price.toString();
         }
-
         return a + b + c + "원";
     }
 

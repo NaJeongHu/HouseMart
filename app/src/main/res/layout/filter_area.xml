@@ -30,25 +30,27 @@
                 android:fontFamily="@font/applesdgothicneob"
                 android:textSize="15dp" />
             <TextView
+                android:id="@+id/tv_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="평수로 전환"
+                android:text="크기"
                 android:textColor="@color/custom_blue"
                 android:textSize="12dp"
                 android:gravity="right"/>
         </LinearLayout>
 
         <com.google.android.material.slider.RangeSlider
+            android:id="@+id/slider4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:values="@array/ratio0"
-            app:thumbColor="#C4E8FA"
-            app:trackColor="@color/custom_blue"
-            app:tickColor="@color/custom_blue"
-            app:labelBehavior="gone"
             android:stepSize="1"
             android:valueFrom="0"
-            android:valueTo="214"/>
+            android:valueTo="200"
+            app:labelBehavior="gone"
+            app:thumbColor="#C4E8FA"
+            app:tickColor="@color/custom_blue"
+            app:trackColor="@color/custom_blue"
+            app:values="@array/ratio6" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +67,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:text="107m²(32평)"
+                android:text="100m²(30.3평)"
                 android:textSize="12dp"
                 android:gravity="center"/>
             <TextView
