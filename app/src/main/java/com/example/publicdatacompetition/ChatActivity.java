@@ -74,10 +74,10 @@ public class ChatActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        profile_image = findViewById(R.id.profile_image);
-        username = findViewById(R.id.username);
-        text_send = findViewById(R.id.text_send);
-        btn_send = findViewById(R.id.btn_send);
+//        profile_image = findViewById(R.id.profile_image);
+//        username = findViewById(R.id.username);
+//        text_send = findViewById(R.id.text_send);
+//        btn_send = findViewById(R.id.btn_send);
 
         intent = getIntent();
         userid = intent.getStringExtra("userid");
@@ -102,7 +102,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Chatter chatter = snapshot.getValue(Chatter.class);
-                username.setText(chatter.getUsername());
+//                username.setText(chatter.getUsername());
                 if(chatter.getImageURL().equals("default")) {
                     profile_image.setImageResource(R.drawable.preview);
                 } else {
