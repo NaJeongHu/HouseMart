@@ -37,6 +37,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private Button mRegionButton, mSearchButton;
     private ImageView mBackButton, mFilterButton;
     private TextView mItemCount, mToolbarTitle;
+    private ArrayList<PermittedHouse> PermittedList;
+    private ListRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onItemClick(View v, int position) {
                         Intent intent = new Intent(getApplicationContext(), HouseInfoActivity.class);
+                        intent.putExtra("idx",PermittedList.get(position).getIdx());
                         startActivity(intent);
                         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     }
@@ -166,13 +169,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getDataFromServer() {
         // TODO: 2021-07-23 connect retrofit
+
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
         mRESTApi.getList().enqueue(new Callback<List<PermittedHouse>>() {
             @Override
             public void onResponse(Call<List<PermittedHouse>> call, Response<List<PermittedHouse>> response) {
                 List<PermittedHouse> Result = (List<PermittedHouse>) response.body();
-                ArrayList<PermittedHouse> PermittedList = (ArrayList) Result;
+                PermittedList = (ArrayList) Result;
                 mItemCount.setText(PermittedList.size() + "채의 집을 구경하세요");
+                connectToAdapter();
                 Log.d("PermittedList", String.valueOf(PermittedList.get(0)));
                 Log.d("PermittedList", PermittedList.get(0).getResidence_name());
                 Log.d("PermittedList", "" + PermittedList.get(0).getTitleImg());
@@ -185,25 +190,42 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
+
+
+
+
+        // todo : 1. 세진님이 upload activity, filter 완성하기
+        // todo : 2. 진아님이 unchecked house 검증하기
+        // todo : 3. 정후님이 houseinfo activity 연결하기
+        // todo : 4. 진아님이 상세매물에서 채팅 연결하기
+        // todo : 5. 진아님이 채팅에서 가계약 버튼 만들기
+        // todo : 6. 세진님이 회사계좌로 가계약금 수신 및 송신, 서버에 거래 상황 갱신
+        // todo : 7. 정후님이 거래중인 내역 List view, detail layout 완성, data binding
+        // todo : 8. 세진님이 공인중개사 인증기능, 공인중개사 매물 list, 중개하기, 중개완료 구현
+
+        // todo : final. Design
+
+
         // TODO: 2021-07-23 connect adapter on another thread
+
+    }
+
+    private void connectToAdapter() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                arr = new ArrayList<>();
-//                getcode();
-//                readDataFromCsv();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                        if(arr.isEmpty() == false || arr.size() != 0){
+                        if(PermittedList.isEmpty() == false || PermittedList.size() != 0){
 //                            Collections.sort(arr,new Filtering_for_ganada());
-//                            Tv_cnt.setText(arr.size()+ "개의 의원을 나열했어요");
-//                            adapter = new CustomAdapter(getApplicationContext(), arr, subject);
-//                            recyclerView.setAdapter(adapter);
-//                            adapter.notifyDataSetChanged();
-//                        }else if(arr.size() == 0){
-//                            Tv_cnt.setText("검색 결과가 없어요.");
-//                        }
+                            mItemCount.setText(PermittedList.size()+ "채의 아파트를 나열했어요");
+                            adapter = new ListRecyclerAdapter(getApplicationContext(), PermittedList);
+                            mRecyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }else if(PermittedList.size() == 0){
+                            mItemCount.setText("검색 결과가 없어요.");
+                        }
 //                        base_progressBar.setVisibility(View.GONE);
                     }
                 });

@@ -1,6 +1,8 @@
 package com.example.publicdatacompetition.Model;
 
-public class User {
+import android.app.Application;
+
+public class User extends Application {
     String id;
     String username;
     String nickname;
