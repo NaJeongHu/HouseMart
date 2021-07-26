@@ -18,7 +18,7 @@ public class House {
     private Integer provisional_down_pay_per;//가계약금 비율
     private Integer down_pay_per;//계약금 비율
     private Integer intermediate_pay_per;//중도금 비율
-    private Integer balence_per;//잔금 비율
+    private Integer balance_per;//잔금 비율
 
     private Integer room_num;//방 개수
     private Integer toilet_num;//욕실 개수
@@ -34,14 +34,14 @@ public class House {
 
     private boolean nego;//네고가능
 
-    private String short_descriptioin;//짧은 집 소개
+    private String short_description;//짧은 집 소개
     private String long_description;//긴 집 소개
-    private String apartment_descriptioin;//아파트 소개
-    private String livingroom_descriptioin;//거실 소개
+    private String apartment_description;//아파트 소개
+    private String livingroom_description;//거실 소개
     private String kitchen_description;//주방 소개
-    private String room1_descriptioin;//방1 소개
+    private String room1_description;//방1 소개
     private String room2_description;//방2 소개
-    private String room3_descriptioin;//방3 소개
+    private String room3_description;//방3 소개
     private String toilet1_description;//화장실1 소개
     private String toilet2_description;//화장실2 소개
 
@@ -51,7 +51,7 @@ public class House {
 
     }
 
-    public House(String userId, String residence_name, String code, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balence_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_descriptioin, String long_description, String apartment_descriptioin, String livingroom_descriptioin, String kitchen_description, String room1_descriptioin, String room2_description, String room3_descriptioin, String toilet1_description, String toilet2_description, String movedate) {
+    public House(String userId, String residence_name, String code, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
         this.userId = userId;
         this.residence_name = residence_name;
         this.code = code;
@@ -67,7 +67,7 @@ public class House {
         this.provisional_down_pay_per = provisional_down_pay_per;
         this.down_pay_per = down_pay_per;
         this.intermediate_pay_per = intermediate_pay_per;
-        this.balence_per = balence_per;
+        this.balance_per = balance_per;
         this.room_num = room_num;
         this.toilet_num = toilet_num;
         this.middle_door = middle_door;
@@ -79,14 +79,14 @@ public class House {
         this.induction = induction;
         this.airsystem = airsystem;
         this.nego = nego;
-        this.short_descriptioin = short_descriptioin;
+        this.short_description = short_description;
         this.long_description = long_description;
-        this.apartment_descriptioin = apartment_descriptioin;
-        this.livingroom_descriptioin = livingroom_descriptioin;
+        this.apartment_description = apartment_description;
+        this.livingroom_description = livingroom_description;
         this.kitchen_description = kitchen_description;
-        this.room1_descriptioin = room1_descriptioin;
+        this.room1_description = room1_description;
         this.room2_description = room2_description;
-        this.room3_descriptioin = room3_descriptioin;
+        this.room3_description = room3_description;
         this.toilet1_description = toilet1_description;
         this.toilet2_description = toilet2_description;
         this.movedate = movedate;
@@ -212,12 +212,12 @@ public class House {
         this.intermediate_pay_per = intermediate_pay_per;
     }
 
-    public Integer getBalence_per() {
-        return balence_per;
+    public Integer getbalance_per() {
+        return balance_per;
     }
 
-    public void setBalence_per(Integer balence_per) {
-        this.balence_per = balence_per;
+    public void setbalance_per(Integer balance_per) {
+        this.balance_per = balance_per;
     }
 
     public Integer getRoom_num() {
@@ -308,12 +308,12 @@ public class House {
         this.nego = nego;
     }
 
-    public String getShort_descriptioin() {
-        return short_descriptioin;
+    public String getShort_description() {
+        return short_description;
     }
 
-    public void setShort_descriptioin(String short_descriptioin) {
-        this.short_descriptioin = short_descriptioin;
+    public void setShort_description(String short_description) {
+        this.short_description = short_description;
     }
 
     public String getLong_description() {
@@ -324,20 +324,20 @@ public class House {
         this.long_description = long_description;
     }
 
-    public String getApartment_descriptioin() {
-        return apartment_descriptioin;
+    public String getApartment_description() {
+        return apartment_description;
     }
 
-    public void setApartment_descriptioin(String apartment_descriptioin) {
-        this.apartment_descriptioin = apartment_descriptioin;
+    public void setApartment_description(String apartment_description) {
+        this.apartment_description = apartment_description;
     }
 
-    public String getLivingroom_descriptioin() {
-        return livingroom_descriptioin;
+    public String getLivingroom_description() {
+        return livingroom_description;
     }
 
-    public void setLivingroom_descriptioin(String livingroom_descriptioin) {
-        this.livingroom_descriptioin = livingroom_descriptioin;
+    public void setLivingroom_description(String livingroom_description) {
+        this.livingroom_description = livingroom_description;
     }
 
     public String getKitchen_description() {
@@ -348,12 +348,12 @@ public class House {
         this.kitchen_description = kitchen_description;
     }
 
-    public String getRoom1_descriptioin() {
-        return room1_descriptioin;
+    public String getRoom1_description() {
+        return room1_description;
     }
 
-    public void setRoom1_descriptioin(String room1_descriptioin) {
-        this.room1_descriptioin = room1_descriptioin;
+    public void setRoom1_description(String room1_description) {
+        this.room1_description = room1_description;
     }
 
     public String getRoom2_description() {
@@ -364,12 +364,12 @@ public class House {
         this.room2_description = room2_description;
     }
 
-    public String getRoom3_descriptioin() {
-        return room3_descriptioin;
+    public String getRoom3_description() {
+        return room3_description;
     }
 
-    public void setRoom3_descriptioin(String room3_descriptioin) {
-        this.room3_descriptioin = room3_descriptioin;
+    public void setRoom3_description(String room3_description) {
+        this.room3_description = room3_description;
     }
 
     public String getToilet1_description() {

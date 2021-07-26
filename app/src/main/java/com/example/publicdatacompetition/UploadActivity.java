@@ -87,7 +87,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private Integer provisional_down_pay_per;//가계약금 비율
     private Integer down_pay_per;//계약금 비율
     private Integer intermediate_pay_per;//중도금 비율
-    private Integer balence_per;//잔금 비율
+    private Integer balance_per;//잔금 비율
 
     private Integer room_num;//방 개수
     private Integer toilet_num;//욕실 개수
@@ -103,14 +103,14 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private boolean nego;//네고가능
 
-    private String short_descriptioin;//짧은 집 소개
+    private String short_description;//짧은 집 소개
     private String long_description;//긴 집 소개
-    private String apartment_descriptioin;//아파트 소개
-    private String livingroom_descriptioin;//거실 소개
+    private String apartment_description;//아파트 소개
+    private String livingroom_description;//거실 소개
     private String kitchen_description;//주방 소개
-    private String room1_descriptioin;//방1 소개
+    private String room1_description;//방1 소개
     private String room2_description;//방2 소개
-    private String room3_descriptioin;//방3 소개
+    private String room3_description;//방3 소개
     private String toilet1_description;//화장실1 소개
     private String toilet2_description;//화장실2 소개
 
@@ -349,7 +349,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 if (edit_introduce_short.getText().toString().equals("") || edit_introduce_short.getText().toString() == null) {
 
                 } else {
-                    short_descriptioin = edit_introduce_short.getText().toString();
+                    short_description = edit_introduce_short.getText().toString();
                 }
             }
 
@@ -391,7 +391,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 if (edit_introuce_apartment.getText().toString().equals("") || edit_introuce_apartment.getText().toString() == null) {
 
                 } else {
-                    apartment_descriptioin = edit_introuce_apartment.getText().toString();
+                    apartment_description = edit_introuce_apartment.getText().toString();
                 }
             }
 
@@ -412,7 +412,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 if (edit_introduce_livingroom.getText().toString().equals("") || edit_introduce_livingroom.getText().toString() == null) {
 
                 } else {
-                    livingroom_descriptioin = edit_introduce_livingroom.getText().toString();
+                    livingroom_description = edit_introduce_livingroom.getText().toString();
                 }
             }
 
@@ -454,7 +454,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 if (edit_introduce_room1.getText().toString().equals("") || edit_introduce_room1.getText().toString() == null) {
 
                 } else {
-                    room1_descriptioin = edit_introduce_room1.getText().toString();
+                    room1_description = edit_introduce_room1.getText().toString();
                 }
             }
 
@@ -496,7 +496,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 if (edit_introduce_room3.getText().toString().equals("") || edit_introduce_room3.getText().toString() == null) {
 
                 } else {
-                    room3_descriptioin = edit_introduce_room3.getText().toString();
+                    room3_description = edit_introduce_room3.getText().toString();
                 }
             }
 
@@ -678,11 +678,11 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     down_pay_per = Math.round(thumbs.get(0));
                     intermediate_pay_per = Math.round(thumbs.get(1));
                     intermediate_pay_per = intermediate_pay_per - down_pay_per;
-                    balence_per = 100 - down_pay_per - intermediate_pay_per;
-                    tv_ratio1.setText(down_pay_per + "% : " + intermediate_pay_per + "% : " + balence_per + "%");
+                    balance_per = 100 - down_pay_per - intermediate_pay_per;
+                    tv_ratio1.setText(down_pay_per + "% : " + intermediate_pay_per + "% : " + balance_per + "%");
                     price_first = sale_price * down_pay_per / 100;
                     price_second = sale_price * intermediate_pay_per / 100;
-                    price_third = sale_price * balence_per / 100;
+                    price_third = sale_price * balance_per / 100;
                     tv_price_ratio1.setText("계약금 : " + translatePrice(price_first) + "\n중도금 : " + translatePrice(price_second) + "\n    잔금 : " + translatePrice(price_third));
                     tv_price_ratio2.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
                 }
@@ -887,7 +887,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
-                mHouse = new House(userId,  residence_name,  code,  dong,  ho,  net_leaseable_area,  leaseable_area,  residence_type,  sale_type,  sale_price,  monthly_price,  admin_expenses,  provisional_down_pay_per,  down_pay_per,  intermediate_pay_per,  balence_per,  room_num,  toilet_num,  middle_door,  air_conditioner,  refrigerator,  kimchi_refrigerator,  closet,  oven,  induction,  airsystem,  nego,  short_descriptioin,  long_description,  apartment_descriptioin,  livingroom_descriptioin,  kitchen_description,  room1_descriptioin,  room2_description,  room3_descriptioin,  toilet1_description,  toilet2_description,  movedate);
+                mHouse = new House(userId,  residence_name,  code,  dong,  ho,  net_leaseable_area,  leaseable_area,  residence_type,  sale_type,  sale_price,  monthly_price,  admin_expenses,  provisional_down_pay_per,  down_pay_per,  intermediate_pay_per,  balance_per,  room_num,  toilet_num,  middle_door,  air_conditioner,  refrigerator,  kimchi_refrigerator,  closet,  oven,  induction,  airsystem,  nego,  short_description,  long_description,  apartment_description,  livingroom_description,  kitchen_description,  room1_description,  room2_description,  room3_description,  toilet1_description,  toilet2_description,  movedate);
 
                 // todo : retrofit
 
