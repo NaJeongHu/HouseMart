@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.publicdatacompetition.Model.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -73,6 +74,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth auth;
     private DatabaseReference reference;
     private FirebaseUser fuser;
+    private User user;
 
     private StorageReference storageReference;
     private Uri imageUri;
@@ -324,6 +326,11 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        user.setId(email);
+        user.setIdnum(idnum);
+        user.setName(username);
+        user.setNickname(nickname);
 
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
         mRESTApi.joinRequest(email,password,password_confirm,phone,username,nickname,idnum,filePart)

@@ -908,12 +908,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             public void onClick(View v) {
                 alertDialog.dismiss();
                 userId = ((User) getApplication()).getId();
+                // todo : user 객채 만들어서 불러와야함
 
                 boolean judge_pic = models.get(2).getUri() != null && models.get(4).getUri() != null && models.get(5).getUri() != null && models.get(9).getUri() != null;
                 if (judge_pic) {
                     pictures = new ArrayList<>();
                     getPicturesList();
-                    mHouse = new House(userId,  residence_name,  code,  dong,  ho,  net_leaseable_area,  leaseable_area,  residence_type,  sale_type,  sale_price,  monthly_price,  admin_expenses,  provisional_down_pay_per,  down_pay_per,  intermediate_pay_per,  balance_per,  room_num,  toilet_num,  middle_door,  air_conditioner,  refrigerator,  kimchi_refrigerator,  closet,  oven,  induction,  airsystem,  nego,  short_description,  long_description,  apartment_description,  livingroom_description,  kitchen_description,  room1_description,  room2_description,  room3_description,  toilet1_description,  toilet2_description,  movedate, pictures);
+                    mHouse = new House(userId,  residence_name,  code,  dong,  ho,  net_leaseable_area,  leaseable_area,  residence_type,  sale_type,  sale_price,  monthly_price,  admin_expenses,  provisional_down_pay_per,  down_pay_per,  intermediate_pay_per,  balance_per,  room_num,  toilet_num,  middle_door,  air_conditioner,  refrigerator,  kimchi_refrigerator,  closet,  oven,  induction,  airsystem,  nego,  short_description,  long_description,  apartment_description,  livingroom_description,  kitchen_description,  room1_description,  room2_description,  room3_description,  toilet1_description,  toilet2_description,  movedate);
                     doRetrofit();
 //                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
 //                    startActivity(intent);
@@ -938,8 +939,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void doRetrofit() {
+
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-        mRESTApi.uploadHouse(mHouse)
+        Log.d("beforeUploadActivity", "pictures" + pictures);
+        mRESTApi.uploadHouse(mHouse.getUserId(), mHouse.getResidence_name(), mHouse.getCode(), mHouse.getDong(), mHouse.getHo(), mHouse.getNet_leaseable_area(), mHouse.getLeaseable_area(), mHouse.getResidence_type(), mHouse.getSale_type(), mHouse.getSale_price(), mHouse.getMonthly_price(), mHouse.getAdmin_expenses(), mHouse.getProvisional_down_pay_per(), mHouse.getDown_pay_per(), mHouse.getIntermediate_pay_per(), mHouse.getBalance_per(), mHouse.getRoom_num(), mHouse.getToilet_num(), mHouse.isMiddle_door(), mHouse.isAir_conditioner(), mHouse.isRefrigerator(), mHouse.isKimchi_refrigerator(), mHouse.isCloset(), mHouse.isOven(), mHouse.isInduction(), mHouse.isAirsystem(), mHouse.isNego(), mHouse.getShort_description(), mHouse.getLong_description(), mHouse.getApartment_description(), mHouse.getLivingroom_description(), mHouse.getKitchen_description(), mHouse.getRoom1_description(), mHouse.getRoom2_description(), mHouse.getRoom3_description(), mHouse.getToilet1_description(), mHouse.getToilet2_description(), mHouse.getMovedate(), pictures)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -948,6 +951,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                         String test_body = response.headers().get("code");
                         Log.d("UploadActivity", "headercode" + test_code);
                         Log.d("UploadActivity", "body" + test_body);
+                        Log.d("UploadActivity", "pictures" + pictures);
 
 
                         if (test_code != null && test_code.equals("00")) {

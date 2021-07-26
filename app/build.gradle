@@ -50,6 +50,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation group: 'com.opencsv', name: 'opencsv', version: '4.6'
+    implementation 'me.relex:circleindicator:1.2.2'
 
     //firebase
     implementation 'com.google.firebase:firebase-auth:21.0.1'
@@ -59,4 +60,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
 
     implementation group: 'com.opencsv', name: 'opencsv', version: '4.4'
+
 }

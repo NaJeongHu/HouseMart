@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapter.CustomViewHolder> {
+class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapter.CustomViewHolder> {
 
     private ArrayList<PermittedHouse> mList;
     private LayoutInflater mInflate;
@@ -46,7 +46,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListRecyclerAdapter.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         //holder.card_item_list_titleimg.setBackground();
         holder.residence_name.setText(mList.get(position).getResidence_name());
         String info = null;
@@ -65,7 +65,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return (null != mList ? mList.size() : 0);
     }
 
 

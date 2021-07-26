@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/ll_houseinfo_toilet1"
+    android:visibility="gone"
+    android:layout_margin="20dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_houseinfo_toilet1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/tv_detail_explain_toilet1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:text="매물에 대한 판매자의 설명"/>
+
+</LinearLayout>
