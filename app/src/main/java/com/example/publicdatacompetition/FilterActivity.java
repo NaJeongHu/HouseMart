@@ -171,7 +171,10 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.btn_filter:
                 mFilter = new Filter(type, guarantee_start, guarantee_end, monthly_start, monthly_end, sale_start, sale_end, area_start, area_end, year, park);
-                //todo 리스트 액티비티로 필터의 값 전달
+                //todo : 리스트 액티비티로 필터의 값 전달
+                Intent intent = new Intent(FilterActivity.this, ListActivity.class);
+                intent.putExtra("filter",mFilter);
+                startActivity(intent);
                 break;
 
             case R.id.tv_reset:
