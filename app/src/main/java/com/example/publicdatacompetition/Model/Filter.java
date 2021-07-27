@@ -1,6 +1,8 @@
 package com.example.publicdatacompetition.Model;
 
-public class Filter {
+import java.io.Serializable;
+
+public class Filter implements Serializable {
     private String type;//"월세","전세","매매" 유형
     private long guarantee_start;//전세금 최소
     private long guarantee_end;//전세금 최대  //-1일 경우 무제한
