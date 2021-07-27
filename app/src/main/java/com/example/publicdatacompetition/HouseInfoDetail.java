@@ -1,16 +1,22 @@
-package com.example.publicdatacompetition.Model;
+package com.example.publicdatacompetition;
 
-import java.util.List;
+import java.io.Serializable;
 
-import okhttp3.MultipartBody;
+public class HouseInfoDetail implements Serializable {
+ /*
+    private String lastModifiedDate, offerState, residence_name, code, residence_type, sale_type
+    private Integer dong, ho, provisional_down_pay_per, down_pay_per, intermediate_pay_per, balance_per, room_num, toilet_num;
+    private Double net_leaseable_area, leaseable_area;
+    private Long sale_price, monthly_price, admin_expenses
+    private boolean middle_door, air_conditioner, refrigerator, kimchi_refrigerator, closet, oven, induction, airsystem, nego */
 
-public class House {
-    private String userId;//사용자 이름
+    private String lastModifiedDate;
+    private String offerState;
     private String residence_name;//아파트 이름
 
     private String code;//아파트 코드
-    private Integer dong;//동
-    private Integer ho;//호수
+    private Integer dong; // 동
+    private Integer ho; // 호수
     private Double net_leaseable_area;//전용면적
     private Double leaseable_area;//공급면적
 
@@ -51,59 +57,23 @@ public class House {
     private String toilet2_description;//화장실2 소개
 
     private String movedate;//입주가능일
-//    private List<MultipartBody.Part> fileList;//매물 사진
+    // todo : 동하님 서버에 있는 dto 그냥 받는 게 나을 듯. 받은 뒤 get set 다시 하기 일단 임시방편
 
-    public House() {
 
+    public String getLastModifiedDate() {
+        return lastModifiedDate;
     }
 
-    public House(String userId, String residence_name, String code, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
-        this.userId = userId;
-        this.residence_name = residence_name;
-        this.code = code;
-        this.dong = dong;
-        this.ho = ho;
-        this.net_leaseable_area = net_leaseable_area;
-        this.leaseable_area = leaseable_area;
-        this.residence_type = residence_type;
-        this.sale_type = sale_type;
-        this.sale_price = sale_price;
-        this.monthly_price = monthly_price;
-        this.admin_expenses = admin_expenses;
-        this.provisional_down_pay_per = provisional_down_pay_per;
-        this.down_pay_per = down_pay_per;
-        this.intermediate_pay_per = intermediate_pay_per;
-        this.balance_per = balance_per;
-        this.room_num = room_num;
-        this.toilet_num = toilet_num;
-        this.middle_door = middle_door;
-        this.air_conditioner = air_conditioner;
-        this.refrigerator = refrigerator;
-        this.kimchi_refrigerator = kimchi_refrigerator;
-        this.closet = closet;
-        this.oven = oven;
-        this.induction = induction;
-        this.airsystem = airsystem;
-        this.nego = nego;
-        this.short_description = short_description;
-        this.long_description = long_description;
-        this.apartment_description = apartment_description;
-        this.livingroom_description = livingroom_description;
-        this.kitchen_description = kitchen_description;
-        this.room1_description = room1_description;
-        this.room2_description = room2_description;
-        this.room3_description = room3_description;
-        this.toilet1_description = toilet1_description;
-        this.toilet2_description = toilet2_description;
-        this.movedate = movedate;
+    public void setLastModifiedDate(String lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getOfferState() {
+        return offerState;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setOfferState(String offerState) {
+        this.offerState = offerState;
     }
 
     public String getResidence_name() {

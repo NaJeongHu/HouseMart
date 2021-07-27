@@ -14,10 +14,4 @@
         android:fontFamily="@font/applesdgothicneob"
         android:textColor="@color/black"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:text="매물에 대한 판매자의 설명"/>
-
 </LinearLayout>

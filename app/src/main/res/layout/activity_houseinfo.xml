@@ -69,28 +69,62 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <include layout="@layout/detail_picture"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/detail_picture"/>
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    app:ci_drawable="@drawable/menu_indicator_s"
+                    app:ci_drawable_unselected="@drawable/menu_indicator_d"
+                    app:ci_height="6dp"
+                    app:ci_width="6dp" />
+
+            </FrameLayout>
+
             <include layout="@layout/detail_apartment"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="#6BCBCFBA"/>
+
             <include layout="@layout/detail_price"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="#6BCBCFBA"/>
+
             <include layout="@layout/detail_detail"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="#6BCBCFBA"/>
+
             <include layout="@layout/detail_option"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="#6BCBCFBA"/>
+
             <include layout="@layout/detail_explain"/>
+            <include layout="@layout/detail_explain_apart"/>
+            <include layout="@layout/detail_explain_livingroom"/>
+            <include layout="@layout/detail_explain_kitchen"/>
+            <include layout="@layout/detail_explain_room1"/>
+            <include layout="@layout/detail_explain_room2"/>
+            <include layout="@layout/detail_explain_room3"/>
+            <include layout="@layout/detail_explain_toilet1"/>
+            <include layout="@layout/detail_explain_toilet2"/>
+            <include layout="@layout/detail_explain_long"/>
 
         </LinearLayout>
 
