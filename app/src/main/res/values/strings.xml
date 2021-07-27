@@ -4,6 +4,8 @@
     //activity_chat_list.xml
     <string name="chat_list_title">채팅 목록</string>
 
+    //activity_chat.xml
+    <string name="chat_hint">메시지를 입력하세요</string>
 
     //UploadActivity
     <string name="living">거실테스트</string>
