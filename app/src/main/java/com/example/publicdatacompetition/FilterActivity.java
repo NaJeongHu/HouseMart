@@ -20,18 +20,17 @@ import java.util.List;
 
 public class FilterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private AppCompatButton btn_type1, btn_type2, btn_type3,btn_year_0,btn_year_1,btn_year_5,btn_year_10,btn_year_15,btn_year_15up
-            ,btn_park_0,btn_park_1,btn_park_2,btn_filter;
+    private AppCompatButton btn_typeall, btn_type1, btn_type2, btn_type3, btn_year_0, btn_year_1, btn_year_5, btn_year_10, btn_year_15, btn_year_15up, btn_park_0, btn_park_1, btn_park_2, btn_filter;
     private LinearLayout linear_month, linear_guarantee, linear_sale;
-    private TextView tv_price1, tv_price2, tv_price3, tv_area,tv_reset;
+    private TextView tv_price1, tv_price2, tv_price3, tv_area, tv_reset;
     private RangeSlider slider1, slider2, slider3, slider4;
     private ImageView btn_back;
 
 
-    private boolean S, M, C;
-    private long guarantee_start, guarantee_end, monthly_start, monthly_end, sale_start, sale_end;
-    private double area_start, area_end;
-    private int year,park;
+    private String type;
+    private long guarantee_start=0L, guarantee_end=-1L, monthly_start=0L, monthly_end=-1L, sale_start=0L, sale_end=-1L;
+    private double area_start=0D, area_end=-1D;
+    private int year=-1, park=0;
 
     private Filter mFilter;
 
@@ -45,16 +44,13 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
     public void init() {
 
-        S = false;
-        M = true;
-        C = false;
-
         UploadActivity uploadActivity = new UploadActivity();
 
         btn_back = findViewById(R.id.btn_back);
         btn_filter = findViewById(R.id.btn_filter);
         tv_reset = findViewById(R.id.tv_reset);
 
+        btn_typeall = findViewById(R.id.btn_typeall);
         btn_type1 = findViewById(R.id.btn_type1);
         btn_type2 = findViewById(R.id.btn_type2);
         btn_type3 = findViewById(R.id.btn_type3);
@@ -82,6 +78,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         tv_price3 = findViewById(R.id.tv_price3);
         tv_area = findViewById(R.id.tv_area);
 
+
+        btn_typeall.setOnClickListener(this);
         btn_type1.setOnClickListener(this);
         btn_type2.setOnClickListener(this);
         btn_type3.setOnClickListener(this);
@@ -100,7 +98,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         tv_reset.setOnClickListener(this);
         btn_back.setOnClickListener(this);
         btn_filter.setOnClickListener(this);
-
 
 
         slider1.addOnChangeListener(new RangeSlider.OnChangeListener() {
@@ -142,21 +139,19 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         slider4.addOnChangeListener(new RangeSlider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                String x,y;
+                String x, y;
                 List<Float> thumbs = slider.getValues();
                 area_start = Math.round(thumbs.get(0));
                 area_end = Math.round(thumbs.get(1));
                 if (area_start != 200) {
-                    x= ((int) area_start)+"m²("+uploadActivity.translateArea(area_start)+")";
-                }
-                else{
+                    x = ((int) area_start) + "m²(" + uploadActivity.translateArea(area_start) + ")";
+                } else {
                     area_start = -1;
                     x = "무제한";
                 }
                 if (area_end != 200) {
-                    y =((int) area_end)+"m²("+uploadActivity.translateArea(area_end)+")";
-                }
-                else{
+                    y = ((int) area_end) + "m²(" + uploadActivity.translateArea(area_end) + ")";
+                } else {
                     area_end = -1;
                     y = "무제한";
                 }
@@ -175,7 +170,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.btn_filter:
-                mFilter = new Filter(S,M,C,guarantee_start,guarantee_end,monthly_start,monthly_end,sale_start,sale_end,area_start,area_end,year,park);
+                mFilter = new Filter(type, guarantee_start, guarantee_end, monthly_start, monthly_end, sale_start, sale_end, area_start, area_end, year, park);
                 //todo 리스트 액티비티로 필터의 값 전달
                 break;
 
@@ -184,110 +179,102 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(FilterActivity.this, FilterActivity.class));
                 break;
 
+            case R.id.btn_typeall:
+                resetTypeButton();
+                btn_typeall.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
+                btn_typeall.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
+                linear_month.setVisibility(View.VISIBLE);
+                linear_guarantee.setVisibility(View.VISIBLE);
+                linear_sale.setVisibility(View.VISIBLE);
+                type = "전체";
+                break;
+
             case R.id.btn_type1:
-                if (M) {
-                    btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
-                    btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
-                    linear_month.setVisibility(View.GONE);
-                    if (!C) {
-                        linear_guarantee.setVisibility(View.GONE);
-                    }
-                    M = false;
-                } else {
-                    btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
-                    btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                    linear_month.setVisibility(View.VISIBLE);
-                    linear_guarantee.setVisibility(View.VISIBLE);
-                    M = true;
-                }
+                resetTypeButton();
+                btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
+                btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
+                linear_month.setVisibility(View.VISIBLE);
+                linear_guarantee.setVisibility(View.VISIBLE);
+                linear_sale.setVisibility(View.GONE);
+                type = "월세";
                 break;
 
             case R.id.btn_type2:
-                if (C) {
-                    btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
-                    btn_type2.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
-                    if (!M) {
-                        linear_guarantee.setVisibility(View.GONE);
-                    }
-                    C = false;
-                } else {
-                    btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
-                    btn_type2.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                    linear_guarantee.setVisibility(View.VISIBLE);
-                    C = true;
-                }
+                resetTypeButton();
+                btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
+                btn_type2.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
+                linear_month.setVisibility(View.GONE);
+                linear_guarantee.setVisibility(View.VISIBLE);
+                linear_sale.setVisibility(View.GONE);
+                type = "전세";
                 break;
 
             case R.id.btn_type3:
-                if (S) {
+                resetTypeButton();
                     btn_type3.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
                     btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
-                    linear_sale.setVisibility(View.GONE);
-                    S = false;
-                } else {
-                    btn_type3.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
-                    btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                    linear_sale.setVisibility(View.VISIBLE);
-                    S = true;
-                }
+                linear_month.setVisibility(View.GONE);
+                linear_guarantee.setVisibility(View.GONE);
+                linear_sale.setVisibility(View.VISIBLE);
+                type = "매매";
                 break;
 
             case R.id.btn_year_0:
                 resetYearButton();
                 btn_year_0.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_year_0.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                year=0;
+                year = -1;
                 break;
             case R.id.btn_year_1:
                 resetYearButton();
                 btn_year_1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_year_1.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                year=1;
+                year = 1;
                 break;
             case R.id.btn_year_5:
                 resetYearButton();
                 btn_year_5.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_year_5.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                year=5;
+                year = 5;
                 break;
             case R.id.btn_year_10:
                 resetYearButton();
                 btn_year_10.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_year_10.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                year=10;
+                year = 10;
                 break;
             case R.id.btn_year_15:
                 resetYearButton();
                 btn_year_15.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_year_15.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                year=15;
+                year = 15;
                 break;
             case R.id.btn_year_15up:
                 resetYearButton();
                 btn_year_15up.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_year_15up.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                year=-1;
+                year = 16;
                 break;
 
             case R.id.btn_park_0:
                 resetParkButton();
                 btn_park_0.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_park_0.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                park=0;
+                park = 0;
                 break;
 
             case R.id.btn_park_1:
                 resetParkButton();
                 btn_park_1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_park_1.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                park=1;
+                park = 1;
                 break;
 
             case R.id.btn_park_2:
                 resetParkButton();
                 btn_park_2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_park_2.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                park=2;
+                park = 2;
                 break;
         }
     }
@@ -324,7 +311,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         else return -1;
         return result * 10000;
     }
-    private void resetYearButton(){
+
+    private void resetYearButton() {
         btn_year_0.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
         btn_year_0.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
         btn_year_1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
@@ -339,12 +327,23 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         btn_year_15up.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
     }
 
-    private void resetParkButton(){
+    private void resetParkButton() {
         btn_park_0.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
         btn_park_0.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
         btn_park_1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
         btn_park_1.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
         btn_park_2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
         btn_park_2.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
+    }
+
+    private void resetTypeButton() {
+        btn_typeall.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
+        btn_typeall.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
+        btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
+        btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
+        btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
+        btn_type2.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
+        btn_type3.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
+        btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
     }
 }
