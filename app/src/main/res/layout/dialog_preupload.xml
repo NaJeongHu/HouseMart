@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:elevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="등록완료하시겠습니까?"
+            android:textColor="@color/black"
+            android:fontFamily="@font/applesdgothicneob"
+            android:textSize="20dp"
+            android:gravity="top|center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edit_preupload_roomcnt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="방 개수"/>
+
+            <EditText
+                android:id="@+id/edit_preupload_toiletcnt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="화장실 개수"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_no_dialog_preupload"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                app:backgroundTint="@null"
+                android:text="취소"
+                android:textColor="@color/black"
+                android:background="@drawable/button_round_white"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_okay_dialog_preupload"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:backgroundTint="@null"
+                android:text="확인"
+                android:textColor="@color/white"
+                android:background="@drawable/button_round_blue"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

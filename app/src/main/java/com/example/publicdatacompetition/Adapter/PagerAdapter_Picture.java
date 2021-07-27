@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import androidx.viewpager.widget.PagerAdapter;
 import com.example.publicdatacompetition.Model.Pictures;
 import com.example.publicdatacompetition.R;
 import com.example.publicdatacompetition.UploadActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
 import java.util.List;
@@ -68,9 +72,15 @@ public class PagerAdapter_Picture extends PagerAdapter {
 
         ImageView imageView;
         TextView tv_type;
+        TextView tv_item_explain;
+        TextInputEditText textInputEditText;
+        TextInputLayout textInputLayout;
 
         imageView = view.findViewById(R.id.image_picture);
         tv_type = view.findViewById(R.id.tv_picture_type);
+        tv_item_explain = view.findViewById(R.id.tv_item_upload_explain);
+        textInputEditText = view.findViewById(R.id.edit_item_upload_explain);
+        textInputLayout = view.findViewById(R.id.text_input_layout_item_upload_explain);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,8 +103,38 @@ public class PagerAdapter_Picture extends PagerAdapter {
 
         //imageView.setBackgroundResource(pictures.get(position).getImage());
         tv_type.setText(pictures.get(position).getType());
+        //tv_item_explain.setText(pictures.get(position).getType());
+        tv_item_explain.setText(pictures.get(position).getTitle());
+        //CharSequence cs = "ddd";
+        //textInputEditText.setHint(cs);
+        //textInputEditText.setHint("testesteset");
+        String guide = pictures.get(position).getGuide();
+        textInputLayout.setHint(guide);
 
+        if (pictures.get(position).getDescription() != null) {
+            textInputEditText.setText(pictures.get(position).getDescription());
+        }
 
+        textInputEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (textInputEditText.getText().toString().equals("") || textInputEditText.getText().toString() == null) {
+
+                } else {
+                    pictures.get(position).setDescription(textInputEditText.getText().toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
         container.addView(view, 0);
@@ -109,4 +149,5 @@ public class PagerAdapter_Picture extends PagerAdapter {
     public interface OnItemClick {
         void onClick (int value);
     }
+
 }

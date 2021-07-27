@@ -1,39 +1,30 @@
 package com.example.publicdatacompetition;
 
+import com.example.publicdatacompetition.Model.Member;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class HouseInfoDetail implements Serializable {
- /*
-    private String lastModifiedDate, offerState, residence_name, code, residence_type, sale_type
-    private Integer dong, ho, provisional_down_pay_per, down_pay_per, intermediate_pay_per, balance_per, room_num, toilet_num;
-    private Double net_leaseable_area, leaseable_area;
-    private Long sale_price, monthly_price, admin_expenses
-    private boolean middle_door, air_conditioner, refrigerator, kimchi_refrigerator, closet, oven, induction, airsystem, nego */
 
-    private String lastModifiedDate;
-    private String offerState;
+    private Long id;
     private String residence_name;//아파트 이름
-
     private String code;//아파트 코드
     private Integer dong; // 동
     private Integer ho; // 호수
     private Double net_leaseable_area;//전용면적
     private Double leaseable_area;//공급면적
-
     private String residence_type;//매물 타입(A,V,O)
     private String sale_type;//"월세","전세","매매"
     private Long sale_price;//매매가/전세금/보증금
     private Long monthly_price;//월세
     private Long admin_expenses;//관리비
-
     private Integer provisional_down_pay_per;//가계약금 비율
     private Integer down_pay_per;//계약금 비율
     private Integer intermediate_pay_per;//중도금 비율
     private Integer balance_per;//잔금 비율
-
     private Integer room_num;//방 개수
     private Integer toilet_num;//욕실 개수
-
     private boolean middle_door;//중문
     private boolean air_conditioner;//시스템 에어컨
     private boolean refrigerator;//냉장고
@@ -42,38 +33,37 @@ public class HouseInfoDetail implements Serializable {
     private boolean oven;//빌트인 오븐
     private boolean induction;//인덕션
     private boolean airsystem;//공조기 시스템
-
     private boolean nego;//네고가능
-
     private String short_description;//짧은 집 소개
     private String long_description;//긴 집 소개
     private String apartment_description;//아파트 소개
     private String livingroom_description;//거실 소개
     private String kitchen_description;//주방 소개
-    private String room1_description;//방1 소개
-    private String room2_description;//방2 소개
-    private String room3_description;//방3 소개
-    private String toilet1_description;//화장실1 소개
-    private String toilet2_description;//화장실2 소개
-
+    private String room1_description;//방 1 소개
+    private String room2_description;//방 2 소개
+    private String room3_description;//방 3 소개
+    private String toilet1_description;//화장실 1 소개
+    private String toilet2_description;//화장실 2 소개
     private String movedate;//입주가능일
-    // todo : 동하님 서버에 있는 dto 그냥 받는 게 나을 듯. 받은 뒤 get set 다시 하기 일단 임시방편
+    private Member member;
+    private String address;//도로명 주소
+    private String sido;//시도
+    private String sigungoo;//시군구
+    private String dongri;//동리
+    private String date;//사용승인일일
+    private String allnumber;//세대수
+    private String parkingnumber;//총주차대수
+    private String contact;//관리사무소 연락처
+    private String porch_description; // 현관 설명
+    private Integer numOfImg;
+    private List<String> salesOfferURLS;
 
-
-    public String getLastModifiedDate() {
-        return lastModifiedDate;
+    public Long getId() {
+        return id;
     }
 
-    public void setLastModifiedDate(String lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getOfferState() {
-        return offerState;
-    }
-
-    public void setOfferState(String offerState) {
-        this.offerState = offerState;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getResidence_name() {
@@ -370,5 +360,101 @@ public class HouseInfoDetail implements Serializable {
 
     public void setMovedate(String movedate) {
         this.movedate = movedate;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSido() {
+        return sido;
+    }
+
+    public void setSido(String sido) {
+        this.sido = sido;
+    }
+
+    public String getSigungoo() {
+        return sigungoo;
+    }
+
+    public void setSigungoo(String sigungoo) {
+        this.sigungoo = sigungoo;
+    }
+
+    public String getDongri() {
+        return dongri;
+    }
+
+    public void setDongri(String dongri) {
+        this.dongri = dongri;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getAllnumber() {
+        return allnumber;
+    }
+
+    public void setAllnumber(String allnumber) {
+        this.allnumber = allnumber;
+    }
+
+    public String getParkingnumber() {
+        return parkingnumber;
+    }
+
+    public void setParkingnumber(String parkingnumber) {
+        this.parkingnumber = parkingnumber;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getPorch_description() {
+        return porch_description;
+    }
+
+    public void setPorch_description(String porch_description) {
+        this.porch_description = porch_description;
+    }
+
+    public Integer getNumOfImg() {
+        return numOfImg;
+    }
+
+    public void setNumOfImg(Integer numOfImg) {
+        this.numOfImg = numOfImg;
+    }
+
+    public List<String> getSalesOfferURLS() {
+        return salesOfferURLS;
+    }
+
+    public void setSalesOfferURLS(List<String> salesOfferURLS) {
+        this.salesOfferURLS = salesOfferURLS;
     }
 }

@@ -35,20 +35,21 @@ public interface RESTApi {
     @Multipart
     @POST("/joinRequest")
     Call<ResponseBody> joinRequest(
-            @Query("id") String id,
+            @Query("userId;") String userId,
             @Query("password") String password,
             @Query("passwordConfirm") String passwordConfirm,
             @Query("phoneNumber") String phoneNumber,
             @Query("name") String name,
             @Query("nickname") String nickname,
             @Query("idNum") String idNum,
+            @Query("firebaseId") String firebaseId,
             @Part MultipartBody.Part file);
 
     @POST("/board/get/list")
     Call<List<PermittedHouse>> getList();
 
     @POST("/board/get/OneByIdx")
-    Call<List<HouseInfoDetail>> getDetailInfo(
+    Call<HouseInfoDetail> getDetailInfo(
             @Query("idx") Long idx);
 
     @Multipart

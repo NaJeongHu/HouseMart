@@ -27,220 +27,220 @@
             android:textColor="@color/custom_blue"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="아파트 소개"
-            android:textSize="15dp"
-            android:fontFamily="@font/applesdgothicneob" />
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:text="아파트 소개"-->
+<!--            android:textSize="15dp"-->
+<!--            android:fontFamily="@font/applesdgothicneob" />-->
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="150dp">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_introduce_apartment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="12dp"
-                android:hint="위치, 주변 시설, 아파트 정원 등등 상세하게 적어주세요" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/edit_introduce_apartment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textSize="12dp"-->
+<!--                android:hint="위치, 주변 시설, 아파트 정원 등등 상세하게 적어주세요" />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="거실 소개"
-            android:textSize="15dp"
-            android:fontFamily="@font/applesdgothicneob" />
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:text="거실 소개"-->
+<!--            android:textSize="15dp"-->
+<!--            android:fontFamily="@font/applesdgothicneob" />-->
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="150dp">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_introduce_livingroom"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="12dp"
-                android:hint="베란다 확장 여부, 방향, 바닥재질 등등 상세하게 적어주세요" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/edit_introduce_livingroom"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textSize="12dp"-->
+<!--                android:hint="베란다 확장 여부, 방향, 바닥재질 등등 상세하게 적어주세요" />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="주방 소개"
-            android:textSize="15dp"
-            android:fontFamily="@font/applesdgothicneob" />
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="주방 소개"-->
+<!--            android:textSize="15dp"-->
+<!--            android:fontFamily="@font/applesdgothicneob" />-->
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="150dp">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_introduce_kitchen"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="12dp"
-                android:hint="수납공간, 식탁 여부, 인테리어 등등 상세하게 적어주세요" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/edit_introduce_kitchen"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textSize="12dp"-->
+<!--                android:hint="수납공간, 식탁 여부, 인테리어 등등 상세하게 적어주세요" />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="1번 방 소개"
-            android:textSize="15dp"
-            android:fontFamily="@font/applesdgothicneob" />
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="1번 방 소개"-->
+<!--            android:textSize="15dp"-->
+<!--            android:fontFamily="@font/applesdgothicneob" />-->
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="150dp">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_introduce_room1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="12dp"
-                android:hint="채광이나 방향, 벽지 상태 등등 상세하게 적어주세요" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/edit_introduce_room1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textSize="12dp"-->
+<!--                android:hint="채광이나 방향, 벽지 상태 등등 상세하게 적어주세요" />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="2번 방 소개"
-            android:textSize="15dp"
-            android:fontFamily="@font/applesdgothicneob" />
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
+<!--    </LinearLayout>-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="2번 방 소개"-->
+<!--            android:textSize="15dp"-->
+<!--            android:fontFamily="@font/applesdgothicneob" />-->
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="150dp">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_introduce_room2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="12dp"
-                android:hint="채광이나 방향, 벽지 상태 등등 상세하게 적어주세요" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/edit_introduce_room2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textSize="12dp"-->
+<!--                android:hint="채광이나 방향, 벽지 상태 등등 상세하게 적어주세요" />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="3번 방 소개"
-            android:textSize="15dp"
-            android:fontFamily="@font/applesdgothicneob" />
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="3번 방 소개"-->
+<!--            android:textSize="15dp"-->
+<!--            android:fontFamily="@font/applesdgothicneob" />-->
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="150dp">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_introduce_room3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="12dp"
-                android:hint="방이 더 있을 경우 이 곳에 적어주세요" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/edit_introduce_room3"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textSize="12dp"-->
+<!--                android:hint="방이 더 있을 경우 이 곳에 적어주세요" />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="1번 화장실 소개"
-            android:textSize="15dp"
-            android:fontFamily="@font/applesdgothicneob" />
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="1번 화장실 소개"-->
+<!--            android:textSize="15dp"-->
+<!--            android:fontFamily="@font/applesdgothicneob" />-->
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="150dp">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_introduce_toilet1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="12dp"
-                android:hint="수압, 환풍기 상태, 습식/건식 여부 등등 상세하게 적어주세요" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/edit_introduce_toilet1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textSize="12dp"-->
+<!--                android:hint="수압, 환풍기 상태, 습식/건식 여부 등등 상세하게 적어주세요" />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="2번 화장실 소개"
-            android:textSize="15dp"
-            android:fontFamily="@font/applesdgothicneob" />
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="2번 화장실 소개"-->
+<!--            android:textSize="15dp"-->
+<!--            android:fontFamily="@font/applesdgothicneob" />-->
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="150dp">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_introduce_toilet2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="12dp"
-                android:hint="화장실이 더 있을 경우 이 곳에 적어주세요" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/edit_introduce_toilet2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textSize="12dp"-->
+<!--                android:hint="화장실이 더 있을 경우 이 곳에 적어주세요" />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"

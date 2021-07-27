@@ -1,5 +1,6 @@
 package com.example.publicdatacompetition;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -16,13 +17,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.publicdatacompetition.Model.House;
+import com.example.publicdatacompetition.Model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -67,8 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(ii);
                 break;
             case R.id.btn_main_sell:
-                Intent iii = new Intent(MainActivity.this, UploadActivity.class);
-                startActivity(iii);
+                upload_dialog(view);
+//                Intent iii = new Intent(MainActivity.this, UploadActivity.class);
+//                startActivity(iii);
                 break;
         }
     }
@@ -131,5 +137,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             Log.d("위치 권한 있는 상태", "");
         }
+    }
+
+    public void upload_dialog(View v) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_preupload, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setView(dialogView);
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        EditText mEditroomcnt = dialogView.findViewById(R.id.edit_preupload_roomcnt);
+        EditText mEdittoiletcnt = dialogView.findViewById(R.id.edit_preupload_toiletcnt);
+
+        Button ok_btn = dialogView.findViewById(R.id.btn_okay_dialog_preupload);
+        ok_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+
+//                Intent intent = new Intent(getBaseContext(), UploadActivity.class);
+//                intent.putExtra("roomcnt","1");
+//                intent.putExtra("toiletcnt","1");
+//                intent.putExtra("subject","아파트");
+//                startActivity(intent);
+
+                if (!mEditroomcnt.getText().toString().equals("") && !mEdittoiletcnt.getText().toString().equals("")) {
+                    Intent intent = new Intent(getBaseContext(), UploadActivity.class);
+                    intent.putExtra("roomcnt",mEditroomcnt.getText().toString());
+                    intent.putExtra("toiletcnt",mEdittoiletcnt.getText().toString());
+                    intent.putExtra("subject","아파트");
+                    startActivity(intent);
+                } else {
+
+                }
+
+
+
+//                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                startActivityForResult(intent,0);
+            }
+        });
+
+        Button cancle_btn = dialogView.findViewById(R.id.btn_no_dialog_preupload);
+        cancle_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
     }
 }

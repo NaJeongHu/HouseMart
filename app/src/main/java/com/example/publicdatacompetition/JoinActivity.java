@@ -333,7 +333,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         user.setNickname(nickname);
 
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-        mRESTApi.joinRequest(email,password,password_confirm,phone,username,nickname,idnum,filePart)
+        mRESTApi.joinRequest(email,password,password_confirm,phone,username,nickname,idnum,"",filePart)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
