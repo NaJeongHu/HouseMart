@@ -81,7 +81,23 @@ public class SearchActivity_upload extends AppCompatActivity {
                 String code = arr.get(position).getCode();
                 String name = arr.get(position).getName();
                 String address = arr.get(position).getAddress();
+                String sido = arr.get(position).getSido();
+                String sigungoo = arr.get(position).getSigungoo();
+                String dongri = arr.get(position).getDongri();
+                String date = arr.get(position).getDate();
+                String allnumber = arr.get(position).getAllnumber();
+                String parkingnumber = arr.get(position).getParkingnumber();
+                String contact = arr.get(position).getContact();
+
                 Intent data = new Intent();
+
+                data.putExtra("sido",sido);
+                data.putExtra("sigungoo",sigungoo);
+                data.putExtra("dongri",dongri);
+                data.putExtra("date",date);
+                data.putExtra("allnumber",allnumber);
+                data.putExtra("parkingnumber",parkingnumber);
+                data.putExtra("contact",contact);
                 data.putExtra("code", code);
                 data.putExtra("name", name);
                 data.putExtra("address", address);
@@ -115,7 +131,7 @@ public class SearchActivity_upload extends AppCompatActivity {
     }
 
     private void readDataFromCsv() {
-        InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.apartmentname));
+        InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.apartment));
         CSVReader reader = new CSVReader(is);
         List<String[]> list = null;
         try {
@@ -138,9 +154,16 @@ public class SearchActivity_upload extends AppCompatActivity {
         for (String[] str : list) {
 
             item_search_name entity = new item_search_name();
-            entity.setCode(str[0]);
-            entity.setName(str[1]);
-            entity.setAddress(str[2]);
+            entity.setSido(str[0]);
+            entity.setSigungoo(str[1]);
+            entity.setDongri(str[3]);
+            entity.setCode(str[4]);
+            entity.setName(str[5]);
+            entity.setAddress(str[8]);
+            entity.setDate(str[10]);
+            entity.setAllnumber(str[12]);
+            entity.setParkingnumber(str[43]);
+            entity.setContact(str[49]);
 
             if (search != null) {
                 int start = entity.getName().indexOf(search); //entity 이름에서 search가 처음 등장하는 idx 반환

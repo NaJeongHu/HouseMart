@@ -6,9 +6,18 @@ import okhttp3.MultipartBody;
 
 public class House {
     private String userId;//사용자 이름
-    private String residence_name;//아파트 이름
 
+    private String residence_name;//아파트 이름
     private String code;//아파트 코드
+    private String address;//도로명 주소
+    private String sido;//시도
+    private String sigungoo;//시군구
+    private String dongri;//동리
+    private String date;//사용승인일일
+    private String allnumber;//세대수
+    private String parkingnumber;//총주차대수
+    private String contact;//관리사무소 연락처
+
     private Integer dong;//동
     private Integer ho;//호수
     private Double net_leaseable_area;//전용면적
@@ -57,10 +66,18 @@ public class House {
 
     }
 
-    public House(String userId, String residence_name, String code, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
+    public House(String userId, String residence_name, String code, String address, String sido, String sigungoo, String dongri, String date, String allnumber, String parkingnumber, String contact, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
         this.userId = userId;
         this.residence_name = residence_name;
         this.code = code;
+        this.address = address;
+        this.sido = sido;
+        this.sigungoo = sigungoo;
+        this.dongri = dongri;
+        this.date = date;
+        this.allnumber = allnumber;
+        this.parkingnumber = parkingnumber;
+        this.contact = contact;
         this.dong = dong;
         this.ho = ho;
         this.net_leaseable_area = net_leaseable_area;
@@ -96,6 +113,70 @@ public class House {
         this.toilet1_description = toilet1_description;
         this.toilet2_description = toilet2_description;
         this.movedate = movedate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSido() {
+        return sido;
+    }
+
+    public void setSido(String sido) {
+        this.sido = sido;
+    }
+
+    public String getSigungoo() {
+        return sigungoo;
+    }
+
+    public void setSigungoo(String sigungoo) {
+        this.sigungoo = sigungoo;
+    }
+
+    public String getDongri() {
+        return dongri;
+    }
+
+    public void setDongri(String dongri) {
+        this.dongri = dongri;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getAllnumber() {
+        return allnumber;
+    }
+
+    public void setAllnumber(String allnumber) {
+        this.allnumber = allnumber;
+    }
+
+    public String getParkingnumber() {
+        return parkingnumber;
+    }
+
+    public void setParkingnumber(String parkingnumber) {
+        this.parkingnumber = parkingnumber;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getUserId() {

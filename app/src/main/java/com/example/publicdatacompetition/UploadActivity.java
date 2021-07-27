@@ -63,12 +63,11 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private AppCompatButton btn_type1, btn_type2, btn_type3, btn_no_dialog_upload, btn_okay_dialog_upload;
     private LinearLayout lin_price_month;
     private TextInputEditText edit_dong, edit_ho, edit_area1, edit_area2, edit_price_all, edit_price_month, edit_price_manage,
-            edit_introduce_short, edit_introduce_long,edit_room,edit_toilet,edit_introduce_livingroom,edit_introduce_kitchen,
-            edit_introduce_room1,edit_introduce_room2,edit_introduce_room3,edit_introduce_toilet1,edit_introduce_toilet2,edit_introuce_apartment;
-    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month
-            , tv_price_manage, tv_complete, edit_apartment,tv_movedate,tv_apartaddress_load;
+            edit_introduce_short, edit_introduce_long, edit_room, edit_toilet, edit_introduce_livingroom, edit_introduce_kitchen,
+            edit_introduce_room1, edit_introduce_room2, edit_introduce_room3, edit_introduce_toilet1, edit_introduce_toilet2, edit_introuce_apartment;
+    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage, tv_complete, edit_apartment, tv_movedate, tv_apartaddress_load;
     private RangeSlider slider_ratio1, slider_ratio2;
-    private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet,chk_oven,chk_induction,chk_airsystem,chk_movenow;
+    private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet, chk_oven, chk_induction, chk_airsystem, chk_movenow;
     private Calendar cal;
 
     private long price_first, price_second, price_third;
@@ -90,9 +89,17 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private String userId;//사용자 이름
     private String residence_name;//아파트 이름
-
     private String code;//아파트 코드
-    private Integer dong,ho;//동,호수
+    private String address;//도로명 주소
+    private String sido;//시도
+    private String sigungoo;//시군구
+    private String dongri;//동리
+    private String date;//사용승인일일
+    private String allnumber;//세대수
+    private String parkingnumber;//총주차대수
+    private String contact;//관리사무소 연락처
+
+    private Integer dong, ho;//동,호수
     private Double net_leaseable_area;//전용면적
     private Double leaseable_area;//공급면적
 
@@ -198,7 +205,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         edit_introduce_short = findViewById(R.id.edit_introduce_short);
         edit_introduce_long = findViewById(R.id.edit_introduce_long);
         edit_introuce_apartment = findViewById(R.id.edit_introduce_apartment);
-        edit_introduce_livingroom= findViewById(R.id.edit_introduce_livingroom);
+        edit_introduce_livingroom = findViewById(R.id.edit_introduce_livingroom);
         edit_introduce_kitchen = findViewById(R.id.edit_introduce_kitchen);
         edit_introduce_room1 = findViewById(R.id.edit_introduce_room1);
         edit_introduce_room2 = findViewById(R.id.edit_introduce_room2);
@@ -252,8 +259,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         edit_apartment.setOnClickListener(this);
         tv_movedate.setOnClickListener(this);
 
-        residence_type="A";
-        sale_type="월세";
+        residence_type = "A";
+        sale_type = "월세";
 
         nego = false;
         air_conditioner = false;
@@ -268,7 +275,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         callbackMethod = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                movedate = year+"년 "+month+"월 "+dayOfMonth+"일";
+                movedate = year + "년 " + month + "월 " + dayOfMonth + "일";
                 tv_movedate.setText(movedate);
             }
         };
@@ -746,7 +753,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
                     lin_price_month.setVisibility(View.VISIBLE);
                     tv_price_type.setText("보증금");
-                    sale_type="월세";
+                    sale_type = "월세";
                 }
                 break;
 
@@ -760,7 +767,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
                     lin_price_month.setVisibility(View.GONE);
                     tv_price_type.setText("전세금");
-                    sale_type="전세";
+                    sale_type = "전세";
                 }
                 break;
 
@@ -774,7 +781,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
                     lin_price_month.setVisibility(View.GONE);
                     tv_price_type.setText("매매가");
-                    sale_type="매매";
+                    sale_type = "매매";
                 }
                 break;
 
@@ -848,7 +855,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.edit_apartment:
                 Intent intent = new Intent(getBaseContext(), SearchActivity_upload.class);
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
 
             case R.id.chk_movenow:
                 if (chk_movenow.isChecked()) {
@@ -860,7 +867,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.tv_movedate:
-                DatePickerDialog dialog = new DatePickerDialog(UploadActivity.this,callbackMethod, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+                DatePickerDialog dialog = new DatePickerDialog(UploadActivity.this, callbackMethod, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
                 dialog.show();
         }
     }
@@ -869,10 +876,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     public String translatePrice(Long price) {
 
         String a = "", b = "", c = "";
-        if(price==0){
+        if (price == 0) {
             return "0원";
         }
-        if(price==-1){
+        if (price == -1) {
             return "무제한";
         }
         if (price >= 100000000) {
@@ -918,7 +925,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 if (judge_pic) {
                     pictures = new ArrayList<>();
                     getPicturesList();
-                    mHouse = new House(userId,  residence_name,  code,  dong,  ho,  net_leaseable_area,  leaseable_area,  residence_type,  sale_type,  sale_price,  monthly_price,  admin_expenses,  provisional_down_pay_per,  down_pay_per,  intermediate_pay_per,  balance_per,  room_num,  toilet_num,  middle_door,  air_conditioner,  refrigerator,  kimchi_refrigerator,  closet,  oven,  induction,  airsystem,  nego,  short_description,  long_description,  apartment_description,  livingroom_description,  kitchen_description,  room1_description,  room2_description,  room3_description,  toilet1_description,  toilet2_description,  movedate);
+                    mHouse = new House(userId, residence_name, address, sido, sigungoo, dongri, date, allnumber, parkingnumber, contact, code, dong, ho, net_leaseable_area, leaseable_area, residence_type, sale_type, sale_price, monthly_price, admin_expenses, provisional_down_pay_per, down_pay_per, intermediate_pay_per, balance_per, room_num, toilet_num, middle_door, air_conditioner, refrigerator, kimchi_refrigerator, closet, oven, induction, airsystem, nego, short_description, long_description, apartment_description, livingroom_description, kitchen_description, room1_description, room2_description, room3_description, toilet1_description, toilet2_description, movedate);
                     doRetrofit();
 //                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
 //                    startActivity(intent);
@@ -946,7 +953,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
         Log.d("beforeUploadActivity", "pictures" + pictures);
-        mRESTApi.uploadHouse(mHouse.getUserId(), mHouse.getResidence_name(), mHouse.getCode(), mHouse.getDong(), mHouse.getHo(), mHouse.getNet_leaseable_area(), mHouse.getLeaseable_area(), mHouse.getResidence_type(), mHouse.getSale_type(), mHouse.getSale_price(), mHouse.getMonthly_price(), mHouse.getAdmin_expenses(), mHouse.getProvisional_down_pay_per(), mHouse.getDown_pay_per(), mHouse.getIntermediate_pay_per(), mHouse.getBalance_per(), mHouse.getRoom_num(), mHouse.getToilet_num(), mHouse.isMiddle_door(), mHouse.isAir_conditioner(), mHouse.isRefrigerator(), mHouse.isKimchi_refrigerator(), mHouse.isCloset(), mHouse.isOven(), mHouse.isInduction(), mHouse.isAirsystem(), mHouse.isNego(), mHouse.getShort_description(), mHouse.getLong_description(), mHouse.getApartment_description(), mHouse.getLivingroom_description(), mHouse.getKitchen_description(), mHouse.getRoom1_description(), mHouse.getRoom2_description(), mHouse.getRoom3_description(), mHouse.getToilet1_description(), mHouse.getToilet2_description(), mHouse.getMovedate(), pictures)
+        mRESTApi.uploadHouse(mHouse.getUserId(), mHouse.getResidence_name(), mHouse.getCode(), mHouse.getAddress(), mHouse.getSido(), mHouse.getSigungoo(), mHouse.getDongri(), mHouse.getDate(), mHouse.getAllnumber(), mHouse.getParkingnumber(), mHouse.getContact(), mHouse.getDong(), mHouse.getHo(), mHouse.getNet_leaseable_area(), mHouse.getLeaseable_area(), mHouse.getResidence_type(), mHouse.getSale_type(), mHouse.getSale_price(), mHouse.getMonthly_price(), mHouse.getAdmin_expenses(), mHouse.getProvisional_down_pay_per(), mHouse.getDown_pay_per(), mHouse.getIntermediate_pay_per(), mHouse.getBalance_per(), mHouse.getRoom_num(), mHouse.getToilet_num(), mHouse.isMiddle_door(), mHouse.isAir_conditioner(), mHouse.isRefrigerator(), mHouse.isKimchi_refrigerator(), mHouse.isCloset(), mHouse.isOven(), mHouse.isInduction(), mHouse.isAirsystem(), mHouse.isNego(), mHouse.getShort_description(), mHouse.getLong_description(), mHouse.getApartment_description(), mHouse.getLivingroom_description(), mHouse.getKitchen_description(), mHouse.getRoom1_description(), mHouse.getRoom2_description(), mHouse.getRoom3_description(), mHouse.getToilet1_description(), mHouse.getToilet2_description(), mHouse.getMovedate(), pictures)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -964,7 +971,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(UploadActivity.this,"업로드 실패" + test_code , Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UploadActivity.this, "업로드 실패" + test_code, Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -976,7 +983,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void getPicturesList() {
-        for (int i =0; i<models.size(); i++) {
+        for (int i = 0; i < models.size(); i++) {
             Uri uri = models.get(i).getUri();
             if (uri != null) {
                 transUriToMultiPartFile(uri, i);
@@ -989,7 +996,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         Bitmap img = null;
 
         //change Uri to Bitmap
-        if(uri != null) {
+        if (uri != null) {
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     img = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), uri));
@@ -1000,7 +1007,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 e.printStackTrace();
             }
         } else {
-            img  = BitmapFactory.decodeResource(getResources(), R.drawable.preview);
+            img = BitmapFactory.decodeResource(getResources(), R.drawable.preview);
         }
 
         try {
@@ -1060,13 +1067,22 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
             }
 
-            viewPager.setCurrentItem(picture_clicked_position,true);
+            viewPager.setCurrentItem(picture_clicked_position, true);
         }
-        if(requestCode == NAME_REQUEST){
+        if (requestCode == NAME_REQUEST) {
             if (resultCode == RESULT_OK) {
                 code = data.getStringExtra("code");
                 residence_name = data.getStringExtra("name");
-                String address = data.getStringExtra("address");
+                address = data.getStringExtra("address");
+                sido = data.getStringExtra("sido");
+                sigungoo = data.getStringExtra("sigungoo");
+                dongri = data.getStringExtra("dongri");
+                date = data.getStringExtra("date");
+                allnumber = data.getStringExtra("allnumber");
+                parkingnumber = data.getStringExtra("parkingnumber");
+                contact = data.getStringExtra("contact");
+
+
                 edit_apartment.setText(residence_name);
                 tv_apartaddress_load.setText(address);
             } else if (resultCode == RESULT_CANCELED) {
