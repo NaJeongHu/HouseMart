@@ -12,4 +12,22 @@ public class Filter {
     private double area_end;//면적 최대  //-1일 경우 무제한
     private int year;//준공일로부터 년도 // -1일 경우 15년 이상 선택
     private int park;//주차 가능 대수
+
+    public Filter(boolean s, boolean m, boolean c, long guarantee_start, long guarantee_end, long monthly_start, long monthly_end, long sale_start, long sale_end, double area_start, double area_end, int year, int park) {
+        S = s;
+        M = m;
+        C = c;
+        this.guarantee_start = guarantee_start;
+        this.guarantee_end = guarantee_end;
+        this.monthly_start = monthly_start;
+        this.monthly_end = monthly_end;
+        this.sale_start = sale_start;
+        this.sale_end = sale_end;
+        this.area_start = area_start;
+        this.area_end = area_end;
+        this.year = year;
+        this.park = park;
+    }
 }
+
+

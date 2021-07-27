@@ -64,7 +64,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private LinearLayout lin_price_month;
     private TextInputEditText edit_dong, edit_ho, edit_area1, edit_area2, edit_price_all, edit_price_month, edit_price_manage,
             edit_introduce_short, edit_introduce_long, edit_room, edit_toilet, edit_introduce_livingroom, edit_introduce_kitchen,
-            edit_introduce_room1, edit_introduce_room2, edit_introduce_room3, edit_introduce_toilet1, edit_introduce_toilet2, edit_introuce_apartment;
+            edit_introduce_room1, edit_introduce_room2, edit_introduce_room3, edit_introduce_toilet1, edit_introduce_toilet2, edit_introduce_apartment;
     private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage, tv_complete, edit_apartment, tv_movedate, tv_apartaddress_load;
     private RangeSlider slider_ratio1, slider_ratio2;
     private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet, chk_oven, chk_induction, chk_airsystem, chk_movenow;
@@ -207,7 +207,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 //        edit_toilet = findViewById(R.id.edit_toilet);
         edit_introduce_short = findViewById(R.id.edit_introduce_short);
         edit_introduce_long = findViewById(R.id.edit_introduce_long);
-//        edit_introuce_apartment = findViewById(R.id.edit_introduce_apartment);
+//        edit_introduce_apartment = findViewById(R.id.edit_introduce_apartment);
 //        edit_introduce_livingroom= findViewById(R.id.edit_introduce_livingroom);
 //        edit_introduce_kitchen = findViewById(R.id.edit_introduce_kitchen);
 //        edit_introduce_room1 = findViewById(R.id.edit_introduce_room1);
@@ -410,7 +410,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-//        edit_introuce_apartment.addTextChangedListener(new TextWatcher() {
+//        edit_introduce_apartment.addTextChangedListener(new TextWatcher() {
 //            @Override
 //            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 //
@@ -418,10 +418,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 //
 //            @Override
 //            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_introuce_apartment.getText().toString().equals("") || edit_introuce_apartment.getText().toString() == null) {
+//                if (edit_introduce_apartment.getText().toString().equals("") || edit_introduce_apartment.getText().toString() == null) {
 //
 //                } else {
-//                    apartment_description = edit_introuce_apartment.getText().toString();
+//                    apartment_description = edit_introduce_apartment.getText().toString();
 //                }
 //            }
 //

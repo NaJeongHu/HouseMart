@@ -15,6 +15,7 @@ public class House {
     private String dongri;//동리
     private String date;//사용승인일일
     private String allnumber;//세대수
+
     private String parkingnumber;//총주차대수
     private String contact;//관리사무소 연락처
 

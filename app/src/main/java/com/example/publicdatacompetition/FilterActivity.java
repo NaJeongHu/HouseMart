@@ -13,6 +13,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import com.example.publicdatacompetition.Model.Filter;
 import com.google.android.material.slider.RangeSlider;
 
 import java.util.List;
@@ -32,6 +33,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     private double area_start, area_end;
     private int year,park;
 
+    private Filter mFilter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +45,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
     public void init() {
 
-        S = true;
-        M = false;
+        S = false;
+        M = true;
         C = false;
 
         UploadActivity uploadActivity = new UploadActivity();
@@ -172,7 +175,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.btn_filter:
-                // 여기서 필터 조건 돌려줌!
+                mFilter = new Filter(S,M,C,guarantee_start,guarantee_end,monthly_start,monthly_end,sale_start,sale_end,area_start,area_end,year,park);
+                //todo 리스트 액티비티로 필터의 값 전달
                 break;
 
             case R.id.tv_reset:
