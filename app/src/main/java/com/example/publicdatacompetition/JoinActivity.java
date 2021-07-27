@@ -98,7 +98,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         mIvPicture = findViewById(R.id.iv_join_picture);
 
         auth = FirebaseAuth.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        storageReference = FirebaseStorage.getInstance().getReference("profiles");
 
         mIvPicture.setOnClickListener(this);
         mJoinButton.setOnClickListener(this);
@@ -138,7 +138,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
     private File savebitmap(Bitmap bmp) {
         String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-        OutputStream outStream = null;
+        OutputStream outStream;
         // String temp = null;
         File file = new File(extStorageDirectory, "temp.png");
         if (file.exists()) {
@@ -169,12 +169,10 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         pd.show();
 
         if(imageUri != null) { //intent의 결과로 imageUri가 넘어왔다면,
-            Log.d(TAG, "imageUri != null");
+            final StorageReference fileReference = storageReference.child(System.currentTimeMillis()
+                    +"."+getFileExtension(imageUri));
 
-            final StorageReference fileReference = storageReference.child(System.currentTimeMillis() //FirebaseStorage 내부에 upload 내부에
-                    +"."+getFileExtension(imageUri)); //"현재시간.형식"라는 이름의 StorageReference 만들기
-
-            uploadTask = fileReference.putFile(imageUri); //FirebaseStorage에 file을 추가하는 Task를 StorageTask에 할당
+            uploadTask = fileReference.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -182,14 +180,12 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                         throw task.getException();
                     }
 
-                    return fileReference.getDownloadUrl(); //file의 다운로드 url 반환
+                    return fileReference.getDownloadUrl();
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     if(task.isSuccessful()){
-                        Log.d(TAG, "task.isSuccesstul()");
-
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
@@ -199,8 +195,6 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                         reference.updateChildren(map);
 
                         pd.dismiss();
-
-                        Log.d(TAG, "pd.dismiss()");
                     } else {
                         Toast.makeText(JoinActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
                     }
@@ -212,29 +206,28 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         } else {
-            Toast.makeText(JoinActivity.this, "No image selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(JoinActivity.this, "선택된 이미지가 없습니다", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void startLoginActivity() {
-        Intent intent = new Intent(JoinActivity.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
-
     private void register(String email, String password, String password_confirm, final String username, final String nickname, final String phone, final String idnum) {
+        Log.d(TAG, "register(...)...");
+
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            Log.d(TAG, "createUserWithEmailAndPassword...");
+
                             fuser = auth.getCurrentUser(); // 현재 사용자 가져오기
                             fuser.sendEmailVerification()
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()) {
+                                                Log.d(TAG, "sendEmailVerification...");
+
                                                 String userid = fuser.getUid(); // 현재 사용자의 userid
 
                                                 reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
@@ -252,11 +245,15 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if(task.isSuccessful()){
+                                                            Log.d(TAG, "setValue(hashMap)...");
+
                                                             if(imageUri != null) {
                                                                 uploadImage();
+
+                                                                Log.d(TAG, "uploadImage...");
                                                             }
 
-                                                            sendUserInfoToServer(email, password, password_confirm, phone, username, nickname, idnum);
+                                                            sendUserInfoToServer(email, password, password_confirm, phone, username, nickname, idnum, userid);
                                                         }
                                                     }
                                                 });
@@ -270,7 +267,9 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-    private void sendUserInfoToServer(String email, String password, String password_confirm,  final String phone, final String username, final String nickname, final String idnum) {
+    private void sendUserInfoToServer(String userId, String password, String password_confirm,  final String phone, final String username, final String nickname, final String idnum, String firebaseId) {
+        Log.d(TAG, "sendUserInfoToServer...");
+
         File imageFile = null;
         MultipartBody.Part filePart = null;
         Bitmap img = null;
@@ -327,19 +326,21 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
-        user.setId(email);
-        user.setIdnum(idnum);
-        user.setName(username);
-        user.setNickname(nickname);
+        Log.d(TAG, "make imageUri...");
+
+//        user.setId(email);
+//        user.setIdnum(idnum);
+//        user.setName(username);
+//        user.setNickname(nickname);
 
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-        mRESTApi.joinRequest(email,password,password_confirm,phone,username,nickname,idnum,"",filePart)
+        mRESTApi.joinRequest(userId,password,password_confirm,phone,username,nickname,idnum,firebaseId,filePart)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Log.d("testtest", "");
-                        String test = response.headers().get("code");
+                        Log.d(TAG, "joinRequest");
 
+                        String test = response.headers().get("code");
 
                         if (test.equals("00")) {
                             Intent intent = new Intent(JoinActivity.this, LoginActivity.class);

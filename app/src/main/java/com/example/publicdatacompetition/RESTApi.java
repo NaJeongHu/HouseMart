@@ -35,7 +35,7 @@ public interface RESTApi {
     @Multipart
     @POST("/joinRequest")
     Call<ResponseBody> joinRequest(
-            @Query("userId;") String userId,
+            @Query("userId") String userId,
             @Query("password") String password,
             @Query("passwordConfirm") String passwordConfirm,
             @Query("phoneNumber") String phoneNumber,
