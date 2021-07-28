@@ -2,9 +2,12 @@ package com.example.publicdatacompetition;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,9 @@ public class HouseInfoActivity extends AppCompatActivity {
 
     private HouseInfoDetail houseInfoDetail;
     private int mIdx;
+    private ViewPager viewpager_houseinfo;  // circle indicator 넣어야 함
+    private ImageView btn_houseinfo_back;
+    private TextView tv_houseinfo_title, tv_houseinfo_name, tv_houseinfo_price, tv_houseinfo_shortd, tv_houseinfo_uploaddate, tv_houseinfo_roomtoilet, tv_houseinfo_area, tv_houseinfo_adminprice, tv_houseinfo_park;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +35,10 @@ public class HouseInfoActivity extends AppCompatActivity {
     }
 
     private void init() {
-
         mIdx = getIntent().getIntExtra("idx",-1);
+
+
+
     }
 
     private void getDataFromServer() {

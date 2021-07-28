@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/ll_houseinfo_livingroom"
-    android:visibility="gone"
+    android:visibility="visible"
     android:layout_margin="20dp"
     android:orientation="vertical">
 
