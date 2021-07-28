@@ -80,6 +80,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private ViewPager viewPager;
     private PagerAdapter_Picture adapter;
     private List<Pictures> models;
+    private List<String> models_description;
 
     House mHouse;
 
@@ -283,7 +284,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             }
         };
 
-
         edit_dong.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -326,48 +326,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-//        edit_room.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_room.getText().toString().equals("") || edit_room.getText().toString() == null) {
-//
-//                } else {
-//                    room_num = Integer.parseInt(edit_room.getText().toString());
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//
-//        edit_toilet.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_toilet.getText().toString().equals("") || edit_toilet.getText().toString() == null) {
-//
-//                } else {
-//                    toilet_num = Integer.parseInt(edit_toilet.getText().toString());
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-
         edit_introduce_short.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -409,174 +367,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-
-//        edit_introduce_apartment.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_introduce_apartment.getText().toString().equals("") || edit_introduce_apartment.getText().toString() == null) {
-//
-//                } else {
-//                    apartment_description = edit_introduce_apartment.getText().toString();
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//
-//        edit_introduce_livingroom.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_introduce_livingroom.getText().toString().equals("") || edit_introduce_livingroom.getText().toString() == null) {
-//
-//                } else {
-//                    livingroom_description = edit_introduce_livingroom.getText().toString();
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//
-//        edit_introduce_kitchen.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_introduce_kitchen.getText().toString().equals("") || edit_introduce_kitchen.getText().toString() == null) {
-//
-//                } else {
-//                    kitchen_description = edit_introduce_kitchen.getText().toString();
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//
-//        edit_introduce_room1.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_introduce_room1.getText().toString().equals("") || edit_introduce_room1.getText().toString() == null) {
-//
-//                } else {
-//                    room1_description = edit_introduce_room1.getText().toString();
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//
-//        edit_introduce_room2.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_introduce_room2.getText().toString().equals("") || edit_introduce_room2.getText().toString() == null) {
-//
-//                } else {
-//                    room2_description = edit_introduce_room2.getText().toString();
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//
-//        edit_introduce_room3.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_introduce_room3.getText().toString().equals("") || edit_introduce_room3.getText().toString() == null) {
-//
-//                } else {
-//                    room3_description = edit_introduce_room3.getText().toString();
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//
-//        edit_introduce_toilet1.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_introduce_toilet1.getText().toString().equals("") || edit_introduce_toilet1.getText().toString() == null) {
-//
-//                } else {
-//                    toilet1_description = edit_introduce_toilet1.getText().toString();
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
-//
-//        edit_introduce_toilet2.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (edit_introduce_toilet2.getText().toString().equals("") || edit_introduce_toilet2.getText().toString() == null) {
-//
-//                } else {
-//                    toilet2_description = edit_introduce_toilet2.getText().toString();
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
 
         edit_area1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -928,7 +718,15 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 if (judge_pic) {
                     pictures = new ArrayList<>();
                     getPicturesList();
-                    mHouse = new House(userId, residence_name, address, sido, sigungoo, dongri, date, allnumber, parkingnumber, contact, code, dong, ho, net_leaseable_area, leaseable_area, residence_type, sale_type, sale_price, monthly_price, admin_expenses, provisional_down_pay_per, down_pay_per, intermediate_pay_per, balance_per, room_num, toilet_num, middle_door, air_conditioner, refrigerator, kimchi_refrigerator, closet, oven, induction, airsystem, nego, short_description, long_description, models.get(0).getDescription(),  models.get(2).getDescription(),  models.get(3).getDescription(),  models.get(4).getDescription(),  models.get(5).getDescription(),  models.get(6).getDescription(),  models.get(5+roomcnt).getDescription(),  models.get(6+roomcnt).getDescription(),  movedate);
+                    getDescription();
+                    mHouse = new House(userId, residence_name, address, sido, sigungoo, dongri, date,
+                            allnumber, parkingnumber, contact, code, dong, ho, net_leaseable_area, leaseable_area,
+                            residence_type, sale_type, sale_price, monthly_price, admin_expenses, provisional_down_pay_per,
+                            down_pay_per, intermediate_pay_per, balance_per, roomcnt, toiletcnt, middle_door,
+                            air_conditioner, refrigerator, kimchi_refrigerator, closet, oven, induction, airsystem,
+                            nego, short_description, long_description, models_description.get(0), models_description.get(1),
+                            models_description.get(2),  models_description.get(3),  models_description.get(4),
+                            models_description.get(5),  models_description.get(6),  models_description.get(7),  models_description.get(8),  movedate);
                     doRetrofit();
 //                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
 //                    startActivity(intent);
@@ -952,11 +750,69 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    private void getDescription() {
+        models_description = new ArrayList<>();
+        models_description.add(models.get(0).getDescription());
+        models_description.add(models.get(1).getDescription());
+        models_description.add(models.get(2).getDescription());
+        models_description.add(models.get(3).getDescription());
+
+        for (int i=0;i<roomcnt;i++) {
+            models_description.add(models.get(4+i).getDescription());
+        }
+        for (int i=0;i<3-roomcnt;i++) {
+            models_description.add("");
+        }
+        for (int i=0;i<toiletcnt;i++) {
+            models_description.add(models.get(4+roomcnt+i).getDescription());
+        }
+        for (int i=0;i<2-toiletcnt;i++) {
+            models_description.add("");
+        }
+
+    }
+
     private void doRetrofit() {
 
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
         Log.d("beforeUploadActivity", "pictures" + pictures);
-        mRESTApi.uploadHouse(mHouse.getUserId(), mHouse.getResidence_name(), mHouse.getCode(), mHouse.getAddress(), mHouse.getSido(), mHouse.getSigungoo(), mHouse.getDongri(), mHouse.getDate(), mHouse.getAllnumber(), mHouse.getParkingnumber(), mHouse.getContact(), mHouse.getDong(), mHouse.getHo(), mHouse.getNet_leaseable_area(), mHouse.getLeaseable_area(), mHouse.getResidence_type(), mHouse.getSale_type(), mHouse.getSale_price(), mHouse.getMonthly_price(), mHouse.getAdmin_expenses(), mHouse.getProvisional_down_pay_per(), mHouse.getDown_pay_per(), mHouse.getIntermediate_pay_per(), mHouse.getBalance_per(), mHouse.getRoom_num(), mHouse.getToilet_num(), mHouse.isMiddle_door(), mHouse.isAir_conditioner(), mHouse.isRefrigerator(), mHouse.isKimchi_refrigerator(), mHouse.isCloset(), mHouse.isOven(), mHouse.isInduction(), mHouse.isAirsystem(), mHouse.isNego(), mHouse.getShort_description(), mHouse.getLong_description(), mHouse.getApartment_description(), mHouse.getLivingroom_description(), mHouse.getKitchen_description(), mHouse.getRoom1_description(), mHouse.getRoom2_description(), mHouse.getRoom3_description(), mHouse.getToilet1_description(), mHouse.getToilet2_description(), mHouse.getMovedate(), pictures)
+
+//        mRESTApi.uploadHouse1(pictures)
+//                .enqueue(new Callback<ResponseBody>() {
+//                    @Override
+//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                        Log.d("testtest", "");
+//                        String test_code = response.headers().get("code");
+//                        String test_body = response.headers().get("code");
+//                        Log.d("UploadActivity", "headercode" + test_code);
+//                        Log.d("UploadActivity", "body" + test_body);
+//                        Log.d("UploadActivity", "pictures" + pictures);
+//
+//
+////                        if (test_code != null && test_code.equals("00")) {
+////                            Intent intent = new Intent(UploadActivity.this, MainActivity.class);
+//////                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+////                            startActivity(intent);
+////                            finish();
+////                        } else {
+////                            Toast.makeText(UploadActivity.this, "업로드 실패" + test_code, Toast.LENGTH_SHORT).show();
+////                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+//                        Log.d("UploadActivity", throwable.getMessage());
+//                    }
+//                });
+
+        mRESTApi.uploadHouse(mHouse.getUserId(), mHouse.getResidence_name(), mHouse.getCode(), mHouse.getAddress(), mHouse.getSido(), mHouse.getSigungoo(), mHouse.getDongri(),
+                mHouse.getDate(), mHouse.getAllnumber(), mHouse.getParkingnumber(), mHouse.getContact(), mHouse.getDong(), mHouse.getHo(), mHouse.getNet_leaseable_area(),
+                mHouse.getLeaseable_area(), mHouse.getResidence_type(), mHouse.getSale_type(), mHouse.getSale_price(), mHouse.getMonthly_price(), mHouse.getAdmin_expenses(),
+                mHouse.getProvisional_down_pay_per(), mHouse.getDown_pay_per(), mHouse.getIntermediate_pay_per(), mHouse.getBalance_per(), mHouse.getRoom_num(), mHouse.getToilet_num(),
+                mHouse.isMiddle_door(), mHouse.isAir_conditioner(), mHouse.isRefrigerator(), mHouse.isKimchi_refrigerator(), mHouse.isCloset(), mHouse.isOven(), mHouse.isInduction(),
+                mHouse.isAirsystem(), mHouse.isNego(), mHouse.getShort_description(), mHouse.getLong_description(), mHouse.getApartment_description(), mHouse.getPorch_description(), mHouse.getLivingroom_description(),
+                mHouse.getKitchen_description(), mHouse.getRoom1_description(), mHouse.getRoom2_description(), mHouse.getRoom3_description(), mHouse.getToilet1_description(),
+                mHouse.getToilet2_description(), mHouse.getMovedate(), pictures)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

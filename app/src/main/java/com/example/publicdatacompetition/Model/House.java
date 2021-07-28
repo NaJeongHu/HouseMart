@@ -52,12 +52,22 @@ public class House {
     private String short_description;//짧은 집 소개
     private String long_description;//긴 집 소개
     private String apartment_description;//아파트 소개
+    private String porch_description;//현관 소개
     private String livingroom_description;//거실 소개
     private String kitchen_description;//주방 소개
     private String room1_description;//방1 소개
     private String room2_description;//방2 소개
     private String room3_description;//방3 소개
     private String toilet1_description;//화장실1 소개
+
+    public String getPorch_description() {
+        return porch_description;
+    }
+
+    public void setPorch_description(String porch_description) {
+        this.porch_description = porch_description;
+    }
+
     private String toilet2_description;//화장실2 소개
 
     private String movedate;//입주가능일
@@ -67,7 +77,7 @@ public class House {
 
     }
 
-    public House(String userId, String residence_name, String code, String address, String sido, String sigungoo, String dongri, String date, String allnumber, String parkingnumber, String contact, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
+    public House(String userId, String residence_name, String code, String address, String sido, String sigungoo, String dongri, String date, String allnumber, String parkingnumber, String contact, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String porch_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
         this.userId = userId;
         this.residence_name = residence_name;
         this.code = code;
@@ -106,6 +116,7 @@ public class House {
         this.short_description = short_description;
         this.long_description = long_description;
         this.apartment_description = apartment_description;
+        this.porch_description = porch_description;
         this.livingroom_description = livingroom_description;
         this.kitchen_description = kitchen_description;
         this.room1_description = room1_description;
