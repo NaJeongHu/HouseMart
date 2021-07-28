@@ -190,10 +190,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-
-
-
-
         // todo : 1. 세진님이 upload activity, filter 완성하기
         // todo : 2. 진아님이 unchecked house 검증하기
         // todo : 3. 정후님이 houseinfo activity 연결하기

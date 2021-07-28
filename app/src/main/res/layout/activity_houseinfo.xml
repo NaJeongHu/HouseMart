@@ -29,7 +29,7 @@
 
                 <ImageView
                     android:layout_gravity="center_vertical"
-                    android:id="@+id/btn_houseinfo_back"
+                    android:id="@+id/iv_houseinfo_back"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:scaleType="fitXY"
@@ -142,6 +142,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_houseinfo_gochat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_round_blue"

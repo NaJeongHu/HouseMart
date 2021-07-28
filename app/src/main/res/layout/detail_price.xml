@@ -58,7 +58,7 @@
                 android:text="전세"/>
 
             <TextView
-                android:id="@+id/tv_houseinfo_price"
+                android:id="@+id/tv_houseinfo_type_price"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
