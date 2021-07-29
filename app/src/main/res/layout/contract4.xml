@@ -48,6 +48,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_purpose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12dp"
@@ -71,7 +72,7 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_introduce_long"
+                android:id="@+id/edit_special"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="12dp"

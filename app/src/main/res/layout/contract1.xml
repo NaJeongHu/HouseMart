@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="가계약서"
+        android:text="가계약서 미리보기"
         android:textSize="20dp"
         android:gravity="center"
         android:fontFamily="@font/applesdgothicneob"
@@ -58,6 +58,7 @@
                     android:text="소재지" />
 
                 <TextView
+                    android:id="@+id/tv_address_apartment"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
@@ -66,7 +67,7 @@
                     android:gravity="center"
                     android:textSize="12dp"
                     android:textColor="@color/black"
-                    android:text="대구 북구 대현남로 25 대현휴먼시아 205동 1601호" />
+                    android:text="" />
             </TableRow>
 
             <View
@@ -101,14 +102,16 @@
                     android:layout_marginRight="1dp"
                     android:text="용도" />
                 <TextView
-                    android:textSize="10dp"
+                    android:id="@+id/tv_purpose"
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
+                    android:text=""
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
                     android:layout_weight="2"
                     android:background="@color/white"
-                    android:gravity="center"
-                    android:text="" />
+                    android:gravity="center"/>
 
             </TableRow>
 
@@ -142,13 +145,15 @@
                     android:textColor="@color/black"
                     android:text="전용/공급면적" />
                 <TextView
-                    android:textSize="10dp"
+                    android:id="@+id/tv_area"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
                     android:layout_weight="2"
                     android:background="@color/white"
                     android:gravity="center"
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
                     android:text="" />
 
             </TableRow>
@@ -204,6 +209,7 @@
                     android:text="매매금액" />
 
                 <TextView
+                    android:id="@+id/tv_price1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
@@ -236,6 +242,7 @@
                 android:text="월세" />
 
             <TextView
+                android:id="@+id/tv_price2"
                 android:textSize="12dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -284,6 +291,7 @@
                     android:text="가계약금" />
 
                 <TextView
+                    android:id="@+id/tv_provisional_down_pay"
                     android:textSize="12dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -318,6 +326,7 @@
                     android:text="계약금" />
 
                 <TextView
+                    android:id="@+id/tv_down_pay"
                     android:textSize="12dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -352,6 +361,7 @@
                     android:text="중도금" />
 
                 <TextView
+                    android:id="@+id/tv_intermediate_pay"
                     android:textSize="12dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -386,7 +396,7 @@
                     android:text="잔금" />
 
                 <TextView
-                    android:id="@+id/tv_houseinfo_address"
+                    android:id="@+id/tv_balance"
                     android:textSize="12dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -436,21 +446,17 @@
             android:textColor="@color/black"
             android:text="2) 특약사항"/>
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_special"
+            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="150dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/applesdgothicneob"
-                android:gravity="center"
-                android:enabled="false"
-                android:textSize="12dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="150dp"
+            android:gravity="left|top"
+            android:background="@drawable/button_round_white"
+            android:textSize="12dp"
+            android:textColor="@color/black"
+            android:text="" />
 
         <TextView
             android:layout_marginTop="20dp"
@@ -462,6 +468,7 @@
             android:text="본 계약에 대하여 매도인(임대인)과 매수인(임차인)은 이의 없음을 확인하고 동의합니다"/>
 
         <TextView
+            android:id="@+id/tv_date"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -517,30 +524,13 @@
                     android:textColor="@color/black"
                     android:text="성명" />
                 <TextView
-                    android:textSize="10dp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:text="" />
-                <TextView
-                    android:textSize="10dp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center"
+                    android:id="@+id/tv_name1"
+                    android:textSize="15dp"
                     android:textColor="@color/black"
-                    android:text="주소" />
-                <TextView
-                    android:textSize="10dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
-                    android:layout_weight="3"
+                    android:layout_weight="5"
                     android:background="@color/white"
                     android:gravity="center"
                     android:text="" />
@@ -577,7 +567,9 @@
                     android:textColor="@color/black"
                     android:text="생년월일" />
                 <TextView
+                    android:id="@+id/tv_birth1"
                     android:textSize="10dp"
+                    android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
@@ -596,7 +588,9 @@
                     android:textColor="@color/black"
                     android:text="전화" />
                 <TextView
+                    android:id="@+id/tv_phonenumber1"
                     android:textSize="10dp"
+                    android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
@@ -652,30 +646,13 @@
                     android:textColor="@color/black"
                     android:text="성명" />
                 <TextView
-                    android:textSize="10dp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:text="" />
-                <TextView
-                    android:textSize="10dp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center"
+                    android:id="@+id/tv_name2"
+                    android:textSize="15dp"
                     android:textColor="@color/black"
-                    android:text="주소" />
-                <TextView
-                    android:textSize="10dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
-                    android:layout_weight="3"
+                    android:layout_weight="5"
                     android:background="@color/white"
                     android:gravity="center"
                     android:text="" />
@@ -703,15 +680,17 @@
 
                 <TextView
                     android:textSize="10dp"
+                    android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
                     android:layout_weight="1"
                     android:background="@color/white"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     android:text="생년월일" />
                 <TextView
+                    android:id="@+id/tv_birth2"
+                    android:textColor="@color/black"
                     android:textSize="10dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -731,6 +710,8 @@
                     android:textColor="@color/black"
                     android:text="전화" />
                 <TextView
+                    android:id="@+id/tv_phonenumber2"
+                    android:textColor="@color/black"
                     android:textSize="10dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

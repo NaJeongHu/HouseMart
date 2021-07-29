@@ -1,0 +1,26 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.publicdatacompetition\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:name=\".Model.User\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\">\r\n\r\n        <activity android:name=\".SearchActivity_upload\"/>\r\n\r\n        <meta-data\r\n            android:name=\"com.google.android.geo.API_KEY\"\r\n            android:value=\"AIzaSyC5222FEBgQ14yfr_a2bDRmkWYXS1AIpFU\" />\r\n\r\n        <activity android:name=\".LoginActivity\">\r\n\r\n        </activity>\r\n        <activity android:name=\".MainActivity\" >\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".JoinActivity\"\r\n            android:parentActivityName=\".LoginActivity\" />\r\n        <activity\r\n            android:name=\".ResetPasswordActivity\"\r\n            android:parentActivityName=\".LoginActivity\" />\r\n        <activity android:name=\".SettingActivity\" />\r\n        <activity\r\n            android:name=\".ChatActivity\"\r\n            android:parentActivityName=\".ChatListActivity\" />\r\n        <activity\r\n            android:name=\".ChatListActivity\"\r\n            android:parentActivityName=\".SettingActivity\" />\r\n        <activity android:name=\".ListActivity\" />\r\n        <activity android:name=\".MapActivity\" />\r\n        <activity android:name=\".UploadActivity\"/>\r\n        <activity android:name=\".FilterActivity\" />\r\n        <activity android:name=\".SearchActivity\" />\r\n        <activity android:name=\".SidoActivity\" />\r\n        <activity android:name=\".SigunguActivity\" />\r\n        <activity android:name=\".HouseInfoActivity\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 73ada88083ac9ed49e6225091cd52a287bd7c9ee)
++++ app/src/main/AndroidManifest.xml	(date 1627373341908)
+@@ -25,15 +25,13 @@
+             android:value="AIzaSyC5222FEBgQ14yfr_a2bDRmkWYXS1AIpFU" />
+ 
+         <activity android:name=".LoginActivity">
+-
+-        </activity>
+-        <activity android:name=".MainActivity" >
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+ 
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
++        <activity android:name=".MainActivity"/>
+         <activity
+             android:name=".JoinActivity"
+             android:parentActivityName=".LoginActivity" />
