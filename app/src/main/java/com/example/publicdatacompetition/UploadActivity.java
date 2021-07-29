@@ -45,6 +45,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -279,8 +280,22 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         callbackMethod = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                movedate = year + "년 " + month + "월 " + dayOfMonth + "일";
-                tv_movedate.setText(movedate);
+                String d,m;
+                if(dayOfMonth<10){
+                    d = "0"+dayOfMonth;
+                }
+                else{
+                    d = ""+dayOfMonth;
+                }
+                month++;//이상하게 월이 하나 적게 들어옴..
+                if(month<10){
+                     m = "0"+month;
+                }
+                else{
+                    m = ""+month;
+                }
+                movedate = year+m+d;
+                tv_movedate.setText(year + "년 " + month + "월 " + dayOfMonth + "일");
             }
         };
 
