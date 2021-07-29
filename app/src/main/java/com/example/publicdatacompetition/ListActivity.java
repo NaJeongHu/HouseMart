@@ -178,9 +178,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 PermittedList = (ArrayList) Result;
                 mItemCount.setText(PermittedList.size() + "채의 집을 구경하세요");
                 connectToAdapter();
-                Log.d("PermittedList", String.valueOf(PermittedList.get(0)));
-                Log.d("PermittedList", PermittedList.get(0).getResidence_name());
-                Log.d("PermittedList", "" + PermittedList.get(0).getTitleImg());
+//                Log.d("PermittedList", String.valueOf(PermittedList.get(0)));
+//                Log.d("PermittedList", PermittedList.get(0).getResidence_name());
+//                Log.d("PermittedList", "" + PermittedList.get(0).getTitleImg());
             }
 
             @Override

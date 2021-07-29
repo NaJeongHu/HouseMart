@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.publicdatacompetition.Model.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -96,6 +97,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         mEditIdNum = findViewById(R.id.edit_join_idNum);
         mJoinButton = findViewById(R.id.btn_join_join);
         mIvPicture = findViewById(R.id.iv_join_picture);
+//        Glide.with(this).load("https://item.kakaocdn.net/do/493188dee481260d5c89790036be0e669f5287469802eca457586a25a096fd31").into(mIvPicture);
+        Glide.with(this).load("http://122.37.239.49:9000/upload/files/1.png").into(mIvPicture);
 
         auth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("profiles");

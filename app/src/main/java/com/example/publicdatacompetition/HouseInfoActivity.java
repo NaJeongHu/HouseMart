@@ -161,13 +161,25 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                 (houseInfoDetail.getDown_pay_per() + houseInfoDetail.getProvisional_down_pay_per())) * 100 + "%");
         tv_houseinfo_brokerfee.setText("00만원");
 
+        tv_houseinfo_resitype.setText(houseInfoDetail.getResidence_type());
+        tv_houseinfo_address.setText(houseInfoDetail.getAddress());
+        tv_houseinfo_dong_ho.setText(houseInfoDetail.getDong() + " / " + houseInfoDetail.getHo());
+        tv_houseinfo_area_area.setText(houseInfoDetail.getNet_leaseable_area() * 3.3 + "m² / " + houseInfoDetail.getLeaseable_area() * 3.3 + "m²");
+        tv_houseinfo_room_toilet.setText(houseInfoDetail.getRoom_num() + "개 / " + houseInfoDetail.getToilet_num() + "개");
+        tv_houseinfo_park_perhouse.setText(parkperhouse + "대");
+        tv_houseinfo_enterdate.setText(houseInfoDetail.getMovedate());
+        tv_houseinfo_builddate.setText(houseInfoDetail.getDate());
 
+        if (houseInfoDetail.isMiddle_door()) ll_hoseinfo_middledoor.setVisibility(View.VISIBLE);
+        if (houseInfoDetail.isAir_conditioner()) ll_hoseinfo_aircon.setVisibility(View.VISIBLE);
+        if (houseInfoDetail.isRefrigerator()) ll_hoseinfo_ref.setVisibility(View.VISIBLE);
+        if (houseInfoDetail.isKimchi_refrigerator()) ll_hoseinfo_kimchiref.setVisibility(View.VISIBLE);
+        if (houseInfoDetail.isCloset()) ll_hoseinfo_clo.setVisibility(View.VISIBLE);
+        // 인덕션 오븐 공조기 시스템 추가해야
 
-
-
-
-
-
+        tv_detail_explain_apart.setText(houseInfoDetail.getApartment_description());
+        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(0)).into(pv_houseinfo_apart);
+//        Glide.with(this).load("http://122.37.239.49:9000/upload/files/90.png").into(pv_houseinfo_apart);
 
 
 

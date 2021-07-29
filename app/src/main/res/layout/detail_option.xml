@@ -29,6 +29,7 @@
                 android:id="@+id/ll_hoseinfo_middledoor"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <ImageView
@@ -52,6 +53,7 @@
                 android:id="@+id/ll_hoseinfo_aircon"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <ImageView
@@ -75,6 +77,7 @@
                 android:id="@+id/ll_hoseinfo_ref"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <ImageView
@@ -98,6 +101,7 @@
                 android:id="@+id/ll_hoseinfo_kimchiref"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <ImageView
@@ -121,6 +125,7 @@
                 android:id="@+id/ll_hoseinfo_clo"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <ImageView
