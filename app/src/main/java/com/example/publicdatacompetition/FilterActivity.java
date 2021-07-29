@@ -25,12 +25,13 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     private TextView tv_price1, tv_price2, tv_price3, tv_area, tv_reset;
     private RangeSlider slider1, slider2, slider3, slider4;
     private ImageView btn_back;
-
-
     private String type;
     private long guarantee_start=0L, guarantee_end=-1L, monthly_start=0L, monthly_end=-1L, sale_start=0L, sale_end=-1L;
     private double area_start=0D, area_end=-1D;
     private int year=-1, park=0;
+
+    private String mSearch;
+    private String mSubject;
 
     private Filter mFilter;
 
@@ -38,18 +39,16 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
-        init();
 
+        init();
     }
 
     public void init() {
-
         UploadActivity uploadActivity = new UploadActivity();
 
         btn_back = findViewById(R.id.btn_back);
         btn_filter = findViewById(R.id.btn_filter);
         tv_reset = findViewById(R.id.tv_reset);
-
         btn_typeall = findViewById(R.id.btn_typeall);
         btn_type1 = findViewById(R.id.btn_type1);
         btn_type2 = findViewById(R.id.btn_type2);
@@ -63,42 +62,34 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         btn_park_0 = findViewById(R.id.btn_park_0);
         btn_park_1 = findViewById(R.id.btn_park_1);
         btn_park_2 = findViewById(R.id.btn_park_2);
-
         linear_sale = findViewById(R.id.linear_sale);
         linear_guarantee = findViewById(R.id.linear_guarantee);
         linear_month = findViewById(R.id.linear_month);
-
         slider1 = findViewById(R.id.slider1);
         slider2 = findViewById(R.id.slider2);
         slider3 = findViewById(R.id.slider3);
         slider4 = findViewById(R.id.slider4);
-
         tv_price1 = findViewById(R.id.tv_price1);
         tv_price2 = findViewById(R.id.tv_price2);
         tv_price3 = findViewById(R.id.tv_price3);
         tv_area = findViewById(R.id.tv_area);
 
-
         btn_typeall.setOnClickListener(this);
         btn_type1.setOnClickListener(this);
         btn_type2.setOnClickListener(this);
         btn_type3.setOnClickListener(this);
-
         btn_year_0.setOnClickListener(this);
         btn_year_1.setOnClickListener(this);
         btn_year_5.setOnClickListener(this);
         btn_year_10.setOnClickListener(this);
         btn_year_15.setOnClickListener(this);
         btn_year_15up.setOnClickListener(this);
-
         btn_park_0.setOnClickListener(this);
         btn_park_1.setOnClickListener(this);
         btn_park_2.setOnClickListener(this);
-
         tv_reset.setOnClickListener(this);
         btn_back.setOnClickListener(this);
         btn_filter.setOnClickListener(this);
-
 
         slider1.addOnChangeListener(new RangeSlider.OnChangeListener() {
             @Override
@@ -159,12 +150,13 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
+        mSubject = getIntent().getStringExtra("subject");
+        mSearch = getIntent().getStringExtra("search");
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.btn_back:
                 onBackPressed();
                 break;
@@ -174,6 +166,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 //todo : 리스트 액티비티로 필터의 값 전달
                 Intent intent = new Intent(FilterActivity.this, ListActivity.class);
                 intent.putExtra("filter",mFilter);
+                intent.putExtra("search", mSearch);
+                intent.putExtra("subject", mSubject);
                 startActivity(intent);
                 break;
 

@@ -15,6 +15,94 @@ public class Filter implements Serializable {
     private int year;//준공일로부터 년도 // -1일 경우 15년 이상 선택
     private int park;//주차 가능 대수
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public long getGuarantee_start() {
+        return guarantee_start;
+    }
+
+    public void setGuarantee_start(long guarantee_start) {
+        this.guarantee_start = guarantee_start;
+    }
+
+    public long getGuarantee_end() {
+        return guarantee_end;
+    }
+
+    public void setGuarantee_end(long guarantee_end) {
+        this.guarantee_end = guarantee_end;
+    }
+
+    public long getMonthly_start() {
+        return monthly_start;
+    }
+
+    public void setMonthly_start(long monthly_start) {
+        this.monthly_start = monthly_start;
+    }
+
+    public long getMonthly_end() {
+        return monthly_end;
+    }
+
+    public void setMonthly_end(long monthly_end) {
+        this.monthly_end = monthly_end;
+    }
+
+    public long getSale_start() {
+        return sale_start;
+    }
+
+    public void setSale_start(long sale_start) {
+        this.sale_start = sale_start;
+    }
+
+    public long getSale_end() {
+        return sale_end;
+    }
+
+    public void setSale_end(long sale_end) {
+        this.sale_end = sale_end;
+    }
+
+    public double getArea_start() {
+        return area_start;
+    }
+
+    public void setArea_start(double area_start) {
+        this.area_start = area_start;
+    }
+
+    public double getArea_end() {
+        return area_end;
+    }
+
+    public void setArea_end(double area_end) {
+        this.area_end = area_end;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getPark() {
+        return park;
+    }
+
+    public void setPark(int park) {
+        this.park = park;
+    }
+
     public Filter(String type, long guarantee_start, long guarantee_end, long monthly_start, long monthly_end, long sale_start, long sale_end, double area_start, double area_end, int year, int park) {
         this.type = type;
         this.guarantee_start = guarantee_start;

@@ -6,6 +6,61 @@ public class PermittedHouse implements Serializable {
 
     private int idx, dong, ho, leaseable_area, sale_price, monthly_price, monthly_deposit, deposit;
     private String residence_name, type, titleImg, residence_type;
+    private String sido;//시도
+    private String sigungoo;//시군구
+    private String dongri;//동리
+
+    public String getSido() {
+        return sido;
+    }
+
+    public void setSido(String sido) {
+        this.sido = sido;
+    }
+
+    public String getSigungoo() {
+        return sigungoo;
+    }
+
+    public void setSigungoo(String sigungoo) {
+        this.sigungoo = sigungoo;
+    }
+
+    public String getDongri() {
+        return dongri;
+    }
+
+    public void setDongri(String dongri) {
+        this.dongri = dongri;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getAllnumber() {
+        return allnumber;
+    }
+
+    public void setAllnumber(String allnumber) {
+        this.allnumber = allnumber;
+    }
+
+    public String getParkingnumber() {
+        return parkingnumber;
+    }
+
+    public void setParkingnumber(String parkingnumber) {
+        this.parkingnumber = parkingnumber;
+    }
+
+    private String date;//사용승인일일
+    private String allnumber;//세대수
+    private String parkingnumber;//총주차대수
 
     public String getResidence_name() {
         return residence_name;

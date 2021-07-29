@@ -180,7 +180,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         tv_detail_explain_apart.setText(houseInfoDetail.getApartment_description());
         Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(0)).into(pv_houseinfo_apart);
 //        Glide.with(this).load("http://122.37.239.49:9000/upload/files/90.png").into(pv_houseinfo_apart);
-
+        // todo : 밑에 설명들도 이어주기
 
 
 
