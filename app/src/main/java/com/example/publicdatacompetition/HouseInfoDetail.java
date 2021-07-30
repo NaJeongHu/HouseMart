@@ -3,10 +3,12 @@ package com.example.publicdatacompetition;
 import com.example.publicdatacompetition.Model.Member;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class HouseInfoDetail implements Serializable {
 
+    private String lastModifiedDate;
     private Long id;
     private String residence_name;//아파트 이름
     private String code;//아파트 코드
@@ -57,6 +59,14 @@ public class HouseInfoDetail implements Serializable {
     private String porch_description; // 현관 설명
     private Integer numOfImg;
     private List<String> salesOfferURLS;
+
+    public String getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(String lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
 
     public Long getId() {
         return id;

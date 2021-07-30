@@ -2,6 +2,7 @@ package com.example.publicdatacompetition;
 
 import com.example.publicdatacompetition.Model.House;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,11 @@ public interface RESTApi {
             @Query("idNum") String idNum,
             @Query("firebaseId") String firebaseId,
             @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST("/test/multifile")
+    Call<ResponseBody> uploadHouse1(
+            @Part List<MultipartBody.Part> fileList);
 
     @POST("/board/get/list")
     Call<List<PermittedHouse>> getList();
@@ -93,6 +99,7 @@ public interface RESTApi {
             @Query("short_description") String short_description,
             @Query("long_description") String long_description,
             @Query("apartment_description") String apartment_description,
+            @Query("porch_description") String porch_description,
             @Query("livingroom_description") String livingroom_description,
             @Query("kitchen_description") String kitchen_description,
             @Query("room1_description") String room1_description,

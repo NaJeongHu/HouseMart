@@ -12,11 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.publicdatacompetition.Model.Filter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,12 +37,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private String mSigungu;
     private String mSearch;
     private String mSubject;
-    private FloatingActionButton mToMap, mToTop;
+    private FloatingActionButton mToTop;
     private Button mRegionButton, mSearchButton;
     private ImageView mBackButton, mFilterButton;
     private TextView mItemCount, mToolbarTitle;
     private ArrayList<PermittedHouse> PermittedList;
+    private ArrayList<PermittedHouse> PermittedList_filterd;
     private ListRecyclerAdapter adapter;
+    private Filter mFilter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +53,12 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_list);
 
         init();
+
         addScrollListenerOnRecyclerView();
         addItemTouchListenerOnRecyclerView();
         getDataFromServer();
     }
+
 
     // when user scroll recycler
     private void addScrollListenerOnRecyclerView() {
@@ -90,13 +99,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.fb_tomap:
-                Intent intent1 = new Intent(getApplicationContext(), MapActivity.class);
-                intent1.putExtra("search", mSearch);
-                intent1.putExtra("subject", mSubject);
-                startActivity(intent1);
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                break;
             case R.id.btn_list_region:
                 Intent intent = new Intent(getApplicationContext(), SidoActivity.class);
                 intent.putExtra("search", mSearch);
@@ -128,7 +130,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         mManager = new LinearLayoutManager(ListActivity.this, LinearLayoutManager.VERTICAL, false);
 
         mRecyclerView = findViewById(R.id.recyclerview_list);
-        mToMap = findViewById(R.id.fb_tomap);
         mToTop = findViewById(R.id.fb_totop);
         mRegionButton = findViewById(R.id.btn_list_region);
         mSearchButton = findViewById(R.id.btn_list_search);
@@ -138,7 +139,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         mToolbarTitle = findViewById(R.id.tv_list_title);
 
         mRecyclerView.setLayoutManager(mManager);
-        mToMap.setOnClickListener(this);
         mToTop.setOnClickListener(this);
         mRegionButton.setOnClickListener(this);
         mSearchButton.setOnClickListener(this);
@@ -149,6 +149,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         mSigungu = MyLocation.getInstance().getSIGUNGU();
         mSubject = getIntent().getStringExtra("subject");
         mSearch = getIntent().getStringExtra("search");
+        mFilter = (Filter) getIntent().getSerializableExtra("filter");
 
         setToolbarTitle();
     }
@@ -178,9 +179,9 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 PermittedList = (ArrayList) Result;
                 mItemCount.setText(PermittedList.size() + "채의 집을 구경하세요");
                 connectToAdapter();
-                Log.d("PermittedList", String.valueOf(PermittedList.get(0)));
-                Log.d("PermittedList", PermittedList.get(0).getResidence_name());
-                Log.d("PermittedList", "" + PermittedList.get(0).getTitleImg());
+//                Log.d("PermittedList", String.valueOf(PermittedList.get(0)));
+//                Log.d("PermittedList", PermittedList.get(0).getResidence_name());
+//                Log.d("PermittedList", "" + PermittedList.get(0).getTitleImg());
             }
 
             @Override
@@ -188,10 +189,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("ListActivity 통신 실패", "");
             }
         });
-
-
-
-
 
 
         // todo : 1. 세진님이 upload activity, filter 완성하기
@@ -217,6 +214,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        filtering();
                         if(PermittedList.isEmpty() == false || PermittedList.size() != 0){
 //                            Collections.sort(arr,new Filtering_for_ganada());
                             mItemCount.setText(PermittedList.size()+ "채의 아파트를 나열했어요");
@@ -231,5 +229,63 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 });
             }
         }).start();
+    }
+
+    private void filtering() {
+        if (PermittedList.isEmpty() == false || PermittedList.size() != 0) {
+            for (int i = 0 ; i < PermittedList.size() ; i++) {
+                // 시도, 시군구 일치 여부
+                if (PermittedList.get(i).getSido().equals(mSido) && PermittedList.get(i).getSigungoo().equals(mSigungu)) {
+                    // 검색어 있는 경우에 검색어 포함 여부
+                    if (!mSearch.equals("") && PermittedList.get(i).getResidence_name().contains(mSearch)) {
+                        // 필터 없는 경우 초기상태
+                        if (mFilter == null) {
+                            PermittedList_filterd.add(PermittedList.get(i));
+                        } else {
+                            if (mFilter.getType().equals("전체") || mFilter.getType().equals(PermittedList.get(i).getType())) {
+                                // 준공일부터 작업 시작하면 될 듯
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void calDateBetweenAandB(String date1, String date2)
+    {
+//        String date1 = "2016-09-21";
+//        String date2 = "2016-09-10";
+
+        try{ // String Type을 Date Type으로 캐스팅하면서 생기는 예외로 인해 여기서 예외처리 해주지 않으면 컴파일러에서 에러가 발생해서 컴파일을 할 수 없다.
+            SimpleDateFormat format = new SimpleDateFormat("yyyymmdd");
+            // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
+            Date FirstDate = format.parse(date1);
+            Date SecondDate = format.parse(date2);
+
+            // Date로 변환된 두 날짜를 계산한 뒤 그 리턴값으로 long type 변수를 초기화 하고 있다.
+            // 연산결과 -950400000. long type 으로 return 된다.
+            long calDate = FirstDate.getTime() - SecondDate.getTime();
+
+            // Date.getTime() 은 해당날짜를 기준으로1970년 00:00:00 부터 몇 초가 흘렀는지를 반환해준다.
+            // 이제 24*60*60*1000(각 시간값에 따른 차이점) 을 나눠주면 일수가 나온다.
+            long calDateDays = calDate / ( 24*60*60*1000);
+
+            calDateDays = Math.abs(calDateDays);
+
+            System.out.println("두 날짜의 날짜 차이: "+calDateDays);
+        }
+        catch(ParseException e)
+        {
+            // 예외 처리
+            String createDate = "2021-07-29 00:00:00";
+            String test = createDate.substring(0,3) + createDate.substring(5,6) + createDate.substring(8,9);
+
+            // 되는 거 확인 완료
+            Date from = new Date();
+            SimpleDateFormat fm = new SimpleDateFormat("yyyyMMdd");
+            String to = fm.format(from);
+            Log.d("to test",to);
+        }
     }
 }

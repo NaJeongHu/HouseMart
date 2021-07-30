@@ -1,0 +1,72 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.publicdatacompetition\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:name=\".Model.User\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\">\r\n\r\n        <activity android:name=\".SearchActivity_upload\"/>\r\n\r\n        <meta-data\r\n            android:name=\"com.google.android.geo.API_KEY\"\r\n            android:value=\"AIzaSyC5222FEBgQ14yfr_a2bDRmkWYXS1AIpFU\" />\r\n\r\n        <activity android:name=\".LoginActivity\">\r\n\r\n        </activity>\r\n        <activity android:name=\".MainActivity\" />\r\n        <activity\r\n            android:name=\".JoinActivity\"\r\n            android:parentActivityName=\".LoginActivity\" />\r\n        <activity\r\n            android:name=\".ResetPasswordActivity\"\r\n            android:parentActivityName=\".LoginActivity\" />\r\n        <activity android:name=\".SettingActivity\" />\r\n        <activity\r\n            android:name=\".ChatActivity\"\r\n            android:parentActivityName=\".ChatListActivity\" />\r\n        <activity\r\n            android:name=\".ChatListActivity\"\r\n            android:parentActivityName=\".SettingActivity\" />\r\n        <activity android:name=\".ListActivity\" />\r\n        <activity android:name=\".MapActivity\" />\r\n        <activity android:name=\".UploadActivity\"/>\r\n        <activity android:name=\".FilterActivity\" >\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".SearchActivity\" />\r\n        <activity android:name=\".SidoActivity\" />\r\n        <activity android:name=\".SigunguActivity\" />\r\n        <activity android:name=\".HouseInfoActivity\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 996d7d7595f2586ee0522aae0d122f195ac1276b)
++++ app/src/main/AndroidManifest.xml	(date 1627309448422)
+@@ -25,7 +25,11 @@
+             android:value="AIzaSyC5222FEBgQ14yfr_a2bDRmkWYXS1AIpFU" />
+ 
+         <activity android:name=".LoginActivity">
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
+ 
++                <category android:name="android.intent.category.LAUNCHER" />
++            </intent-filter>
+         </activity>
+         <activity android:name=".MainActivity" />
+         <activity
+@@ -44,13 +48,7 @@
+         <activity android:name=".ListActivity" />
+         <activity android:name=".MapActivity" />
+         <activity android:name=".UploadActivity"/>
+-        <activity android:name=".FilterActivity" >
+-            <intent-filter>
+-                <action android:name="android.intent.action.MAIN" />
+-
+-                <category android:name="android.intent.category.LAUNCHER" />
+-            </intent-filter>
+-        </activity>
++        <activity android:name=".FilterActivity" />
+         <activity android:name=".SearchActivity" />
+         <activity android:name=".SidoActivity" />
+         <activity android:name=".SigunguActivity" />
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 996d7d7595f2586ee0522aae0d122f195ac1276b)
++++ .idea/misc.xml	(date 1627309448411)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+Index: .idea/runConfigurations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"RunConfigurationProducerService\">\r\n    <option name=\"ignoredProducers\">\r\n      <set>\r\n        <option value=\"com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer\" />\r\n        <option value=\"org.jetbrains.plugins.gradle.execution.test.runner.AllInPackageGradleConfigurationProducer\" />\r\n        <option value=\"org.jetbrains.plugins.gradle.execution.test.runner.TestClassGradleConfigurationProducer\" />\r\n        <option value=\"org.jetbrains.plugins.gradle.execution.test.runner.TestMethodGradleConfigurationProducer\" />\r\n      </set>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/runConfigurations.xml	(revision 996d7d7595f2586ee0522aae0d122f195ac1276b)
++++ .idea/runConfigurations.xml	(date 1627346178000)
+@@ -3,7 +3,6 @@
+   <component name="RunConfigurationProducerService">
+     <option name="ignoredProducers">
+       <set>
+-        <option value="com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer" />
+         <option value="org.jetbrains.plugins.gradle.execution.test.runner.AllInPackageGradleConfigurationProducer" />
+         <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestClassGradleConfigurationProducer" />
+         <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestMethodGradleConfigurationProducer" />
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_7_26_2021_8_38_PM__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_7_26_2021_8_38_PM__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_7_25_2021_1_31_PM__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_7_25_2021_1_31_PM__Default_Changelist_.xml

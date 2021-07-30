@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/recycler_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@android:color/white"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:backgroundTint="@android:color/white"
+            app:layout_scrollFlags="enterAlways">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/btn_back"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/icon_back" />
+
+                <TextView
+                    android:textSize="18dp"
+                    android:textColor="#000000"
+                    android:ellipsize="end"
+                    android:layout_gravity="center"
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="35dp"
+                    android:fontFamily="@font/applesdgothicneob"
+                    android:text="가계약서 작성하기"
+                    android:layout_weight="1.0"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_below="@+id/recycler_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="안내"
+                        android:gravity="center"
+                        android:textSize="20dp"
+                        android:textColor="@color/custom_blue"
+                        android:fontFamily="@font/applesdgothicneob"/>
+
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:padding="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="1)가계약서의 효력\n\n* 본 가계약서는 매매목적물, 매매대금이 특정되고 중도금 지금방법 등에 관한 합의가 있으므로 매매계약이 성립된다고 판단됩니다.\n따라서 매수인이 계약 파기시 매수인은 가계약금을 돌려받을 수 없고 매도인이 계약 파기시 계약금의 배액(2배)를 반환해야 계약을 해제할 수 있습니다.\n\n\n2)가계약서 작성시 유의사항\n\n* 가계약서를 작성하면 매수인의 동의를 통해 작성이 완료되게 됩니다. 매수인과 협의를 통해 계속 수정가능하나 매수인이 동의해 작성완료된 가계약서는 수정이 불가능하므로 반드시 내용을 정확하게 기입하고 확인해야 합니다.\n\n\* 구두로 결정된 도배, 수리비 같은 협의사항들도 계약서 내 특약사항란에 작성해주세요"/>
+                    />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#f6f6f6" />
+
+            <include layout="@layout/contract2"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#f6f6f6" />
+
+            <include layout="@layout/contract3"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#f6f6f6" />
+
+            <include layout="@layout/contract4"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#f6f6f6" />
+
+            <include layout="@layout/contract1"/>
+
+       </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round_blue"
+            android:textColor="@color/white"
+            android:text="가계약서 등록하기"/>
+    </LinearLayout>
+
+</LinearLayout>
