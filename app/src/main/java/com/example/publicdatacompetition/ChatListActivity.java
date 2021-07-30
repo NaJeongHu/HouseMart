@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.publicdatacompetition.Adapter.ChatListAdapter;
-import com.example.publicdatacompetition.Model.Chatlist;
+import com.example.publicdatacompetition.Model.Chat;
 import com.example.publicdatacompetition.Model.Chatter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,14 +27,15 @@ import java.util.List;
 public class ChatListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-
     private ChatListAdapter mChatListAdapter;
-    private List<Chatter> mChatters;
 
-    private List<Chatlist> usersList;
+    private List<Chatter> mChatters;
+    private List<Chat> mLastMessages;
 
     private FirebaseUser fuser;
     private DatabaseReference reference;
+
+    private int cnt = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +48,34 @@ public class ChatListActivity extends AppCompatActivity {
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
-        usersList = new ArrayList<>();
+        getList();
+    }
+
+    private void getList() {
+        mChatters = new ArrayList<>();
+        mLastMessages = new ArrayList<>();
 
         //fuser과 채팅한 사람들의 목록 불러오기
-        reference = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference.orderByChild("users/" + fuser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                usersList.clear();
+                mChatters.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot usersSnapshot : dataSnapshot.child("users").getChildren()) {
+                        Chatter chatter = usersSnapshot.getValue(Chatter.class);
 
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Chatlist chatlist = dataSnapshot.getValue(Chatlist.class);
-                    usersList.add(chatlist);
+                        if (!chatter.getId().equals(fuser.getUid())) {
+                            mChatters.add(chatter);
+
+                            Chat lastmessage = dataSnapshot.child("lastMessage").getValue(Chat.class);
+                            mLastMessages.add(lastmessage);
+                        }
+                    }
                 }
 
-                chatList();
+                mChatListAdapter = new ChatListAdapter(ChatListActivity.this, mChatters, mLastMessages);
+                recyclerView.setAdapter(mChatListAdapter);
             }
 
             @Override
@@ -68,31 +85,10 @@ public class ChatListActivity extends AppCompatActivity {
         });
     }
 
-    //usersList에 있는 User 정보 가져온 후 RecyclerView Adapter에 넘겨주기
-    private void chatList() {
-        mChatters = new ArrayList<>();
+    @Override
+    protected void onRestart() {
+        super.onRestart();
 
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mChatters.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Chatter chatter = dataSnapshot.getValue(Chatter.class);
-                    for(Chatlist chatlist : usersList) {
-                        if(chatter.getId().equals(chatlist.getId())) {
-                            mChatters.add(chatter);
-                        }
-                    }
-                }
-                ChatListAdapter chatListAdapter = new ChatListAdapter(getApplicationContext(), mChatters);
-                recyclerView.setAdapter(chatListAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        getList();
     }
 }

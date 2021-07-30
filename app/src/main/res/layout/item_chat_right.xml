@@ -55,7 +55,7 @@
         android:background="@drawable/background_right"/>
 
     <TextView
-        android:id="@+id/chat_item_txt_seen"
+        android:id="@+id/chat_item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/chat_item_show_message"
@@ -64,7 +64,7 @@
         android:text="11:45 오전" />
 
     <TextView
-        android:id="@+id/chat_item_time"
+        android:id="@+id/chat_item_txt_seen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/chat_item_time"

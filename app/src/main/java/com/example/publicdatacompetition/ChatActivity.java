@@ -1,52 +1,64 @@
 package com.example.publicdatacompetition;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.publicdatacompetition.Adapter.MessageAdapter;
+import com.example.publicdatacompetition.Adapter.ChatAdapter;
 import com.example.publicdatacompetition.Model.Chat;
 import com.example.publicdatacompetition.Model.Chatter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class ChatActivity extends AppCompatActivity {
+    private static final String TAG = "ChatActivity";
 
-    private CircleImageView profile_image;
-    private TextView username;
-    private EditText text_send;
-    private ImageButton btn_send;
+    private ImageView image_view_back;
+    private ImageView image_view_search;
+    private ImageView image_view_plus;
+    private ImageView image_view_send;
+    private TextView text_view_chatter_name;
+    private EditText edit_text_send;
 
-    private String userid;
+    private Chatter chatter;
+    private Chatter myChatter;
+    private String sumId;
 
     private RecyclerView recyclerView;
+    private ChatAdapter chatAdapter;
 
     private FirebaseUser fuser;
     private DatabaseReference reference;
-
-    private Intent intent;
 
     private List<Chat> mchat;
 
@@ -57,59 +69,101 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        Log.d(TAG, "onCreate()...");
+
+        image_view_back = findViewById(R.id.chat_btn_back);
+        image_view_search = findViewById(R.id.chat_search);
+        image_view_plus = findViewById(R.id.chat_option_plus);
+        image_view_send = findViewById(R.id.chat_btn_send);
+        text_view_chatter_name = findViewById(R.id.chat_chatter_name);
+        edit_text_send = findViewById(R.id.chat_text_send);
+
+        //getIntent and get Chatter
+        Intent intent = getIntent();
+        chatter = (Chatter) intent.getSerializableExtra("chatter");
+
+        text_view_chatter_name.setText(chatter.getNickname());
+
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+
+        //get combineId(real-time/Chats child name)
+        sumId = getSumId(fuser.getUid(), chatter.getId());
+
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(fuser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ChatActivity.this, ChatListActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                myChatter = snapshot.getValue(Chatter.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(TAG, error.getDetails());
             }
         });
+
+        image_view_back.setOnClickListener(this);
+        image_view_search.setOnClickListener(this);
+        image_view_plus.setOnClickListener(this);
+        image_view_send.setOnClickListener(this);
 
         recyclerView = findViewById(R.id.recyelr_view);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-//        profile_image = findViewById(R.id.profile_image);
-//        username = findViewById(R.id.username);
-//        text_send = findViewById(R.id.text_send);
-//        btn_send = findViewById(R.id.btn_send);
+        readMessage();
+    }
 
-        intent = getIntent();
-        userid = intent.getStringExtra("userid");
-        fuser = FirebaseAuth.getInstance().getCurrentUser();
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.chat_btn_back:
+                onBackPressed();
+                break;
 
-        btn_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String msg = text_send.getText().toString();
-                if(!msg.equals("")){
-                    sendMessage(fuser.getUid(), userid, msg);
-                } else{
+            case R.id.chat_search:
+                // TODO : 검색 기능
+                break;
+
+            case R.id.chat_option_plus:
+                // TODO : 옵션 보여주기 기능
+                break;
+
+            case R.id.chat_btn_send: // add message to firebase database
+                String message = edit_text_send.getText().toString();
+                if(!message.equals("")) {
+                    SimpleDateFormat transFormat = new SimpleDateFormat("yyyy월 MM월 dd일 a hh:mm:ss", Locale.KOREA);
+                    String date = transFormat.format(new Date());
+
+                    sendMessage(fuser.getUid(), chatter.getId(), message, date);
+                } else {
                     Toast.makeText(ChatActivity.this, "메세지를 입력해주세요", Toast.LENGTH_SHORT).show();
                 }
-                text_send.setText("");
-            }
-        });
+                edit_text_send.setText("");
+                break;
+        }
+    }
 
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+    private void readMessage(){
+        mchat = new ArrayList<>();
 
-        reference.addValueEventListener(new ValueEventListener() {
+        reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
+
+        reference.child("history").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Chatter chatter = snapshot.getValue(Chatter.class);
-//                username.setText(chatter.getUsername());
-                if(chatter.getImageURL().equals("default")) {
-                    profile_image.setImageResource(R.drawable.preview);
-                } else {
-                    Glide.with(getApplicationContext()).load(chatter.getImageURL()).into(profile_image);
+                mchat.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Chat chat = dataSnapshot.getValue(Chat.class);
+                    mchat.add(chat);
                 }
 
-                readMessage(fuser.getUid(), userid, chatter.getImageURL());
+                chatAdapter = new ChatAdapter(ChatActivity.this, mchat, chatter.getImageURL());
+                recyclerView.setAdapter(chatAdapter);
+
+                seenMessage();
             }
 
             @Override
@@ -117,23 +171,30 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
-        seenMessage(userid);
     }
 
-    private void seenMessage(String userid) {
+    private String getSumId(String uid, String chatterid) {
+        if(uid.compareTo(chatterid) < 0) {
+            return uid + chatterid;
+        } else {
+            return chatterid + uid;
+        }
+    }
 
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
-        seenListener = reference.addValueEventListener(new ValueEventListener() {
+    private void seenMessage() {
+
+        reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
+        seenListener = reference.child("history").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Chat chat = dataSnapshot.getValue(Chat.class);
 
-                    if(chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userid)) {
-                        HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("isseen", true);
-                        dataSnapshot.getRef().updateChildren(hashMap);
+                    if(chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(chatter.getId())) {
+                        // Chats에 메시지 본 여부 체크하기
+                        HashMap<String, Object> isSeenHashMap = new HashMap<>();
+                        isSeenHashMap.put("isseen", true);
+                        dataSnapshot.getRef().updateChildren(isSeenHashMap);
                     }
                 }
             }
@@ -143,106 +204,76 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
+        reference.child("lastMessage").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Chat chat = snapshot.getValue(Chat.class);
+                if(chat != null && chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(chatter.getId())){
+                    HashMap<String, Object> isSeenHashMap = new HashMap<>();
+                    isSeenHashMap.put("isseen", true);
+                    snapshot.getRef().updateChildren(isSeenHashMap);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
-    private void sendMessage(String sender, String receiver, String message){
+    private void sendMessage(String sender, String receiver, String message, String timestamp){
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
         hashMap.put("isseen", false);
+        hashMap.put("timestamp", timestamp);
 
-        reference.child("Chats").push().setValue(hashMap);
+        reference.child("history").push().setValue(hashMap);
+        reference.child("lastMessage").setValue(hashMap);
+        reference.child("users").child(fuser.getUid()).setValue(myChatter);
+        reference.child("users").child(chatter.getId()).setValue(chatter);
 
-        //add user to chat fragment
-         final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
-                .child(fuser.getUid())
-                .child(userid);
-
-        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.exists()) {
-                    chatRef.child("id").setValue(userid);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        final DatabaseReference chatRefRev = FirebaseDatabase.getInstance().getReference("Chatlist")
-                .child(userid)
-                .child(fuser.getUid());
-
-        chatRefRev.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.exists()) {
-                    chatRefRev.child("id").setValue(fuser.getUid());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void readMessage(final String myid, final String userid, final String imageurl){
-        mchat = new ArrayList<>();
-
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mchat.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Chat chat = dataSnapshot.getValue(Chat.class);
-                    if(chat.getReceiver().equals(myid) && chat.getSender().equals(userid) ||
-                            chat.getReceiver().equals(userid) && chat.getSender().equals(myid)) {
-                        mchat.add(chat);
-                    }
-
-                    MessageAdapter messageAdapter = new MessageAdapter(ChatActivity.this, mchat, imageurl);
-                    recyclerView.setAdapter(messageAdapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void status(String status){
-
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("status", status);
-
-        reference.updateChildren(hashMap);
+        chatAdapter.addChat(new Chat(sender, receiver, message, false, timestamp));
+        recyclerView.setAdapter(chatAdapter);
+//        chatAdapter.notifyDataSetChanged();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        status("online");
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_chat, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_chat_mute:
+                return true;
+
+//            case R.id.menu_chat_block:
+//                return true;
+
+            case R.id.menu_chat_leave:
+                return true;
+
+            default:
+                return false;
+
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        reference.removeEventListener(seenListener);
-        status("offline");
+        if(seenListener != null) {
+            reference.removeEventListener(seenListener);
+        }
     }
 }

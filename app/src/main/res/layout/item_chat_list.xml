@@ -79,14 +79,14 @@
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:visibility="invisible">
 
             <ImageView
                 android:id="@+id/chat_list_img_house"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/round_backgroud"
-                android:visibility="gone"/>
+                android:background="@drawable/round_backgroud"/>
 
             <TextView
                 android:id="@+id/chat_list_not_read"
@@ -97,8 +97,7 @@
                 android:textSize="19sp"
                 android:textColor="@color/text_white"
                 android:gravity="center"
-                android:fontFamily="@font/applesdgothicneoeb"
-                android:visibility="gone"/>
+                android:fontFamily="@font/applesdgothicneoeb"/>
 
         </RelativeLayout>
     </LinearLayout>

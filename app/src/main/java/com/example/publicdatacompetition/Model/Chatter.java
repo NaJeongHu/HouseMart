@@ -2,15 +2,19 @@ package com.example.publicdatacompetition.Model;
 
 import android.app.Application;
 
-public class Chatter extends Application {
+import java.io.Serializable;
+
+public class Chatter implements Serializable {
     String id;
+    String username;
     String nickname;
     String phone;
     String imageURL;
     String search;
 
-    public Chatter(String id, String nickname, String phone, String imageURL, String search) {
+    public Chatter(String id, String username, String nickname, String phone, String imageURL, String search) {
         this.id = id;
+        this.username = username;
         this.nickname = nickname;
         this.phone = phone;
         this.imageURL = imageURL;
@@ -26,6 +30,14 @@ public class Chatter extends Application {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getNickname() {
@@ -58,5 +70,17 @@ public class Chatter extends Application {
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    @Override
+    public String toString() {
+        return "Chatter{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", search='" + search + '\'' +
+                '}';
     }
 }
