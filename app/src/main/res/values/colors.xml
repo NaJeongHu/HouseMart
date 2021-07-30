@@ -23,4 +23,11 @@
     <color name="text_white">#FAFAFA</color>
 
     <color name="dark_gray">#676767</color>
+
+    <color name="chat_option_blue">#5694E1</color>
+    <color name="chat_option_bluegreen">#51B195</color>
+    <color name="chat_option_light_blue">#6CBCD5</color>
+    <color name="chat_option_purple">#9377F2</color>
+    <color name="chat_option_green">#5DAF5A</color>
+    <color name="chat_option_brown">#A89680</color>
 </resources>

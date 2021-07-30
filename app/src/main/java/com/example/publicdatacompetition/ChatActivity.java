@@ -3,11 +3,14 @@ package com.example.publicdatacompetition;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +47,35 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "ChatActivity";
 
+    private static final int IMAGE_REQUEST = 0;
+    private static final int CAMERA_REQUEST = 1;
+
+    private RelativeLayout relative_layout_bottom;
+    private ConstraintLayout constraint_layout_option;
+
     private ImageView image_view_back;
     private ImageView image_view_search;
     private ImageView image_view_plus;
     private ImageView image_view_send;
     private TextView text_view_chatter_name;
     private EditText edit_text_send;
+
+    private ImageView image_view_write;
+    private ImageView image_view_read;
+    private ImageView image_view_contract;
+    private ImageView image_view_call;
+    private ImageView image_view_album;
+    private ImageView image_view_camera;
+    private ImageView image_view_phase;
+    private TextView text_view_write;
+    private TextView text_view_read;
+    private TextView text_view_contract;
+    private TextView text_view_call;
+    private TextView text_view_album;
+    private TextView text_view_camera;
+    private TextView text_view_phase;
+
+
 
     private Chatter chatter;
     private Chatter myChatter;
@@ -69,7 +96,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Log.d(TAG, "onCreate()...");
+        relative_layout_bottom = findViewById(R.id.chat_bottom);
+        constraint_layout_option = findViewById(R.id.chat_option);
 
         image_view_back = findViewById(R.id.chat_btn_back);
         image_view_search = findViewById(R.id.chat_search);
@@ -77,6 +105,21 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         image_view_send = findViewById(R.id.chat_btn_send);
         text_view_chatter_name = findViewById(R.id.chat_chatter_name);
         edit_text_send = findViewById(R.id.chat_text_send);
+
+        image_view_write = findViewById(R.id.chat_write_contract);
+        image_view_read = findViewById(R.id.chat_read_contract);
+        image_view_contract = findViewById(R.id.chat_contract);
+        image_view_call = findViewById(R.id.chat_call);
+        image_view_album = findViewById(R.id.chat_album);
+        image_view_camera = findViewById(R.id.chat_camera);
+        image_view_phase = findViewById(R.id.chat_phase);
+        text_view_write = findViewById(R.id.chat_txt_write_contract);
+        text_view_read = findViewById(R.id.chat_txt_read_contract);
+        text_view_contract = findViewById(R.id.chat_txt_contract);
+        text_view_call = findViewById(R.id.chat_txt_call);
+        text_view_album = findViewById(R.id.chat_txt_album);
+        text_view_camera = findViewById(R.id.chat_txt_camera);
+        text_view_phase = findViewById(R.id.chat_txt_phase);
 
         //getIntent and get Chatter
         Intent intent = getIntent();
@@ -107,6 +150,21 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         image_view_plus.setOnClickListener(this);
         image_view_send.setOnClickListener(this);
 
+        image_view_write.setOnClickListener(this);
+        image_view_read.setOnClickListener(this);
+        image_view_contract.setOnClickListener(this);
+        image_view_call.setOnClickListener(this);
+        image_view_album.setOnClickListener(this);
+        image_view_camera.setOnClickListener(this);
+        image_view_phase.setOnClickListener(this);
+        text_view_write.setOnClickListener(this);
+        text_view_read.setOnClickListener(this);
+        text_view_contract.setOnClickListener(this);
+        text_view_call.setOnClickListener(this);
+        text_view_album.setOnClickListener(this);
+        text_view_camera.setOnClickListener(this);
+        text_view_phase.setOnClickListener(this);
+
         recyclerView = findViewById(R.id.recyelr_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
@@ -128,7 +186,16 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.chat_option_plus:
-                // TODO : 옵션 보여주기 기능
+                Log.d(TAG, "image_view_plus.getTag(): " + image_view_plus.getTag());
+                if(image_view_plus.getTag().equals("plus")){
+                    image_view_plus.setImageResource(R.drawable.cancel);
+                    constraint_layout_option.setVisibility(View.VISIBLE);
+                    image_view_plus.setTag("cancel");
+                } else if(image_view_plus.getTag().equals("cancel")){
+                    image_view_plus.setImageResource(R.drawable.chat_plus);
+                    constraint_layout_option.setVisibility(View.GONE);
+                    image_view_plus.setTag("plus");
+                }
                 break;
 
             case R.id.chat_btn_send: // add message to firebase database
@@ -143,7 +210,61 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 edit_text_send.setText("");
                 break;
+
+            case R.id.chat_write_contract:
+            case R.id.chat_txt_write_contract:
+                Intent write_intent = new Intent(ChatActivity.this, MakeContractActivity.class);
+                write_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(write_intent);
+                break;
+
+            case R.id.chat_read_contract:
+            case R.id.chat_txt_read_contract:
+                Intent read_intent = new Intent(ChatActivity.this, ShowContractActivity.class);
+                read_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(read_intent);
+                break;
+
+            case R.id.chat_contract:
+            case R.id.chat_txt_contract:
+                //TODO : make correct intent
+//                Intent contract_intent = new Intent(ChatActivity.this, ??.class);
+//                contract_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(contract_intent);
+//                finish();
+                break;
+
+            case R.id.chat_call:
+            case R.id.chat_txt_call:
+                Intent call_intent = new Intent();
+                call_intent.setAction(Intent.ACTION_DIAL);
+                call_intent.setData(Uri.parse("tel:" + chatter.getPhone()));
+                startActivity(call_intent);
+                break;
+
+            case R.id.chat_album:
+            case R.id.chat_txt_album:
+                Intent album_intent = new Intent();
+                album_intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(album_intent, IMAGE_REQUEST);
+                break;
+
+            case R.id.chat_camera:
+            case R.id.chat_txt_camera:
+                Intent camera_intent = new Intent();
+                camera_intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(camera_intent, CAMERA_REQUEST);
+                break;
+
+            case R.id.chat_phase:
+            case R.id.chat_txt_phase:
+                show_phase_diagram();
+                break;
         }
+    }
+
+    private void show_phase_diagram() {
+        //TODO : show phase diagram
     }
 
     private void readMessage(){
@@ -266,6 +387,21 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 return false;
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode != RESULT_OK) return;
+
+        if(requestCode == IMAGE_REQUEST && data != null) {
+            Uri imageUri = data.getData();
+
+            //TODO : write code to add image to firebase Chats history
+        } else if(requestCode == CAMERA_REQUEST && data != null){
+            //TODO : write code to capture image and add to firebase Chats history
         }
     }
 

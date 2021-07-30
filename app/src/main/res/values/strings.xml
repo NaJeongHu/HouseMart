@@ -6,6 +6,13 @@
 
     //activity_chat.xml
     <string name="chat_hint">메시지를 입력하세요</string>
+    <string name="chat_write_contract">가계약서 쓰기</string>
+    <string name="chat_read_contract">가계약서 보기</string>
+    <string name="chat_contract">계약하기</string>
+    <string name="chat_phase">자주쓰는 문구</string>
+    <string name="chat_album">앨범</string>
+    <string name="chat_camera">카메라</string>
+    <string name="chat_call">전화하기</string>
 
     //UploadActivity
     <string name="living">거실테스트</string>
