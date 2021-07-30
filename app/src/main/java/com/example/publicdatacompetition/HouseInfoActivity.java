@@ -175,20 +175,28 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         if (houseInfoDetail.isRefrigerator()) ll_hoseinfo_ref.setVisibility(View.VISIBLE);
         if (houseInfoDetail.isKimchi_refrigerator()) ll_hoseinfo_kimchiref.setVisibility(View.VISIBLE);
         if (houseInfoDetail.isCloset()) ll_hoseinfo_clo.setVisibility(View.VISIBLE);
-        // 인덕션 오븐 공조기 시스템 추가해야
+        // todo : 인덕션 오븐 공조기 시스템 추가해야
+
+        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(0)).into(pv_houseinfo_apart);
+        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(1)).into(pv_houseinfo_intro);
+        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(2)).into(pv_houseinfo_livingroom);
+        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(3)).into(pv_houseinfo_kitchen);
+        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(4)).into(pv_houseinfo_room1);
+        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(5)).into(pv_houseinfo_room2);
+        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(6)).into(pv_houseinfo_room3);
+        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(7)).into(pv_houseinfo_toilet1);
+        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(8)).into(pv_houseinfo_toilet2);
 
         tv_detail_explain_apart.setText(houseInfoDetail.getApartment_description());
-        Glide.with(this).load(houseInfoDetail.getSalesOfferURLS().get(0)).into(pv_houseinfo_apart);
-//        Glide.with(this).load("http://122.37.239.49:9000/upload/files/90.png").into(pv_houseinfo_apart);
-        // todo : 밑에 설명들도 이어주기
-
-
-
-
-
-
-
-
+        tv_detail_explain_intro.setText(houseInfoDetail.getPorch_description());
+        tv_detail_explain_livingroom.setText(houseInfoDetail.getLivingroom_description());
+        tv_detail_explain_kitchen.setText(houseInfoDetail.getKitchen_description());
+        tv_detail_explain_room1.setText(houseInfoDetail.getRoom1_description());
+        tv_detail_explain_room2.setText(houseInfoDetail.getRoom2_description());
+        tv_detail_explain_room3.setText(houseInfoDetail.getRoom3_description());
+        tv_detail_explain_toilet1.setText(houseInfoDetail.getToilet1_description());
+        tv_detail_explain_toilet2.setText(houseInfoDetail.getToilet2_description());
+        tv_detail_explain_long.setText(houseInfoDetail.getLong_description());
     }
 
     private void init() {

@@ -9,6 +9,7 @@ import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -45,6 +46,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -146,6 +148,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private List<MultipartBody.Part> pictures;
     private int roomcnt;
     private int toiletcnt;
+
+    private User mUser;
 
 
     @Override
@@ -276,6 +280,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         price_first = -1;
         sale_price = -1L;
+
+        mUser = (User) getIntent().getSerializableExtra("user");
 
         callbackMethod = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -714,22 +720,21 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     public void upload_dialog(View v) {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_upload, null);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setView(dialogView);
-
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
         Button ok_btn = dialogView.findViewById(R.id.btn_okay_dialog_upload);
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
-                userId = ((User) getApplication()).getId();
-                // todo : user 객채 만들어서 불러와야함
+                userId = mUser.getUserId();
 
-                boolean judge_pic = models.get(0).getUri() != null && models.get(1).getUri() != null && models.get(2).getUri() != null && models.get(3).getUri() != null;
+                boolean judge_pic = true;
+                for (int i = 0; i < models.size(); i++) {
+                    if (models.get(i).getUri() == null) judge_pic = false;
+                }
                 if (judge_pic) {
                     pictures = new ArrayList<>();
                     getPicturesList();
@@ -743,19 +748,11 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             models_description.get(2),  models_description.get(3),  models_description.get(4),
                             models_description.get(5),  models_description.get(6),  models_description.get(7),  models_description.get(8),  movedate);
                     doRetrofit();
-//                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//                    startActivity(intent);
                 } else {
                     Toast.makeText(UploadActivity.this, "필수 사진을 등록해주세요", Toast.LENGTH_SHORT).show();
                 }
-
-                // todo : retrofit
-
-//                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//                startActivityForResult(intent,0);
             }
         });
-
         Button cancle_btn = dialogView.findViewById(R.id.btn_no_dialog_upload);
         cancle_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -784,11 +781,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         for (int i=0;i<2-toiletcnt;i++) {
             models_description.add("");
         }
-
     }
 
     private void doRetrofit() {
-
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
         Log.d("beforeUploadActivity", "pictures" + pictures);
 
@@ -820,14 +815,63 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 //                    }
 //                });
 
-        mRESTApi.uploadHouse(mHouse.getUserId(), mHouse.getResidence_name(), mHouse.getCode(), mHouse.getAddress(), mHouse.getSido(), mHouse.getSigungoo(), mHouse.getDongri(),
-                mHouse.getDate(), mHouse.getAllnumber(), mHouse.getParkingnumber(), mHouse.getContact(), mHouse.getDong(), mHouse.getHo(), mHouse.getNet_leaseable_area(),
-                mHouse.getLeaseable_area(), mHouse.getResidence_type(), mHouse.getSale_type(), mHouse.getSale_price(), mHouse.getMonthly_price(), mHouse.getAdmin_expenses(),
-                mHouse.getProvisional_down_pay_per(), mHouse.getDown_pay_per(), mHouse.getIntermediate_pay_per(), mHouse.getBalance_per(), mHouse.getRoom_num(), mHouse.getToilet_num(),
-                mHouse.isMiddle_door(), mHouse.isAir_conditioner(), mHouse.isRefrigerator(), mHouse.isKimchi_refrigerator(), mHouse.isCloset(), mHouse.isOven(), mHouse.isInduction(),
-                mHouse.isAirsystem(), mHouse.isNego(), mHouse.getShort_description(), mHouse.getLong_description(), mHouse.getApartment_description(), mHouse.getPorch_description(), mHouse.getLivingroom_description(),
-                mHouse.getKitchen_description(), mHouse.getRoom1_description(), mHouse.getRoom2_description(), mHouse.getRoom3_description(), mHouse.getToilet1_description(),
-                mHouse.getToilet2_description(), mHouse.getMovedate(), pictures)
+        mRESTApi.uploadHouse(
+                mHouse.getUserId(),
+                mHouse.getResidence_name(),
+                mHouse.getCode(),
+                mHouse.getAddress(),
+                mHouse.getSido(),
+                mHouse.getSigungoo(),
+                mHouse.getDongri(),
+                mHouse.getDate(),
+                mHouse.getAllnumber(),
+                mHouse.getParkingnumber(),
+                mHouse.getContact(),
+                mHouse.getDong(),
+                mHouse.getHo(),
+                mHouse.getNet_leaseable_area(),
+                mHouse.getLeaseable_area(),
+                mHouse.getResidence_type(),
+                mHouse.getSale_type(),
+                mHouse.getSale_price(),
+                mHouse.getMonthly_price(),
+                mHouse.getAdmin_expenses(),
+                mHouse.getProvisional_down_pay_per(),
+                mHouse.getDown_pay_per(),
+                mHouse.getIntermediate_pay_per(),
+                mHouse.getBalance_per(),
+                mHouse.getRoom_num(),
+                mHouse.getToilet_num(),
+                mHouse.isMiddle_door(),
+                mHouse.isAir_conditioner(),
+                mHouse.isRefrigerator(),
+                mHouse.isKimchi_refrigerator(),
+                mHouse.isCloset(),
+                mHouse.isOven(),
+                mHouse.isInduction(),
+                mHouse.isAirsystem(),
+                mHouse.isNego(),
+                mHouse.getShort_description(),
+                mHouse.getLong_description(),
+                mHouse.getApartment_description(),
+                mHouse.getPorch_description(),
+                mHouse.getLivingroom_description(),
+                mHouse.getKitchen_description(),
+                mHouse.getRoom1_description(),
+                mHouse.getRoom2_description(),
+                mHouse.getRoom3_description(),
+                mHouse.getToilet1_description(),
+                mHouse.getToilet2_description(),
+                mHouse.getMovedate(),
+                pictures.get(0),
+                pictures.get(1),
+                pictures.get(2),
+                pictures.get(3),
+                pictures.get(4),
+                pictures.get(5),
+                pictures.get(6),
+                pictures.get(7),
+                pictures.get(8))
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -840,6 +884,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
 
                         if (test_code != null && test_code.equals("00")) {
+                            Toast.makeText(UploadActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(UploadActivity.this, MainActivity.class);
 //                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
@@ -863,9 +908,14 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 transUriToMultiPartFile(uri, i);
             }
         }
+        for(int i = models.size(); i<9; i++) {
+            transUriToMultiPartFile(null, i);
+        }
     }
 
     private void transUriToMultiPartFile(Uri uri, int position) {
+
+        File imageFile = null;
         MultipartBody.Part filePart = null;
         Bitmap img = null;
 
@@ -885,6 +935,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         try {
+            imageFile = savebitmap(img);
 
             //Convert bitmap to byte array
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -914,14 +965,35 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 e.printStackTrace();
             }
 
-            filePart = MultipartBody.Part.createFormData("file",
+            String filename = "file" + (position + 1);
+
+            filePart = MultipartBody.Part.createFormData(filename,
                     f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         pictures.add(filePart);
+    }
 
+    private File savebitmap(Bitmap bmp) {
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        OutputStream outStream;
+        // String temp = null;
+        File file = new File(extStorageDirectory, "temp.png");
+        if (file.exists()) {
+            file.delete();
+            file = new File(extStorageDirectory, "temp.png");
+        }
+        try {
+            outStream = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return file;
     }
 
     @Override

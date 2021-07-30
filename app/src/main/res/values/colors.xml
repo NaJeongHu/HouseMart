@@ -24,6 +24,14 @@
 
     <color name="dark_gray">#676767</color>
 
+    <color name="kakao_yellow">#FFE369</color>
+    <color name="kakao_skyblue">#C2D6EB</color>
+    <color name="kakao_pink">#F9CBCA</color>
+    <color name="kakao_mint">#D0E0D8</color>
+    <color name="kakao_gray">#DADEE0</color>
+
+
+
     <color name="chat_option_blue">#5694E1</color>
     <color name="chat_option_bluegreen">#51B195</color>
     <color name="chat_option_light_blue">#6CBCD5</color>

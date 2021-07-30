@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.publicdatacompetition.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mResetPassword;
 
     private FirebaseAuth auth;
+    private User user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,10 +107,13 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "loginServer");
 
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-        mRESTApi.login(mEmail,mPassword).enqueue(new Callback<ResponseBody>() {
+        mRESTApi.login(mEmail,mPassword).enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 Log.d(TAG, "onResponse");
+
+                User Result = (User) response.body();
+                user = Result;
 
                 String code = response.headers().get("code");
 
@@ -120,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("user",user);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } else {
@@ -128,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+            public void onFailure(Call<User> call, Throwable throwable) {
                 Toast.makeText(getApplicationContext(),"통신 실패", Toast.LENGTH_SHORT).show();
             }
         });

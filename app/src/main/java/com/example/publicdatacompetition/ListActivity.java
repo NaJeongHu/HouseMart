@@ -214,7 +214,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        filtering();
+//                        todo : 필터링 구현하고 주석 풀기, 어뎁터에 PermittedList_filterd 로 연결 교체
+//                        filtering();
                         if(PermittedList.isEmpty() == false || PermittedList.size() != 0){
 //                            Collections.sort(arr,new Filtering_for_ganada());
                             mItemCount.setText(PermittedList.size()+ "채의 아파트를 나열했어요");

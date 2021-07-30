@@ -2,6 +2,7 @@ package com.example.publicdatacompetition;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.publicdatacompetition.Model.Filter;
 import com.example.publicdatacompetition.Model.House;
 import com.example.publicdatacompetition.Model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,9 +35,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private GPSTracker gps;
-    private Button mUserInfo, mBuy, mSell;
+    private CardView cardview_main_profile, cardview_main_sell, cardview_main_buyA, cardview_main_buyV, cardview_main_buyO, cardview_main_broker, cardview_main_gochat;
     private double mLatitude, mLongitude;
     private String mSido, mSigungu;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,31 +53,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-        mUserInfo = findViewById(R.id.btn_main_info);
-        mBuy = findViewById(R.id.btn_main_buy_apart);
-        mSell = findViewById(R.id.btn_main_sell);
+        mUser = (User) getIntent().getSerializableExtra("user");
 
-        mUserInfo.setOnClickListener(this);
-        mBuy.setOnClickListener(this);
-        mSell.setOnClickListener(this);
+        cardview_main_profile = findViewById(R.id.cardview_main_profile);
+        cardview_main_sell = findViewById(R.id.cardview_main_sell);
+        cardview_main_buyA = findViewById(R.id.cardview_main_buyA);
+        cardview_main_buyV = findViewById(R.id.cardview_main_buyV);
+        cardview_main_buyO = findViewById(R.id.cardview_main_buyO);
+        cardview_main_broker = findViewById(R.id.cardview_main_broker);
+        cardview_main_gochat = findViewById(R.id.cardview_main_gochat);
+
+        cardview_main_profile.setOnClickListener(this);
+        cardview_main_sell.setOnClickListener(this);
+        cardview_main_buyA.setOnClickListener(this);
+        cardview_main_buyV.setOnClickListener(this);
+        cardview_main_buyO.setOnClickListener(this);
+        cardview_main_broker.setOnClickListener(this);
+        cardview_main_gochat.setOnClickListener(this);
+
+        // todo : mUser에서 중개사 자격 여부 확인해서 히든메뉴 온오프
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_main_info:
+            case R.id.cardview_main_profile:
                 Intent i = new Intent(MainActivity.this, SettingActivity.class);
+                i.putExtra("user",mUser);
                 startActivity(i);
                 break;
-            case R.id.btn_main_buy_apart:
+            case R.id.cardview_main_sell:
+                upload_dialog(view);
+                break;
+            case R.id.cardview_main_buyA:
                 Intent ii = new Intent(MainActivity.this, ListActivity.class);
                 ii.putExtra("subject","아파트");
                 startActivity(ii);
                 break;
-            case R.id.btn_main_sell:
-                upload_dialog(view);
-//                Intent iii = new Intent(MainActivity.this, UploadActivity.class);
-//                startActivity(iii);
+            case R.id.cardview_main_buyV:
+                Intent iii = new Intent(MainActivity.this, ListActivity.class);
+                iii.putExtra("subject","빌라");
+                startActivity(iii);
+                break;
+            case R.id.cardview_main_buyO:
+                Intent iiii = new Intent(MainActivity.this, ListActivity.class);
+                iiii.putExtra("subject","오피스텔");
+                startActivity(iiii);
+                break;
+            case R.id.cardview_main_broker:
+                break;
+            case R.id.cardview_main_gochat:
                 break;
         }
     }
@@ -165,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (!mEditroomcnt.getText().toString().equals("") && !mEdittoiletcnt.getText().toString().equals("")) {
                     Intent intent = new Intent(getBaseContext(), UploadActivity.class);
+                    intent.putExtra("user",mUser);
                     intent.putExtra("roomcnt",mEditroomcnt.getText().toString());
                     intent.putExtra("toiletcnt",mEdittoiletcnt.getText().toString());
                     intent.putExtra("subject","아파트");

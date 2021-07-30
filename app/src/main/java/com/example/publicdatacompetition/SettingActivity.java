@@ -19,17 +19,24 @@ import java.util.ArrayList;
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
     private LinearLayout ll_chat, ll_logout;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+
+        init();
+    }
+
+    private void init() {
         ll_logout = findViewById(R.id.ll_logout);
         ll_chat = findViewById(R.id.ll_chatting);
 
         ll_logout.setOnClickListener(this);
         ll_chat.setOnClickListener(this);
+        mUser = (User) getIntent().getSerializableExtra("user");
     }
 
     @Override

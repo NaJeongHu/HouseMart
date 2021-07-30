@@ -329,7 +329,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.d(TAG, "make imageUri...");
 
-//        user.setId(email);
+//        user = new User(userId,username,nickname,idnum);
+//        user.setId(userId);
 //        user.setIdnum(idnum);
 //        user.setName(username);
 //        user.setNickname(nickname);
