@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.publicdatacompetition.Model.Contract;
 import com.example.publicdatacompetition.Model.House;
 import com.example.publicdatacompetition.Model.User;
 import com.google.android.material.slider.RangeSlider;
@@ -28,6 +29,7 @@ import java.util.List;
 public class MakeContractActivity extends AppCompatActivity implements View.OnClickListener {
 
     UploadActivity mUploadActivity;
+    Contract mContract;
 
     private ImageView btn_back;
     private AppCompatButton btn_upload;
@@ -62,6 +64,8 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
     private String birth1, birth2;//생년월일
     private String phonenumber1, phonenumber2;//전화번호
 
+    private Boolean editable;//수정가능여부
+
     private long price_first, price_second, price_third;
 
     @Override
@@ -95,7 +99,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
         birth2 = "950729";
         phonenumber1 = "01077395570";
         phonenumber2 = "01012345678";
-
+        editable =true;
 
         tv_date.setText(date);
         if (type.equals("매매")) {
@@ -359,7 +363,8 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
         ok_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // 서버와의 통신 부분
+                mContract = new Contract(type, address_apartment, purpose, area, sale_prices, monthly_prices, provisional_down_pay, down_pay, intermediate_pay, balance, special, date, name1, name2, birth1, birth2, phonenumber1, phonenumber2,editable);
             }
         });
         Button cancle_btn = dialogView.findViewById(R.id.btn_no_contract);
