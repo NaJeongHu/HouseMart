@@ -27,8 +27,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     private List<Chatter> mChatters;
     private List<Chat> mLastMessages;
 
-    private Chat theLastMessage;
-
     public ChatListAdapter(Context mContext, List<Chatter> mChatters, List<Chat> mLastMessages){
         this.mContext = mContext;
         this.mChatters = mChatters;
@@ -61,7 +59,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ChatActivity.class);
-                intent.putExtra("chatter", chatter);
+                intent.putExtra("FirebaseId", chatter.getId());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }

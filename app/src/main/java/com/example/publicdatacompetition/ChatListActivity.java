@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.publicdatacompetition.Adapter.ChatListAdapter;
 import com.example.publicdatacompetition.Model.Chat;
@@ -26,6 +28,8 @@ import java.util.List;
 
 public class ChatListActivity extends AppCompatActivity {
 
+    private ImageView mSearch;
+
     private RecyclerView recyclerView;
     private ChatListAdapter mChatListAdapter;
 
@@ -42,16 +46,27 @@ public class ChatListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
 
+        mSearch = findViewById(R.id.chat_list_search);
+        mSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mChatListAdapter != null){
+                    //TODO : search
+                }
+            }
+        });
+
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-        fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         getList();
     }
 
     private void getList() {
+
         mChatters = new ArrayList<>();
         mLastMessages = new ArrayList<>();
 
@@ -65,9 +80,11 @@ public class ChatListActivity extends AppCompatActivity {
                     for (DataSnapshot usersSnapshot : dataSnapshot.child("users").getChildren()) {
                         Chatter chatter = usersSnapshot.getValue(Chatter.class);
 
+                        //get chatter chatting with fuser
                         if (!chatter.getId().equals(fuser.getUid())) {
                             mChatters.add(chatter);
 
+                            //get lastMessage
                             Chat lastmessage = dataSnapshot.child("lastMessage").getValue(Chat.class);
                             mLastMessages.add(lastmessage);
                         }

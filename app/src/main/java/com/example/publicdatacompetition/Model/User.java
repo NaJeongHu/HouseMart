@@ -35,7 +35,14 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User(Long id, String userId, String firebaseId, String qualification, String phoneNumber, String name, String nickname, String imgUrl, String idNum, License license) {
+    public User(Long id, String phoneNumber, String name, String idNum) {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.idNum = idNum;
+    }
+
+    public User(Long id, String userId, String firebaseId, String phoneNumber, String name, String nickname, String imgUrl, String idNum) {
         this.id = id;
         this.userId = userId;
         this.firebaseId = firebaseId;

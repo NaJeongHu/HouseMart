@@ -19,11 +19,11 @@ public class Contract {
     private String name1, name2;//매도인,매수인의 이름
     private String birth1, birth2;//생년월일
     private String phonenumber1, phonenumber2;//전화번호
-    private String id1,id2;//id1 = 매도자 아이디, id2 = 매수자 아이디
+    private Long id1,id2;//id1 = 매도자 아이디, id2 = 매수자 아이디
 
     private Boolean editable;//수정가능여부
 
-    public Contract(String type, String address_apartment, String purpose, String area, String sale_prices, String monthly_prices, String provisional_down_pay, String down_pay, String intermediate_pay, String balance, String special, String date, String name1, String name2, String birth1, String birth2, String phonenumber1, String phonenumber2, String id1, String id2, Boolean editable) {
+    public Contract(String type, String address_apartment, String purpose, String area, String sale_prices, String monthly_prices, String provisional_down_pay, String down_pay, String intermediate_pay, String balance, String special, String date, String name1, String name2, String birth1, String birth2, String phonenumber1, String phonenumber2, Long id1, Long id2, Boolean editable) {
         this.type = type;
         this.address_apartment = address_apartment;
         this.purpose = purpose;
@@ -51,19 +51,19 @@ public class Contract {
         return editable;
     }
 
-    public String getId1() {
+    public Long getId1() {
         return id1;
     }
 
-    public void setId1(String id1) {
+    public void setId1(Long id1) {
         this.id1 = id1;
     }
 
-    public String getId2() {
+    public Long getId2() {
         return id2;
     }
 
-    public void setId2(String id2) {
+    public void setId2(Long id2) {
         this.id2 = id2;
     }
 

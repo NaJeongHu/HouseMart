@@ -4,7 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,7 +17,13 @@ import com.example.publicdatacompetition.Model.Contract;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ShowContractActivity extends AppCompatActivity {
+
+    private final static String TAG = "ShowContractActivity";
 
     Contract mContract;
 
@@ -41,17 +49,23 @@ public class ShowContractActivity extends AppCompatActivity {
     private String name1, name2;//매수인,매도인의 이름
     private String birth1, birth2;//생년월일
     private String phonenumber1, phonenumber2;//전화번호
-    private String id2;//매수자 아이디
+    private Long id2;//매수자 아이디
 
     private Boolean editable;//수정가능여부
+
+    private RESTApi mRESTApi;
+
+    Long contract_idx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contract1);
 
-        getContract();
+        mRESTApi = RESTApi.retrofit.create(RESTApi.class);
+
         init();
+        getContract();
     }
 
     private void init() {
@@ -74,8 +88,17 @@ public class ShowContractActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         // todo 서버와의 통신 부분
-                        //editable만 수정해서 보내면 ok입니다
-                        editable = false;
+                        mRESTApi.successContract(contract_idx).enqueue(new Callback<Boolean>() {
+                            @Override
+                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<Boolean> call, Throwable throwable) {
+
+                            }
+                        });
                     }
                 });
                 Button cancle_btn = dialogView.findViewById(R.id.btn_no_contract);
@@ -141,23 +164,42 @@ public class ShowContractActivity extends AppCompatActivity {
 
     private void getContract() {
         //todo 서버로부터 mContact 가져옴!
-        type = mContract.getType();
-        address_apartment = mContract.getAddress_apartment();
-        purpose = mContract.getPurpose();
-        area = mContract.getArea();
-        date = mContract.getDate();
-        sale_prices = mContract.getSale_prices();
-        monthly_prices = mContract.getMonthly_prices();
-        provisional_down_pay = mContract.getProvisional_down_pay();
-        down_pay = mContract.getDown_pay();
-        intermediate_pay = mContract.getIntermediate_pay();
-        balance = mContract.getBalance();
-        name1 = mContract.getName1();
-        name2 = mContract.getName2();
-        birth1 = mContract.getBirth1();
-        birth2 = mContract.getBirth2();
-        phonenumber1 = mContract.getPhonenumber1();
-        phonenumber2 = mContract.getPhonenumber2();
-        id2 = mContract.getId2();
+        Intent intent = getIntent();
+        contract_idx = intent.getLongExtra("contract_idx", -1);
+
+        if(contract_idx == -1) {
+            Log.d(TAG, "Intent에 contract_idx가 없음");
+        }
+
+        mRESTApi.getContract(contract_idx).enqueue(new Callback<Contract>() {
+            @Override
+            public void onResponse(Call<Contract> call, Response<Contract> response) {
+                mContract = (Contract) response.body();
+
+                type = mContract.getType();
+                address_apartment = mContract.getAddress_apartment();
+                purpose = mContract.getPurpose();
+                area = mContract.getArea();
+                date = mContract.getDate();
+                sale_prices = mContract.getSale_prices();
+                monthly_prices = mContract.getMonthly_prices();
+                provisional_down_pay = mContract.getProvisional_down_pay();
+                down_pay = mContract.getDown_pay();
+                intermediate_pay = mContract.getIntermediate_pay();
+                balance = mContract.getBalance();
+                name1 = mContract.getName1();
+                name2 = mContract.getName2();
+                birth1 = mContract.getBirth1();
+                birth2 = mContract.getBirth2();
+                phonenumber1 = mContract.getPhonenumber1();
+                phonenumber2 = mContract.getPhonenumber2();
+                id2 = mContract.getId2();
+            }
+
+            @Override
+            public void onFailure(Call<Contract> call, Throwable throwable) {
+
+            }
+        });
     }
 }

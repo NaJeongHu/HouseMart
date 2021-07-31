@@ -43,6 +43,7 @@ public class House {
     private boolean oven;//빌트인 오븐
     private boolean induction;//인덕션
     private boolean airsystem;//공조기 시스템
+
     private boolean nego;//네고가능
 
     private String short_description;//짧은 집 소개
@@ -69,7 +70,23 @@ public class House {
 
     public House() { }
 
-    public House(String userId, String residence_name, String code, String address, String sido, String sigungoo, String dongri, String date, Integer allnumber, Integer parkingnumber, String contact, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String porch_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
+    public House(String residence_name, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String sale_type, Long sale_price, Long monthly_price, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, String address) {
+        this.residence_name = residence_name;
+        this.dong = dong;
+        this.ho = ho;
+        this.net_leaseable_area = net_leaseable_area;
+        this.leaseable_area = leaseable_area;
+        this.sale_type = sale_type;
+        this.sale_price = sale_price;
+        this.monthly_price = monthly_price;
+        this.provisional_down_pay_per = provisional_down_pay_per;
+        this.down_pay_per = down_pay_per;
+        this.intermediate_pay_per = intermediate_pay_per;
+        this.balance_per = balance_per;
+        this.address = address;
+    }
+
+    public House(String userId, String residence_name, String code, String address, String sido, String sigungoo, String dongri, String date, int allnumber, int parkingnumber, String contact, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String porch_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
         this.userId = userId;
         this.residence_name = residence_name;
         this.code = code;

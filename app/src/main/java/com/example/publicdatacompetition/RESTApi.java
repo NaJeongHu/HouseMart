@@ -1,5 +1,6 @@
 package com.example.publicdatacompetition;
 
+import com.example.publicdatacompetition.Model.Contract;
 import com.example.publicdatacompetition.Model.House;
 import com.example.publicdatacompetition.Model.User;
 
@@ -171,6 +172,41 @@ public interface RESTApi {
 //            @Query("movedate") String movedate,
 //            @Part MultipartBody.Part file1,
 //            @Part MultipartBody.Part file2);
+
+    @POST("/deal/getSalesOfferForDeal") //1-1
+    Call<House> getContractHouseInfo(
+            @Query("idx") Long idx);
+
+    @POST("/deal/findMemberByPhoneNum") //1-2
+    Call<User> getContractUserInfo(
+            @Query("phoneNumber") String phoneNumber);
+
+    @POST("계약서 쓰기") //2
+    Call<Contract> writeContract(
+            @Query("sale_type") String sale_type,
+            @Query("address_apartment") String address_apartment,
+            @Query("purpose") String purpose,
+            @Query("area") String area,
+            @Query("sale_prices") String sale_prices,
+            @Query("monthly_prices") String monthly_prices,
+            @Query("provisional_down_pay") String provisional_down_pay,
+            @Query("down_pay") String down_pay,
+            @Query("intermediate_pay") String intermediate_pay,
+            @Query("balance") String balance,
+
+            @Query("special") String special,
+            @Query("date") String date,
+            @Query("id1") Long id1,
+            @Query("id2") Long id2);
+
+    @POST("계약서 불러오기") //3
+    Call<Contract> getContract(
+            @Query("idx") Long idx);
+
+    @POST("계약하기") //4
+    Call<Boolean> successContract(
+            @Query("idx") Long idx);
+
 
 
     public static final Retrofit retrofit = new Retrofit.Builder()
