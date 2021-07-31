@@ -786,36 +786,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private void doRetrofit() {
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-        Log.d("beforeUploadActivity", "pictures" + pictures);
-
-//        mRESTApi.uploadHouse1(pictures)
-//                .enqueue(new Callback<ResponseBody>() {
-//                    @Override
-//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                        Log.d("testtest", "");
-//                        String test_code = response.headers().get("code");
-//                        String test_body = response.headers().get("code");
-//                        Log.d("UploadActivity", "headercode" + test_code);
-//                        Log.d("UploadActivity", "body" + test_body);
-//                        Log.d("UploadActivity", "pictures" + pictures);
-//
-//
-////                        if (test_code != null && test_code.equals("00")) {
-////                            Intent intent = new Intent(UploadActivity.this, MainActivity.class);
-//////                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-////                            startActivity(intent);
-////                            finish();
-////                        } else {
-////                            Toast.makeText(UploadActivity.this, "업로드 실패" + test_code, Toast.LENGTH_SHORT).show();
-////                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-//                        Log.d("UploadActivity", throwable.getMessage());
-//                    }
-//                });
-
         mRESTApi.uploadHouse(
                 mHouse.getUserId(),
                 mHouse.getResidence_name(),
@@ -915,8 +885,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void transUriToMultiPartFile(Uri uri, int position) {
-
-        File imageFile = null;
         MultipartBody.Part filePart = null;
         Bitmap img = null;
 
@@ -936,65 +904,30 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         try {
-            imageFile = savebitmap(img);
-
-            //Convert bitmap to byte array
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            img.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
-            byte[] bitmapdata = bos.toByteArray();
-
-            //create a file to write bitmap data
-            File f = new File(this.getCacheDir(), "filename");
+            String filenameJPEG = "file" + (position + 1) + ".jpg";
+            File f = new File(this.getCacheDir(), filenameJPEG);
             try {
                 f.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            //write the bytes in file
             FileOutputStream fos = null;
             try {
                 fos = new FileOutputStream(f);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            try {
-                fos.write(bitmapdata);
-                fos.flush();
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            img.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, fos);
+            fos.close();
 
             String filename = "file" + (position + 1);
 
-            filePart = MultipartBody.Part.createFormData(filename,
-                    f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
+            filePart = MultipartBody.Part.createFormData(filename, f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
         } catch (Exception e) {
             e.printStackTrace();
         }
         pictures.add(filePart);
-    }
-
-    private File savebitmap(Bitmap bmp) {
-        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-        OutputStream outStream;
-        // String temp = null;
-        File file = new File(extStorageDirectory, "temp.png");
-        if (file.exists()) {
-            file.delete();
-            file = new File(extStorageDirectory, "temp.png");
-        }
-        try {
-            outStream = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            outStream.flush();
-            outStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return file;
     }
 
     @Override

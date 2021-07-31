@@ -46,7 +46,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private ListRecyclerAdapter adapter;
     private Filter mFilter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +57,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         addItemTouchListenerOnRecyclerView();
         getDataFromServer();
     }
-
 
     // when user scroll recycler
     private void addScrollListenerOnRecyclerView() {
@@ -158,7 +156,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         mToolbarTitle.setText(mSubject);
 
         String name;
-        if (mSido.length() == 4) {
+        if (mSido != null && mSido.length() == 4) {
             name = "" + mSido.charAt(0) + mSido.charAt(2);
         } else {
             name = mSido.substring(0, 2);
@@ -179,9 +177,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 PermittedList = (ArrayList) Result;
                 mItemCount.setText(PermittedList.size() + "채의 집을 구경하세요");
                 connectToAdapter();
-//                Log.d("PermittedList", String.valueOf(PermittedList.get(0)));
-//                Log.d("PermittedList", PermittedList.get(0).getResidence_name());
-//                Log.d("PermittedList", "" + PermittedList.get(0).getTitleImg());
             }
 
             @Override
@@ -243,7 +238,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                         if (mFilter == null) {
                             PermittedList_filterd.add(PermittedList.get(i));
                         } else {
-                            if (mFilter.getType().equals("전체") || mFilter.getType().equals(PermittedList.get(i).getType())) {
+                            if (mFilter.getType().equals("전체") || mFilter.getType().equals(PermittedList.get(i).getSale_type())) {
                                 // 준공일부터 작업 시작하면 될 듯
                             }
                         }

@@ -72,7 +72,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
 
     private void setViewPagerWithCircleIndicator() {
         urls = new ArrayList<>();
-        for (int i=0;i<houseInfoDetail.getSalesOfferURLS().size();i++) {
+        for (int i=0;i<(houseInfoDetail.getRoom_num() + houseInfoDetail.getToilet_num() + 4);i++) {
             urls.add(houseInfoDetail.getSalesOfferURLS().get(i));
         }
 
@@ -315,9 +315,9 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                     houseInfoDetail = Result;
                     Log.d("HouseInfoActivity 통신 성공", houseInfoDetail.toString());
                     // todo : 리스트 받은 거로 사진 url만 따로 리스트 만들어서 뷰페이저 어뎁터 연결
-//                    setOptionLayout();
-//                    setDataBinding();
-//                    setViewPagerWithCircleIndicator();
+                    setOptionLayout();
+                    setDataBinding();
+                    setViewPagerWithCircleIndicator();
                 }
 
                 @Override
@@ -341,7 +341,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                 // todo : 채팅쪽으로 intent 전달 (putExtra firebase id)
                 Intent intent = new Intent(getApplicationContext(), ChatListActivity.class);
                 intent.putExtra("FirebaseId", houseInfoDetail.getMember().getFirebaseId());
-                intent.putExtra("idx",houseInfoDetail.getId());
+                intent.putExtra("houseIdx",houseInfoDetail.getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 break;
