@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cardview_main_gochat.setOnClickListener(this);
 
         // todo : mUser에서 중개사 자격 여부 확인해서 히든메뉴 온오프
+        if (mUser.getQualification().equals("QUALIFIED")) {
+            cardview_main_broker.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

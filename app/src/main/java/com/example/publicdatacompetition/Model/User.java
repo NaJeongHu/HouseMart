@@ -4,28 +4,48 @@ import android.app.Application;
 
 import java.io.Serializable;
 
-public class User  implements Serializable {
+public class User implements Serializable {
 
     private Long id;
     private String userId;
     private String firebaseId; // 파베 아이디
+    private String qualification; // 중개사 자격 여부
     private String phoneNumber; // 핸드폰 번호
     private String name; // 성명
     private String nickname; // 닉네임
     private String imgUrl; // 이미지 url
     private String idNum; // 주민번호
+    private License license; // 중개사 정보
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public License getLicense() {
+        return license;
+    }
+
+    public void setLicense(License license) {
+        this.license = license;
+    }
 
     public User() {}
 
-    public User(Long id, String userId, String firebaseId, String phoneNumber, String name, String nickname, String imgUrl, String idNum) {
+    public User(Long id, String userId, String firebaseId, String qualification, String phoneNumber, String name, String nickname, String imgUrl, String idNum, License license) {
         this.id = id;
         this.userId = userId;
         this.firebaseId = firebaseId;
+        this.qualification = qualification;
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.nickname = nickname;
         this.imgUrl = imgUrl;
         this.idNum = idNum;
+        this.license = license;
     }
 
     public Long getId() {

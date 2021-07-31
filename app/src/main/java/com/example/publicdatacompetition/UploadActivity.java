@@ -669,6 +669,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.edit_apartment:
                 Intent intent = new Intent(getBaseContext(), SearchActivity_upload.class);
+//                intent.putExtra("models",models);
                 startActivityForResult(intent, 1);
 
             case R.id.chk_movenow:
@@ -931,7 +932,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 e.printStackTrace();
             }
         } else {
-            img = BitmapFactory.decodeResource(getResources(), R.drawable.preview);
+            img = BitmapFactory.decodeResource(getResources(), R.drawable.icon_parking);
         }
 
         try {
@@ -1027,7 +1028,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 allnumber = data.getIntExtra("allnumber",0);
                 parkingnumber = data.getIntExtra("parkingnumber",0);
                 contact = data.getStringExtra("contact");
-
 
                 edit_apartment.setText(residence_name);
                 tv_apartaddress_load.setText(address);

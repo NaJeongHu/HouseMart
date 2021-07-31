@@ -2,7 +2,9 @@ package com.example.publicdatacompetition.Model;
 
 import android.net.Uri;
 
-public class Pictures {
+import java.io.Serializable;
+
+public class Pictures implements Serializable {
     private String type;
     private int image;
     private Uri uri;
