@@ -41,6 +41,7 @@ public class ShowContractActivity extends AppCompatActivity {
     private String name1, name2;//매수인,매도인의 이름
     private String birth1, birth2;//생년월일
     private String phonenumber1, phonenumber2;//전화번호
+    private String id2;//매수자 아이디
 
     private Boolean editable;//수정가능여부
 
@@ -157,5 +158,6 @@ public class ShowContractActivity extends AppCompatActivity {
         birth2 = mContract.getBirth2();
         phonenumber1 = mContract.getPhonenumber1();
         phonenumber2 = mContract.getPhonenumber2();
+        id2 = mContract.getId2();
     }
 }

@@ -44,7 +44,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="35dp"
                     android:fontFamily="@font/applesdgothicneob"
-                    android:text="개인 정보"
+                    android:text="계정 정보"
                     android:layout_weight="1.0"
                     android:textAlignment="center" />
 
@@ -76,9 +76,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"/>
             </androidx.cardview.widget.CardView>
-
-
-
 
         </LinearLayout>
 

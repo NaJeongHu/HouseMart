@@ -63,6 +63,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
     private String name1, name2;//매수인,매도인의 이름
     private String birth1, birth2;//생년월일
     private String phonenumber1, phonenumber2;//전화번호
+    private String id1, id2;//매도자, 매수자 아이디
 
     private Boolean editable;//수정가능여부
 
@@ -99,7 +100,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
         birth2 = "950729";
         phonenumber1 = "01077395570";
         phonenumber2 = "01012345678";
-        editable =true;
+        editable = true;
 
         tv_date.setText(date);
         if (type.equals("매매")) {
@@ -364,7 +365,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View v) {
                 // 서버와의 통신 부분
-                mContract = new Contract(type, address_apartment, purpose, area, sale_prices, monthly_prices, provisional_down_pay, down_pay, intermediate_pay, balance, special, date, name1, name2, birth1, birth2, phonenumber1, phonenumber2,editable);
+                mContract = new Contract(type, address_apartment, purpose, area, sale_prices, monthly_prices, provisional_down_pay, down_pay, intermediate_pay, balance, special, date, name1, name2, birth1, birth2, phonenumber1, phonenumber2, id1, id2, editable);
             }
         });
         Button cancle_btn = dialogView.findViewById(R.id.btn_no_contract);
