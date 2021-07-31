@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.publicdatacompetition.Model.Filter;
 import com.example.publicdatacompetition.Model.House;
 import com.example.publicdatacompetition.Model.User;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private double mLatitude, mLongitude;
     private String mSido, mSigungu;
     private User mUser;
+    private ImageView iv_main_userprofile;
+    private TextView tv_main_welcome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cardview_main_buyO = findViewById(R.id.cardview_main_buyO);
         cardview_main_broker = findViewById(R.id.cardview_main_broker);
         cardview_main_gochat = findViewById(R.id.cardview_main_gochat);
+
+        tv_main_welcome = findViewById(R.id.tv_main_welcome);
+        tv_main_welcome.setText("안녕하세요, " + mUser.getNickname() + "님!");
+        iv_main_userprofile = findViewById(R.id.iv_main_userprofile);
+        Glide.with(this).load(mUser.getImgUrl()).into(iv_main_userprofile);
 
         cardview_main_profile.setOnClickListener(this);
         cardview_main_sell.setOnClickListener(this);

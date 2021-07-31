@@ -8,8 +8,8 @@ public class item_search_name {
     private String sigungoo;
     private String dongri;
     private String date;
-    private String allnumber;
-    private String parkingnumber;
+    private Integer allnumber;
+    private Integer parkingnumber;
     private String contact;
     private int start;//
     private int end;
@@ -18,7 +18,7 @@ public class item_search_name {
 
     }
 
-    public item_search_name(String code, String name, String address, String sido, String sigungoo, String dongri, String date, String allnumber, String parkingnumber, String contact, int start, int end) {
+    public item_search_name(String code, String name, String address, String sido, String sigungoo, String dongri, String date, Integer allnumber, Integer parkingnumber, String contact, int start, int end) {
         this.code = code;
         this.name = name;
         this.address = address;
@@ -89,19 +89,19 @@ public class item_search_name {
         this.date = date;
     }
 
-    public String getAllnumber() {
+    public Integer getAllnumber() {
         return allnumber;
     }
 
-    public void setAllnumber(String allnumber) {
+    public void setAllnumber(Integer allnumber) {
         this.allnumber = allnumber;
     }
 
-    public String getParkingnumber() {
+    public Integer getParkingnumber() {
         return parkingnumber;
     }
 
-    public void setParkingnumber(String parkingnumber) {
+    public void setParkingnumber(Integer parkingnumber) {
         this.parkingnumber = parkingnumber;
     }
 

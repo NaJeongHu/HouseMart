@@ -18,12 +18,16 @@ import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.example.publicdatacompetition.Adapter.PagerAdapter_Picture;
+import com.example.publicdatacompetition.Adapter.PagerAdapter_Picture_with_circleindicator;
+import com.example.publicdatacompetition.Model.Pictures;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +39,6 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
 
     private HouseInfoDetail houseInfoDetail;
     private int mIdx;
-    private ViewPager viewpager_houseinfo;  // circle indicator 넣어야 함
     private ImageView iv_houseinfo_back, iv_houseinfo_adminprice_guide, iv_houseinfo_userprofile;
     private TextView tv_houseinfo_title, tv_houseinfo_name, tv_houseinfo_price,tv_houseinfo_dong_housecnt,
             tv_houseinfo_uploaddate, tv_houseinfo_roomtoilet, tv_houseinfo_area, tv_houseinfo_adminprice,
@@ -53,6 +56,10 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
     private AppCompatButton btn_houseinfo_gochat;
     private PhotoView pv_houseinfo_apart, pv_houseinfo_livingroom, pv_houseinfo_kitchen, pv_houseinfo_room1,
             pv_houseinfo_room2, pv_houseinfo_room3, pv_houseinfo_toilet1, pv_houseinfo_toilet2, pv_houseinfo_intro;
+    private ViewPager viewpager_houseinfo;  // circle indicator 넣어야 함
+    private CircleIndicator indicator_houseinfo;
+    private PagerAdapter_Picture_with_circleindicator adapter;
+    private List<String> urls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,17 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
 
         init();
         getDataFromServer();
+    }
+
+    private void setViewPagerWithCircleIndicator() {
+        urls = new ArrayList<>();
+        for (int i=0;i<houseInfoDetail.getSalesOfferURLS().size();i++) {
+            urls.add(houseInfoDetail.getSalesOfferURLS().get(i));
+        }
+
+        adapter = new PagerAdapter_Picture_with_circleindicator(urls, this);
+        viewpager_houseinfo.setAdapter(adapter);
+        indicator_houseinfo.setViewPager(viewpager_houseinfo);
     }
 
     private void setOptionLayout() {
@@ -96,11 +114,14 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setDataBinding() {
         tv_houseinfo_title.setText(houseInfoDetail.getResidence_name());
-        tv_houseinfo_name.setText(houseInfoDetail.getResidence_name());
 
-        long uk, man;
-        uk = houseInfoDetail.getSale_price() / 100000000;
-        man = (houseInfoDetail.getSale_price() / 10000) % 10000;
+        // detail_apartment
+        long uk = houseInfoDetail.getSale_price() / 100000000;
+        long man = (houseInfoDetail.getSale_price() / 10000) % 10000;
+        int allnum = Integer.parseInt(houseInfoDetail.getAllnumber());
+        int parkingnum = Integer.parseInt(houseInfoDetail.getParkingnumber());
+        double parkperhouse = (parkingnum * 1.0) / allnum;
+        String parkperhouse_fortext = String.format("%.1f", parkperhouse);
         if (houseInfoDetail.getSale_type().equals("월세")) {
             if (uk > 0) {
                 if (man == 0) tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + houseInfoDetail.getMonthly_price() + " / " + uk + "억");
@@ -116,28 +137,25 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                 tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + man + "만");
             }
         }
-
-        int allnum = Integer.parseInt(houseInfoDetail.getAllnumber());
-        int parkingnum = Integer.parseInt(houseInfoDetail.getParkingnumber());
-        float parkperhouse = parkingnum / allnum;
-
+        String upload = houseInfoDetail.getLastModifiedDate().substring(0,4) + "." + houseInfoDetail.getLastModifiedDate().substring(4,6) + "." +houseInfoDetail.getLastModifiedDate().substring(6,8) + " 등록";
+        String pyeong = String.format("%.1f", houseInfoDetail.getLeaseable_area() / 3.3);
+        tv_houseinfo_name.setText(houseInfoDetail.getResidence_name());
         tv_houseinfo_dong_housecnt.setText(houseInfoDetail.getDongri() + " · " + houseInfoDetail.getAllnumber() + "세대");
-        //tv_houseinfo_uploaddate.setText(houseInfoDetail.getLastModifiedDate());
-//        tv_houseinfo_uploaddate.setText(houseInfoDetail.getLastModifiedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        tv_houseinfo_uploaddate.setText(upload);
         tv_houseinfo_roomtoilet.setText("방" + houseInfoDetail.getRoom_num() + " / " + "욕실" + houseInfoDetail.getToilet_num());
+        tv_houseinfo_area.setText(pyeong + "평형");
+        tv_houseinfo_adminprice.setText("관리비 " + houseInfoDetail.getAdmin_expenses() / 10000 + "만원");
+        tv_houseinfo_park.setText("세대당 주차 " + parkperhouse_fortext + "대");
 
-        tv_houseinfo_area.setText(houseInfoDetail.getLeaseable_area() + "평형");
-        tv_houseinfo_adminprice.setText("관리비 " + houseInfoDetail.getAdmin_expenses() + "만원");
-        tv_houseinfo_park.setText("세대당 주차 " + parkperhouse + "대");
+        // detail_short_description
         Glide.with(this).load(houseInfoDetail.getMember().getImgUrl()).into(iv_houseinfo_userprofile);
         tv_houseinfo_sellername.setText(houseInfoDetail.getMember().getName());
         tv_houseinfo_short_description.setText(houseInfoDetail.getShort_description());
 
+        // detail_price
         if (houseInfoDetail.isNego()) tv_houseinfo_nego.setText("네고 가능");
         else tv_houseinfo_nego.setText("네고 불가");
-
         tv_houseinfo_type.setText(houseInfoDetail.getSale_type());
-
         if (houseInfoDetail.getSale_type().equals("월세")) {
             if (uk > 0) {
                 if (man == 0) tv_houseinfo_type_price.setText(houseInfoDetail.getMonthly_price() + " / " + uk + "억원");
@@ -153,22 +171,23 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                 tv_houseinfo_type_price.setText(man + "만원");
             }
         }
-
-        tv_houseinfo_adminprice2.setText(houseInfoDetail.getAdmin_expenses() + "만원");
+        tv_houseinfo_adminprice2.setText(houseInfoDetail.getAdmin_expenses() / 10000 + "만원");
         tv_houseinfo_ratio.setText((houseInfoDetail.getProvisional_down_pay_per() + houseInfoDetail.getDown_pay_per()) +
                 "% / " + houseInfoDetail.getIntermediate_pay_per() + "% / " + houseInfoDetail.getBalance_per() + "%");
-        tv_houseinfo_ratio_relate.setText("계약금의 " + (houseInfoDetail.getProvisional_down_pay_per() /
-                (houseInfoDetail.getDown_pay_per() + houseInfoDetail.getProvisional_down_pay_per())) * 100 + "%");
+        tv_houseinfo_ratio_relate.setText("계약금의 " + houseInfoDetail.getProvisional_down_pay_per()  + "%");
         tv_houseinfo_brokerfee.setText("00만원");
+
+        // detail_detail
+        String jungong = houseInfoDetail.getDate().substring(0,4) + "년 " + houseInfoDetail.getDate().substring(4,6) + "월 " + houseInfoDetail.getDate().substring(6,8) + "일";
 
         tv_houseinfo_resitype.setText(houseInfoDetail.getResidence_type());
         tv_houseinfo_address.setText(houseInfoDetail.getAddress());
-        tv_houseinfo_dong_ho.setText(houseInfoDetail.getDong() + " / " + houseInfoDetail.getHo());
-        tv_houseinfo_area_area.setText(houseInfoDetail.getNet_leaseable_area() * 3.3 + "m² / " + houseInfoDetail.getLeaseable_area() * 3.3 + "m²");
+        tv_houseinfo_dong_ho.setText(houseInfoDetail.getDong() + "동 / " + houseInfoDetail.getHo() + "호");
+        tv_houseinfo_area_area.setText(houseInfoDetail.getNet_leaseable_area() + "m² / " + houseInfoDetail.getLeaseable_area() + "m²");
         tv_houseinfo_room_toilet.setText(houseInfoDetail.getRoom_num() + "개 / " + houseInfoDetail.getToilet_num() + "개");
-        tv_houseinfo_park_perhouse.setText(parkperhouse + "대");
+        tv_houseinfo_park_perhouse.setText(parkperhouse_fortext + "대");
         tv_houseinfo_enterdate.setText(houseInfoDetail.getMovedate());
-        tv_houseinfo_builddate.setText(houseInfoDetail.getDate());
+        tv_houseinfo_builddate.setText(jungong);
 
         if (houseInfoDetail.isMiddle_door()) ll_hoseinfo_middledoor.setVisibility(View.VISIBLE);
         if (houseInfoDetail.isAir_conditioner()) ll_hoseinfo_aircon.setVisibility(View.VISIBLE);
@@ -202,7 +221,6 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
     private void init() {
         mIdx = getIntent().getIntExtra("idx", -1);
 
-        viewpager_houseinfo = findViewById(R.id.viewpager_houseinfo);
         iv_houseinfo_back = findViewById(R.id.iv_houseinfo_back);
         iv_houseinfo_adminprice_guide = findViewById(R.id.iv_houseinfo_adminprice_guide);
         iv_houseinfo_userprofile = findViewById(R.id.iv_houseinfo_userprofile);
@@ -271,6 +289,9 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         pv_houseinfo_toilet2 = findViewById(R.id.pv_houseinfo_toilet2);
         pv_houseinfo_intro = findViewById(R.id.pv_houseinfo_intro);
 
+        viewpager_houseinfo = findViewById(R.id.viewpager_houseinfo);
+        indicator_houseinfo = findViewById(R.id.indicator_houseinfo);
+
         iv_houseinfo_back.setOnClickListener(this);
         iv_houseinfo_adminprice_guide.setOnClickListener(this);
         btn_houseinfo_gochat.setOnClickListener(this);
@@ -291,6 +312,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                     // todo : 리스트 받은 거로 사진 url만 따로 리스트 만들어서 뷰페이저 어뎁터 연결
                     setOptionLayout();
                     setDataBinding();
+                    setViewPagerWithCircleIndicator();
                 }
 
                 @Override
@@ -314,6 +336,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                 // todo : 채팅쪽으로 intent 전달 (putExtra firebase id)
                 Intent intent = new Intent(getApplicationContext(), ChatListActivity.class);
                 intent.putExtra("FirebaseId", houseInfoDetail.getMember().getFirebaseId());
+                intent.putExtra("idx",houseInfoDetail.getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 break;

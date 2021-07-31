@@ -99,8 +99,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private String sigungoo;//시군구
     private String dongri;//동리
     private String date;//사용승인일일
-    private String allnumber;//세대수
-    private String parkingnumber;//총주차대수
+    private Integer allnumber;//세대수
+    private Integer parkingnumber;//총주차대수
     private String contact;//관리사무소 연락처
 
     private Integer dong, ho;//동,호수
@@ -113,10 +113,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private Long monthly_price;//월세
     private Long admin_expenses;//관리비
 
-    private Integer provisional_down_pay_per;//가계약금 비율
-    private Integer down_pay_per;//계약금 비율
-    private Integer intermediate_pay_per;//중도금 비율
-    private Integer balance_per;//잔금 비율
+    private Integer provisional_down_pay_per = 10;//가계약금 비율
+    private Integer down_pay_per = 10;//계약금 비율
+    private Integer intermediate_pay_per = 30;//중도금 비율
+    private Integer balance_per = 60;//잔금 비율
 
     private Integer room_num;//방 개수
     private Integer toilet_num;//욕실 개수
@@ -268,7 +268,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         edit_apartment.setOnClickListener(this);
         tv_movedate.setOnClickListener(this);
 
-        residence_type = "A";
+        residence_type = "아파트";
         sale_type = "월세";
 
         nego = false;
@@ -739,8 +739,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     pictures = new ArrayList<>();
                     getPicturesList();
                     getDescription();
-                    mHouse = new House(userId, residence_name, address, sido, sigungoo, dongri, date,
-                            allnumber, parkingnumber, contact, code, dong, ho, net_leaseable_area, leaseable_area,
+                    mHouse = new House(userId, residence_name, code, address, sido, sigungoo, dongri, date,
+                            allnumber, parkingnumber, contact, dong, ho, net_leaseable_area, leaseable_area,
                             residence_type, sale_type, sale_price, monthly_price, admin_expenses, provisional_down_pay_per,
                             down_pay_per, intermediate_pay_per, balance_per, roomcnt, toiletcnt, middle_door,
                             air_conditioner, refrigerator, kimchi_refrigerator, closet, oven, induction, airsystem,
@@ -1024,8 +1024,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 sigungoo = data.getStringExtra("sigungoo");
                 dongri = data.getStringExtra("dongri");
                 date = data.getStringExtra("date");
-                allnumber = data.getStringExtra("allnumber");
-                parkingnumber = data.getStringExtra("parkingnumber");
+                allnumber = data.getIntExtra("allnumber",0);
+                parkingnumber = data.getIntExtra("parkingnumber",0);
                 contact = data.getStringExtra("contact");
 
 

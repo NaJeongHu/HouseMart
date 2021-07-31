@@ -85,8 +85,8 @@ public class SearchActivity_upload extends AppCompatActivity {
                 String sigungoo = arr.get(position).getSigungoo();
                 String dongri = arr.get(position).getDongri();
                 String date = arr.get(position).getDate();
-                String allnumber = arr.get(position).getAllnumber();
-                String parkingnumber = arr.get(position).getParkingnumber();
+                Integer allnumber = arr.get(position).getAllnumber();
+                Integer parkingnumber = arr.get(position).getParkingnumber();
                 String contact = arr.get(position).getContact();
 
                 Intent data = new Intent();
@@ -161,8 +161,8 @@ public class SearchActivity_upload extends AppCompatActivity {
             entity.setName(str[5]);
             entity.setAddress(str[8]);
             entity.setDate(str[10]);
-            entity.setAllnumber(str[12]);
-            entity.setParkingnumber(str[43]);
+            entity.setAllnumber(Integer.parseInt(str[12]));
+            entity.setParkingnumber(Integer.parseInt(str[43]));
             entity.setContact(str[49]);
 
             if (search != null) {

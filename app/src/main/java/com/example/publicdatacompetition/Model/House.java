@@ -7,8 +7,15 @@ import okhttp3.MultipartBody;
 public class House {
     private String userId;//사용자 이름
     private String residence_name;//아파트 이름
-
     private String code;//아파트 코드
+    private String address;//도로명 주소
+    private String sido;//시도
+    private String sigungoo;//시군구
+    private String dongri;//동리
+    private String date;//사용승인일일
+    private Integer allnumber;//세대수
+    private Integer parkingnumber;//총주차대수
+    private String contact;//관리사무소 연락처
     private Integer dong;//동
     private Integer ho;//호수
     private Double net_leaseable_area;//전용면적
@@ -36,12 +43,12 @@ public class House {
     private boolean oven;//빌트인 오븐
     private boolean induction;//인덕션
     private boolean airsystem;//공조기 시스템
-
     private boolean nego;//네고가능
 
     private String short_description;//짧은 집 소개
     private String long_description;//긴 집 소개
     private String apartment_description;//아파트 소개
+    private String porch_description;//현관 소개
     private String livingroom_description;//거실 소개
     private String kitchen_description;//주방 소개
     private String room1_description;//방1 소개
@@ -51,15 +58,6 @@ public class House {
     private String toilet2_description;//화장실2 소개
     private String movedate;//입주가능일
 
-    private String address;//도로명 주소
-    private String sido;//시도
-    private String sigungoo;//시군구
-    private String dongri;//동리
-    private String date;//사용승인일일
-    private String allnumber;//세대수
-    private String parkingnumber;//총주차대수
-    private String contact;//관리사무소 연락처
-    private String porch_description;//현관 소개
 
     public String getPorch_description() {
         return porch_description;
@@ -71,7 +69,7 @@ public class House {
 
     public House() { }
 
-    public House(String userId, String residence_name, String code, String address, String sido, String sigungoo, String dongri, String date, String allnumber, String parkingnumber, String contact, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String porch_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
+    public House(String userId, String residence_name, String code, String address, String sido, String sigungoo, String dongri, String date, Integer allnumber, Integer parkingnumber, String contact, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String residence_type, String sale_type, Long sale_price, Long monthly_price, Long admin_expenses, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, Integer room_num, Integer toilet_num, boolean middle_door, boolean air_conditioner, boolean refrigerator, boolean kimchi_refrigerator, boolean closet, boolean oven, boolean induction, boolean airsystem, boolean nego, String short_description, String long_description, String apartment_description, String porch_description, String livingroom_description, String kitchen_description, String room1_description, String room2_description, String room3_description, String toilet1_description, String toilet2_description, String movedate) {
         this.userId = userId;
         this.residence_name = residence_name;
         this.code = code;
@@ -161,19 +159,19 @@ public class House {
         this.date = date;
     }
 
-    public String getAllnumber() {
+    public Integer getAllnumber() {
         return allnumber;
     }
 
-    public void setAllnumber(String allnumber) {
+    public void setAllnumber(Integer allnumber) {
         this.allnumber = allnumber;
     }
 
-    public String getParkingnumber() {
+    public Integer getParkingnumber() {
         return parkingnumber;
     }
 
-    public void setParkingnumber(String parkingnumber) {
+    public void setParkingnumber(Integer parkingnumber) {
         this.parkingnumber = parkingnumber;
     }
 
