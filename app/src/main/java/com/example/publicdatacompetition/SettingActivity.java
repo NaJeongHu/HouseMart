@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -18,8 +20,9 @@ import java.util.ArrayList;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private LinearLayout ll_chat, ll_logout;
+    private LinearLayout ll_chat, ll_logout, ll_privateinfo, ll_business, ll_broker;
     private User mUser;
+    private ImageView btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +34,29 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void init() {
+        btn_back = findViewById(R.id.btn_back);
+
         ll_logout = findViewById(R.id.ll_logout);
         ll_chat = findViewById(R.id.ll_chatting);
+        ll_privateinfo = findViewById(R.id.ll_privateinfo);
+        ll_business = findViewById(R.id.ll_business);
+        ll_broker = findViewById(R.id.ll_broker);
 
         ll_logout.setOnClickListener(this);
         ll_chat.setOnClickListener(this);
+        ll_privateinfo.setOnClickListener(this);
+        ll_business.setOnClickListener(this);
+        ll_broker.setOnClickListener(this);
         mUser = (User) getIntent().getSerializableExtra("user");
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_back:
+                onBackPressed();
+                break;
+
             case R.id.ll_logout:
                 upload_dialog(view);
                 break;
@@ -50,6 +65,21 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 Intent intent = new Intent(SettingActivity.this, ChatListActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                break;
+
+            case R.id.ll_privateinfo:
+                Intent intent1 = new Intent(SettingActivity.this, PrivateinfoActivity.class);
+                startActivity(intent1);
+                break;
+
+            case R.id.ll_business:
+                Intent intent2 = new Intent(SettingActivity.this, PrivateinfoActivity.class);
+                startActivity(intent2);
+                break;
+
+            case R.id.ll_broker:
+                Intent intent3 = new Intent(SettingActivity.this, PrivateinfoActivity.class);
+                startActivity(intent3);
                 break;
         }
     }

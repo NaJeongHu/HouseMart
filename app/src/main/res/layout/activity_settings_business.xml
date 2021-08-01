@@ -65,13 +65,51 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp">
-
-            <androidx.viewpager.widget.ViewPager
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_margin="50dp"
-                android:layout_gravity="center"
-                android:background="@color/custom_blue2"/>
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_item_list_titleimg"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="15dp"
+                    app:cardCornerRadius="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_item_list_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="아파트 이름"/>
+
+                    <TextView
+                        android:id="@+id/tv_item_list_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="아파트 정보"/>
+
+                    <TextView
+                        android:id="@+id/tv_item_list_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="아파트 가격"/>
+
+                    <TextView
+                        android:layout_marginTop="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/custom_blue"
+                        android:text = "가계약 완료"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

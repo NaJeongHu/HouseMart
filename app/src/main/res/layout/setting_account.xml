@@ -6,6 +6,7 @@
     android:padding="20dp"
     android:orientation="vertical">
     <LinearLayout
+        android:id="@+id/ll_privateinfo"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_marginLeft="10dp"
