@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,8 @@ public class ShowContractActivity extends AppCompatActivity {
     Contract mContract;
 
     private AppCompatButton btn_upload;
-    private LinearLayout lin_price_month;
+    private View view_month;
+    private TableRow row_month;
     private TextView tv_address_apartment, tv_purpose, tv_area, tv_price1, tv_price2, tv_price_type, tv_provisional_down_pay, tv_down_pay, tv_intermediate_pay, tv_balance, tv_date, tv_name1, tv_birth1, tv_phonenumber1, tv_name2, tv_birth2, tv_phonenumber2, tv_special;
 
     private String sale_type;//전세/매매/월세 타입
@@ -118,18 +120,22 @@ public class ShowContractActivity extends AppCompatActivity {
             }
         });
 
-        lin_price_month = findViewById(R.id.lin_price_month);
+        view_month = findViewById(R.id.view_month);
+        row_month = findViewById(R.id.row_month);
         tv_price_type = findViewById(R.id.tv_price_type);
         if (sale_type.equals("전세")) {
-            lin_price_month.setVisibility(View.GONE);
+            view_month.setVisibility(View.GONE);
+            row_month.setVisibility(View.GONE);
             tv_price_type.setText("전세금");
         }
         if (sale_type.equals("월세")) {
-            lin_price_month.setVisibility(View.VISIBLE);
+            view_month.setVisibility(View.VISIBLE);
+            row_month.setVisibility(View.VISIBLE);
             tv_price_type.setText("보증금");
         }
         if (sale_type.equals("매매")) {
-            lin_price_month.setVisibility(View.GONE);
+            view_month.setVisibility(View.GONE);
+            row_month.setVisibility(View.GONE);
             tv_price_type.setText("매매금");
         }
 
