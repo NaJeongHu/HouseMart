@@ -90,22 +90,25 @@ public class ShowContractActivity extends AppCompatActivity {
                 ok_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // todo 서버와의 통신 부분
                         mRESTApi.successContract(contractIdx).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+
+                                Log.d(TAG, "onResponse...");
+
                                 String code = response.headers().get("code");
+                                Boolean body = response.body();
 
                                 if(code.equals("00")){
                                     Toast.makeText(ShowContractActivity.this, "가계약서에 동의했습니다", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(ShowContractActivity.this, "이미 동의했습니다", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<Boolean> call, Throwable throwable) {
                                 Toast.makeText(ShowContractActivity.this, "서버와의 연결이 원활하지 않습니다", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "onFailure...", throwable);
                             }
                         });
                     }

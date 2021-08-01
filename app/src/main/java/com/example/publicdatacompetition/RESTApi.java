@@ -173,15 +173,15 @@ public interface RESTApi {
 //            @Part MultipartBody.Part file1,
 //            @Part MultipartBody.Part file2);
 
-    @POST("/deal/getSalesOfferForDeal") //1-1
+    @POST("/deal/getSalesOfferForDeal")
     Call<House> getContractHouseInfo(
-            @Query("idx") Long idx);
+            @Query("houseIdx") Long idx);
 
-    @POST("/deal/findMemberByPhoneNum") //1-2
+    @POST("/deal/findMemberByPhoneNum")
     Call<User> getContractUserInfo(
             @Query("phonenumber") String phonenumber);
 
-    @POST("deal/contract/write") //2
+    @POST("deal/contract/write")
     Call<Long> writeContract(
             @Query("offerIdx") Long idx,
             @Query("sale_type") String sale_type,
@@ -200,15 +200,13 @@ public interface RESTApi {
             @Query("id1") Long id1,
             @Query("id2") Long id2);
 
-    @POST("/deal/contract/get") //3
+    @POST("/deal/contract/get")
     Call<Contract> getContract(
             @Query("idx") Long idx);
 
-    @POST("deal/contract/provision-pay") //4
+    @POST("deal/contract/provisional-pay")
     Call<Boolean> successContract(
             @Query("idx") Long idx);
-
-
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://122.37.239.49:9000/")
