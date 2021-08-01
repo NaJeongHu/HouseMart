@@ -339,7 +339,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.btn_houseinfo_gochat:
                 // todo : 채팅쪽으로 intent 전달 (putExtra firebase id)
-                Intent intent = new Intent(getApplicationContext(), ChatListActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                 intent.putExtra("FirebaseId", houseInfoDetail.getMember().getFirebaseId());
                 intent.putExtra("houseIdx",houseInfoDetail.getId());
                 startActivity(intent);

@@ -47,7 +47,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
     private RangeSlider slider_ratio1, slider_ratio2;
 
     //계약서에 쓰이는 변수
-    private String type;//전세/매매/월세 타입
+    private String sale_type;//전세/매매/월세 타입
     private String address_apartment;//도로명 주소 + 아파트 이름
     private String purpose;//아파트 용도
     private String area;//전용면적/공급면적
@@ -80,39 +80,48 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
     
     private  RESTApi mRESTApi;
 
+    private Long houseIdx;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contract_upload);
+
         init();
-        init_variable();
+        getDataFromServer();
     }
 
-    private void init_variable() {
+    private void getDataFromServer() {
 
         Intent intent = getIntent();
-        String buyer = intent.getStringExtra("buyer_phone");
-        String seller = intent.getStringExtra("seller_phone");
-        Long house_idx = intent.getLongExtra("house_idx", -1);
+        phonenumber1 = intent.getStringExtra("sellerPhone");
+        phonenumber2 = intent.getStringExtra("buyerPhone");
+        houseIdx = intent.getLongExtra("houseIdx", -1);
 
         //예외처리
-        if(buyer.equals("") || seller.equals("")){
+        if(phonenumber1.equals("") || phonenumber2.equals("")){
             Log.d(TAG, "Intent에 매도자나 매수자 정보가 없습니다");
             finish();
-        } else if(house_idx == -1){
+        } else if(houseIdx == -1){
             Log.d(TAG, "Intent에 매물 idx가 없습니다");
             finish();
         }
 
         mRESTApi = RESTApi.retrofit.create(RESTApi.class);
-        mRESTApi.getContractHouseInfo(house_idx).enqueue(new Callback<House>() {
+        mRESTApi.getContractHouseInfo(houseIdx).enqueue(new Callback<House>() {
             @Override
             public void onResponse(Call<House> call, Response<House> response) {
                 String houseCode = response.headers().get("code");
 
                 if(houseCode != null && houseCode.equals("00")) {
                     House house = (House) response.body();
-                    type = house.getSale_type();
+                    if(houseIdx != house.getIdx()) {
+                        Log.e(TAG, "서버에서 잘못된 매물을 가져옴");
+                        finish();
+                    }
+
+                    Log.d(TAG, "제대로 된 매물 가져옴");
+                    sale_type = house.getSale_type();
                     address_apartment = house.getAddress() + " " + house.getResidence_name() + " "
                             + house.getDong() + "동 " + house.getHo() + "호";//도로명 주소 + 아파트 이름 + 동 + 호
                     area = house.getNet_leaseable_area() + "m²/" + house.getLeaseable_area() + "m²";// 전용면적/공급면적
@@ -123,29 +132,33 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
                     intermediate_pay_per = house.getIntermediate_pay_per();
                     balance_per = house.getBalance_per();
 
-                    mRESTApi.getContractUserInfo(phonenumber1).enqueue(new Callback<User>() {
+                    String phonenumber = phonenumber1;
+                    mRESTApi.getContractUserInfo(phonenumber).enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
                             String user1Code = response.headers().get("code");
 
                             if(user1Code != null && user1Code.equals("00")) {
                                 User user = (User) response.body();
+
                                 id1 = user.getId();
                                 name1 = user.getName();
                                 birth1 = user.getIdNum();
-                                phonenumber1 = user.getPhoneNumber();
 
-                                mRESTApi.getContractUserInfo(phonenumber2).enqueue(new Callback<User>() {
+                                String phonenumber = phonenumber2;
+                                mRESTApi.getContractUserInfo(phonenumber).enqueue(new Callback<User>() {
                                     @Override
                                     public void onResponse(Call<User> call, Response<User> response) {
                                         String user2Code = response.headers().get("code");
 
                                         if (user2Code != null && user2Code.equals("00")) {
                                             User user = (User) response.body();
+
                                             id2 = user.getId();
                                             name2 = user.getName();
                                             birth2 = user.getIdNum();
-                                            phonenumber2 = user.getPhoneNumber();
+
+                                            init_variable();
                                         }
                                     }
 
@@ -170,7 +183,9 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
                 Log.e(TAG, "failure getHouseInfo",throwable);
             }
         });
+    }
 
+    private void init_variable() {
         long now = System.currentTimeMillis();
         Date mDate = new Date(now);
         SimpleDateFormat date1 = new SimpleDateFormat("yyyy");
@@ -180,10 +195,10 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
         editable =true;
 
         tv_date.setText(date);
-        if (type.equals("매매")) {
+        if (sale_type.equals("매매")) {
             lin_price_month.setVisibility(View.GONE);
             tv_price_type.setText("매매금");
-        } else if (type.equals("전세")) {
+        } else if (sale_type.equals("전세")) {
             lin_price_month.setVisibility(View.GONE);
             tv_price_type.setText("전세금");
         } else {
@@ -197,7 +212,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
         tv_price1.setText(sale_prices);
 
         tv_price1.setText(sale_prices);
-        if (type.equals("월세")) {
+        if (sale_type.equals("월세")) {
             monthly_prices = monthly_price + "원(" + mUploadActivity.translatePrice(monthly_price) + ")";
             tv_price2.setText(monthly_prices);
         }
@@ -439,23 +454,34 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View v) {
                 // 서버와의 통신 부분
-                mContract = new Contract(type, address_apartment, purpose, area,
+                mContract = new Contract(sale_type, address_apartment, purpose, area,
                         sale_prices, monthly_prices, provisional_down_pay, down_pay, intermediate_pay, balance,
                         special, date, name1, name2, birth1, birth2, phonenumber1, phonenumber2, id1, id2, editable);
                 
-                mRESTApi.writeContract(type, address_apartment, purpose, area,
+                mRESTApi.writeContract(houseIdx, sale_type, address_apartment, purpose, area,
                         sale_prices, monthly_prices, provisional_down_pay, down_pay, intermediate_pay, balance,
-                        special, date, id1, id2).enqueue(new Callback<Contract>() {
+                        special, date, id1, id2).enqueue(new Callback<Long>() {
                     @Override
-                    public void onResponse(Call<Contract> call, Response<Contract> response) {
-                        Contract contract = (Contract) response.body();
-                        
-                        //TODO : contract 확인하기
+                    public void onResponse(Call<Long> call, Response<Long> response) {
+                        //get idx of written contract
+                        String code = response.headers().get("code");
+
+                        if(code.equals("00")) {
+                            Long contractIdx = response.body();
+
+                            Toast.makeText(MakeContractActivity.this, "계약서를 저장했습니다", Toast.LENGTH_SHORT).show();
+
+                            //send contract idx to ChatActivity
+                            Intent intent = new Intent();
+                            intent.putExtra("contractIdx", contractIdx);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<Contract> call, Throwable throwable) {
-
+                    public void onFailure(Call<Long> call, Throwable throwable) {
+                        Toast.makeText(MakeContractActivity.this, "서버와의 연결이 원활하지 않아 계약서를 저장하지 못했습니다", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

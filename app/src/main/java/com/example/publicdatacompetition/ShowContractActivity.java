@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.publicdatacompetition.Model.Contract;
 import com.google.android.material.slider.RangeSlider;
@@ -31,7 +32,7 @@ public class ShowContractActivity extends AppCompatActivity {
     private LinearLayout lin_price_month;
     private TextView tv_address_apartment, tv_purpose, tv_area, tv_price1, tv_price2, tv_price_type, tv_provisional_down_pay, tv_down_pay, tv_intermediate_pay, tv_balance, tv_date, tv_name1, tv_birth1, tv_phonenumber1, tv_name2, tv_birth2, tv_phonenumber2, tv_special;
 
-    private String type;//전세/매매/월세 타입
+    private String sale_type;//전세/매매/월세 타입
     private String address_apartment;//도로명 주소 + 아파트 이름
     private String purpose;//아파트 용도
     private String area;//전용면적/공급면적
@@ -55,7 +56,7 @@ public class ShowContractActivity extends AppCompatActivity {
 
     private RESTApi mRESTApi;
 
-    Long contract_idx;
+    Long contractIdx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +65,12 @@ public class ShowContractActivity extends AppCompatActivity {
 
         mRESTApi = RESTApi.retrofit.create(RESTApi.class);
 
-        init();
+        //getContract()가 완료되기 전에 init()에서 sale_type을 참조해서 문제가 생김
+        //=> getContract()를 완료한 후 init() 시행하도록 함
         getContract();
     }
 
     private void init() {
-
         btn_upload = findViewById(R.id.btn_upload);
         btn_upload.setText("가계약서 동의하기");
         btn_upload.setOnClickListener(new View.OnClickListener() {
@@ -88,15 +89,21 @@ public class ShowContractActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         // todo 서버와의 통신 부분
-                        mRESTApi.successContract(contract_idx).enqueue(new Callback<Boolean>() {
+                        mRESTApi.successContract(contractIdx).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                String code = response.headers().get("code");
 
+                                if(code.equals("00")){
+                                    Toast.makeText(ShowContractActivity.this, "가계약서에 동의했습니다", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(ShowContractActivity.this, "이미 동의했습니다", Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override
                             public void onFailure(Call<Boolean> call, Throwable throwable) {
-
+                                Toast.makeText(ShowContractActivity.this, "서버와의 연결이 원활하지 않습니다", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -113,15 +120,15 @@ public class ShowContractActivity extends AppCompatActivity {
 
         lin_price_month = findViewById(R.id.lin_price_month);
         tv_price_type = findViewById(R.id.tv_price_type);
-        if (type.equals("전세")) {
+        if (sale_type.equals("전세")) {
             lin_price_month.setVisibility(View.GONE);
             tv_price_type.setText("전세금");
         }
-        if (type.equals("월세")) {
+        if (sale_type.equals("월세")) {
             lin_price_month.setVisibility(View.VISIBLE);
             tv_price_type.setText("보증금");
         }
-        if (type.equals("매매")) {
+        if (sale_type.equals("매매")) {
             lin_price_month.setVisibility(View.GONE);
             tv_price_type.setText("매매금");
         }
@@ -163,42 +170,51 @@ public class ShowContractActivity extends AppCompatActivity {
     }
 
     private void getContract() {
-        //todo 서버로부터 mContact 가져옴!
-        Intent intent = getIntent();
-        contract_idx = intent.getLongExtra("contract_idx", -1);
 
-        if(contract_idx == -1) {
-            Log.d(TAG, "Intent에 contract_idx가 없음");
+        Intent intent = getIntent();
+        contractIdx = intent.getLongExtra("contractIdx", -1);
+
+        if(contractIdx == -1) {
+            Log.d(TAG, "Intent에 contractIdx가 없음");
+            finish();
         }
 
-        mRESTApi.getContract(contract_idx).enqueue(new Callback<Contract>() {
+        mRESTApi.getContract(contractIdx).enqueue(new Callback<Contract>() {
             @Override
             public void onResponse(Call<Contract> call, Response<Contract> response) {
-                mContract = (Contract) response.body();
+                String code = response.headers().get("code");
+                if(code.equals("00")) {
+                    mContract = (Contract) response.body();
 
-                type = mContract.getType();
-                address_apartment = mContract.getAddress_apartment();
-                purpose = mContract.getPurpose();
-                area = mContract.getArea();
-                date = mContract.getDate();
-                sale_prices = mContract.getSale_prices();
-                monthly_prices = mContract.getMonthly_prices();
-                provisional_down_pay = mContract.getProvisional_down_pay();
-                down_pay = mContract.getDown_pay();
-                intermediate_pay = mContract.getIntermediate_pay();
-                balance = mContract.getBalance();
-                name1 = mContract.getName1();
-                name2 = mContract.getName2();
-                birth1 = mContract.getBirth1();
-                birth2 = mContract.getBirth2();
-                phonenumber1 = mContract.getPhonenumber1();
-                phonenumber2 = mContract.getPhonenumber2();
-                id2 = mContract.getId2();
+                    sale_type = mContract.getSale_type();
+                    address_apartment = mContract.getAddress_apartment();
+                    purpose = mContract.getPurpose();
+                    area = mContract.getArea();
+                    date = mContract.getDate();
+                    sale_prices = mContract.getSale_prices();
+                    monthly_prices = mContract.getMonthly_prices();
+                    provisional_down_pay = mContract.getProvisional_down_pay();
+                    down_pay = mContract.getDown_pay();
+                    intermediate_pay = mContract.getIntermediate_pay();
+                    balance = mContract.getBalance();
+                    special = mContract.getSpecial();
+                    name1 = mContract.getName1();
+                    name2 = mContract.getName2();
+                    birth1 = mContract.getBirth1();
+                    birth2 = mContract.getBirth2();
+                    phonenumber1 = mContract.getPhonenumber1();
+                    phonenumber2 = mContract.getPhonenumber2();
+                    id2 = mContract.getId2();
+
+                    editable = mContract.getEditable();
+
+                    init();
+                }
             }
 
             @Override
             public void onFailure(Call<Contract> call, Throwable throwable) {
-
+                Toast.makeText(ShowContractActivity.this, "가계약서 정보를 가져오지 못함", Toast.LENGTH_SHORT).show();
             }
         });
     }

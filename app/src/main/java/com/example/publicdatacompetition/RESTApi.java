@@ -179,10 +179,11 @@ public interface RESTApi {
 
     @POST("/deal/findMemberByPhoneNum") //1-2
     Call<User> getContractUserInfo(
-            @Query("phoneNumber") String phoneNumber);
+            @Query("phonenumber") String phonenumber);
 
-    @POST("계약서 쓰기") //2
-    Call<Contract> writeContract(
+    @POST("deal/contract/write") //2
+    Call<Long> writeContract(
+            @Query("offerIdx") Long idx,
             @Query("sale_type") String sale_type,
             @Query("address_apartment") String address_apartment,
             @Query("purpose") String purpose,
@@ -199,11 +200,11 @@ public interface RESTApi {
             @Query("id1") Long id1,
             @Query("id2") Long id2);
 
-    @POST("계약서 불러오기") //3
+    @POST("/deal/contract/get") //3
     Call<Contract> getContract(
             @Query("idx") Long idx);
 
-    @POST("계약하기") //4
+    @POST("deal/contract/provision-pay") //4
     Call<Boolean> successContract(
             @Query("idx") Long idx);
 

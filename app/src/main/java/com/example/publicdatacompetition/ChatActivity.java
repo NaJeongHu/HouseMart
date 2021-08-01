@@ -76,8 +76,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private TextView text_view_camera;
     private TextView text_view_phase;
 
-    private Long house_idx;
-    private Long contract_idx;
+    private Long houseIdx;
+    private Long contractIdx;
+    private String buyerPhone;
+    private String sellerPhone;
 
     private Chatter chatter;
     private Chatter myChatter;
@@ -112,13 +114,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         image_view_album = findViewById(R.id.chat_album);
         image_view_camera = findViewById(R.id.chat_camera);
         image_view_phase = findViewById(R.id.chat_phase);
-        text_view_write = findViewById(R.id.chat_txt_write_contract);
-        text_view_read = findViewById(R.id.chat_txt_read_contract);
-        text_view_contract = findViewById(R.id.chat_txt_contract);
-        text_view_call = findViewById(R.id.chat_txt_call);
-        text_view_album = findViewById(R.id.chat_txt_album);
-        text_view_camera = findViewById(R.id.chat_txt_camera);
-        text_view_phase = findViewById(R.id.chat_txt_phase);
 
         image_view_back.setOnClickListener(this);
         image_view_search.setOnClickListener(this);
@@ -132,19 +127,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         image_view_album.setOnClickListener(this);
         image_view_camera.setOnClickListener(this);
         image_view_phase.setOnClickListener(this);
-        text_view_write.setOnClickListener(this);
-        text_view_read.setOnClickListener(this);
-        text_view_contract.setOnClickListener(this);
-        text_view_call.setOnClickListener(this);
-        text_view_album.setOnClickListener(this);
-        text_view_camera.setOnClickListener(this);
-        text_view_phase.setOnClickListener(this);
 
         //getIntent and get Chatter
         Intent intent = getIntent();
         String chatter_id = intent.getStringExtra("FirebaseId");
-        house_idx = intent.getLongExtra("houseIdx", -1);
-        contract_idx = intent.getLongExtra("contractIdx", -1);
+        houseIdx = intent.getLongExtra("houseIdx", -1);
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -225,34 +212,24 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.chat_write_contract:
-            case R.id.chat_txt_write_contract:
+                //TODO : if already write contract
+
                 Intent write_intent = new Intent(ChatActivity.this, MakeContractActivity.class);
-                write_intent.putExtra("buyer_phone", chatter.getPhone());
-                write_intent.putExtra("seller_phone", myChatter.getPhone());
-                write_intent.putExtra("house_idx", house_idx);
+                write_intent.putExtra("buyerPhone", buyerPhone);
+                write_intent.putExtra("sellerPhone", sellerPhone);
+                write_intent.putExtra("houseIdx", houseIdx);
                 write_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(write_intent, WRITE_REQUEST);
                 break;
 
             case R.id.chat_read_contract:
-            case R.id.chat_txt_read_contract:
                 Intent read_intent = new Intent(ChatActivity.this, ShowContractActivity.class);
-                read_intent.putExtra("contract_idx", contract_idx);
+                read_intent.putExtra("contractIdx", contractIdx);
                 read_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(read_intent, READ_REQUEST);
                 break;
 
-            case R.id.chat_contract:
-            case R.id.chat_txt_contract:
-                //TODO : make correct intent
-//                Intent contract_intent = new Intent(ChatActivity.this, ??.class);
-//                contract_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(contract_intent);
-//                finish();
-                break;
-
             case R.id.chat_call:
-            case R.id.chat_txt_call:
                 Intent call_intent = new Intent();
                 call_intent.setAction(Intent.ACTION_DIAL);
                 call_intent.setData(Uri.parse("tel:" + chatter.getPhone()));
@@ -260,21 +237,18 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.chat_album:
-            case R.id.chat_txt_album:
                 Intent album_intent = new Intent();
                 album_intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(album_intent, IMAGE_REQUEST);
                 break;
 
             case R.id.chat_camera:
-            case R.id.chat_txt_camera:
                 Intent camera_intent = new Intent();
                 camera_intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(camera_intent, CAMERA_REQUEST);
                 break;
 
             case R.id.chat_phase:
-            case R.id.chat_txt_phase:
                 show_phase_diagram();
                 break;
         }
@@ -306,21 +280,22 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 //get houseIdx
-                if(house_idx == -1) {
-                    house_idx = snapshot.child("houseInfo").child("houseIdx").getValue(Long.class);
+                if(houseIdx == -1) {
+                    houseIdx = snapshot.child("houseInfo").child("houseIdx").getValue(Long.class);
                 } else {
                     HashMap<String, Object> hashMap = new HashMap<>();
-                    hashMap.put("houseIdx", house_idx);
-                    snapshot.child("houseInfo").getRef().setValue(hashMap);
+                    hashMap.put("houseIdx", houseIdx);
+                    hashMap.put("buyerPhone", myChatter.getPhone());
+                    hashMap.put("sellerPhone", chatter.getPhone());
+                    snapshot.child("houseInfo").getRef().updateChildren(hashMap);
                 }
 
-                //get contractIdx
-                if(contract_idx == -1) {
-                    contract_idx = snapshot.child("houseInfo").child("contractIdx").getValue(Long.class);
-                } else {
-                    HashMap<String, Object> hashMap = new HashMap<>();
-                    hashMap.put("contractIdx", contract_idx);
-                    snapshot.child("houseInfo").getRef().setValue(hashMap);
+                buyerPhone = snapshot.child("houseInfo").child("buyerPhone").getValue(String.class);
+                sellerPhone = snapshot.child("houseInfo").child("sellerPhone").getValue(String.class);
+                try {
+                    contractIdx = snapshot.child("houseInfo").child("contractIdx").getValue(Long.class);
+                } catch (Exception e){
+                    Log.d(TAG, "가계약서 작성 전이라 contractIdx가 존재하지 않음");
                 }
 
                 chatAdapter = new ChatAdapter(ChatActivity.this, mchat, chatter.getImageURL());
@@ -405,7 +380,15 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         } else if(requestCode == CAMERA_REQUEST && data != null){
             //TODO : write code to capture image and add to firebase Chats history
         } else if(requestCode == WRITE_REQUEST && data != null){
-            contract_idx = data.getLongExtra("contractIdx", -1);
+            contractIdx = data.getLongExtra("contractIdx", -1);
+
+            if(contractIdx != -1) {
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("contractIdx", contractIdx);
+                reference.child("houseInfo").updateChildren(hashMap);
+            }
+
         } else if(requestCode == READ_REQUEST && data != null){
 
         }

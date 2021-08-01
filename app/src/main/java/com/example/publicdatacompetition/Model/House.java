@@ -5,6 +5,7 @@ import java.util.List;
 import okhttp3.MultipartBody;
 
 public class House {
+    private Long idx;
     private String userId;//사용자 이름
     private String residence_name;//아파트 이름
     private String code;//아파트 코드
@@ -70,7 +71,8 @@ public class House {
 
     public House() { }
 
-    public House(String residence_name, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String sale_type, Long sale_price, Long monthly_price, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, String address) {
+    public House(Long idx, String residence_name, Integer dong, Integer ho, Double net_leaseable_area, Double leaseable_area, String sale_type, Long sale_price, Long monthly_price, Integer provisional_down_pay_per, Integer down_pay_per, Integer intermediate_pay_per, Integer balance_per, String address) {
+        this.idx = idx;
         this.residence_name = residence_name;
         this.dong = dong;
         this.ho = ho;
@@ -134,6 +136,14 @@ public class House {
         this.toilet1_description = toilet1_description;
         this.toilet2_description = toilet2_description;
         this.movedate = movedate;
+    }
+
+    public Long getIdx() {
+        return idx;
+    }
+
+    public void setIdx(Long idx) {
+        this.idx = idx;
     }
 
     public String getAddress() {

@@ -17,8 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ShowContractActivity"></activity>
-        <activity android:name=".MakeContractActivity" />
+        <activity android:name=".ShowContractActivity"
+            android:parentActivityName=".ChatActivity"/>
+        <activity android:name=".MakeContractActivity"
+            android:parentActivityName=".ChatActivity"/>
         <activity android:name=".SearchActivity_upload" />
         <activity android:name=".LoginActivity">
             <intent-filter>

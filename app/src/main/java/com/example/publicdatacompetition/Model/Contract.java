@@ -1,7 +1,7 @@
 package com.example.publicdatacompetition.Model;
 
 public class Contract {
-    private String type;//전세/매매/월세 타입
+    private String sale_type;//전세/매매/월세 타입
     private String address_apartment;//도로명 주소 + 아파트 이름
     private String purpose;//아파트 용도
     private String area;//전용면적/공급면적
@@ -24,7 +24,7 @@ public class Contract {
     private Boolean editable;//수정가능여부
 
     public Contract(String type, String address_apartment, String purpose, String area, String sale_prices, String monthly_prices, String provisional_down_pay, String down_pay, String intermediate_pay, String balance, String special, String date, String name1, String name2, String birth1, String birth2, String phonenumber1, String phonenumber2, Long id1, Long id2, Boolean editable) {
-        this.type = type;
+        this.sale_type = type;
         this.address_apartment = address_apartment;
         this.purpose = purpose;
         this.area = area;
@@ -71,12 +71,12 @@ public class Contract {
         this.editable = editable;
     }
 
-    public String getType() {
-        return type;
+    public String getSale_type() {
+        return sale_type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setSale_type(String sale_type) {
+        this.sale_type = sale_type;
     }
 
     public String getAddress_apartment() {
