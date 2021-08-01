@@ -5,10 +5,22 @@ import java.io.Serializable;
 public class PermittedHouse implements Serializable {
 
     private int idx, dong, ho, leaseable_area, sale_price, monthly_price, monthly_deposit, deposit;
-    private String residence_name, type, titleImg, residence_type;
+    private String residence_name, titleImg, residence_type;
     private String sido;//시도
     private String sigungoo;//시군구
     private String dongri;//동리
+    private String date;//사용승인일일
+    private String allnumber;//세대수
+    private String parkingnumber;//총주차대수
+    private String sale_type;//"월세","전세","매매"
+
+    public String getSale_type() {
+        return sale_type;
+    }
+
+    public void setSale_type(String sale_type) {
+        this.sale_type = sale_type;
+    }
 
     public String getSido() {
         return sido;
@@ -57,10 +69,6 @@ public class PermittedHouse implements Serializable {
     public void setParkingnumber(String parkingnumber) {
         this.parkingnumber = parkingnumber;
     }
-
-    private String date;//사용승인일일
-    private String allnumber;//세대수
-    private String parkingnumber;//총주차대수
 
     public String getResidence_name() {
         return residence_name;
@@ -140,14 +148,6 @@ public class PermittedHouse implements Serializable {
 
     public void setDeposit(int deposit) {
         this.deposit = deposit;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getTitleImg() {
