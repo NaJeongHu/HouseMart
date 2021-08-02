@@ -33,6 +33,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private GPSTracker gps;
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
         mUser = (User) getIntent().getSerializableExtra("user");
+        getUserInfoFromServer();
 
         cardview_main_profile = findViewById(R.id.cardview_main_profile);
         cardview_main_sell = findViewById(R.id.cardview_main_sell);
@@ -83,6 +88,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (mUser.getQualification().equals("QUALIFIED")) {
             cardview_main_broker.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void getUserInfoFromServer() {
+        RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
+        mRESTApi.getUserInfo(mUser.getUserId()).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User Result = (User) response.body();
+                mUser = Result;
+
+                if (response.headers().get("code") != null && response.headers().get("code").equals("00")) {
+                    Log.d("MainActivity","onResponse" + response.headers().get("code"));
+                } else {
+                    Log.d("MainActivity","onResponse" + response.headers().get("code"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable throwable) {
+                Log.d("MainActivity","onFailure");
+            }
+        });
     }
 
     @Override

@@ -124,7 +124,7 @@ public class BrokerCertificationActivity extends AppCompatActivity implements Vi
         }
 
         try {
-            String filenameJPEG = "certification" + ".jpg";
+            String filenameJPEG = "file" + ".jpg";
             File f = new File(this.getCacheDir(), filenameJPEG);
             try {
                 f.createNewFile();
@@ -141,7 +141,7 @@ public class BrokerCertificationActivity extends AppCompatActivity implements Vi
             img.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, fos);
             fos.close();
 
-            String filename = "certification";
+            String filename = "file";
 
             picture = MultipartBody.Part.createFormData(filename, f.getName(), RequestBody.create(MediaType.parse("image/*"), f));
         } catch (Exception e) {
@@ -155,8 +155,12 @@ public class BrokerCertificationActivity extends AppCompatActivity implements Vi
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 String test_code = response.headers().get("code");
+                String test_code1 = response.body().toString();
+                int test_code2 = response.code();
                 Log.d("testtest", "");
-                Log.d("UploadActivity", "headercode" + test_code);
+                Log.d("Broker", "headercode" + test_code);
+                Log.d("Broker", "headercode1" + test_code1);
+                Log.d("Broker", "headercode2" + test_code2);
                 if (test_code == null) {
                     Toast.makeText(BrokerCertificationActivity.this, "다시 시도해주세요" + test_code, Toast.LENGTH_SHORT).show();
                 } else {

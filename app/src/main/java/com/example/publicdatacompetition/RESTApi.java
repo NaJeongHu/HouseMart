@@ -35,6 +35,10 @@ public interface RESTApi {
             @Query("id") String id,
             @Query("password") String password);
 
+    @POST("/member/get/one")
+    Call<User> getUserInfo(
+            @Query("userId") String userId);
+
     @Multipart
     @POST("/joinRequest")
     Call<ResponseBody> joinRequest(
