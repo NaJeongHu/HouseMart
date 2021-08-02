@@ -178,7 +178,13 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
 
         // detail_detail
         String jungong = houseInfoDetail.getDate().substring(0,4) + "년 " + houseInfoDetail.getDate().substring(4,6) + "월 " + houseInfoDetail.getDate().substring(6,8) + "일";
-        String canmove = houseInfoDetail.getMovedate().substring(0,4) + "년 " + houseInfoDetail.getMovedate().substring(4,6) + "월 " + houseInfoDetail.getMovedate().substring(6,8) + "일";
+        // todo : 즉시 입주로 넘어오면 다르게 하게
+        String canmove = "";
+        if (houseInfoDetail.getMovedate().equals("즉시 입주")) {
+            canmove = "즉시 입주";
+        } else {
+            canmove = houseInfoDetail.getMovedate().substring(0,4) + "년 " + houseInfoDetail.getMovedate().substring(4,6) + "월 " + houseInfoDetail.getMovedate().substring(6,8) + "일";
+        }
 
         tv_houseinfo_resitype.setText(houseInfoDetail.getResidence_type());
         tv_houseinfo_address.setText(houseInfoDetail.getAddress());
