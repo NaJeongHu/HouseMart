@@ -207,7 +207,7 @@ public interface RESTApi {
     @POST("deal/contract/provisional-pay")
     Call<Boolean> successContract(
             @Query("idx") Long idx);
-
+//
     @Multipart
     @POST("register/certification")
     Call<ResponseBody> uploadCertificatioin(
