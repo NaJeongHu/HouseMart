@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/recycler_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@android:color/white"
+            android:layout_width="fill_parent"
+            android:layout_height="47dp"
+            android:backgroundTint="@android:color/white"
+            app:layout_scrollFlags="enterAlways">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/btn_back"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/icon_back" />
+
+                <TextView
+                    android:textSize="18dp"
+                    android:textColor="#000000"
+                    android:ellipsize="end"
+                    android:layout_gravity="center"
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="35dp"
+                    android:fontFamily="@font/applesdgothicneob"
+                    android:text="공인중개사 등록하기"
+                    android:layout_weight="1.0"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_below="@+id/recycler_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:elevation="20dp"
+                app:cardCornerRadius="10dp"
+                android:layout_gravity="center">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:scaleType = "fitXY"
+                        android:id="@+id/image_broker"
+                        android:layout_width="200dp"
+                        android:layout_height="300dp" />
+
+                    <TextView
+                        android:id="@+id/tv_broker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/image_broker"
+                        android:layout_alignTop="@id/image_broker"
+                        android:layout_alignRight="@id/image_broker"
+                        android:layout_alignBottom="@id/image_broker"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="공인중개사 자격증을\n등록해주세요"
+                        android:textColor="@color/custom_blue" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="* 공인중개사 정보와 회원정보는 반드시 일치해야 합니다."
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="* 공휴일 미포함 1일 내에 등록이 완료됩니다."
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="* 하우스마트 공인중개사로 등록이 완료되면 메인화면에서 중개하기 메뉴가 추가됩니다."
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="* 중개수수료는 정해진 금액으로 받아야 하며 계약이 끝난 후 수수료의 일정 퍼센트를 하우스마트에 지급해야 합니다."
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="* 중개수수료를 초과해서 받는 경우가 적발될 시 하우스마트 중개인 자격이 박탈됩니다."
+                android:textColor="@color/custom_blue"/>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round_blue"
+            android:textColor="@color/white"
+            android:text="등록하기"/>
+    </LinearLayout>
+
+</LinearLayout>

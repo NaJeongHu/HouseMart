@@ -1,0 +1,539 @@
+Index: app/src/main/res/layout/contract1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:layout_margin=\"20dp\"\r\n    android:orientation=\"vertical\">\r\n\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"가계약서\"\r\n        android:textSize=\"20dp\"\r\n        android:gravity=\"center\"\r\n        android:fontFamily=\"@font/applesdgothicneob\"\r\n        android:textColor=\"@color/black\"/>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"20dp\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <TextView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:textColor=\"@color/black\"\r\n            android:fontFamily=\"@font/applesdgothicneob\"\r\n            android:textSize=\"15dp\"\r\n            android:text=\"1.부동산의 표시\"/>\r\n\r\n        <TableLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"10dp\"\r\n            android:layout_marginBottom=\"20dp\"\r\n            android:background=\"@color/custom_blue2\">\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                    android:background=\"@color/custom_blue2\"/>\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:gravity=\"right|center\"\r\n                    android:paddingRight=\"15dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:text=\"소재지\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tv_address_apartment\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"3\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:textSize=\"12dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"\" />\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                    android:background=\"@color/custom_blue2\"/>\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:gravity=\"right|center\"\r\n                    android:paddingRight=\"15dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:text=\"건물\" />\r\n\r\n                <TextView\r\n                    android:textSize=\"12dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_weight=\"1\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:text=\"용도\" />\r\n                <TextView\r\n                    android:id=\"@+id/tv_purpose\"\r\n                    android:textSize=\"12dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"2\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"/>\r\n\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue2\"/>\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:gravity=\"left|center\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:text=\"\" />\r\n\r\n                <TextView\r\n                    android:textSize=\"12dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_weight=\"1\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"전용/공급면적\" />\r\n                <TextView\r\n                    android:id=\"@+id/tv_area\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"2\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:textSize=\"12dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"\" />\r\n\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                    android:background=\"@color/custom_blue2\"/>\r\n\r\n        </TableLayout>\r\n\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <TextView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:textColor=\"@color/black\"\r\n            android:fontFamily=\"@font/applesdgothicneob\"\r\n            android:textSize=\"15dp\"\r\n            android:text=\"2.계약내용\"/>\r\n\r\n        <TableLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"10dp\"\r\n            android:layout_marginBottom=\"20dp\"\r\n            android:background=\"@color/custom_blue2\">\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"#DDE7F8\" />\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:gravity=\"right|center\"\r\n                    android:paddingRight=\"15dp\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"매매금액\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tv_price1\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"3\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:textSize=\"12dp\"\r\n                    android:text=\"100,000,000원(1억원)\" />\r\n            </TableRow>\r\n        <View\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"1dp\"\r\n            android:background=\"@color/custom_blue2\" />\r\n\r\n        <TableRow\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\">\r\n\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"40dp\"\r\n                android:layout_weight=\"1\"\r\n                android:gravity=\"right|center\"\r\n                android:paddingRight=\"15dp\"\r\n                android:layout_marginLeft=\"1dp\"\r\n                android:layout_marginRight=\"1dp\"\r\n                android:background=\"@color/custom_blue3\"\r\n                android:textColor=\"@color/black\"\r\n                android:text=\"월세\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/tv_price2\"\r\n                android:textSize=\"12dp\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_marginRight=\"1dp\"\r\n                android:textColor=\"@color/black\"\r\n                android:layout_weight=\"3\"\r\n                android:background=\"@color/white\"\r\n                android:gravity=\"center\"\r\n                android:text=\"150,000원(15만원)\" />\r\n\r\n        </TableRow>\r\n\r\n        <View\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"1dp\"\r\n            android:background=\"@color/custom_blue2\" />\r\n\r\n        </TableLayout>\r\n\r\n        <TableLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"10dp\"\r\n            android:layout_marginBottom=\"20dp\"\r\n            android:background=\"@color/custom_blue2\">\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue2\" />\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:gravity=\"right|center\"\r\n                    android:paddingRight=\"15dp\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"가계약금\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tv_provisional_down_pay\"\r\n                    android:textSize=\"12dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_weight=\"3\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"150,000원(15만원)\" />\r\n\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue2\" />\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:gravity=\"right|center\"\r\n                    android:paddingRight=\"15dp\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"계약금\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tv_down_pay\"\r\n                    android:textSize=\"12dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_weight=\"3\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"150,000원(15만원)\" />\r\n\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue2\" />\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:gravity=\"right|center\"\r\n                    android:paddingRight=\"15dp\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"중도금\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tv_intermediate_pay\"\r\n                    android:textSize=\"12dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_weight=\"3\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"150,000원(15만원)\" />\r\n\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue2\" />\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:gravity=\"right|center\"\r\n                    android:paddingRight=\"15dp\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"잔금\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/tv_balance\"\r\n                    android:textSize=\"12dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_weight=\"3\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"150,000원(15만원)\" />\r\n\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue2\" />\r\n\r\n        </TableLayout>\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <TextView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:textColor=\"@color/black\"\r\n            android:fontFamily=\"@font/applesdgothicneob\"\r\n            android:textSize=\"15dp\"\r\n            android:text=\"3.이행약정\"/>\r\n\r\n        <TextView\r\n            android:layout_marginTop=\"10dp\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:textSize=\"12dp\"\r\n            android:textColor=\"@color/black\"\r\n            android:text=\"1) 가계약의 효력은 가계약체결일로부터 본 계약이 체결될 때까지 유효합니다.\"/>\r\n\r\n        <TextView\r\n            android:layout_marginTop=\"10dp\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:textSize=\"12dp\"\r\n            android:textColor=\"@color/black\"\r\n            android:text=\"2) 특약사항\"/>\r\n\r\n        <TextView\r\n            android:layout_marginTop=\"5dp\"\r\n            android:id=\"@+id/tv_special\"\r\n            android:padding=\"10dp\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"150dp\"\r\n            android:gravity=\"left|top\"\r\n            android:background=\"@drawable/button_round_white\"\r\n            android:textSize=\"12dp\"\r\n            android:textColor=\"@color/black\"\r\n            android:text=\"\" />\r\n\r\n        <TextView\r\n            android:layout_marginTop=\"20dp\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:fontFamily=\"@font/applesdgothicneob\"\r\n            android:textSize=\"15dp\"\r\n            android:textColor=\"@color/black\"\r\n            android:text=\"본 계약에 대하여 매도인(임대인)과 매수인(임차인)은 이의 없음을 확인하고 동의합니다\"/>\r\n\r\n        <TextView\r\n            android:id=\"@+id/tv_date\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:gravity=\"center\"\r\n            android:fontFamily=\"@font/applesdgothicneob\"\r\n            android:textSize=\"15dp\"\r\n            android:textColor=\"@color/black\"\r\n            android:text=\"2021년 7월 28일\"/>\r\n\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"20dp\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <TableLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"10dp\"\r\n            android:layout_marginBottom=\"20dp\"\r\n            android:background=\"@color/custom_blue2\">\r\n\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue3\" />\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"92dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:gravity=\"bottom|center\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:text=\"매도인\" />\r\n\r\n                <TextView\r\n                    android:textSize=\"10dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"성명\" />\r\n                <TextView\r\n                    android:id=\"@+id/tv_name1\"\r\n                    android:textSize=\"15dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"5\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"\" />\r\n\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue3\" />\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"92dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:gravity=\"top|center\"\r\n                    android:text=\"(임대인)\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:textColor=\"@color/black\"/>\r\n\r\n                <TextView\r\n                    android:textSize=\"10dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"생년월일\" />\r\n                <TextView\r\n                    android:id=\"@+id/tv_birth1\"\r\n                    android:textSize=\"10dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"2\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"\" />\r\n                <TextView\r\n                    android:textSize=\"10dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"전화\" />\r\n                <TextView\r\n                    android:id=\"@+id/tv_phonenumber1\"\r\n                    android:textSize=\"10dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"2\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"\" />\r\n\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue3\" />\r\n\r\n        </TableLayout>\r\n\r\n        <TableLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"10dp\"\r\n            android:layout_marginBottom=\"20dp\"\r\n            android:background=\"@color/custom_blue3\">\r\n\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue3\" />\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"92dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:gravity=\"bottom|center\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:text=\"매수인\" />\r\n\r\n                <TextView\r\n                    android:textSize=\"10dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"성명\" />\r\n                <TextView\r\n                    android:id=\"@+id/tv_name2\"\r\n                    android:textSize=\"15dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"5\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"\" />\r\n\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue3\" />\r\n\r\n            <TableRow\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n\r\n                <TextView\r\n                    android:layout_width=\"92dp\"\r\n                    android:layout_height=\"40dp\"\r\n                    android:gravity=\"top|center\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:background=\"@color/custom_blue3\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_marginLeft=\"1dp\"\r\n                    android:text=\"(임차인)\" />\r\n\r\n                <TextView\r\n                    android:textSize=\"10dp\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"생년월일\" />\r\n                <TextView\r\n                    android:id=\"@+id/tv_birth2\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"10dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"2\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"\" />\r\n                <TextView\r\n                    android:textSize=\"10dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"1\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:text=\"전화\" />\r\n                <TextView\r\n                    android:id=\"@+id/tv_phonenumber2\"\r\n                    android:textColor=\"@color/black\"\r\n                    android:textSize=\"10dp\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_marginRight=\"1dp\"\r\n                    android:layout_weight=\"2\"\r\n                    android:background=\"@color/white\"\r\n                    android:gravity=\"center\"\r\n                    android:text=\"\" />\r\n\r\n            </TableRow>\r\n\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"1dp\"\r\n                android:background=\"@color/custom_blue3\" />\r\n\r\n        </TableLayout>\r\n        </LinearLayout>\r\n\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/contract1.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ app/src/main/res/layout/contract1.xml	(date 1627814657508)
+@@ -197,6 +197,7 @@
+                 android:layout_height="wrap_content">
+ 
+                 <TextView
++                    android:id=""
+                     android:layout_width="0dp"
+                     android:layout_height="40dp"
+                     android:layout_weight="1"
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_7_25_2021_1_31_PM_[Default_Changelist]/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_7_25_2021_1_31_PM_[Default_Changelist]/shelved.patch	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_7_25_2021_1_31_PM_[Default_Changelist]/shelved.patch	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
+@@ -1,34 +0,0 @@
+-Index: .idea/runConfigurations.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"RunConfigurationProducerService\">\r\n    <option name=\"ignoredProducers\">\r\n      <set>\r\n        <option value=\"com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer\" />\r\n        <option value=\"org.jetbrains.plugins.gradle.execution.test.runner.AllInPackageGradleConfigurationProducer\" />\r\n        <option value=\"org.jetbrains.plugins.gradle.execution.test.runner.TestClassGradleConfigurationProducer\" />\r\n        <option value=\"org.jetbrains.plugins.gradle.execution.test.runner.TestMethodGradleConfigurationProducer\" />\r\n      </set>\r\n    </option>\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- .idea/runConfigurations.xml	(revision 42efe1ddd22b9c1dfabdc90ff8f7c742435fe99d)
+-+++ .idea/runConfigurations.xml	(date 1627184449017)
+-@@ -3,7 +3,6 @@
+-   <component name="RunConfigurationProducerService">
+-     <option name="ignoredProducers">
+-       <set>
+--        <option value="com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer" />
+-         <option value="org.jetbrains.plugins.gradle.execution.test.runner.AllInPackageGradleConfigurationProducer" />
+-         <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestClassGradleConfigurationProducer" />
+-         <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestMethodGradleConfigurationProducer" />
+-Index: .idea/misc.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- .idea/misc.xml	(revision 42efe1ddd22b9c1dfabdc90ff8f7c742435fe99d)
+-+++ .idea/misc.xml	(date 1627029941023)
+-@@ -1,6 +1,6 @@
+- <?xml version="1.0" encoding="UTF-8"?>
+- <project version="4">
+--  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+-+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+-     <output url="file://$PROJECT_DIR$/build/classes" />
+-   </component>
+-   <component name="ProjectType">
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_7_25_2021_1_31_PM__Default_Changelist_.xml
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_7_25_2021_1_31_PM__Default_Changelist_.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_7_25_2021_1_31_PM__Default_Changelist_.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_7_25_2021_1_31_PM_[Default_Changelist]" date="1627187470698" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_25_2021_1_31_PM_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 7/25/2021 1:31 PM [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: app/src/main/res/layout/item_settings_business.xml
+===================================================================
+--- app/src/main/res/layout/item_settings_business.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ app/src/main/res/layout/item_settings_business.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
+@@ -1,50 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    app:cardCornerRadius="12dp"
+-    android:layout_margin="20dp">
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:layout_margin="20dp"
+-        android:orientation="vertical">
+-
+-        <TextView
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:text="Step1"
+-            android:textSize="30dp"
+-            android:gravity="center"
+-            android:fontFamily="@font/applesdgothicneob"
+-            android:textColor="@color/black"/>
+-
+-        <TextView
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="20dp"
+-            android:text="각 스텝에 대한 상세한 설명\n 굿"
+-            android:textSize="12dp"
+-            android:gravity="left" />
+-        <TextView
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="20dp"
+-            android:text="예를 들어 계좌번호?"
+-            android:textSize="12dp"
+-            android:gravity="left" />
+-        <TextView
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="20dp"
+-            android:text="일단 intent로부터 현재상황 저장해서 step에 맞게 페이지 배치하기"
+-            android:textSize="12dp"
+-            android:gravity="left" />
+-
+-    </LinearLayout>
+-
+-
+-
+-</androidx.cardview.widget.CardView>
+\ No newline at end of file
+Index: app/src/main/res/layout/setting_trading.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:padding=\"20dp\"\r\n    android:orientation=\"vertical\">\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"25dp\"\r\n        android:layout_marginLeft=\"10dp\"\r\n        android:orientation=\"horizontal\">\r\n\r\n        <ImageView\r\n            android:layout_width = \"25dp\"\r\n            android:layout_height = \"match_parent\"\r\n            android:src = \"@drawable/icon_handshake\"/>\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_marginLeft=\"10dp\"\r\n            android:text=\"거래중인 내역\"\r\n            android:textSize=\"15dp\"\r\n            android:textColor=\"@color/black\"/>\r\n\r\n        <View\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"/>\r\n\r\n        <ImageView\r\n        android:layout_width = \"30dp\"\r\n        android:layout_height = \"15dp\"\r\n        android:layout_gravity=\"center\"\r\n        android:src = \"@drawable/icon_arrowright\"/>\r\n    </LinearLayout>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/setting_trading.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ app/src/main/res/layout/setting_trading.xml	(date 1627803639966)
+@@ -6,6 +6,7 @@
+     android:padding="20dp"
+     android:orientation="vertical">
+     <LinearLayout
++        android:id="@+id/ll_business"
+         android:layout_width="match_parent"
+         android:layout_height="25dp"
+         android:layout_marginLeft="10dp"
+Index: app/src/main/res/layout/setting_account.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:padding=\"20dp\"\r\n    android:orientation=\"vertical\">\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"25dp\"\r\n        android:layout_marginLeft=\"10dp\"\r\n        android:orientation=\"horizontal\">\r\n\r\n        <ImageView\r\n            android:layout_width = \"25dp\"\r\n            android:layout_height = \"match_parent\"\r\n            android:src = \"@drawable/icon_acount\"/>\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_marginLeft=\"10dp\"\r\n            android:gravity=\"center\"\r\n            android:text=\"개인정보\"\r\n            android:textSize=\"15dp\"\r\n            android:textColor=\"@color/black\"/>\r\n\r\n        <View\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"/>\r\n\r\n        <ImageView\r\n        android:layout_width = \"30dp\"\r\n        android:layout_height = \"15dp\"\r\n        android:layout_gravity=\"center\"\r\n        android:src = \"@drawable/icon_arrowright\"/>\r\n\r\n    </LinearLayout>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/setting_account.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ app/src/main/res/layout/setting_account.xml	(date 1627803639977)
+@@ -6,6 +6,7 @@
+     android:padding="20dp"
+     android:orientation="vertical">
+     <LinearLayout
++        android:id="@+id/ll_privateinfo"
+         android:layout_width="match_parent"
+         android:layout_height="25dp"
+         android:layout_marginLeft="10dp"
+Index: app/src/main/java/com/example/publicdatacompetition/SettingActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.publicdatacompetition;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport com.example.publicdatacompetition.Model.House;\r\nimport com.example.publicdatacompetition.Model.User;\r\nimport com.google.firebase.auth.FirebaseAuth;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class SettingActivity extends AppCompatActivity implements View.OnClickListener {\r\n\r\n    private LinearLayout ll_chat, ll_logout;\r\n    private User mUser;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_setting);\r\n\r\n\r\n        init();\r\n    }\r\n\r\n    private void init() {\r\n        ll_logout = findViewById(R.id.ll_logout);\r\n        ll_chat = findViewById(R.id.ll_chatting);\r\n\r\n        ll_logout.setOnClickListener(this);\r\n        ll_chat.setOnClickListener(this);\r\n        mUser = (User) getIntent().getSerializableExtra(\"user\");\r\n    }\r\n\r\n    @Override\r\n    public void onClick(View view) {\r\n        switch (view.getId()) {\r\n            case R.id.ll_logout:\r\n                upload_dialog(view);\r\n                break;\r\n\r\n            case R.id.ll_chatting:\r\n                Intent intent = new Intent(SettingActivity.this, ChatListActivity.class);\r\n                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);\r\n                startActivity(intent);\r\n                break;\r\n        }\r\n    }\r\n\r\n    public void upload_dialog(View v) {\r\n        View dialogView = getLayoutInflater().inflate(R.layout.dialog_logout, null);\r\n\r\n        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());\r\n        builder.setView(dialogView);\r\n\r\n        final AlertDialog alertDialog = builder.create();\r\n        alertDialog.show();\r\n\r\n        Button ok_btn = dialogView.findViewById(R.id.btn_okay);\r\n        ok_btn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                alertDialog.dismiss();\r\n                FirebaseAuth.getInstance().signOut();\r\n                startActivity(new Intent(SettingActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));\r\n            }\r\n        });\r\n\r\n        Button cancle_btn = dialogView.findViewById(R.id.btn_cancel);\r\n        cancle_btn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                alertDialog.dismiss();\r\n            }\r\n        });\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/publicdatacompetition/SettingActivity.java	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ app/src/main/java/com/example/publicdatacompetition/SettingActivity.java	(date 1627803639923)
+@@ -4,6 +4,8 @@
+ import android.os.Bundle;
+ import android.view.View;
+ import android.widget.Button;
++import android.widget.ImageButton;
++import android.widget.ImageView;
+ import android.widget.LinearLayout;
+ import android.widget.Toast;
+ 
+@@ -18,8 +20,9 @@
+ 
+ public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
+ 
+-    private LinearLayout ll_chat, ll_logout;
++    private LinearLayout ll_chat, ll_logout, ll_privateinfo, ll_business, ll_broker;
+     private User mUser;
++    private ImageView btn_back;
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+@@ -31,17 +34,29 @@
+     }
+ 
+     private void init() {
++        btn_back = findViewById(R.id.btn_back);
++
+         ll_logout = findViewById(R.id.ll_logout);
+         ll_chat = findViewById(R.id.ll_chatting);
++        ll_privateinfo = findViewById(R.id.ll_privateinfo);
++        ll_business = findViewById(R.id.ll_business);
++        ll_broker = findViewById(R.id.ll_broker);
+ 
+         ll_logout.setOnClickListener(this);
+         ll_chat.setOnClickListener(this);
++        ll_privateinfo.setOnClickListener(this);
++        ll_business.setOnClickListener(this);
++        ll_broker.setOnClickListener(this);
+         mUser = (User) getIntent().getSerializableExtra("user");
+     }
+ 
+     @Override
+     public void onClick(View view) {
+         switch (view.getId()) {
++            case R.id.btn_back:
++                onBackPressed();
++                break;
++
+             case R.id.ll_logout:
+                 upload_dialog(view);
+                 break;
+@@ -51,6 +66,21 @@
+                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                 startActivity(intent);
+                 break;
++
++            case R.id.ll_privateinfo:
++                Intent intent1 = new Intent(SettingActivity.this, PrivateinfoActivity.class);
++                startActivity(intent1);
++                break;
++
++            case R.id.ll_business:
++                Intent intent2 = new Intent(SettingActivity.this, PrivateinfoActivity.class);
++                startActivity(intent2);
++                break;
++
++            case R.id.ll_broker:
++                Intent intent3 = new Intent(SettingActivity.this, PrivateinfoActivity.class);
++                startActivity(intent3);
++                break;
+         }
+     }
+ 
+Index: app/src/main/res/layout/activity_settings_privateinfo.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <com.google.android.material.appbar.AppBarLayout\r\n        android:id=\"@+id/recycler_toolbar\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n        <androidx.appcompat.widget.Toolbar\r\n            android:id=\"@+id/toolbar\"\r\n            android:background=\"@android:color/white\"\r\n            android:layout_width=\"fill_parent\"\r\n            android:layout_height=\"47dp\"\r\n            android:backgroundTint=\"@android:color/white\"\r\n            app:layout_scrollFlags=\"enterAlways\">\r\n\r\n            <LinearLayout\r\n                android:orientation=\"horizontal\"\r\n                android:layout_width=\"fill_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginLeft=\"20dp\"\r\n                android:layout_marginRight=\"20dp\">\r\n\r\n                <ImageView\r\n                    android:layout_gravity=\"center_vertical\"\r\n                    android:id=\"@+id/btn_back\"\r\n                    android:layout_width=\"25dp\"\r\n                    android:layout_height=\"25dp\"\r\n                    android:scaleType=\"fitXY\"\r\n                    app:srcCompat=\"@drawable/icon_back\" />\r\n\r\n                <TextView\r\n                    android:textSize=\"18dp\"\r\n                    android:textColor=\"#000000\"\r\n                    android:ellipsize=\"end\"\r\n                    android:layout_gravity=\"center\"\r\n                    android:id=\"@+id/title\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"10dp\"\r\n                    android:layout_marginRight=\"35dp\"\r\n                    android:fontFamily=\"@font/applesdgothicneob\"\r\n                    android:text=\"계정 정보\"\r\n                    android:layout_weight=\"1.0\"\r\n                    android:textAlignment=\"center\" />\r\n\r\n            </LinearLayout>\r\n\r\n        </androidx.appcompat.widget.Toolbar>\r\n\r\n    </com.google.android.material.appbar.AppBarLayout>\r\n\r\n    <androidx.core.widget.NestedScrollView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layout_below=\"@+id/recycler_toolbar\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:gravity=\"center\">\r\n\r\n            <androidx.cardview.widget.CardView\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_margin=\"10dp\"\r\n                android:elevation=\"10dp\"\r\n                app:cardCornerRadius=\"40dp\">\r\n\r\n                <ImageView\r\n                    android:layout_width=\"100dp\"\r\n                    android:layout_height=\"100dp\"/>\r\n            </androidx.cardview.widget.CardView>\r\n\r\n        </LinearLayout>\r\n\r\n    </androidx.core.widget.NestedScrollView>\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_settings_privateinfo.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ app/src/main/res/layout/activity_settings_privateinfo.xml	(date 1627803639991)
+@@ -1,9 +1,10 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout
++<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent">
++    android:layout_height="match_parent"
++    android:orientation="vertical">
+ 
+     <com.google.android.material.appbar.AppBarLayout
+         android:id="@+id/recycler_toolbar"
+@@ -62,23 +63,179 @@
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+-            android:layout_marginTop="20dp"
+-            android:gravity="center">
++            android:layout_marginLeft="20dp"
++            android:orientation="vertical">
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="match_parent"
++                android:layout_marginTop="20dp"
++                android:gravity="center"
++                android:orientation="vertical"
++                android:layout_marginBottom="20dp">
+ 
+-            <androidx.cardview.widget.CardView
+-                android:layout_width="wrap_content"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                android:elevation="10dp"
+-                app:cardCornerRadius="40dp">
++                <androidx.cardview.widget.CardView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_margin="10dp"
++                    android:elevation="10dp"
++                    app:cardCornerRadius="40dp">
+ 
+-                <ImageView
+-                    android:layout_width="100dp"
+-                    android:layout_height="100dp"/>
+-            </androidx.cardview.widget.CardView>
++                    <ImageView
++                        android:layout_width="100dp"
++                        android:layout_height="100dp"/>
++                </androidx.cardview.widget.CardView>
+ 
++                <TextView
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="권세진 님"
++                    android:textColor="@color/black"
++                    android:textSize="15dp"
++                    android:fontFamily="@font/applesdgothicneob"/>
++
++            </LinearLayout>
++
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="70dp"
++                android:orientation="horizontal"
++                android:layout_marginRight="20dp">
++
++                <TextView
++                    android:layout_width="100dp"
++                    android:layout_height="match_parent"
++                    android:text="닉네임"
++                    android:textSize="15dp"
++                    android:gravity="left|center"
++                    android:fontFamily="@font/applesdgothicneob"/>
++                <TextView
++                    android:layout_width="0dp"
++                    android:layout_height="match_parent"
++                    android:layout_weight="1"
++                    android:text="붕붕이"
++                    android:textSize="15dp"
++                    android:textColor="@color/custom_blue"
++                    android:layout_marginRight="15dp"
++                    android:gravity="right|center"
++                    android:fontFamily="@font/applesdgothicneob"/>
++                <ImageView
++                    android:layout_width = "30dp"
++                    android:layout_height = "15dp"
++                    android:layout_gravity="center"
++                    android:src = "@drawable/icon_arrowright"/>
++
++            </LinearLayout>
++            <View
++                android:layout_width="match_parent"
++                android:layout_height="1dp"
++                android:background="@color/kakao_gray"/>
++
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="70dp"
++                android:orientation="horizontal"
++                android:layout_marginRight="20dp">
++
++                <TextView
++                    android:layout_width="100dp"
++                    android:layout_height="match_parent"
++                    android:text="전화번호"
++                    android:textSize="15dp"
++                    android:gravity="left|center"
++                    android:fontFamily="@font/applesdgothicneob"/>
++                <TextView
++                    android:layout_width="0dp"
++                    android:layout_height="match_parent"
++                    android:layout_weight="1"
++                    android:text="010-7739-5570"
++                    android:textSize="15dp"
++                    android:textColor="@color/custom_blue"
++                    android:layout_marginRight="15dp"
++                    android:gravity="right|center"
++                    android:fontFamily="@font/applesdgothicneob"/>
++                <ImageView
++                    android:layout_width = "30dp"
++                    android:layout_height = "15dp"
++                    android:layout_gravity="center"
++                    android:src = "@drawable/icon_arrowright"/>
++
++            </LinearLayout>
++            <View
++                android:layout_width="match_parent"
++                android:layout_height="1dp"
++                android:background="@color/kakao_gray"/>
++
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="70dp"
++                android:orientation="horizontal"
++                android:layout_marginRight="20dp">
++
++                <TextView
++                    android:layout_width="100dp"
++                    android:layout_height="match_parent"
++                    android:text="생년월일"
++                    android:textSize="15dp"
++                    android:gravity="left|center"
++                    android:fontFamily="@font/applesdgothicneob"/>
++                <TextView
++                    android:layout_width="0dp"
++                    android:layout_height="match_parent"
++                    android:layout_weight="1"
++                    android:text="970613"
++                    android:textSize="15dp"
++                    android:textColor="@color/custom_blue"
++                    android:layout_marginRight="15dp"
++                    android:gravity="right|center"
++                    android:fontFamily="@font/applesdgothicneob"/>
++                <ImageView
++                    android:layout_width = "30dp"
++                    android:layout_height = "15dp"
++                    android:layout_gravity="center"
++                    android:src = "@drawable/icon_arrowright"/>
++
++            </LinearLayout>
++            <View
++                android:layout_width="match_parent"
++                android:layout_height="1dp"
++                android:background="@color/kakao_gray"/>
++
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="70dp"
++                android:orientation="horizontal"
++                android:layout_marginRight="20dp">
++
++                <TextView
++                    android:layout_width="100dp"
++                    android:layout_height="match_parent"
++                    android:text="비밀번호"
++                    android:textSize="15dp"
++                    android:gravity="left|center"
++                    android:fontFamily="@font/applesdgothicneob"/>
++                <TextView
++                    android:layout_width="0dp"
++                    android:layout_height="match_parent"
++                    android:layout_weight="1"
++                    android:text="Qwer1234"
++                    android:textSize="15dp"
++                    android:textColor="@color/custom_blue"
++                    android:layout_marginRight="15dp"
++                    android:gravity="right|center"
++                    android:fontFamily="@font/applesdgothicneob"/>
++                <ImageView
++                    android:layout_width = "30dp"
++                    android:layout_height = "15dp"
++                    android:layout_gravity="center"
++                    android:src = "@drawable/icon_arrowright"/>
++
++            </LinearLayout>
++            <View
++                android:layout_width="match_parent"
++                android:layout_height="1dp"
++                android:background="@color/kakao_gray"/>
++
+         </LinearLayout>
+-
+     </androidx.core.widget.NestedScrollView>
+ 
+-</RelativeLayout>
+\ No newline at end of file
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/setting_broker.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:padding=\"20dp\"\r\n    android:orientation=\"vertical\">\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"25dp\"\r\n        android:layout_marginLeft=\"10dp\"\r\n        android:orientation=\"horizontal\">\r\n\r\n        <ImageView\r\n            android:layout_width = \"25dp\"\r\n            android:layout_height = \"match_parent\"\r\n            android:src = \"@drawable/icon_building\"/>\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_marginLeft=\"10dp\"\r\n            android:gravity=\"bottom\"\r\n            android:text=\"중개하기\"\r\n            android:textSize=\"15dp\"\r\n            android:textColor=\"@color/black\"/>\r\n\r\n        <View\r\n            android:layout_width=\"0dp\"\r\n            android:layout_height=\"0dp\"\r\n            android:layout_weight=\"1\"/>\r\n\r\n        <ImageView\r\n            android:layout_width = \"30dp\"\r\n            android:layout_height = \"15dp\"\r\n            android:layout_gravity=\"center\"\r\n            android:src = \"@drawable/icon_arrowright\"/>\r\n    </LinearLayout>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/setting_broker.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ app/src/main/res/layout/setting_broker.xml	(date 1627803640001)
+@@ -6,6 +6,7 @@
+     android:padding="20dp"
+     android:orientation="vertical">
+     <LinearLayout
++        android:id="@+id/ll_broker"
+         android:layout_width="match_parent"
+         android:layout_height="25dp"
+         android:layout_marginLeft="10dp"
+Index: app/src/main/res/layout/activity_settings_business.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <com.google.android.material.appbar.AppBarLayout\r\n        android:id=\"@+id/recycler_toolbar\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n        <androidx.appcompat.widget.Toolbar\r\n            android:id=\"@+id/toolbar\"\r\n            android:background=\"@android:color/white\"\r\n            android:layout_width=\"fill_parent\"\r\n            android:layout_height=\"47dp\"\r\n            android:backgroundTint=\"@android:color/white\"\r\n            app:layout_scrollFlags=\"enterAlways\">\r\n\r\n            <LinearLayout\r\n                android:orientation=\"horizontal\"\r\n                android:layout_width=\"fill_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginLeft=\"20dp\"\r\n                android:layout_marginRight=\"20dp\">\r\n\r\n                <ImageView\r\n                    android:layout_gravity=\"center_vertical\"\r\n                    android:id=\"@+id/btn_back\"\r\n                    android:layout_width=\"25dp\"\r\n                    android:layout_height=\"25dp\"\r\n                    android:scaleType=\"fitXY\"\r\n                    app:srcCompat=\"@drawable/icon_back\" />\r\n\r\n                <TextView\r\n                    android:textSize=\"18dp\"\r\n                    android:textColor=\"#000000\"\r\n                    android:ellipsize=\"end\"\r\n                    android:layout_gravity=\"center\"\r\n                    android:id=\"@+id/title\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"10dp\"\r\n                    android:layout_marginRight=\"35dp\"\r\n                    android:fontFamily=\"@font/applesdgothicneob\"\r\n                    android:text=\"거래중인 내역\"\r\n                    android:layout_weight=\"1.0\"\r\n                    android:textAlignment=\"center\" />\r\n\r\n            </LinearLayout>\r\n\r\n        </androidx.appcompat.widget.Toolbar>\r\n\r\n    </com.google.android.material.appbar.AppBarLayout>\r\n\r\n    <androidx.core.widget.NestedScrollView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layout_below=\"@+id/recycler_toolbar\"\r\n        android:layout_marginTop=\"-16dp\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_marginTop=\"20dp\">\r\n\r\n            <androidx.viewpager.widget.ViewPager\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"400dp\"\r\n                android:layout_margin=\"50dp\"\r\n                android:layout_gravity=\"center\"\r\n                android:background=\"@color/custom_blue2\"/>\r\n\r\n        </LinearLayout>\r\n\r\n    </androidx.core.widget.NestedScrollView>\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_settings_business.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ app/src/main/res/layout/activity_settings_business.xml	(date 1627803639903)
+@@ -65,13 +65,51 @@
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_marginTop="20dp">
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="match_parent"
++                android:orientation="horizontal">
+ 
+-            <androidx.viewpager.widget.ViewPager
+-                android:layout_width="match_parent"
+-                android:layout_height="400dp"
+-                android:layout_margin="50dp"
+-                android:layout_gravity="center"
+-                android:background="@color/custom_blue2"/>
++                <androidx.cardview.widget.CardView
++                    android:id="@+id/card_item_list_titleimg"
++                    android:layout_width="150dp"
++                    android:layout_height="150dp"
++                    android:layout_margin="15dp"
++                    app:cardCornerRadius="5dp"/>
++
++                <LinearLayout
++                    android:layout_width="match_parent"
++                    android:layout_height="match_parent"
++                    android:orientation="vertical">
++
++                    <TextView
++                        android:id="@+id/tv_item_list_name"
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:text="아파트 이름"/>
++
++                    <TextView
++                        android:id="@+id/tv_item_list_info"
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:text="아파트 정보"/>
++
++                    <TextView
++                        android:id="@+id/tv_item_list_price"
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:text="아파트 가격"/>
++
++                    <TextView
++                        android:layout_marginTop="30dp"
++                        android:layout_width="match_parent"
++                        android:layout_height="wrap_content"
++                        android:textColor="@color/custom_blue"
++                        android:text = "가계약 완료"/>
++
++                </LinearLayout>
++
++            </LinearLayout>
+ 
+         </LinearLayout>
+ 

@@ -208,6 +208,13 @@ public interface RESTApi {
     Call<Boolean> successContract(
             @Query("idx") Long idx);
 
+    @Multipart
+    @POST("register/certification")
+    Call<ResponseBody> uploadCertificatioin(
+            @Query("userId") String userId,
+            @Part MultipartBody.Part certification);
+
+
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://122.37.239.49:9000/")
             .addConverterFactory(GsonConverterFactory.create())

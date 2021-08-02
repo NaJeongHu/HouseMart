@@ -17,6 +17,7 @@ import com.example.publicdatacompetition.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -73,13 +74,19 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.ll_business:
-                Intent intent2 = new Intent(SettingActivity.this, PrivateinfoActivity.class);
+                Intent intent2 = new Intent(SettingActivity.this, BusinessActivity.class);
                 startActivity(intent2);
                 break;
 
             case R.id.ll_broker:
-                Intent intent3 = new Intent(SettingActivity.this, PrivateinfoActivity.class);
-                startActivity(intent3);
+                if(mUser.getQualification().equals("QUALIFIED")){
+                    Intent intent3 = new Intent(SettingActivity.this, BrokerActivity.class);
+                    intent3.putExtra("user",mUser);
+                    startActivity(intent3);
+                }
+                else{
+                    upload_dialog2(view);
+                }
                 break;
         }
     }
@@ -104,6 +111,35 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         });
 
         Button cancle_btn = dialogView.findViewById(R.id.btn_cancel);
+        cancle_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+    }
+
+    public void upload_dialog2(View v) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_broker, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setView(dialogView);
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        Button ok_btn = dialogView.findViewById(R.id.btn_okay_broker);
+        ok_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                Intent intent4 = new Intent(SettingActivity.this,BrokerCertificationActivity.class);
+                intent4.putExtra("user",mUser);
+                startActivity(intent4);
+            }
+        });
+
+        Button cancle_btn = dialogView.findViewById(R.id.btn_no_broker);
         cancle_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

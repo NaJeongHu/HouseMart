@@ -17,10 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ShowContractActivity"
-            android:parentActivityName=".ChatActivity"/>
-        <activity android:name=".MakeContractActivity"
-            android:parentActivityName=".ChatActivity"/>
+        <activity android:name=".BrokerCertificationActivity"></activity>
+        <activity android:name=".BrokerActivity" />
+        <activity
+            android:name=".ShowContractActivity"
+            android:parentActivityName=".ChatActivity" />
+        <activity
+            android:name=".MakeContractActivity"
+            android:parentActivityName=".ChatActivity" />
         <activity android:name=".SearchActivity_upload" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -50,6 +54,8 @@
         <activity android:name=".SidoActivity" />
         <activity android:name=".SigunguActivity" />
         <activity android:name=".HouseInfoActivity" />
+        <activity android:name=".PrivateinfoActivity" />
+        <activity android:name=".BusinessActivity" />
     </application>
 
 </manifest>

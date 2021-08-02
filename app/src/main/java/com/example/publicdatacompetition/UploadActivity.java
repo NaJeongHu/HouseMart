@@ -162,7 +162,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         roomcnt = Integer.parseInt(getIntent().getStringExtra("roomcnt"));
         toiletcnt = Integer.parseInt(getIntent().getStringExtra("toiletcnt"));
         models = new ArrayList<>();
-        models.add(new Pictures("아파트 외관 사진을 등록해주세요", R.drawable.image_apartment,"위치, 주변 시설, 아파트 정원 등등 상세하게 적어주세요","아파트 소개"));
+         models.add(new Pictures("아파트 외관 사진을 등록해주세요", R.drawable.image_apartment,"위치, 주변 시설, 아파트 정원 등등 상세하게 적어주세요","아파트 소개"));
         models.add(new Pictures("현관 사진을 등록해주세요", R.drawable.image_frontdoor, "현관 크기, 확장 여부, 신발장 공간 등등 상세하게 적어주세요","현관 소개"));
         models.add(new Pictures("거실 사진을 등록해주세요", R.drawable.image_livingroom, "베란다 확장 여부, 방향, 바닥재질 등등 상세하게 적어주세요","거실 소개"));
         models.add(new Pictures("주방 사진을 등록해주세요", R.drawable.image_kitchen, "수납공간, 식탁 여부, 인테리어 등등 상세하게 적어주세요","주방 소개"));

@@ -61,8 +61,8 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
     // String으로 10000000원(1천만원) 이런 format으로 형식 맞춤
     private String sale_prices;//매매가/전세금/보증금
     private String monthly_prices;//월세
-    private String provisional_down_pay;//가계약금
     private String down_pay;//계약금
+    private String provisional_down_pay;//가계약금
     private String intermediate_pay;//중도금
     private String balance;//잔금
 
@@ -227,6 +227,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
         tv_down_pay.setText(down_pay);
         tv_intermediate_pay.setText(intermediate_pay);
         tv_balance.setText(balance);
+        tv_provisional_down_pay.setText(provisional_down_pay);
         long second = 100 - provisional_down_pay_per;
         long first = price_first * provisional_down_pay_per / 100;
         tv_ratio2.setText(provisional_down_pay_per + "% : " + second + "%");

@@ -1,0 +1,28 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.publicdatacompetition\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\"\r\n        android:usesCleartextTraffic=\"true\">\r\n        <activity android:name=\".ShowContractActivity\"></activity>\r\n        <activity android:name=\".MakeContractActivity\" />\r\n        <activity android:name=\".SearchActivity_upload\" />\r\n        <activity android:name=\".LoginActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".MainActivity\" />\r\n        <activity\r\n            android:name=\".JoinActivity\"\r\n            android:parentActivityName=\".LoginActivity\" />\r\n        <activity\r\n            android:name=\".ResetPasswordActivity\"\r\n            android:parentActivityName=\".LoginActivity\" />\r\n        <activity android:name=\".SettingActivity\" />\r\n        <activity\r\n            android:name=\".ChatActivity\"\r\n            android:parentActivityName=\".ChatListActivity\" />\r\n        <activity\r\n            android:name=\".ChatListActivity\"\r\n            android:parentActivityName=\".SettingActivity\" />\r\n        <activity android:name=\".ListActivity\" />\r\n        <activity android:name=\".UploadActivity\" />\r\n        <activity android:name=\".FilterActivity\" />\r\n        <activity android:name=\".SearchActivity\" />\r\n        <activity android:name=\".SidoActivity\" />\r\n        <activity android:name=\".SigunguActivity\" />\r\n        <activity android:name=\".HouseInfoActivity\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision e00fcaf894f051a6b9bb971395ce27d89dbdf0b1)
++++ app/src/main/AndroidManifest.xml	(date 1627803639954)
+@@ -17,7 +17,9 @@
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme"
+         android:usesCleartextTraffic="true">
+-        <activity android:name=".ShowContractActivity"></activity>
++        <activity android:name=".BusinessActivity"></activity>
++        <activity android:name=".PrivateinfoActivity" />
++        <activity android:name=".ShowContractActivity" />
+         <activity android:name=".MakeContractActivity" />
+         <activity android:name=".SearchActivity_upload" />
+         <activity android:name=".LoginActivity">
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_7_26_2021_8_38_PM__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_7_26_2021_8_38_PM__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-29__8_48__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-29__8_48__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-31__3_07__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-31__3_07__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-27__9_36__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-27__9_36__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-27__10_15__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-27__10_15__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-29__11_13__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-29__11_13__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-27__4_02__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-27__4_02__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-26__11_24__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_2021-07-26__11_24__Default_Changelist_.xml
