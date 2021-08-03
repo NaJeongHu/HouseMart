@@ -14,6 +14,7 @@ public class SidoActivity extends AppCompatActivity {
     private ListView Lv_city;
     private String subject;
     private String search;
+    private String from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class SidoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         subject = intent.getStringExtra("subject");
         search = intent.getStringExtra("search");
+        from = intent.getStringExtra("from");
 
         Lv_city.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -34,6 +36,7 @@ public class SidoActivity extends AppCompatActivity {
                 intent.putExtra("sido", (String) Lv_city.getAdapter().getItem(position)); /*송신*/
                 intent.putExtra("subject", subject);
                 intent.putExtra("search", search);
+                intent.putExtra("from", from);
 
                 startActivity(intent);
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout);
@@ -44,12 +47,12 @@ public class SidoActivity extends AppCompatActivity {
 
     private void init() {
         Lv_city = (ListView) findViewById(R.id.lv_city);
-
         String[] city = getResources().getStringArray(R.array.array_city);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, city);
-
         Lv_city.setAdapter(adapter);
+        subject = "";
+        search = "";
+        from = "";
     }
 
 }

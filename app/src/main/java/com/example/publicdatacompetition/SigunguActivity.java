@@ -17,6 +17,7 @@ public class SigunguActivity extends AppCompatActivity {
     private String sido;
     private String subject;
     private String search;
+    private String from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +26,15 @@ public class SigunguActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         sido = intent.getStringExtra("sido");
-        subject = intent.getStringExtra("subject");
-        search = intent.getStringExtra("search");
 
         init();
+
+        subject = "";
+        search = "";
+        from = "";
+        subject = intent.getStringExtra("subject");
+        search = intent.getStringExtra("search");
+        from = intent.getStringExtra("from");
 
         Lv_gu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -37,15 +43,24 @@ public class SigunguActivity extends AppCompatActivity {
                 MyLocation.getInstance().setSIDO(sido);
                 MyLocation.getInstance().setSIGUNGU((String) Lv_gu.getAdapter().getItem(position));
 
-                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                // 시도, 시군구 저장하니까 intent에 put할 필요 없음
-                //intent.putExtra("sido", sido);
-                //intent.putExtra("gu_name", (String) Lv_gu.getAdapter().getItem(position)); /*송신*/
-                intent.putExtra("search", search);
-                intent.putExtra("subject", subject);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                if (from.equals("BrokerActivity")) {
+                    Intent intent = new Intent(getApplicationContext(), BrokerActivity.class);
+                    intent.putExtra("search", search);
+                    intent.putExtra("subject", subject);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                    // 시도, 시군구 저장하니까 intent에 put할 필요 없음
+                    //intent.putExtra("sido", sido);
+                    //intent.putExtra("gu_name", (String) Lv_gu.getAdapter().getItem(position)); /*송신*/
+                    intent.putExtra("search", search);
+                    intent.putExtra("subject", subject);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                }
             }
         });
     }

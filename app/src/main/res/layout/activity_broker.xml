@@ -28,7 +28,7 @@
 
                 <ImageView
                     android:layout_gravity="center_vertical"
-                    android:id="@+id/btn_back"
+                    android:id="@+id/btn_back_broker"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:scaleType="fitXY"
@@ -45,7 +45,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="35dp"
                     android:fontFamily="@font/applesdgothicneob"
-                    android:text="제목"
+                    android:text="중개 가능한 매물"
                     android:layout_weight="1.0"
                     android:textAlignment="center" />
 
@@ -53,21 +53,108 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <HorizontalScrollView
+            android:id="@+id/linear_broker"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recycler_toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@android:color/white"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="5dp">
+
+                <Button
+                    android:id="@+id/btn_broker_region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/applesdgothicneob"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginBottom="4dp"
+                    android:textSize="14dp"
+                    android:background="@drawable/btn_top"
+                    android:text="지역 설정"
+                    android:stateListAnimator="@null"/>
+
+                <Button
+                    android:id="@+id/btn_broker_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/applesdgothicneob"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="4dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="8dp"
+                    android:background="@drawable/btn_top"
+                    android:textSize="14dp"
+                    android:text=" 아파트 "
+                    android:stateListAnimator="@null"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/recycler_toolbar">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/recycler_toolbar"
+        android:gravity="center"
+        android:id="@+id/linearfortv"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/tv_broker_itemcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/applesdgothicneob"
+            android:textColor="#253628"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text=""/>
 
-        </LinearLayout>
+    </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_broker"
+        android:layout_below="@+id/linearfortv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:gravity="center">
+
+        <com.github.edsergeev.TextFloatingActionButton
+            android:id="@+id/fb_totop_broker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#253628"
+            android:elevation="0dp"
+            android:fontFamily="@font/applesdgothicneob"
+            android:foregroundGravity="center"
+            android:text="^"
+            android:textColor="#ffffff"
+            android:textSize="25dp"
+            android:visibility="gone"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabCustomSize="30dp"
+            app:text_y_offset="10dp"
+            tools:ignore="smallSp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

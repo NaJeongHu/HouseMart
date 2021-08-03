@@ -2,6 +2,7 @@ package com.example.publicdatacompetition;
 
 import com.example.publicdatacompetition.Model.Contract;
 import com.example.publicdatacompetition.Model.House;
+import com.example.publicdatacompetition.Model.ProvisionalHouse;
 import com.example.publicdatacompetition.Model.User;
 
 import java.util.ArrayList;
@@ -59,6 +60,9 @@ public interface RESTApi {
 
     @POST("/board/get/list")
     Call<List<PermittedHouse>> getList();
+
+    @POST("/deal/contract/contractList")
+    Call<List<ProvisionalHouse>> getProvisionalHouseList();
 
     @POST("/board/get/OneByIdx")
     Call<HouseInfoDetail> getDetailInfo(
