@@ -46,6 +46,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private ListRecyclerAdapter adapter;
     private Filter mFilter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
