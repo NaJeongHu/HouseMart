@@ -120,7 +120,6 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
                         finish();
                     }
 
-                    Log.d(TAG, "제대로 된 매물 가져옴");
                     sale_type = house.getSale_type();
                     address_apartment = house.getAddress() + " " + house.getResidence_name() + " "
                             + house.getDong() + "동 " + house.getHo() + "호";//도로명 주소 + 아파트 이름 + 동 + 호

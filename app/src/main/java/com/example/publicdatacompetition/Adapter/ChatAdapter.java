@@ -28,6 +28,8 @@ import java.util.Locale;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
+    private static final String TAG = "ChatAdapter";
+
     public static final int MSG_TYPE_LEFT = 0;
     public static final int MSG_TYPE_RIGHT = 1;
 
@@ -76,6 +78,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         holder.txt_date.setText(date);
         holder.txt_time.setText(time);
         holder.message.setText(chat.getMessage());
+        Log.d(TAG, "imageurl: " + imageurl);
+        Log.d(TAG, "imageurl.equals(\"default\")" + imageurl.equals("default"));
         if(imageurl.equals("default")) {
             holder.profile_image.setImageResource(R.drawable.preview);
         } else {

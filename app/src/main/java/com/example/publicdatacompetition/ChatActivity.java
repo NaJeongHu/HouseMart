@@ -7,6 +7,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -25,7 +28,9 @@ import android.widget.Toast;
 import com.example.publicdatacompetition.Adapter.ChatAdapter;
 import com.example.publicdatacompetition.Model.Chat;
 import com.example.publicdatacompetition.Model.Chatter;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +40,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,18 +72,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageView image_view_write;
     private ImageView image_view_read;
-    private ImageView image_view_contract;
     private ImageView image_view_call;
     private ImageView image_view_album;
     private ImageView image_view_camera;
     private ImageView image_view_phase;
-    private TextView text_view_write;
-    private TextView text_view_read;
-    private TextView text_view_contract;
-    private TextView text_view_call;
-    private TextView text_view_album;
-    private TextView text_view_camera;
-    private TextView text_view_phase;
 
     private Long houseIdx;
     private Long contractIdx;
@@ -90,6 +91,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseUser fuser;
     private DatabaseReference reference;
+
+    private StorageReference storageReference;
 
     private List<Chat> mchat;
 
@@ -109,7 +112,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         image_view_write = findViewById(R.id.chat_write_contract);
         image_view_read = findViewById(R.id.chat_read_contract);
-        image_view_contract = findViewById(R.id.chat_contract);
         image_view_call = findViewById(R.id.chat_call);
         image_view_album = findViewById(R.id.chat_album);
         image_view_camera = findViewById(R.id.chat_camera);
@@ -122,11 +124,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         image_view_write.setOnClickListener(this);
         image_view_read.setOnClickListener(this);
-        image_view_contract.setOnClickListener(this);
         image_view_call.setOnClickListener(this);
         image_view_album.setOnClickListener(this);
         image_view_camera.setOnClickListener(this);
         image_view_phase.setOnClickListener(this);
+
+        storageReference = FirebaseStorage.getInstance().getReference("chats");
 
         //getIntent and get Chatter
         Intent intent = getIntent();
@@ -212,8 +215,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.chat_write_contract:
-                //TODO : if already write contract
-
                 Intent write_intent = new Intent(ChatActivity.this, MakeContractActivity.class);
                 write_intent.putExtra("buyerPhone", buyerPhone);
                 write_intent.putExtra("sellerPhone", sellerPhone);
@@ -338,9 +339,56 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             mchat.add(newChat);
             chatAdapter = new ChatAdapter(ChatActivity.this, mchat, chatter.getImageURL());
             recyclerView.setAdapter(chatAdapter);
-//        chatAdapter.notifyDataSetChanged();
         }
     }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = ChatActivity.this.getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+//    private void sendImage(Uri imageUri) {
+//        if(imageUri != null) {
+//            final StorageReference fileReference = storageReference.child(System.currentTimeMillis() +"."+getFileExtension(imageUri));
+//
+//            StorageTask uploadTask = fileReference.putFile(imageUri);
+//            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+//                @Override
+//                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+//                    if(!task.isSuccessful()) {
+//                        throw task.getException();
+//                    }
+//
+//                    return fileReference.getDownloadUrl();
+//                }
+//            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Uri> task) {
+//                    if(task.isSuccessful()){
+//                        Uri downloadUri = task.getResult();
+//                        String mUri = downloadUri.toString();
+//
+//                        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+//                        HashMap<String, Object> map = new HashMap<>();
+//                        map.put("imageURL", mUri);
+//                        reference.updateChildren(map);
+//
+//                        pd.dismiss();
+//                    } else {
+//                        Toast.makeText(JoinActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(JoinActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        } else {
+//            Toast.makeText(JoinActivity.this, "선택된 이미지가 없습니다", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -375,8 +423,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         if(requestCode == IMAGE_REQUEST && data != null) {
             Uri imageUri = data.getData();
-
-            //TODO : write code to add image to firebase Chats history
+//            sendImage(imageUri);
         } else if(requestCode == CAMERA_REQUEST && data != null){
             //TODO : write code to capture image and add to firebase Chats history
         } else if(requestCode == WRITE_REQUEST && data != null){

@@ -40,7 +40,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         app:layout_constraintLeft_toRightOf="@id/chat_write_contract"
-        app:layout_constraintRight_toLeftOf="@id/chat_contract"
+        app:layout_constraintRight_toLeftOf="@id/chat_call"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="20dp"
         android:src="@drawable/report_2"
@@ -59,41 +59,18 @@
         android:textSize="15sp"/>
 
     <ImageView
-        android:id="@+id/chat_contract"
+        android:id="@+id/chat_call"
         android:layout_width="70dp"
         android:layout_height="70dp"
         app:layout_constraintLeft_toRightOf="@id/chat_read_contract"
-        app:layout_constraintRight_toLeftOf="@id/chat_call"
+        app:layout_constraintRight_toLeftOf="@id/chat_phase"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="20dp"
-        android:src="@drawable/contract"
+        android:src="@drawable/call"
         android:background="@drawable/contract_bluegreen_circle"/>
 
     <TextView
         android:id="@+id/chat_txt_contract"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/chat_contract"
-        app:layout_constraintRight_toRightOf="@id/chat_contract"
-        app:layout_constraintTop_toBottomOf="@id/chat_contract"
-        android:layout_marginTop="5dp"
-        android:text="@string/chat_contract"
-        android:textColor="@color/text_black"
-        android:textSize="15sp"/>
-
-    <ImageView
-        android:id="@+id/chat_call"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        app:layout_constraintLeft_toRightOf="@id/chat_contract"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:padding="20dp"
-        android:src="@drawable/call"
-        android:background="@drawable/contract_green_circle"/>
-
-    <TextView
-        android:id="@+id/chat_txt_call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="@id/chat_call"
@@ -101,6 +78,29 @@
         app:layout_constraintTop_toBottomOf="@id/chat_call"
         android:layout_marginTop="5dp"
         android:text="@string/chat_call"
+        android:textColor="@color/text_black"
+        android:textSize="15sp"/>
+
+    <ImageView
+        android:id="@+id/chat_phase"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintLeft_toRightOf="@id/chat_call"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="20dp"
+        android:src="@drawable/phase"
+        android:background="@drawable/contract_green_circle"/>
+
+    <TextView
+        android:id="@+id/chat_txt_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/chat_phase"
+        app:layout_constraintRight_toRightOf="@id/chat_phase"
+        app:layout_constraintTop_toBottomOf="@id/chat_phase"
+        android:layout_marginTop="5dp"
+        android:text="@string/chat_phase"
         android:textColor="@color/text_black"
         android:textSize="15sp"/>
 
@@ -149,30 +149,6 @@
         app:layout_constraintTop_toBottomOf="@id/chat_camera"
         android:layout_marginTop="5dp"
         android:text="@string/chat_camera"
-        android:textColor="@color/text_black"
-        android:textSize="15sp"/>
-
-    <ImageView
-        android:id="@+id/chat_phase"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        app:layout_constraintLeft_toLeftOf="@id/chat_txt_contract"
-        app:layout_constraintRight_toRightOf="@id/chat_txt_contract"
-        app:layout_constraintTop_toBottomOf="@id/chat_txt_contract"
-        android:layout_marginTop="20dp"
-        android:padding="20dp"
-        android:src="@drawable/phase"
-        android:background="@drawable/contract_brown_circle"/>
-
-    <TextView
-        android:id="@+id/chat_txt_phase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/chat_phase"
-        app:layout_constraintRight_toRightOf="@id/chat_phase"
-        app:layout_constraintTop_toBottomOf="@id/chat_phase"
-        android:layout_marginTop="5dp"
-        android:text="@string/chat_phase"
         android:textColor="@color/text_black"
         android:textSize="15sp"/>
 
