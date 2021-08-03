@@ -58,12 +58,14 @@ public class RecyclerViewAdapter_Search extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        if (mList != null) {
-            name = mList.get(position).getName();
+        if (!mList.isEmpty()) {
+            item_search_name temp = new item_search_name();
+            temp = mList.get(position);
+            name = temp.getName();
             SpannableStringBuilder builder = new SpannableStringBuilder(name);
-            builder.setSpan(new ForegroundColorSpan(Color.parseColor("#2265DA")), mList.get(position).getStart(),  mList.get(position).getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(new ForegroundColorSpan(Color.parseColor("#2265DA")), temp.getStart(),  temp.getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.tv_apartname.setText(builder);
-            holder.tv_apartaddress.setText(mList.get(position).getAddress());
+            holder.tv_apartaddress.setText(temp.getAddress());
         }
     }
 

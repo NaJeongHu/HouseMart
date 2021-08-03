@@ -26,6 +26,7 @@ import java.util.List;
 public class SearchActivity_upload extends AppCompatActivity {
 
     ArrayList<item_search_name> arr = null;
+    List<String[]> list = null;
     private RecyclerViewAdapter_Search adapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
@@ -131,18 +132,19 @@ public class SearchActivity_upload extends AppCompatActivity {
     }
 
     private void readDataFromCsv() {
-        InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.apartment));
-        CSVReader reader = new CSVReader(is);
-        List<String[]> list = null;
-        try {
-            list = reader.readAll();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+        if(list==null) {
+            InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.apartment));
+            CSVReader reader = new CSVReader(is);
             try {
-                is.close();
+                list = reader.readAll();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
