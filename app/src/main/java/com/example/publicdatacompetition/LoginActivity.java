@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.publicdatacompetition.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,8 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity.java";
 
     private EditText mEditEmail, mEditPassword;
-    private Button mLoginButton, mJoinButton;
-    private TextView mResetPassword;
+    private CardView mLoginButton;
+    private TextView mResetPassword, mJoinButton;
 
     private FirebaseAuth auth;
     private User user;
