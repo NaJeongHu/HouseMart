@@ -264,7 +264,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         mchat = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mchat.clear();

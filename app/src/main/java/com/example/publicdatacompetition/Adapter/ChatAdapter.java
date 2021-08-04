@@ -71,6 +71,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         if(position == 0 || position-1 >= 0 && !mChat.get(position-1).getTimestamp().substring(0, 14).equals(date)){
             holder.date_layout.setVisibility(View.VISIBLE);
+            Log.d(TAG, "position: " + mChat.get(position).getTimestamp());
+            if(position > 0) Log.d(TAG, "position-1: " + mChat.get(position-1).getTimestamp());
         } else {
             holder.date_layout.setVisibility(View.GONE);
         }

@@ -75,7 +75,7 @@ public class ChatListActivity extends AppCompatActivity {
 
         //fuser과 채팅한 사람들의 목록 불러오기
         reference = FirebaseDatabase.getInstance().getReference("Chats");
-        reference.orderByChild("users/" + fuser.getUid() + "/id").equalTo(fuser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.orderByChild("users/" + fuser.getUid() + "/id").equalTo(fuser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mChatters.clear();
