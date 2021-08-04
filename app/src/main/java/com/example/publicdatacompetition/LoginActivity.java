@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mEditEmail = findViewById(R.id.edit_login_email);
+//        mEditEmail.setBackground(R.color.me);
         mEditPassword = findViewById(R.id.edit_login_password);
         mLoginButton = findViewById(R.id.btn_login);
         mJoinButton = findViewById(R.id.btn_join);

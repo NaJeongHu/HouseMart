@@ -27,7 +27,7 @@
 
         <androidx.cardview.widget.CardView
             app:cardCornerRadius="10dp"
-            app:cardBackgroundColor="@color/kakao_gray"
+            app:cardBackgroundColor="@color/aaa"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,10 +41,11 @@
                 android:id="@+id/edit_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:layout_marginStart="24dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="24dp"
-                android:hint="Email을 입력하세요!"
+                android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:selectAllOnFocus="true" />
 
@@ -52,7 +53,7 @@
 
         <androidx.cardview.widget.CardView
             app:cardCornerRadius="10dp"
-            app:cardBackgroundColor="@color/kakao_gray"
+            app:cardBackgroundColor="@color/aaa"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -68,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:hint="PW를 입력하세요!"
+                android:hint="PassWord"
                 android:layout_gravity="center"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
