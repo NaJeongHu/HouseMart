@@ -118,4 +118,20 @@ public class User implements Serializable {
     public void setIdNum(String idNum) {
         this.idNum = idNum;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", firebaseId='" + firebaseId + '\'' +
+                ", qualification='" + qualification + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", idNum='" + idNum + '\'' +
+                ", license=" + license +
+                '}';
+    }
 }

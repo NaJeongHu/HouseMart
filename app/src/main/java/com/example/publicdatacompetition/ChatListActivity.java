@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.example.publicdatacompetition.Adapter.ChatListAdapter;
 import com.example.publicdatacompetition.Model.Chat;
 import com.example.publicdatacompetition.Model.Chatter;
+import com.example.publicdatacompetition.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatListActivity extends AppCompatActivity {
+
+    private static final String TAG = "ChatListActivity";
 
     private ImageView mSearch;
 
@@ -72,7 +75,7 @@ public class ChatListActivity extends AppCompatActivity {
 
         //fuser과 채팅한 사람들의 목록 불러오기
         reference = FirebaseDatabase.getInstance().getReference("Chats");
-        reference.orderByChild("users/" + fuser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.orderByChild("users/" + fuser.getUid() + "/id").equalTo(fuser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mChatters.clear();

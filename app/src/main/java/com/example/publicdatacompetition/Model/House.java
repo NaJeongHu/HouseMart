@@ -138,6 +138,60 @@ public class House {
         this.movedate = movedate;
     }
 
+    @Override
+    public String toString() {
+        return "House{" +
+                "idx=" + idx +
+                ", userId='" + userId + '\'' +
+                ", residence_name='" + residence_name + '\'' +
+                ", code='" + code + '\'' +
+                ", address='" + address + '\'' +
+                ", sido='" + sido + '\'' +
+                ", sigungoo='" + sigungoo + '\'' +
+                ", dongri='" + dongri + '\'' +
+                ", date='" + date + '\'' +
+                ", allnumber=" + allnumber +
+                ", parkingnumber=" + parkingnumber +
+                ", contact='" + contact + '\'' +
+                ", dong=" + dong +
+                ", ho=" + ho +
+                ", net_leaseable_area=" + net_leaseable_area +
+                ", leaseable_area=" + leaseable_area +
+                ", residence_type='" + residence_type + '\'' +
+                ", sale_type='" + sale_type + '\'' +
+                ", sale_price=" + sale_price +
+                ", monthly_price=" + monthly_price +
+                ", admin_expenses=" + admin_expenses +
+                ", provisional_down_pay_per=" + provisional_down_pay_per +
+                ", down_pay_per=" + down_pay_per +
+                ", intermediate_pay_per=" + intermediate_pay_per +
+                ", balance_per=" + balance_per +
+                ", room_num=" + room_num +
+                ", toilet_num=" + toilet_num +
+                ", middle_door=" + middle_door +
+                ", air_conditioner=" + air_conditioner +
+                ", refrigerator=" + refrigerator +
+                ", kimchi_refrigerator=" + kimchi_refrigerator +
+                ", closet=" + closet +
+                ", oven=" + oven +
+                ", induction=" + induction +
+                ", airsystem=" + airsystem +
+                ", nego=" + nego +
+                ", short_description='" + short_description + '\'' +
+                ", long_description='" + long_description + '\'' +
+                ", apartment_description='" + apartment_description + '\'' +
+                ", porch_description='" + porch_description + '\'' +
+                ", livingroom_description='" + livingroom_description + '\'' +
+                ", kitchen_description='" + kitchen_description + '\'' +
+                ", room1_description='" + room1_description + '\'' +
+                ", room2_description='" + room2_description + '\'' +
+                ", room3_description='" + room3_description + '\'' +
+                ", toilet1_description='" + toilet1_description + '\'' +
+                ", toilet2_description='" + toilet2_description + '\'' +
+                ", movedate='" + movedate + '\'' +
+                '}';
+    }
+
     public Long getIdx() {
         return idx;
     }

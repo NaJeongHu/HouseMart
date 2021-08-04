@@ -107,6 +107,10 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
             finish();
         }
 
+        Log.d(TAG, "houseIDx: " + houseIdx);
+        Log.d(TAG, "phonenumber1: " + phonenumber1);
+        Log.d(TAG, "phonenumber2: " + phonenumber2);
+
         mRESTApi = RESTApi.retrofit.create(RESTApi.class);
         mRESTApi.getContractHouseInfo(houseIdx).enqueue(new Callback<House>() {
             @Override
@@ -119,6 +123,8 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
                         Log.e(TAG, "서버에서 잘못된 매물을 가져옴");
                         finish();
                     }
+
+                    Log.d(TAG, "매몰: " + house.toString());
 
                     sale_type = house.getSale_type();
                     address_apartment = house.getAddress() + " " + house.getResidence_name() + " "
@@ -144,6 +150,8 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
                                 name1 = user.getName();
                                 birth1 = user.getIdNum();
 
+                                Log.d(TAG, "매도자: " + user.toString());
+
                                 String phonenumber = phonenumber2;
                                 mRESTApi.getContractUserInfo(phonenumber).enqueue(new Callback<User>() {
                                     @Override
@@ -156,6 +164,8 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
                                             id2 = user.getId();
                                             name2 = user.getName();
                                             birth2 = user.getIdNum();
+
+                                            Log.d(TAG, "매수자: " + user.toString());
 
                                             init_variable();
                                         }
@@ -185,6 +195,9 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void init_variable() {
+
+        Log.d(TAG, "init_variable()...");
+
         long now = System.currentTimeMillis();
         Date mDate = new Date(now);
         SimpleDateFormat date1 = new SimpleDateFormat("yyyy");
