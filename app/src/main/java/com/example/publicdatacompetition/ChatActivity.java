@@ -204,7 +204,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.chat_btn_send: // add message to firebase database
                 String message = edit_text_send.getText().toString();
                 if(!message.equals("")) {
-                    SimpleDateFormat transFormat = new SimpleDateFormat("yyyy월 MM월 dd일 a hh:mm:ss", Locale.KOREA);
+                    SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a hh:mm:ss", Locale.KOREA);
                     String date = transFormat.format(new Date());
 
                     sendMessage(fuser.getUid(), chatter.getId(), message, date);

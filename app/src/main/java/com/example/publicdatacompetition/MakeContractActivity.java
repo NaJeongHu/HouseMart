@@ -99,17 +99,13 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
         houseIdx = intent.getLongExtra("houseIdx", -1);
 
         //예외처리
-        if(phonenumber1.equals("") || phonenumber2.equals("")){
+        if(phonenumber1 == null || phonenumber2 == null){
             Log.d(TAG, "Intent에 매도자나 매수자 정보가 없습니다");
             finish();
         } else if(houseIdx == -1){
             Log.d(TAG, "Intent에 매물 idx가 없습니다");
             finish();
         }
-
-        Log.d(TAG, "houseIDx: " + houseIdx);
-        Log.d(TAG, "phonenumber1: " + phonenumber1);
-        Log.d(TAG, "phonenumber2: " + phonenumber2);
 
         mRESTApi = RESTApi.retrofit.create(RESTApi.class);
         mRESTApi.getContractHouseInfo(houseIdx).enqueue(new Callback<House>() {

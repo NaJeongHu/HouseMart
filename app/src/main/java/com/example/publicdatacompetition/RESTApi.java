@@ -183,7 +183,7 @@ public interface RESTApi {
 
     @POST("/deal/getSalesOfferForDeal")
     Call<House> getContractHouseInfo(
-            @Query("houseIdx") Long idx);
+            @Query("idx") Long idx);
 
     @POST("/deal/findMemberByPhoneNum")
     Call<User> getContractUserInfo(

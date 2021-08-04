@@ -62,14 +62,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         Chat chat = mChat.get(position);
 
-        Log.d("ChatAdapter", "chat: " + chat.toString());
-
         String str_date = chat.getTimestamp();
 
         String date = str_date.substring(0, 14);
         String time = str_date.substring(14, 22);
 
-        if(position == 0 || position-1 > 0 && !mChat.get(position-1).getTimestamp().substring(0, 14).equals(date)){
+        Log.d(TAG, position + chat.toString());
+
+        if(position == 0 || position-1 >= 0 && !mChat.get(position-1).getTimestamp().substring(0, 14).equals(date)){
             holder.date_layout.setVisibility(View.VISIBLE);
         } else {
             holder.date_layout.setVisibility(View.GONE);
@@ -78,8 +78,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         holder.txt_date.setText(date);
         holder.txt_time.setText(time);
         holder.message.setText(chat.getMessage());
-        Log.d(TAG, "imageurl: " + imageurl);
-        Log.d(TAG, "imageurl.equals(\"default\")" + imageurl.equals("default"));
         if(imageurl.equals("default")) {
             holder.profile_image.setImageResource(R.drawable.preview);
         } else {

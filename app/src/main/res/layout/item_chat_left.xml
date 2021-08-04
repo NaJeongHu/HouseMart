@@ -63,7 +63,7 @@
         android:background="@drawable/background_left"/>
 
     <TextView
-        android:id="@+id/chat_item_txt_seen"
+        android:id="@+id/chat_item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/chat_item_show_message"
@@ -72,14 +72,13 @@
         android:text="11:45 오전" />
 
     <TextView
-        android:id="@+id/chat_item_time"
+        android:id="@+id/chat_item_txt_seen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/chat_item_time"
         android:layout_toRightOf="@id/chat_item_show_message"
         android:layout_marginLeft="8dp"
         android:text="1"
-        android:textColor="@color/custom_blue"
-        android:visibility="gone"/>
+        android:textColor="@color/custom_blue"/>
 
 </RelativeLayout>
