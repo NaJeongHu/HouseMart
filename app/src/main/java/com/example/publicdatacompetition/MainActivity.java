@@ -212,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setView(dialogView);
 
         final AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         alertDialog.show();
 
         EditText mEditroomcnt = dialogView.findViewById(R.id.edit_preupload_roomcnt);

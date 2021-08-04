@@ -20,13 +20,13 @@ import java.util.List;
 
 public class FilterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private AppCompatButton btn_typeall, btn_type1, btn_type2, btn_type3, btn_year_0, btn_year_1, btn_year_5, btn_year_10, btn_year_15, btn_year_15up, btn_park_0, btn_park_1, btn_park_2, btn_filter;
-    private LinearLayout linear_month, linear_guarantee, linear_sale;
-    private TextView tv_price1, tv_price2, tv_price3, tv_area, tv_reset;
-    private RangeSlider slider1, slider2, slider3, slider4;
+    private AppCompatButton btn_type1, btn_type2, btn_type3, btn_year_0, btn_year_1, btn_year_5, btn_year_10, btn_year_15, btn_year_15up, btn_park_0, btn_park_1, btn_park_2, btn_filter;
+    private LinearLayout linear_month, linear_sale;
+    private TextView tv_price1, tv_price2, tv_price3, tv_area, tv_reset,tv_slider_type;
+    private RangeSlider slider1, slider2, slider4;
     private ImageView btn_back;
     private String type;
-    private long guarantee_start=0L, guarantee_end=-1L, monthly_start=0L, monthly_end=-1L, sale_start=0L, sale_end=-1L;
+    private long monthly_start=0L, monthly_end=-1L, sale_start=0L, sale_end=-1L;
     private double area_start=0D, area_end=-1D;
     private int year=-1, park=0;
 
@@ -49,7 +49,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         btn_back = findViewById(R.id.btn_back);
         btn_filter = findViewById(R.id.btn_filter);
         tv_reset = findViewById(R.id.tv_reset);
-        btn_typeall = findViewById(R.id.btn_typeall);
         btn_type1 = findViewById(R.id.btn_type1);
         btn_type2 = findViewById(R.id.btn_type2);
         btn_type3 = findViewById(R.id.btn_type3);
@@ -63,18 +62,15 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         btn_park_1 = findViewById(R.id.btn_park_1);
         btn_park_2 = findViewById(R.id.btn_park_2);
         linear_sale = findViewById(R.id.linear_sale);
-        linear_guarantee = findViewById(R.id.linear_guarantee);
         linear_month = findViewById(R.id.linear_month);
         slider1 = findViewById(R.id.slider1);
         slider2 = findViewById(R.id.slider2);
-        slider3 = findViewById(R.id.slider3);
         slider4 = findViewById(R.id.slider4);
         tv_price1 = findViewById(R.id.tv_price1);
         tv_price2 = findViewById(R.id.tv_price2);
-        tv_price3 = findViewById(R.id.tv_price3);
         tv_area = findViewById(R.id.tv_area);
+        tv_slider_type = findViewById(R.id.tv_slider_type);
 
-        btn_typeall.setOnClickListener(this);
         btn_type1.setOnClickListener(this);
         btn_type2.setOnClickListener(this);
         btn_type3.setOnClickListener(this);
@@ -97,9 +93,9 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 List<Float> thumbs = slider.getValues();
                 int st = Math.round(thumbs.get(0));
                 int ed = Math.round(thumbs.get(1));
-                guarantee_start = cal1(st);
-                guarantee_end = cal1(ed);
-                tv_price1.setText(uploadActivity.translatePrice(guarantee_start) + "~" + uploadActivity.translatePrice(guarantee_end));
+                sale_start = cal3(st);
+                sale_end = cal3(ed);
+                tv_price1.setText(uploadActivity.translatePrice(sale_start) + "~" + uploadActivity.translatePrice(sale_end));
             }
         });
 
@@ -112,18 +108,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 monthly_start = cal2(st);
                 monthly_end = cal2(ed);
                 tv_price2.setText(uploadActivity.translatePrice(monthly_start) + "~" + uploadActivity.translatePrice(monthly_end));
-            }
-        });
-
-        slider3.addOnChangeListener(new RangeSlider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                List<Float> thumbs = slider.getValues();
-                int st = Math.round(thumbs.get(0));
-                int ed = Math.round(thumbs.get(1));
-                sale_start = cal3(st);
-                sale_end = cal3(ed);
-                tv_price3.setText(uploadActivity.translatePrice(sale_start) + "~" + uploadActivity.translatePrice(sale_end));
             }
         });
 
@@ -162,7 +146,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.btn_filter:
-                mFilter = new Filter(type, guarantee_start, guarantee_end, monthly_start, monthly_end, sale_start, sale_end, area_start, area_end, year, park);
+                mFilter = new Filter(type, monthly_start, monthly_end, sale_start, sale_end, area_start, area_end, year, park);
                 //todo : 리스트 액티비티로 필터의 값 전달
                 Intent intent = new Intent(FilterActivity.this, ListActivity.class);
                 intent.putExtra("filter",mFilter);
@@ -176,23 +160,12 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(FilterActivity.this, FilterActivity.class));
                 break;
 
-            case R.id.btn_typeall:
-                resetTypeButton();
-                btn_typeall.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
-                btn_typeall.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
-                linear_month.setVisibility(View.VISIBLE);
-                linear_guarantee.setVisibility(View.VISIBLE);
-                linear_sale.setVisibility(View.VISIBLE);
-                type = "전체";
-                break;
-
             case R.id.btn_type1:
                 resetTypeButton();
                 btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
                 linear_month.setVisibility(View.VISIBLE);
-                linear_guarantee.setVisibility(View.VISIBLE);
-                linear_sale.setVisibility(View.GONE);
+                tv_slider_type.setText("보증금");
                 type = "월세";
                 break;
 
@@ -201,18 +174,16 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
                 btn_type2.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
                 linear_month.setVisibility(View.GONE);
-                linear_guarantee.setVisibility(View.VISIBLE);
-                linear_sale.setVisibility(View.GONE);
+                tv_slider_type.setText("전세금");
                 type = "전세";
                 break;
 
             case R.id.btn_type3:
                 resetTypeButton();
-                    btn_type3.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
-                    btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
+                    btn_type3.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_blue));
+                    btn_type3.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
                 linear_month.setVisibility(View.GONE);
-                linear_guarantee.setVisibility(View.GONE);
-                linear_sale.setVisibility(View.VISIBLE);
+                tv_slider_type.setText("매매금");
                 type = "매매";
                 break;
 
@@ -334,8 +305,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void resetTypeButton() {
-        btn_typeall.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
-        btn_typeall.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
         btn_type1.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));
         btn_type1.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
         btn_type2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_round_whitegray));

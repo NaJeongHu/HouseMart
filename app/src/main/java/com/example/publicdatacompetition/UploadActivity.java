@@ -724,6 +724,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setView(dialogView);
         final AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         alertDialog.show();
         Button ok_btn = dialogView.findViewById(R.id.btn_okay_dialog_upload);
         ok_btn.setOnClickListener(new View.OnClickListener() {

@@ -447,6 +447,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
         builder.setView(dialogView);
 
         final AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         alertDialog.show();
 
         Button ok_btn = dialogView.findViewById(R.id.btn_okay_contract);

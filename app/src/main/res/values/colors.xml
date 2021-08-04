@@ -31,6 +31,8 @@
     <color name="kakao_mint">#D0E0D8</color>
     <color name="kakao_gray">#DADEE0</color>
 
+    <color name="transparent">#00000000</color>
+
 
 
     <color name="chat_option_blue">#5694E1</color>

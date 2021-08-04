@@ -187,6 +187,7 @@ public class BrokerActivity extends AppCompatActivity implements View.OnClickLis
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setView(dialogView);
         final AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         alertDialog.show();
 
         Button apart = dialogView.findViewById(R.id.btn_broker_dialog_apart);
