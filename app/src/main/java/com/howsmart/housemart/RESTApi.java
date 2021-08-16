@@ -216,7 +216,7 @@ public interface RESTApi {
 
 
     public static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://122.37.239.49:9000/")
+            .baseUrl("http://ec2-3-37-133-249.ap-northeast-2.compute.amazonaws.com:8080/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }

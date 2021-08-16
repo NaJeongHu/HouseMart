@@ -18,6 +18,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name="com.howsmart.housemart.BrokerCertificationActivity"></activity>
+        <activity android:name="com.howsmart.housemart.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.howsmart.housemart.BrokerActivity" />
         <activity
             android:name="com.howsmart.housemart.ShowContractActivity"
@@ -26,13 +33,7 @@
             android:name="com.howsmart.housemart.MakeContractActivity"
             android:parentActivityName="com.howsmart.housemart.ChatActivity" />
         <activity android:name="com.howsmart.housemart.SearchActivity_upload" />
-        <activity android:name="com.howsmart.housemart.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name="com.howsmart.housemart.LoginActivity"></activity>
         <activity android:name="com.howsmart.housemart.MainActivity" />
         <activity
             android:name="com.howsmart.housemart.JoinActivity"
