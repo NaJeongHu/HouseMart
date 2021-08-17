@@ -1,4 +1,4 @@
-package com.howsmart.housemart;
+ package com.howsmart.housemart;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -972,11 +972,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             //사진들 uri를 다시 저장시켜주는 과정
             Bundle bundle = getIntent().getExtras();
             for (int i = 0; i < models.size(); i++) {
-                Uri uri = bundle.getParcelable("picture" + i);
+                Uri uri = bundle.getParcelable("picture"+i);
                 if (uri != null) {
                     models.get(i).setUri(uri);
                 }
             }
+
+            viewPager.setAdapter(adapter);
         }
     }
 
