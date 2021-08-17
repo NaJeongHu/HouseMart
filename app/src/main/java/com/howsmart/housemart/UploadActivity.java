@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -149,21 +150,20 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-
         init();
 
         roomcnt = Integer.parseInt(getIntent().getStringExtra("roomcnt"));
         toiletcnt = Integer.parseInt(getIntent().getStringExtra("toiletcnt"));
         models = new ArrayList<>();
-         models.add(new Pictures("아파트 외관 사진을 등록해주세요", R.drawable.image_apartment,"위치, 주변 시설, 아파트 정원 등등 상세하게 적어주세요","아파트 소개"));
-        models.add(new Pictures("현관 사진을 등록해주세요", R.drawable.image_frontdoor, "현관 크기, 확장 여부, 신발장 공간 등등 상세하게 적어주세요","현관 소개"));
-        models.add(new Pictures("거실 사진을 등록해주세요", R.drawable.image_livingroom, "베란다 확장 여부, 방향, 바닥재질 등등 상세하게 적어주세요","거실 소개"));
-        models.add(new Pictures("주방 사진을 등록해주세요", R.drawable.image_kitchen, "수납공간, 식탁 여부, 인테리어 등등 상세하게 적어주세요","주방 소개"));
-        for (int i =1; i<=roomcnt; i++) {
-            models.add(new Pictures(i + "번 방" + " 사진을 등록해주세요", R.drawable.image_room4, "채광이나 방향, 벽지 상태 등등 상세하게 적어주세요",i+"번 방 소개"));
+        models.add(new Pictures("아파트 외관 사진을 등록해주세요", R.drawable.image_apartment, "위치, 주변 시설, 아파트 정원 등등 상세하게 적어주세요", "아파트 소개"));
+        models.add(new Pictures("현관 사진을 등록해주세요", R.drawable.image_frontdoor, "현관 크기, 확장 여부, 신발장 공간 등등 상세하게 적어주세요", "현관 소개"));
+        models.add(new Pictures("거실 사진을 등록해주세요", R.drawable.image_livingroom, "베란다 확장 여부, 방향, 바닥재질 등등 상세하게 적어주세요", "거실 소개"));
+        models.add(new Pictures("주방 사진을 등록해주세요", R.drawable.image_kitchen, "수납공간, 식탁 여부, 인테리어 등등 상세하게 적어주세요", "주방 소개"));
+        for (int i = 1; i <= roomcnt; i++) {
+            models.add(new Pictures(i + "번 방" + " 사진을 등록해주세요", R.drawable.image_room4, "채광이나 방향, 벽지 상태 등등 상세하게 적어주세요", i + "번 방 소개"));
         }
-        for (int i=1; i<=toiletcnt; i++) {
-            models.add(new Pictures(i + "번 화장실" + " 사진을 등록해주세요", R.drawable.image_toilet1, "수압, 환풍기 상태, 습식/건식 여부 등등 상세하게 적어주세요",i+"번 화장실 소개"));
+        for (int i = 1; i <= toiletcnt; i++) {
+            models.add(new Pictures(i + "번 화장실" + " 사진을 등록해주세요", R.drawable.image_toilet1, "수압, 환풍기 상태, 습식/건식 여부 등등 상세하게 적어주세요", i + "번 화장실 소개"));
         }
 
         pagerAdapter_picture = new PagerAdapter_Picture();
@@ -279,21 +279,19 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         callbackMethod = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String d,m;
-                if(dayOfMonth<10){
-                    d = "0"+dayOfMonth;
-                }
-                else{
-                    d = ""+dayOfMonth;
+                String d, m;
+                if (dayOfMonth < 10) {
+                    d = "0" + dayOfMonth;
+                } else {
+                    d = "" + dayOfMonth;
                 }
                 month++;//이상하게 월이 하나 적게 들어옴..
-                if(month<10){
-                     m = "0"+month;
+                if (month < 10) {
+                    m = "0" + month;
+                } else {
+                    m = "" + month;
                 }
-                else{
-                    m = ""+month;
-                }
-                movedate = year+m+d;
+                movedate = year + m + d;
                 tv_movedate.setText(year + "년 " + month + "월 " + dayOfMonth + "일");
             }
         };
@@ -661,6 +659,15 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.edit_apartment:
+                //사진 uri들을 저장하고 액티비티 전환
+                Bundle bundle = new Bundle();
+                for (int i = 0; i < models.size(); i++) {
+                    Uri uri = models.get(i).getUri();
+                    if (uri != null) {
+                        bundle.putParcelable("picture" + i, uri);
+                    }
+                }
+                getIntent().putExtras(bundle);
                 Intent intent = new Intent(getBaseContext(), SearchActivity_upload.class);
 //                intent.putExtra("models",models);
                 startActivityForResult(intent, 1);
@@ -740,8 +747,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             down_pay_per, intermediate_pay_per, balance_per, roomcnt, toiletcnt, middle_door,
                             air_conditioner, refrigerator, kimchi_refrigerator, closet, oven, induction, airsystem,
                             nego, short_description, long_description, models_description.get(0), models_description.get(1),
-                            models_description.get(2),  models_description.get(3),  models_description.get(4),
-                            models_description.get(5),  models_description.get(6),  models_description.get(7),  models_description.get(8),  movedate);
+                            models_description.get(2), models_description.get(3), models_description.get(4),
+                            models_description.get(5), models_description.get(6), models_description.get(7), models_description.get(8), movedate);
                     doRetrofit();
                 } else {
                     Toast.makeText(UploadActivity.this, "필수 사진을 등록해주세요", Toast.LENGTH_SHORT).show();
@@ -764,16 +771,16 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         models_description.add(models.get(2).getDescription());
         models_description.add(models.get(3).getDescription());
 
-        for (int i=0;i<roomcnt;i++) {
-            models_description.add(models.get(4+i).getDescription());
+        for (int i = 0; i < roomcnt; i++) {
+            models_description.add(models.get(4 + i).getDescription());
         }
-        for (int i=0;i<3-roomcnt;i++) {
+        for (int i = 0; i < 3 - roomcnt; i++) {
             models_description.add("");
         }
-        for (int i=0;i<toiletcnt;i++) {
-            models_description.add(models.get(4+roomcnt+i).getDescription());
+        for (int i = 0; i < toiletcnt; i++) {
+            models_description.add(models.get(4 + roomcnt + i).getDescription());
         }
-        for (int i=0;i<2-toiletcnt;i++) {
+        for (int i = 0; i < 2 - toiletcnt; i++) {
             models_description.add("");
         }
     }
@@ -873,7 +880,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 transUriToMultiPartFile(uri, i);
             }
         }
-        for(int i = models.size(); i<9; i++) {
+        for (int i = models.size(); i < 9; i++) {
             transUriToMultiPartFile(null, i);
         }
     }
@@ -952,8 +959,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 sigungoo = data.getStringExtra("sigungoo");
                 dongri = data.getStringExtra("dongri");
                 date = data.getStringExtra("date");
-                allnumber = data.getIntExtra("allnumber",0);
-                parkingnumber = data.getIntExtra("parkingnumber",0);
+                allnumber = data.getIntExtra("allnumber", 0);
+                parkingnumber = data.getIntExtra("parkingnumber", 0);
                 contact = data.getStringExtra("contact");
 
                 edit_apartment.setText(residence_name);
@@ -961,9 +968,17 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "아파트 선택 취소", Toast.LENGTH_LONG).show();
             }
+
+            //사진들 uri를 다시 저장시켜주는 과정
+            Bundle bundle = getIntent().getExtras();
+            for (int i = 0; i < models.size(); i++) {
+                Uri uri = bundle.getParcelable("picture" + i);
+                if (uri != null) {
+                    models.get(i).setUri(uri);
+                }
+            }
         }
     }
-
 
     @Override
     public void onClick(int value) {

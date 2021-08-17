@@ -61,11 +61,13 @@ public class RecyclerViewAdapter_Search extends RecyclerView.Adapter<RecyclerVie
         if (!mList.isEmpty()) {
             item_search_name temp = new item_search_name();
             temp = mList.get(position);
-            name = temp.getName();
-            SpannableStringBuilder builder = new SpannableStringBuilder(name);
-            builder.setSpan(new ForegroundColorSpan(Color.parseColor("#2265DA")), temp.getStart(),  temp.getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            holder.tv_apartname.setText(builder);
-            holder.tv_apartaddress.setText(temp.getAddress());
+            if(temp!=null) {
+                name = temp.getName();
+                SpannableStringBuilder builder = new SpannableStringBuilder(name);
+                builder.setSpan(new ForegroundColorSpan(Color.parseColor("#2265DA")), temp.getStart(), temp.getEnd(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.tv_apartname.setText(builder);
+                holder.tv_apartaddress.setText(temp.getAddress());
+            };
         }
     }
 
