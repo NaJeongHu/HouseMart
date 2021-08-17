@@ -79,7 +79,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onItemClick(View v, int position) {
                         Intent intent = new Intent(getApplicationContext(), HouseInfoActivity.class);
-                        intent.putExtra("idx",PermittedList.get(position).getIdx());
+                        intent.putExtra("idx", PermittedList.get(position).getIdx());
                         startActivity(intent);
                         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     }
@@ -153,13 +153,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         mToolbarTitle.setText(mSubject);
 
         String name;
-        if (mSido != null && mSido.length() == 4) {
-            name = "" + mSido.charAt(0) + mSido.charAt(2);
-        } else {
-            name = mSido.substring(0, 2);
-        }
-        if (mSido != null && mSigungu != null) {
-            mRegionButton.setText(" " + name + " - " + mSigungu + " ");
+        if (mSido != null) {
+            if (mSido.length() == 4) {
+                name = "" + mSido.charAt(0) + mSido.charAt(2);
+            } else {
+                name = mSido.substring(0, 2);
+            }
+            if (mSigungu != null) {
+                mRegionButton.setText(" " + name + " - " + mSigungu + " ");
+            }
         }
     }
 
@@ -208,13 +210,13 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                     public void run() {
 //                        todo : 필터링 구현하고 주석 풀기, 어뎁터에 PermittedList_filterd 로 연결 교체
 //                        filtering();
-                        if(PermittedList.isEmpty() == false || PermittedList.size() != 0){
+                        if (PermittedList.isEmpty() == false || PermittedList.size() != 0) {
 //                            Collections.sort(arr,new Filtering_for_ganada());
-                            mItemCount.setText(PermittedList.size()+ "채의 아파트를 나열했어요");
+                            mItemCount.setText(PermittedList.size() + "채의 아파트를 나열했어요");
                             adapter = new ListRecyclerAdapter(getApplicationContext(), PermittedList);
                             mRecyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                        }else if(PermittedList.size() == 0){
+                        } else if (PermittedList.size() == 0) {
                             mItemCount.setText("검색 결과가 없어요.");
                         }
 //                        base_progressBar.setVisibility(View.GONE);
@@ -226,7 +228,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
     private void filtering() {
         if (PermittedList.isEmpty() == false || PermittedList.size() != 0) {
-            for (int i = 0 ; i < PermittedList.size() ; i++) {
+            for (int i = 0; i < PermittedList.size(); i++) {
                 // 시도, 시군구 일치 여부
                 if (PermittedList.get(i).getSido().equals(mSido) && PermittedList.get(i).getSigungoo().equals(mSigungu)) {
                     // 검색어 있는 경우에 검색어 포함 여부
@@ -245,12 +247,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void calDateBetweenAandB(String date1, String date2)
-    {
+    public void calDateBetweenAandB(String date1, String date2) {
 //        String date1 = "2016-09-21";
 //        String date2 = "2016-09-10";
 
-        try{ // String Type을 Date Type으로 캐스팅하면서 생기는 예외로 인해 여기서 예외처리 해주지 않으면 컴파일러에서 에러가 발생해서 컴파일을 할 수 없다.
+        try { // String Type을 Date Type으로 캐스팅하면서 생기는 예외로 인해 여기서 예외처리 해주지 않으면 컴파일러에서 에러가 발생해서 컴파일을 할 수 없다.
             SimpleDateFormat format = new SimpleDateFormat("yyyymmdd");
             // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
             Date FirstDate = format.parse(date1);
@@ -262,23 +263,21 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
             // Date.getTime() 은 해당날짜를 기준으로1970년 00:00:00 부터 몇 초가 흘렀는지를 반환해준다.
             // 이제 24*60*60*1000(각 시간값에 따른 차이점) 을 나눠주면 일수가 나온다.
-            long calDateDays = calDate / ( 24*60*60*1000);
+            long calDateDays = calDate / (24 * 60 * 60 * 1000);
 
             calDateDays = Math.abs(calDateDays);
 
-            System.out.println("두 날짜의 날짜 차이: "+calDateDays);
-        }
-        catch(ParseException e)
-        {
+            System.out.println("두 날짜의 날짜 차이: " + calDateDays);
+        } catch (ParseException e) {
             // 예외 처리
             String createDate = "2021-07-29 00:00:00";
-            String test = createDate.substring(0,3) + createDate.substring(5,6) + createDate.substring(8,9);
+            String test = createDate.substring(0, 3) + createDate.substring(5, 6) + createDate.substring(8, 9);
 
             // 되는 거 확인 완료
             Date from = new Date();
             SimpleDateFormat fm = new SimpleDateFormat("yyyyMMdd");
             String to = fm.format(from);
-            Log.d("to test",to);
+            Log.d("to test", to);
         }
     }
 }

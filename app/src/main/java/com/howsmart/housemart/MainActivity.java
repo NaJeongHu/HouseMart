@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     Log.d("MainActivity","onResponse" + response.headers().get("code"));
                 }
+                tv_main_welcome.setText("안녕하세요, " + mUser.getNickname() + "님!");
+                Glide.with(MainActivity.this).load(mUser.getImgUrl()).into(iv_main_userprofile);
             }
 
             @Override
@@ -248,5 +250,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 alertDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUserInfoFromServer();
     }
 }

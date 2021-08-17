@@ -59,7 +59,7 @@ public class ShowContractActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.contract1);
+        setContentView(R.layout.activity_showcontract);
 
         mRESTApi = RESTApi.retrofit.create(RESTApi.class);
 

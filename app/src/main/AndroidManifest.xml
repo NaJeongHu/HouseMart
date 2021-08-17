@@ -17,46 +17,49 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.howsmart.housemart.BrokerCertificationActivity"></activity>
-        <activity android:name="com.howsmart.housemart.SplashActivity">
+        <activity android:name=".ChangePasswordActivity"></activity>
+        <activity android:name=".ChangeBirthActivity" />
+        <activity android:name=".ChangeNicknameActivity" />
+        <activity android:name=".BrokerCertificationActivity" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.howsmart.housemart.BrokerActivity" />
+        <activity android:name=".BrokerActivity" />
         <activity
-            android:name="com.howsmart.housemart.ShowContractActivity"
-            android:parentActivityName="com.howsmart.housemart.ChatActivity" />
+            android:name=".ShowContractActivity"
+            android:parentActivityName=".ChatActivity" />
         <activity
-            android:name="com.howsmart.housemart.MakeContractActivity"
-            android:parentActivityName="com.howsmart.housemart.ChatActivity" />
-        <activity android:name="com.howsmart.housemart.SearchActivity_upload" />
-        <activity android:name="com.howsmart.housemart.LoginActivity"></activity>
-        <activity android:name="com.howsmart.housemart.MainActivity" />
+            android:name=".MakeContractActivity"
+            android:parentActivityName=".ChatActivity" />
+        <activity android:name=".SearchActivity_upload" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
         <activity
-            android:name="com.howsmart.housemart.JoinActivity"
-            android:parentActivityName="com.howsmart.housemart.LoginActivity" />
+            android:name=".JoinActivity"
+            android:parentActivityName=".LoginActivity" />
         <activity
-            android:name="com.howsmart.housemart.ResetPasswordActivity"
-            android:parentActivityName="com.howsmart.housemart.LoginActivity" />
-        <activity android:name="com.howsmart.housemart.SettingActivity" />
+            android:name=".ResetPasswordActivity"
+            android:parentActivityName=".LoginActivity" />
+        <activity android:name=".SettingActivity" />
         <activity
-            android:name="com.howsmart.housemart.ChatActivity"
-            android:parentActivityName="com.howsmart.housemart.ChatListActivity" />
+            android:name=".ChatActivity"
+            android:parentActivityName=".ChatListActivity" />
         <activity
-            android:name="com.howsmart.housemart.ChatListActivity"
-            android:parentActivityName="com.howsmart.housemart.SettingActivity" />
-        <activity android:name="com.howsmart.housemart.ListActivity" />
-        <activity android:name="com.howsmart.housemart.UploadActivity" />
-        <activity android:name="com.howsmart.housemart.FilterActivity" />
-        <activity android:name="com.howsmart.housemart.SearchActivity" />
-        <activity android:name="com.howsmart.housemart.SidoActivity" />
-        <activity android:name="com.howsmart.housemart.SigunguActivity" />
-        <activity android:name="com.howsmart.housemart.HouseInfoActivity" />
-        <activity android:name="com.howsmart.housemart.PrivateinfoActivity" />
-        <activity android:name="com.howsmart.housemart.BusinessActivity" />
+            android:name=".ChatListActivity"
+            android:parentActivityName=".SettingActivity" />
+        <activity android:name=".ListActivity" />
+        <activity android:name=".UploadActivity" />
+        <activity android:name=".FilterActivity" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".SidoActivity" />
+        <activity android:name=".SigunguActivity" />
+        <activity android:name=".HouseInfoActivity" />
+        <activity android:name=".PrivateinfoActivity" />
+        <activity android:name=".BusinessActivity" />
     </application>
 
 </manifest>

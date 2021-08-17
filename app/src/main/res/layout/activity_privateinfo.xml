@@ -28,7 +28,7 @@
 
                 <ImageView
                     android:layout_gravity="center_vertical"
-                    android:id="@+id/btn_back"
+                    android:id="@+id/btn_back_privateinfo"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:scaleType="fitXY"
@@ -81,14 +81,16 @@
                     app:cardCornerRadius="40dp">
 
                     <ImageView
+                        android:id="@+id/iv_privateinfo_picture"
+                        android:scaleType="fitXY"
                         android:layout_width="100dp"
                         android:layout_height="100dp"/>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/tv_privateinfo_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="권세진 님"
                     android:textColor="@color/black"
                     android:textSize="15dp"
                     android:fontFamily="@font/applesdgothicneob"/>
@@ -96,6 +98,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:orientation="horizontal"
@@ -109,10 +112,10 @@
                     android:gravity="left|center"
                     android:fontFamily="@font/applesdgothicneob"/>
                 <TextView
+                    android:id="@+id/tv_privateinfo_nickname"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="붕붕이"
                     android:textSize="15dp"
                     android:textColor="@color/custom_blue"
                     android:layout_marginRight="15dp"
@@ -144,20 +147,15 @@
                     android:gravity="left|center"
                     android:fontFamily="@font/applesdgothicneob"/>
                 <TextView
+                    android:id="@+id/tv_privateinfo_phonenumber"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="010-7739-5570"
                     android:textSize="15dp"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/custom_blue"
-                    android:layout_marginRight="15dp"
                     android:gravity="right|center"
                     android:fontFamily="@font/applesdgothicneob"/>
-                <ImageView
-                    android:layout_width = "30dp"
-                    android:layout_height = "15dp"
-                    android:layout_gravity="center"
-                    android:src = "@drawable/icon_arrowright"/>
 
             </LinearLayout>
             <View
@@ -166,6 +164,7 @@
                 android:background="@color/kakao_gray"/>
 
             <LinearLayout
+                android:id="@+id/linear_birth"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:orientation="horizontal"
@@ -179,10 +178,10 @@
                     android:gravity="left|center"
                     android:fontFamily="@font/applesdgothicneob"/>
                 <TextView
+                    android:id="@+id/tv_privateinfo_birth"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="970613"
                     android:textSize="15dp"
                     android:textColor="@color/custom_blue"
                     android:layout_marginRight="15dp"
@@ -201,6 +200,7 @@
                 android:background="@color/kakao_gray"/>
 
             <LinearLayout
+                android:id="@+id/linear_password"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:orientation="horizontal"
@@ -214,10 +214,10 @@
                     android:gravity="left|center"
                     android:fontFamily="@font/applesdgothicneob"/>
                 <TextView
+                    android:id="@+id/tv_privateinfo_password"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Qwer1234"
                     android:textSize="15dp"
                     android:textColor="@color/custom_blue"
                     android:layout_marginRight="15dp"

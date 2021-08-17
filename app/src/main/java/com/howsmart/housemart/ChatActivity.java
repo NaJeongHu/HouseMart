@@ -35,6 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.howsmart.housemart.Model.House;
+import com.howsmart.housemart.Model.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +44,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -86,6 +92,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private StorageReference storageReference;
 
     private List<Chat> mchat;
+
+    private RESTApi mRESTApi;
+
+    private String idFromHouse, idFromsellerPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +177,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "while getting myChatter: " + error.getDetails());
             }
         });
+
     }
 
     @Override
@@ -181,11 +192,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.chat_option_plus:
-                if(image_view_plus.getTag().equals("plus")){
+                if (image_view_plus.getTag().equals("plus")) {
                     image_view_plus.setImageResource(R.drawable.cancel);
                     constraint_layout_option.setVisibility(View.VISIBLE);
                     image_view_plus.setTag("cancel");
-                } else if(image_view_plus.getTag().equals("cancel")){
+                } else if (image_view_plus.getTag().equals("cancel")) {
                     image_view_plus.setImageResource(R.drawable.chat_plus);
                     constraint_layout_option.setVisibility(View.GONE);
                     image_view_plus.setTag("plus");
@@ -194,7 +205,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.chat_btn_send: // add message to firebase database
                 String message = edit_text_send.getText().toString();
-                if(!message.equals("")) {
+                if (!message.equals("")) {
                     SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a hh:mm:ss", Locale.KOREA);
                     String date = transFormat.format(new Date());
 
@@ -250,7 +261,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         //TODO : show phase diagram
     }
 
-    private void readMessage(){
+    private void readMessage() {
 
         mchat = new ArrayList<>();
 
@@ -264,7 +275,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     mchat.add(chat);
 
                     // Chats에 메시지 본 여부 체크하기
-                    if(chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(chatter.getId())) {
+                    if (chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(chatter.getId())) {
                         HashMap<String, Object> isSeenHashMap = new HashMap<>();
                         isSeenHashMap.put("isseen", true);
                         dataSnapshot.getRef().updateChildren(isSeenHashMap);
@@ -272,7 +283,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 //get houseIdx
-                if(houseIdx == -1) {
+                if (houseIdx == -1) {
                     houseIdx = snapshot.child("houseInfo").child("houseIdx").getValue(Long.class);
                 } else {
                     HashMap<String, Object> hashMap = new HashMap<>();
@@ -286,7 +297,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 sellerPhone = snapshot.child("houseInfo").child("sellerPhone").getValue(String.class);
                 try {
                     contractIdx = snapshot.child("houseInfo").child("contractIdx").getValue(Long.class);
-                } catch (Exception e){
+                } catch (Exception e) {
                     Log.d(TAG, "가계약서 작성 전이라 contractIdx가 존재하지 않음");
                 }
 
@@ -302,14 +313,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private String getSumId(String uid, String chatterid) {
-        if(uid.compareTo(chatterid) < 0) {
+        if (uid.compareTo(chatterid) < 0) {
             return uid + chatterid;
         } else {
             return chatterid + uid;
         }
     }
 
-    private void sendMessage(String sender, String receiver, String message, String timestamp){
+    private void sendMessage(String sender, String receiver, String message, String timestamp) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
 
@@ -325,7 +336,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         reference.child("users").child(fuser.getUid()).setValue(myChatter);
         reference.child("users").child(chatter.getId()).setValue(chatter);
 
-        if(mchat != null){
+        if (mchat != null) {
             Chat newChat = new Chat(sender, receiver, message, false, timestamp);
             mchat.add(newChat);
             chatAdapter = new ChatAdapter(ChatActivity.this, mchat, chatter.getImageURL());
@@ -410,24 +421,24 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode != RESULT_OK) return;
+        if (resultCode != RESULT_OK) return;
 
-        if(requestCode == IMAGE_REQUEST && data != null) {
+        if (requestCode == IMAGE_REQUEST && data != null) {
             Uri imageUri = data.getData();
 //            sendImage(imageUri);
-        } else if(requestCode == CAMERA_REQUEST && data != null){
+        } else if (requestCode == CAMERA_REQUEST && data != null) {
             //TODO : write code to capture image and add to firebase Chats history
-        } else if(requestCode == WRITE_REQUEST && data != null){
+        } else if (requestCode == WRITE_REQUEST && data != null) {
             contractIdx = data.getLongExtra("contractIdx", -1);
 
-            if(contractIdx != -1) {
+            if (contractIdx != -1) {
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("contractIdx", contractIdx);
                 reference.child("houseInfo").updateChildren(hashMap);
             }
 
-        } else if(requestCode == READ_REQUEST && data != null){
+        } else if (requestCode == READ_REQUEST && data != null) {
 
         }
     }

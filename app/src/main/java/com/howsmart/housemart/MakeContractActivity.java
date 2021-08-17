@@ -132,8 +132,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
                     intermediate_pay_per = house.getIntermediate_pay_per();
                     balance_per = house.getBalance_per();
 
-                    String phonenumber = phonenumber1;
-                    mRESTApi.getContractUserInfo(phonenumber).enqueue(new Callback<User>() {
+                    mRESTApi.getContractUserInfo(phonenumber1).enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
                             String user1Code = response.headers().get("code");
@@ -147,8 +146,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
 
                                 Log.d(TAG, "매도자: " + user.toString());
 
-                                String phonenumber = phonenumber2;
-                                mRESTApi.getContractUserInfo(phonenumber).enqueue(new Callback<User>() {
+                                mRESTApi.getContractUserInfo(phonenumber2).enqueue(new Callback<User>() {
                                     @Override
                                     public void onResponse(Call<User> call, Response<User> response) {
                                         String user2Code = response.headers().get("code");

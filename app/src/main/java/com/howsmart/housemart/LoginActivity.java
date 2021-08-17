@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (code != null && code.equals("00")) {
                     Log.d(TAG, "code.equlas('00')");
 
-                    //Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENsGTH_SHORT).show();
                     // end lottie
                     alertDialog.dismiss();
 

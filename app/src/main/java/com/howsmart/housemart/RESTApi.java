@@ -214,6 +214,23 @@ public interface RESTApi {
             @Query("userId") String userId,
             @Part MultipartBody.Part certification);
 
+    @POST("/alter/memberInfo")
+    Call<ResponseBody> changePrivateinfo(
+            @Query("userId") String userId,
+            @Query("alterType") String alterType,
+            @Query("nickName") String nickName,
+            @Query("birth") String Birth,
+            @Query("existingPass") String existingPass,
+            @Query("newPass") String newPass,
+            @Query("confirmPass") String confirmPass
+    );
+
+    @Multipart
+    @POST("/alter/memberImg")
+    Call<ResponseBody> changePicture(
+            @Query("userId") String userId,
+            @Part MultipartBody.Part picture);
+
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://ec2-3-37-133-249.ap-northeast-2.compute.amazonaws.com:8080/")

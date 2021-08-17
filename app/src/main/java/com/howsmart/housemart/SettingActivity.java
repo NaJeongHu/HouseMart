@@ -24,8 +24,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-
         init();
+
     }
 
     private void init() {
@@ -64,6 +64,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.ll_privateinfo:
                 Intent intent1 = new Intent(SettingActivity.this, PrivateinfoActivity.class);
+                intent1.putExtra("user",mUser);
                 startActivity(intent1);
                 break;
 
