@@ -43,7 +43,7 @@ public class SigunguActivity extends AppCompatActivity {
                 MyLocation.getInstance().setSIDO(sido);
                 MyLocation.getInstance().setSIGUNGU((String) Lv_gu.getAdapter().getItem(position));
 
-                if (from.equals("BrokerActivity")) {
+                if (from != null && from.equals("BrokerActivity")) {
                     Intent intent = new Intent(getApplicationContext(), BrokerActivity.class);
                     intent.putExtra("search", search);
                     intent.putExtra("subject", subject);
