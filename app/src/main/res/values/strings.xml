@@ -3,6 +3,7 @@
 
     //activity_chat_list.xml
     <string name="chat_list_title">채팅 목록</string>
+    <string name="chat_list_search_hint">검색</string>
 
     //activity_chat.xml
     <string name="chat_search_hint">대화 내용 검색</string>

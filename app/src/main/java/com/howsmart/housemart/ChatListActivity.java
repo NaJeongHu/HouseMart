@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.howsmart.housemart.Adapter.ChatListAdapter;
@@ -23,12 +27,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatListActivity extends AppCompatActivity {
+public class ChatListActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "ChatListActivity";
 
     private ImageView mBack;
     private ImageView mSearch;
+    private EditText mEditTextSearch;
+    private ImageView mSearchCancel;
+
+    private InputMethodManager mInputMethodManager;
 
     private RecyclerView recyclerView;
     private ChatListAdapter mChatListAdapter;
@@ -39,28 +47,53 @@ public class ChatListActivity extends AppCompatActivity {
     private FirebaseUser fuser;
     private DatabaseReference reference;
 
-    private int cnt = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
 
-        mBack = findViewById(R.id.chat_list_btn_back);
-        mBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
+        mBack = findViewById(R.id.chat_list_btn_back);
         mSearch = findViewById(R.id.chat_list_search);
-        mSearch.setOnClickListener(new View.OnClickListener() {
+        mSearchCancel = findViewById(R.id.chat_list_search_cancel);
+
+        mBack.setOnClickListener(this);
+        mSearch.setOnClickListener(this);
+        mSearchCancel.setOnClickListener(this);
+
+        mEditTextSearch = findViewById(R.id.chat_list_search_edit_text);
+        mEditTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                if(mChatListAdapter != null){
-                    //TODO : search
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() == 0) {
+                    mSearchCancel.setVisibility(View.GONE);
+                } else {
+                    mSearchCancel.setVisibility(View.VISIBLE);
                 }
+
+                List<Chatter> searchChatters = new ArrayList<>();
+                List<Chat> searchLastMessages = new ArrayList<>();
+
+                for(int i = 0; i < mChatters.size(); ++i) {
+                    if(mChatters.get(i).getNickname().contains(s)){
+                        searchChatters.add(mChatters.get(i));
+                        searchLastMessages.add(mLastMessages.get(i));
+                    }
+                }
+
+                ChatListAdapter searchAdapter = new ChatListAdapter(ChatListActivity.this, searchChatters, searchLastMessages);
+                recyclerView.setAdapter(searchAdapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -71,6 +104,28 @@ public class ChatListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         getList();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.chat_list_btn_back:
+                finish();
+                break;
+
+            case R.id.chat_list_search:
+                if(mEditTextSearch.getVisibility() == View.VISIBLE) {
+                    backToList();
+                } else {
+                    mSearch.setVisibility(View.GONE);
+                    mEditTextSearch.setVisibility(View.VISIBLE);
+                }
+                break;
+
+            case R.id.chat_list_search_cancel:
+                mEditTextSearch.setText("");
+                break;
+        }
     }
 
     private void getList() {
@@ -108,6 +163,23 @@ public class ChatListActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void backToList() {
+        recyclerView.setAdapter(mChatListAdapter);
+        mEditTextSearch.setVisibility(View.GONE);
+        mEditTextSearch.setText("");
+        mInputMethodManager.hideSoftInputFromWindow(mEditTextSearch.getWindowToken(), 0);
+        mSearch.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mEditTextSearch.getVisibility() == View.VISIBLE) {
+            backToList();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override

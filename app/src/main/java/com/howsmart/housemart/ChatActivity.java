@@ -1,5 +1,6 @@
 package com.howsmart.housemart;
 
+import androidx.activity.ComponentActivity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,6 +75,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView image_view_back;
     private EditText edit_text_search;
     private ImageView image_view_search;
+    private ImageView image_view_cancel;
     private ImageView image_view_plus;
     private ImageView image_view_send;
     private TextView text_view_chatter_name;
@@ -120,6 +122,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         image_view_back = findViewById(R.id.chat_btn_back);
         edit_text_search = findViewById(R.id.chat_search_edit_text);
         image_view_search = findViewById(R.id.chat_search);
+        image_view_cancel = findViewById(R.id.chat_search_cancel);
         image_view_plus = findViewById(R.id.chat_option_plus);
         image_view_send = findViewById(R.id.chat_btn_send);
         text_view_chatter_name = findViewById(R.id.chat_chatter_name);
@@ -134,6 +137,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         image_view_back.setOnClickListener(this);
         image_view_search.setOnClickListener(this);
+        image_view_cancel.setOnClickListener(this);
         image_view_plus.setOnClickListener(this);
         image_view_send.setOnClickListener(this);
 
@@ -152,6 +156,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() == 0) {
+                    image_view_cancel.setVisibility(View.GONE);
+                } else {
+                    image_view_cancel.setVisibility(View.VISIBLE);
+                }
+
                 msearchChat = new ArrayList<>();
                 for (Chat chat : mchat) {
                     if(chat.getMessage().contains(s)){
@@ -241,25 +251,20 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.chat_btn_back:
-                if(edit_text_search.getVisibility() == View.VISIBLE){
-                    edit_text_search.setVisibility(View.GONE);
-                    inputMethodManager.hideSoftInputFromWindow(edit_text_search.getWindowToken(), 0);
-                    recyclerView.setAdapter(chatAdapter);
-                    recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
-                } else {
-                    onBackPressed();
-                }
+                finish();
                 break;
 
             case R.id.chat_search:
                 if(edit_text_search.getVisibility() == View.VISIBLE){
-                    edit_text_search.setVisibility(View.GONE);
-                    recyclerView.setAdapter(chatAdapter);
-                    recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+                    backToChat();
                 } else {
-                    edit_text_search.setText("");
+                    image_view_search.setVisibility(View.GONE);
                     edit_text_search.setVisibility(View.VISIBLE);
                 }
+                break;
+
+            case R.id.chat_search_cancel:
+                edit_text_search.setText("");
                 break;
 
             case R.id.chat_option_plus:
@@ -330,6 +335,15 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 show_phase_diagram();
                 break;
         }
+    }
+
+    private void backToChat() {
+        recyclerView.setAdapter(chatAdapter);
+        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+        edit_text_search.setVisibility(View.GONE);
+        edit_text_search.setText("");
+        inputMethodManager.hideSoftInputFromWindow(edit_text_search.getWindowToken(), 0);
+        image_view_search.setVisibility(View.VISIBLE);
     }
 
     private void show_phase_diagram() {
@@ -552,5 +566,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
         reference.removeEventListener(readValueEventListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(edit_text_search.getVisibility() == View.VISIBLE){
+            backToChat();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
