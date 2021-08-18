@@ -33,6 +33,24 @@
                     android:scaleType="fitXY"
                     app:srcCompat="@drawable/icon_back" />
 
+                <EditText
+                    android:id="@+id/chat_search_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/chat_btn_back"
+                    android:layout_toLeftOf="@id/chat_search"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_centerVertical="true"
+                    android:elevation="1dp"
+                    android:outlineProvider="none"
+                    android:hint="@string/chat_search_hint"
+                    android:background="@color/white"
+                    android:visibility="gone"
+                    />
+
                 <TextView
                     android:id="@+id/chat_chatter_name"
                     android:layout_width="wrap_content"
@@ -47,28 +65,20 @@
                     android:textColor="#000000"
                     android:ellipsize="end"
                     android:fontFamily="@font/applesdgothicneob"
-                    android:maxLines="1"/>
-
-                <EditText
-                    android:id="@+id/chat_search_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/chat_btn_back"
-                    android:layout_toLeftOf="@id/chat_search"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:visibility="gone"/>
+                    android:maxLines="1" />
 
                 <ImageView
                     android:id="@+id/chat_search"
                     android:layout_gravity="center|right"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/icon_search" />
+                    app:srcCompat="@drawable/icon_search"
+                    />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>

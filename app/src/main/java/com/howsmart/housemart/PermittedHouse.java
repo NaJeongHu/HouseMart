@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class PermittedHouse implements Serializable {
 
-    private int idx, dong, ho, leaseable_area, sale_price, monthly_price, monthly_deposit, deposit;
+    private int idx, dong, ho, sale_price, monthly_price, monthly_deposit, deposit;
+    private double leaseable_area;
     private String residence_name, titleImg, residence_type;
     private String sido;//시도
     private String sigungoo;//시군구
@@ -13,6 +14,29 @@ public class PermittedHouse implements Serializable {
     private String allnumber;//세대수
     private String parkingnumber;//총주차대수
     private String sale_type;//"월세","전세","매매"
+    private String offerState;
+
+    public PermittedHouse(int idx, int dong, int ho, double leaseable_area, int sale_price, int monthly_price, int monthly_deposit, int deposit, String residence_name, String titleImg, String residence_type, String sido, String sigungoo, String dongri, String date, String allnumber, String parkingnumber, String sale_type, String offerState) {
+        this.idx = idx;
+        this.dong = dong;
+        this.ho = ho;
+        this.leaseable_area = leaseable_area;
+        this.sale_price = sale_price;
+        this.monthly_price = monthly_price;
+        this.monthly_deposit = monthly_deposit;
+        this.deposit = deposit;
+        this.residence_name = residence_name;
+        this.titleImg = titleImg;
+        this.residence_type = residence_type;
+        this.sido = sido;
+        this.sigungoo = sigungoo;
+        this.dongri = dongri;
+        this.date = date;
+        this.allnumber = allnumber;
+        this.parkingnumber = parkingnumber;
+        this.sale_type = sale_type;
+        this.offerState = offerState;
+    }
 
     public String getSale_type() {
         return sale_type;
@@ -110,11 +134,11 @@ public class PermittedHouse implements Serializable {
         this.ho = ho;
     }
 
-    public int getLeaseable_area() {
+    public double getLeaseable_area() {
         return leaseable_area;
     }
 
-    public void setLeaseable_area(int leaseable_area) {
+    public void setLeaseable_area(double leaseable_area) {
         this.leaseable_area = leaseable_area;
     }
 
@@ -156,5 +180,37 @@ public class PermittedHouse implements Serializable {
 
     public void setTitleImg(String titleImg) {
         this.titleImg = titleImg;
+    }
+
+    public String getOfferState() {
+        return offerState;
+    }
+
+    public void setOfferState(String offerState) {
+        this.offerState = offerState;
+    }
+
+    @Override
+    public String toString() {
+        return "PermittedHouse{" +
+                "idx=" + idx +
+                ", dong=" + dong +
+                ", ho=" + ho +
+                ", leaseable_area=" + leaseable_area +
+                ", sale_price=" + sale_price +
+                ", monthly_price=" + monthly_price +
+                ", monthly_deposit=" + monthly_deposit +
+                ", deposit=" + deposit +
+                ", residence_name='" + residence_name + '\'' +
+                ", titleImg='" + titleImg + '\'' +
+                ", residence_type='" + residence_type + '\'' +
+                ", sido='" + sido + '\'' +
+                ", sigungoo='" + sigungoo + '\'' +
+                ", dongri='" + dongri + '\'' +
+                ", date='" + date + '\'' +
+                ", allnumber='" + allnumber + '\'' +
+                ", parkingnumber='" + parkingnumber + '\'' +
+                ", sale_type='" + sale_type + '\'' +
+                '}';
     }
 }

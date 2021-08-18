@@ -27,6 +27,8 @@ import retrofit2.Response;
 
 public class ListActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "HouseList";
+
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mManager;
     private String mSido;
@@ -168,11 +170,19 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private void getDataFromServer() {
         // TODO: 2021-07-23 connect retrofit
 
+        Log.d(TAG, "getDataFromServer...");
+
         RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
         mRESTApi.getList().enqueue(new Callback<List<PermittedHouse>>() {
             @Override
             public void onResponse(Call<List<PermittedHouse>> call, Response<List<PermittedHouse>> response) {
+                Log.d(TAG, "getList()...");
+
                 List<PermittedHouse> Result = (List<PermittedHouse>) response.body();
+
+                for(PermittedHouse permittedHouse : Result) {
+                    Log.d(TAG, permittedHouse.toString());
+                }
                 PermittedList = (ArrayList) Result;
                 mItemCount.setText(PermittedList.size() + "채의 집을 구경하세요");
                 connectToAdapter();
@@ -180,7 +190,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFailure(Call<List<PermittedHouse>> call, Throwable throwable) {
-                Log.d("ListActivity 통신 실패", "");
+                Log.d(TAG, throwable.getMessage());
             }
         });
 

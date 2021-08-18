@@ -27,6 +27,7 @@ public class ChatListActivity extends AppCompatActivity {
 
     private static final String TAG = "ChatListActivity";
 
+    private ImageView mBack;
     private ImageView mSearch;
 
     private RecyclerView recyclerView;
@@ -44,6 +45,14 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
+
+        mBack = findViewById(R.id.chat_list_btn_back);
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         mSearch = findViewById(R.id.chat_list_search);
         mSearch.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,7 @@
 package com.howsmart.housemart.Model;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Chatter implements Serializable {
@@ -9,14 +11,16 @@ public class Chatter implements Serializable {
     String phone;
     String imageURL;
     String search;
+    String token;
 
-    public Chatter(String id, String username, String nickname, String phone, String imageURL, String search) {
+    public Chatter(String id, String username, String nickname, String phone, String imageURL, String search, String token) {
         this.id = id;
         this.username = username;
         this.nickname = nickname;
         this.phone = phone;
         this.imageURL = imageURL;
         this.search = search;
+        this.token = token;
     }
 
     public Chatter() {
@@ -70,6 +74,14 @@ public class Chatter implements Serializable {
         this.search = search;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     @Override
     public String toString() {
         return "Chatter{" +
@@ -79,6 +91,7 @@ public class Chatter implements Serializable {
                 ", phone='" + phone + '\'' +
                 ", imageURL='" + imageURL + '\'' +
                 ", search='" + search + '\'' +
+                ", token='" + token + '\'' +
                 '}';
     }
 }

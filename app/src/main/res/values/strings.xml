@@ -5,6 +5,7 @@
     <string name="chat_list_title">채팅 목록</string>
 
     //activity_chat.xml
+    <string name="chat_search_hint">대화 내용 검색</string>
     <string name="chat_hint">메시지를 입력하세요</string>
     <string name="chat_write_contract">가계약서 쓰기</string>
     <string name="chat_read_contract">가계약서 보기</string>

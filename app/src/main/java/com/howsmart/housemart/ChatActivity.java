@@ -9,20 +9,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 import com.howsmart.housemart.Adapter.ChatAdapter;
 import com.howsmart.housemart.Model.Chat;
 import com.howsmart.housemart.Model.Chatter;
@@ -35,8 +44,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.howsmart.housemart.Model.House;
-import com.howsmart.housemart.Model.User;
+import com.howsmart.housemart.Notifications.FirebaseApi;
+import com.howsmart.housemart.Notifications.MyResponse;
+import com.howsmart.housemart.Notifications.NotificationData;
+import com.howsmart.housemart.Notifications.Sender;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,7 +62,7 @@ import retrofit2.Response;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "ChatActivity";
+    private static final String TAG = "ChatActivityTag";
 
     private static final int IMAGE_REQUEST = 0;
     private static final int CAMERA_REQUEST = 1;
@@ -61,12 +72,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private ConstraintLayout constraint_layout_option;
 
     private ImageView image_view_back;
+    private EditText edit_text_search;
     private ImageView image_view_search;
     private ImageView image_view_plus;
     private ImageView image_view_send;
     private TextView text_view_chatter_name;
     private EditText edit_text_send;
-
     private ImageView image_view_write;
     private ImageView image_view_read;
     private ImageView image_view_call;
@@ -74,8 +85,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView image_view_camera;
     private ImageView image_view_phase;
 
+    private InputMethodManager inputMethodManager;
+
     private Long houseIdx;
-    private Long contractIdx;
+    private Long contractIdx = -1L;
     private String buyerPhone;
     private String sellerPhone;
 
@@ -88,14 +101,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseUser fuser;
     private DatabaseReference reference;
-
     private StorageReference storageReference;
+    private ValueEventListener readValueEventListener;
 
     private List<Chat> mchat;
+    private List<Chat> msearchChat;
 
-    private RESTApi mRESTApi;
-
-    private String idFromHouse, idFromsellerPhone;
+    private FirebaseApi firebaseApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +115,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_chat);
 
         constraint_layout_option = findViewById(R.id.chat_option);
+        inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         image_view_back = findViewById(R.id.chat_btn_back);
+        edit_text_search = findViewById(R.id.chat_search_edit_text);
         image_view_search = findViewById(R.id.chat_search);
         image_view_plus = findViewById(R.id.chat_option_plus);
         image_view_send = findViewById(R.id.chat_btn_send);
@@ -130,6 +144,32 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         image_view_camera.setOnClickListener(this);
         image_view_phase.setOnClickListener(this);
 
+        edit_text_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                msearchChat = new ArrayList<>();
+                for (Chat chat : mchat) {
+                    if(chat.getMessage().contains(s)){
+                        msearchChat.add(chat);
+                    }
+                }
+
+                ChatAdapter searchChatAdapter = new ChatAdapter(ChatActivity.this, msearchChat, chatter.getImageURL());
+                recyclerView.setAdapter(searchChatAdapter);
+                recyclerView.scrollToPosition(searchChatAdapter.getItemCount()-1);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         storageReference = FirebaseStorage.getInstance().getReference("chats");
 
         //getIntent and get Chatter
@@ -138,11 +178,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         houseIdx = intent.getLongExtra("houseIdx", -1);
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
-
         sumId = getSumId(fuser.getUid(), chatter_id); //get combineId(real-time/Chats child name)
 
         //get myChatter instance
         reference = FirebaseDatabase.getInstance().getReference("Users");
+        updateToken();
         reference.child(fuser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -159,7 +199,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         recyclerView = findViewById(R.id.recyelr_view);
                         recyclerView.setHasFixedSize(true);
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
-                        linearLayoutManager.setStackFromEnd(true);
                         recyclerView.setLayoutManager(linearLayoutManager);
 
                         readMessage();
@@ -177,26 +216,58 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "while getting myChatter: " + error.getDetails());
             }
         });
+    }
 
+    private void updateToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("token", token);
+                        reference.child(fuser.getUid()).updateChildren(hashMap);
+                    }
+                });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.chat_btn_back:
-                onBackPressed();
+                if(edit_text_search.getVisibility() == View.VISIBLE){
+                    edit_text_search.setVisibility(View.GONE);
+                    inputMethodManager.hideSoftInputFromWindow(edit_text_search.getWindowToken(), 0);
+                    recyclerView.setAdapter(chatAdapter);
+                    recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+                } else {
+                    onBackPressed();
+                }
                 break;
 
             case R.id.chat_search:
-                // TODO : 검색 기능
+                if(edit_text_search.getVisibility() == View.VISIBLE){
+                    edit_text_search.setVisibility(View.GONE);
+                    recyclerView.setAdapter(chatAdapter);
+                    recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+                } else {
+                    edit_text_search.setText("");
+                    edit_text_search.setVisibility(View.VISIBLE);
+                }
                 break;
 
             case R.id.chat_option_plus:
-                if (image_view_plus.getTag().equals("plus")) {
+                if(image_view_plus.getTag().equals("plus")){
                     image_view_plus.setImageResource(R.drawable.cancel);
                     constraint_layout_option.setVisibility(View.VISIBLE);
                     image_view_plus.setTag("cancel");
-                } else if (image_view_plus.getTag().equals("cancel")) {
+                } else if(image_view_plus.getTag().equals("cancel")){
                     image_view_plus.setImageResource(R.drawable.chat_plus);
                     constraint_layout_option.setVisibility(View.GONE);
                     image_view_plus.setTag("plus");
@@ -205,7 +276,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.chat_btn_send: // add message to firebase database
                 String message = edit_text_send.getText().toString();
-                if (!message.equals("")) {
+                if(!message.equals("")) {
                     SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a hh:mm:ss", Locale.KOREA);
                     String date = transFormat.format(new Date());
 
@@ -217,19 +288,23 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.chat_write_contract:
-                Intent write_intent = new Intent(ChatActivity.this, MakeContractActivity.class);
-                write_intent.putExtra("buyerPhone", buyerPhone);
-                write_intent.putExtra("sellerPhone", sellerPhone);
-                write_intent.putExtra("houseIdx", houseIdx);
-                write_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityForResult(write_intent, WRITE_REQUEST);
+                if(sellerPhone.equals(myChatter)) {
+                    Intent write_intent = new Intent(ChatActivity.this, MakeContractActivity.class);
+                    write_intent.putExtra("buyerPhone", buyerPhone);
+                    write_intent.putExtra("sellerPhone", sellerPhone);
+                    write_intent.putExtra("houseIdx", houseIdx);
+                    write_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivityForResult(write_intent, WRITE_REQUEST);
+                }
                 break;
 
             case R.id.chat_read_contract:
-                Intent read_intent = new Intent(ChatActivity.this, ShowContractActivity.class);
-                read_intent.putExtra("contractIdx", contractIdx);
-                read_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityForResult(read_intent, READ_REQUEST);
+                if(contractIdx != -1) {
+                    Intent read_intent = new Intent(ChatActivity.this, ShowContractActivity.class);
+                    read_intent.putExtra("contractIdx", contractIdx);
+                    read_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivityForResult(read_intent, READ_REQUEST);
+                }
                 break;
 
             case R.id.chat_call:
@@ -261,12 +336,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         //TODO : show phase diagram
     }
 
-    private void readMessage() {
+    private void readMessage(){
 
         mchat = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
-        reference.addValueEventListener(new ValueEventListener() {
+        readValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mchat.clear();
@@ -275,7 +350,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     mchat.add(chat);
 
                     // Chats에 메시지 본 여부 체크하기
-                    if (chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(chatter.getId())) {
+                    if(chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(chatter.getId())) {
                         HashMap<String, Object> isSeenHashMap = new HashMap<>();
                         isSeenHashMap.put("isseen", true);
                         dataSnapshot.getRef().updateChildren(isSeenHashMap);
@@ -283,7 +358,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 //get houseIdx
-                if (houseIdx == -1) {
+                if(houseIdx == -1) {
                     houseIdx = snapshot.child("houseInfo").child("houseIdx").getValue(Long.class);
                 } else {
                     HashMap<String, Object> hashMap = new HashMap<>();
@@ -297,30 +372,32 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 sellerPhone = snapshot.child("houseInfo").child("sellerPhone").getValue(String.class);
                 try {
                     contractIdx = snapshot.child("houseInfo").child("contractIdx").getValue(Long.class);
-                } catch (Exception e) {
+                } catch (Exception e){
                     Log.d(TAG, "가계약서 작성 전이라 contractIdx가 존재하지 않음");
                 }
 
                 chatAdapter = new ChatAdapter(ChatActivity.this, mchat, chatter.getImageURL());
                 recyclerView.setAdapter(chatAdapter);
+                recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        };
+        reference.addValueEventListener(readValueEventListener);
     }
 
     private String getSumId(String uid, String chatterid) {
-        if (uid.compareTo(chatterid) < 0) {
+        if(uid.compareTo(chatterid) < 0) {
             return uid + chatterid;
         } else {
             return chatterid + uid;
         }
     }
 
-    private void sendMessage(String sender, String receiver, String message, String timestamp) {
+    private void sendMessage(String sender, String receiver, String message, String timestamp){
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
 
@@ -336,12 +413,40 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         reference.child("users").child(fuser.getUid()).setValue(myChatter);
         reference.child("users").child(chatter.getId()).setValue(chatter);
 
-        if (mchat != null) {
+        if(mchat != null){
             Chat newChat = new Chat(sender, receiver, message, false, timestamp);
             mchat.add(newChat);
             chatAdapter = new ChatAdapter(ChatActivity.this, mchat, chatter.getImageURL());
             recyclerView.setAdapter(chatAdapter);
+            recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
         }
+
+        sendNotification(message);
+    }
+
+    private void sendNotification(String message) {
+        String to = chatter.getToken();
+        NotificationData data = new NotificationData(chatter.getNickname(), message, chatter.getId(), myChatter.getId());
+        Sender sender = new Sender(to, data);
+
+        firebaseApi = FirebaseApi.retrofit.create(FirebaseApi.class);
+        firebaseApi.sendNotification(sender).enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if(response.code() == 200){
+                    if(response.body().success != 1){
+                        Log.d(TAG, "noti 보내기 실패");
+                    } else {
+                        Log.d(TAG, "noti 보내기 성공");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyResponse> call, Throwable throwable) {
+                Log.d(TAG, throwable.getMessage());
+            }
+        });
     }
 
     private String getFileExtension(Uri uri) {
@@ -421,25 +526,31 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode != RESULT_OK) return;
+        if(resultCode != RESULT_OK) return;
 
-        if (requestCode == IMAGE_REQUEST && data != null) {
+        if(requestCode == IMAGE_REQUEST && data != null) {
             Uri imageUri = data.getData();
 //            sendImage(imageUri);
-        } else if (requestCode == CAMERA_REQUEST && data != null) {
+        } else if(requestCode == CAMERA_REQUEST && data != null){
             //TODO : write code to capture image and add to firebase Chats history
-        } else if (requestCode == WRITE_REQUEST && data != null) {
+        } else if(requestCode == WRITE_REQUEST && data != null){
             contractIdx = data.getLongExtra("contractIdx", -1);
 
-            if (contractIdx != -1) {
+            if(contractIdx != -1) {
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("contractIdx", contractIdx);
                 reference.child("houseInfo").updateChildren(hashMap);
             }
 
-        } else if (requestCode == READ_REQUEST && data != null) {
+        } else if(requestCode == READ_REQUEST && data != null){
 
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        reference.removeEventListener(readValueEventListener);
     }
 }
