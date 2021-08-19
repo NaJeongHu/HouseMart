@@ -125,7 +125,7 @@ public class BrokerActivity extends AppCompatActivity implements View.OnClickLis
             public void onResponse(Call<List<ProvisionalHouse>> call, Response<List<ProvisionalHouse>> response) {
                 List<ProvisionalHouse> Result = (List<ProvisionalHouse>) response.body();
                 ProvisionalList = (ArrayList) Result;
-                mItemCount.setText(ProvisionalList.size() + "채의 매물이 중개를 기다리고 있어요");
+//                mItemCount.setText(ProvisionalList.size() + "채의 매물이 중개를 기다리고 있어요");
                 connectToAdapter();
             }
 

@@ -140,6 +140,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<User> call, Throwable throwable) {
                 Toast.makeText(getApplicationContext(),"통신 실패", Toast.LENGTH_SHORT).show();
                 // end lottie
+                // todo : 아이디가 서버에 없는 경우 통신 실패로 넘어오는 듯
                 alertDialog.dismiss();
             }
         });

@@ -24,10 +24,21 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.howsmart.housemart.Adapter.ChatListAdapter;
+import com.howsmart.housemart.Model.Chat;
+import com.howsmart.housemart.Model.Chatter;
 import com.howsmart.housemart.Model.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private User mUser;
     private ImageView iv_main_userprofile;
     private TextView tv_main_welcome;
+
+    private int count;
+    private FirebaseUser fuser;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,10 +117,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cardview_main_broker.setOnClickListener(this);
         cardview_main_gochat.setOnClickListener(this);
 
-        // todo : mUser에서 중개사 자격 여부 확인해서 히든메뉴 온오프
+        setVisibility();
+    }
+
+    private void setVisibility() {
+
         if (mUser.getQualification().equals("QUALIFIED")) {
             cardview_main_broker.setVisibility(View.VISIBLE);
         }
+
+        count = 0;
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference.orderByChild("users/" + fuser.getUid() + "/id").equalTo(fuser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                count = 0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot usersSnapshot : dataSnapshot.child("users").getChildren()) {
+                        Chatter chatter = usersSnapshot.getValue(Chatter.class);
+                        if (!chatter.getId().equals(fuser.getUid())) {
+                            count++;
+                        }
+                    }
+                }
+                if (count > 0) {
+                    cardview_main_gochat.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void getUserInfoFromServer() {
@@ -159,8 +204,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(iiii);
                 break;
             case R.id.cardview_main_broker:
+                Intent iiiii = new Intent(MainActivity.this, BrokerActivity.class);
+                iiiii.putExtra("user",mUser);
+                startActivity(iiiii);
                 break;
             case R.id.cardview_main_gochat:
+                Intent iiiiii = new Intent(MainActivity.this, ChatListActivity.class);
+                iiiiii.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(iiiiii);
                 break;
         }
     }
@@ -183,6 +234,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         } else {
             gps.showSettingsAlert();
+            if(mLatitude == 0 || mLongitude == 0){
+                Toast.makeText(getApplicationContext(), "GPS 활용 거부로 인해 초기위치값이 경북대로 설정되었습니다", Toast.LENGTH_LONG).show();
+                mLatitude = 35.887515;
+                mLongitude = 128.611553;
+            }
         }
 
         List<Address> list = null;
