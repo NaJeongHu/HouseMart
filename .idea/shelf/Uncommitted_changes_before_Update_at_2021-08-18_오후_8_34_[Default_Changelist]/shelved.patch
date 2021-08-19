@@ -1,0 +1,257 @@
+Index: app/src/main/res/layout/upload_realprice.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:layout_margin=\"20dp\"\r\n    android:orientation=\"vertical\">\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"실거래가\"\r\n        android:textSize=\"15dp\"\r\n        android:fontFamily=\"@font/applesdgothicneob\"\r\n        android:textColor=\"@color/black\"/>\r\n\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/upload_realprice.xml	(revision c98e54a1677b685dc6af3bec5ad4f87dc14d9512)
++++ app/src/main/res/layout/upload_realprice.xml	(date 1629286442584)
+@@ -14,5 +14,10 @@
+         android:fontFamily="@font/applesdgothicneob"
+         android:textColor="@color/black"/>
+ 
++    <androidx.recyclerview.widget.RecyclerView
++        android:layout_width="match_parent"
++        android:layout_height="300dp">
++    </androidx.recyclerview.widget.RecyclerView>
++
+ 
+ </LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/basic2.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:layout_margin=\"20dp\"\r\n    android:orientation=\"vertical\">\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"match_parent\"\r\n        android:text=\"계정\"\r\n        android:textSize=\"15dp\"\r\n        android:fontFamily=\"@font/applesdgothicneob\"\r\n        android:textColor=\"@color/black\"/>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/basic2.xml	(revision c98e54a1677b685dc6af3bec5ad4f87dc14d9512)
++++ app/src/main/res/layout/basic2.xml	(date 1629249345640)
+@@ -8,7 +8,7 @@
+ 
+     <TextView
+         android:layout_width="wrap_content"
+-        android:layout_height="match_parent"
++        android:layout_height="wrap_content"
+         android:text="계정"
+         android:textSize="15dp"
+         android:fontFamily="@font/applesdgothicneob"
+Index: app/src/main/res/layout/activity_business.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <com.google.android.material.appbar.AppBarLayout\r\n        android:id=\"@+id/recycler_toolbar\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n        <androidx.appcompat.widget.Toolbar\r\n            android:id=\"@+id/toolbar\"\r\n            android:background=\"@android:color/white\"\r\n            android:layout_width=\"fill_parent\"\r\n            android:layout_height=\"47dp\"\r\n            android:backgroundTint=\"@android:color/white\"\r\n            app:layout_scrollFlags=\"enterAlways\">\r\n\r\n            <LinearLayout\r\n                android:orientation=\"horizontal\"\r\n                android:layout_width=\"fill_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginLeft=\"20dp\"\r\n                android:layout_marginRight=\"20dp\">\r\n\r\n                <ImageView\r\n                    android:layout_gravity=\"center_vertical\"\r\n                    android:id=\"@+id/btn_back\"\r\n                    android:layout_width=\"25dp\"\r\n                    android:layout_height=\"25dp\"\r\n                    android:scaleType=\"fitXY\"\r\n                    app:srcCompat=\"@drawable/icon_back\" />\r\n\r\n                <TextView\r\n                    android:textSize=\"18dp\"\r\n                    android:textColor=\"#000000\"\r\n                    android:ellipsize=\"end\"\r\n                    android:layout_gravity=\"center\"\r\n                    android:id=\"@+id/title\"\r\n                    android:layout_width=\"0dp\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"10dp\"\r\n                    android:layout_marginRight=\"35dp\"\r\n                    android:fontFamily=\"@font/applesdgothicneob\"\r\n                    android:text=\"거래중인 내역\"\r\n                    android:layout_weight=\"1.0\"\r\n                    android:textAlignment=\"center\" />\r\n\r\n            </LinearLayout>\r\n\r\n        </androidx.appcompat.widget.Toolbar>\r\n\r\n    </com.google.android.material.appbar.AppBarLayout>\r\n\r\n    <androidx.core.widget.NestedScrollView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layout_below=\"@+id/recycler_toolbar\"\r\n        android:layout_marginTop=\"-16dp\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_marginTop=\"20dp\">\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\"\r\n                android:orientation=\"horizontal\">\r\n\r\n                <androidx.cardview.widget.CardView\r\n                    android:id=\"@+id/card_item_list_titleimg\"\r\n                    android:layout_width=\"150dp\"\r\n                    android:layout_height=\"150dp\"\r\n                    android:layout_margin=\"15dp\"\r\n                    app:cardCornerRadius=\"5dp\"/>\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:orientation=\"vertical\">\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/tv_item_list_name\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:text=\"아파트 이름\"/>\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/tv_item_list_info\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:text=\"아파트 정보\"/>\r\n\r\n                    <TextView\r\n                        android:id=\"@+id/tv_item_list_price\"\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:text=\"아파트 가격\"/>\r\n\r\n                    <TextView\r\n                        android:layout_marginTop=\"30dp\"\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:textColor=\"@color/custom_blue\"\r\n                        android:text = \"가계약 완료\"/>\r\n\r\n                </LinearLayout>\r\n\r\n            </LinearLayout>\r\n\r\n        </LinearLayout>\r\n\r\n    </androidx.core.widget.NestedScrollView>\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_business.xml	(revision c98e54a1677b685dc6af3bec5ad4f87dc14d9512)
++++ app/src/main/res/layout/activity_business.xml	(date 1629276870063)
+@@ -58,60 +58,41 @@
+     <androidx.core.widget.NestedScrollView
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+-        android:layout_below="@+id/recycler_toolbar"
+-        android:layout_marginTop="-16dp">
++        android:layout_below="@+id/recycler_toolbar">
+ 
+-        <LinearLayout
++        <RelativeLayout
+             android:layout_width="match_parent"
+-            android:layout_height="match_parent"
+-            android:layout_marginTop="20dp">
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent"
+-                android:orientation="horizontal">
++            android:layout_height="match_parent">
+ 
+-                <androidx.cardview.widget.CardView
+-                    android:id="@+id/card_item_list_titleimg"
+-                    android:layout_width="150dp"
+-                    android:layout_height="150dp"
+-                    android:layout_margin="15dp"
+-                    app:cardCornerRadius="5dp"/>
+-
+-                <LinearLayout
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:orientation="vertical">
++            <com.google.android.material.tabs.TabLayout
++                android:id="@+id/tab_business"
++                android:layout_width="match_parent"
++                android:layout_height="60dp"
++                app:tabMode="fixed"
++                app:tabMaxWidth="0dp"
++                app:tabGravity="fill">
+ 
+-                    <TextView
+-                        android:id="@+id/tv_item_list_name"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:text="아파트 이름"/>
+-
+-                    <TextView
+-                        android:id="@+id/tv_item_list_info"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:text="아파트 정보"/>
++                <com.google.android.material.tabs.TabItem
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="판매중인 부동산"/>
+ 
+-                    <TextView
+-                        android:id="@+id/tv_item_list_price"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:text="아파트 가격"/>
++                <com.google.android.material.tabs.TabItem
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="계약중인 부동산"/>
+ 
+-                    <TextView
+-                        android:layout_marginTop="30dp"
+-                        android:layout_width="match_parent"
+-                        android:layout_height="wrap_content"
+-                        android:textColor="@color/custom_blue"
+-                        android:text = "가계약 완료"/>
++            </com.google.android.material.tabs.TabLayout>
++
++            <androidx.viewpager2.widget.ViewPager2
++                android:id="@+id/pager"
++                android:layout_width="match_parent"
++                android:layout_height="0dp"
++                android:layout_weight="1" />
+ 
+-                </LinearLayout>
++        </RelativeLayout>
+ 
+-            </LinearLayout>
+ 
+-        </LinearLayout>
+ 
+     </androidx.core.widget.NestedScrollView>
+ 
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\napply plugin: 'com.google.gms.google-services'\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.2\"\r\n\r\n    defaultConfig {\r\n        applicationId \"com.howsmart.housemart\"\r\n        minSdkVersion 26\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation fileTree(dir: \"libs\", include: [\"*.jar\"])\r\n    implementation 'androidx.appcompat:appcompat:1.3.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    testImplementation 'junit:junit:4.13.2'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n\r\n    implementation 'com.appunity.retrofit2:converter-gson:2.0.2'\r\n    implementation 'com.appunity.retrofit2:retrofit:2.0.2'\r\n    implementation 'com.google.android.material:material:1.4.0'\r\n    implementation 'com.google.android.gms:play-services-auth:19.0.0'\r\n    implementation 'com.rengwuxian.materialedittext:library:2.1.4'\r\n\r\n    implementation \"com.github.edsergeev:text-fab:1.0.0\"\r\n    implementation 'me.relex:circleindicator:1.2.2'\r\n    implementation 'com.google.android.gms:play-services-location:18.0.0'\r\n    implementation 'com.google.android.gms:play-services-maps:17.0.1'\r\n    implementation 'com.android.support:design:30.0.0'\r\n    implementation 'de.hdodenhof:circleimageview:2.2.0'\r\n    implementation 'com.github.bumptech.glide:glide:4.8.0'\r\n    implementation group: 'com.opencsv', name: 'opencsv', version: '4.6'\r\n    implementation 'me.relex:circleindicator:1.2.2'\r\n\r\n\r\n    //firebase\r\n    implementation 'com.google.firebase:firebase-auth:21.0.1'\r\n    implementation 'com.google.firebase:firebase-database:20.0.0'\r\n    implementation 'com.google.firebase:firebase-analytics:19.0.0'\r\n    implementation 'com.google.firebase:firebase-storage:20.0.0'\r\n    implementation 'com.google.firebase:firebase-messaging:22.0.0'\r\n\r\n\r\n    implementation group: 'com.opencsv', name: 'opencsv', version: '4.4'\r\n    implementation 'com.github.chrisbanes:PhotoView:2.1.3'\r\n    implementation 'com.airbnb.android:lottie:3.7.0'\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision c98e54a1677b685dc6af3bec5ad4f87dc14d9512)
++++ app/build.gradle	(date 1629273641385)
+@@ -32,6 +32,7 @@
+     implementation fileTree(dir: "libs", include: ["*.jar"])
+     implementation 'androidx.appcompat:appcompat:1.3.0'
+     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
++    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+     testImplementation 'junit:junit:4.13.2'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">하우스마트</string>\r\n\r\n    //activity_chat_list.xml\r\n    <string name=\"chat_list_title\">채팅 목록</string>\r\n\r\n    //activity_chat.xml\r\n    <string name=\"chat_hint\">메시지를 입력하세요</string>\r\n    <string name=\"chat_write_contract\">가계약서 쓰기</string>\r\n    <string name=\"chat_read_contract\">가계약서 보기</string>\r\n    <string name=\"chat_contract\">계약하기</string>\r\n    <string name=\"chat_phase\">자주쓰는 문구</string>\r\n    <string name=\"chat_album\">앨범</string>\r\n    <string name=\"chat_camera\">카메라</string>\r\n    <string name=\"chat_call\">전화하기</string>\r\n\r\n    //UploadActivity\r\n    <string name=\"living\">거실테스트</string>\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision c98e54a1677b685dc6af3bec5ad4f87dc14d9512)
++++ app/src/main/res/values/strings.xml	(date 1629273641559)
+@@ -16,5 +16,7 @@
+ 
+     //UploadActivity
+     <string name="living">거실테스트</string>
++    <!-- TODO: Remove or change this placeholder text -->
++    <string name="hello_blank_fragment">Hello blank fragment</string>
+ 
+ </resources>
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.howsmart.housemart\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@drawable/housemartlogo\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@drawable/housemartlogo\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\"\r\n        android:usesCleartextTraffic=\"true\">\r\n        <activity android:name=\".ChangePasswordActivity\"></activity>\r\n        <activity android:name=\".ChangeBirthActivity\" />\r\n        <activity android:name=\".ChangeNicknameActivity\" />\r\n        <activity android:name=\".BrokerCertificationActivity\" />\r\n        <activity android:name=\".SplashActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".BrokerActivity\" />\r\n        <activity\r\n            android:name=\".ShowContractActivity\"\r\n            android:parentActivityName=\".ChatActivity\" />\r\n        <activity\r\n            android:name=\".MakeContractActivity\"\r\n            android:parentActivityName=\".ChatActivity\" />\r\n        <activity android:name=\".SearchActivity_upload\" />\r\n        <activity android:name=\".LoginActivity\" />\r\n        <activity android:name=\".MainActivity\" />\r\n        <activity\r\n            android:name=\".JoinActivity\"\r\n            android:parentActivityName=\".LoginActivity\" />\r\n        <activity\r\n            android:name=\".ResetPasswordActivity\"\r\n            android:parentActivityName=\".LoginActivity\" />\r\n        <activity android:name=\".SettingActivity\" />\r\n        <activity\r\n            android:name=\".ChatActivity\"\r\n            android:parentActivityName=\".ChatListActivity\" />\r\n        <activity\r\n            android:name=\".ChatListActivity\"\r\n            android:parentActivityName=\".SettingActivity\" />\r\n        <activity android:name=\".ListActivity\" />\r\n        <activity android:name=\".UploadActivity\" />\r\n        <activity android:name=\".FilterActivity\" />\r\n        <activity android:name=\".SearchActivity\" />\r\n        <activity android:name=\".SidoActivity\" />\r\n        <activity android:name=\".SigunguActivity\" />\r\n        <activity android:name=\".HouseInfoActivity\" />\r\n        <activity android:name=\".PrivateinfoActivity\" />\r\n        <activity android:name=\".BusinessActivity\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision c98e54a1677b685dc6af3bec5ad4f87dc14d9512)
++++ app/src/main/AndroidManifest.xml	(date 1629270937086)
+@@ -11,9 +11,9 @@
+ 
+     <application
+         android:allowBackup="true"
+-        android:icon="@drawable/housemartlogo"
++        android:icon="@drawable/housemartlogo2"
+         android:label="@string/app_name"
+-        android:roundIcon="@drawable/housemartlogo"
++        android:roundIcon="@drawable/housemartlogo2"
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme"
+         android:usesCleartextTraffic="true">
+Index: app/src/main/java/com/howsmart/housemart/BusinessActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.howsmart.housemart;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.os.Bundle;\r\n\r\npublic class BusinessActivity extends AppCompatActivity {\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_business);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/howsmart/housemart/BusinessActivity.java	(revision c98e54a1677b685dc6af3bec5ad4f87dc14d9512)
++++ app/src/main/java/com/howsmart/housemart/BusinessActivity.java	(date 1629274811085)
+@@ -1,14 +1,52 @@
+ package com.howsmart.housemart;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
++import androidx.fragment.app.Fragment;
+ 
+ import android.os.Bundle;
+ 
++import com.google.android.material.tabs.TabLayout;
++
+ public class BusinessActivity extends AppCompatActivity {
+ 
++    Fragment fragment_sell, fragment_contract;
++
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_business);
++
++        fragment_sell = new Fragment_Sell();
++        fragment_contract = new Fragment_Contract();
++        getSupportFragmentManager().beginTransaction().add(R.id.frame_business, fragment_sell).commit();
++
++        TabLayout tabs = (TabLayout) findViewById(R.id.tab_business);
++
++        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
++            @Override
++            public void onTabSelected(TabLayout.Tab tab) {
++
++                int position = tab.getPosition();
++
++                Fragment selected = null;
++                if (position == 0) {
++                    selected = fragment_sell;
++                } else {
++                    selected = fragment_contract;
++                }
++                getSupportFragmentManager().beginTransaction().replace(R.id.frame_business, selected).commit();
++            }
++
++            @Override
++            public void onTabUnselected(TabLayout.Tab tab) {
++
++            }
++
++            @Override
++            public void onTabReselected(TabLayout.Tab tab) {
++
++            }
++        });
+     }
++
+ }
+\ No newline at end of file
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_7_26_2021_8_38_PM__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_7_26_2021_8_38_PM__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_2021-08-16__10_24__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_2021-08-16__10_24__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_2021-08-01__7_44__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_2021-08-01__7_44__Default_Changelist_.xml

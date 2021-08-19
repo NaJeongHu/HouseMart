@@ -1,11 +1,10 @@
- package com.howsmart.housemart;
+package com.howsmart.housemart;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,19 +28,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.howsmart.housemart.Adapter.PagerAdapter_Picture;
+import com.howsmart.housemart.Adapter.RecyclerViewAdapter_Realprice;
 import com.howsmart.housemart.Model.House;
 import com.howsmart.housemart.Model.Pictures;
+import com.howsmart.housemart.Model.Realprice;
 import com.howsmart.housemart.Model.User;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
+import com.opencsv.CSVReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -57,12 +62,13 @@ import retrofit2.Response;
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener, PagerAdapter_Picture.OnItemClick {
 
     private ImageView btn_back;
-    private AppCompatButton btn_type1, btn_type2, btn_type3, btn_no_dialog_upload, btn_okay_dialog_upload;
-    private LinearLayout lin_price_month;
+    private AppCompatButton btn_type1, btn_type2, btn_type3, btn_no_dialog_upload, btn_okay_dialog_upload, btn_typesell, btn_typeothers;
+    private LinearLayout lin_price_month,ll_realprice,ll_realprice_show,ll_realprice_noshow;
     private TextInputEditText edit_dong, edit_ho, edit_area1, edit_area2, edit_price_all, edit_price_month, edit_price_manage,
             edit_introduce_short, edit_introduce_long, edit_room, edit_toilet, edit_introduce_livingroom, edit_introduce_kitchen,
             edit_introduce_room1, edit_introduce_room2, edit_introduce_room3, edit_introduce_toilet1, edit_introduce_toilet2, edit_introduce_apartment;
-    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage, tv_complete, edit_apartment, tv_movedate, tv_apartaddress_load;
+    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage, tv_complete, edit_apartment, tv_movedate, tv_apartaddress_load
+            ,tv_name_realprice,tv_price1_realprice,tv_price2_realprice;
     private RangeSlider slider_ratio1, slider_ratio2;
     private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet, chk_oven, chk_induction, chk_airsystem, chk_movenow;
     private Calendar cal;
@@ -145,6 +151,19 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private User mUser;
 
+    private RecyclerViewAdapter_Realprice adapter_realprice;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager manager;
+    ArrayList<Realprice> arr = null;
+
+    List<String[]> list = null;
+    List<String[]> list1 = null;
+    List<String[]> list2 = null;
+    List<String[]> list3 = null;
+
+
+    private String realpricetype;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +203,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private void init() {
 
+        recyclerView = findViewById(R.id.recycler_realprice);
+        manager = new LinearLayoutManager(UploadActivity.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+
         cal = Calendar.getInstance();
 
         btn_back = findViewById(R.id.btn_back_upload);
@@ -191,8 +214,14 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         btn_type1 = findViewById(R.id.btn_type1);
         btn_type2 = findViewById(R.id.btn_type2);
         btn_type3 = findViewById(R.id.btn_type3);
+        btn_typesell = findViewById(R.id.btn_typesell);
+        btn_typeothers = findViewById(R.id.btn_typeothers);
 
         lin_price_month = findViewById(R.id.lin_price_month);
+        ll_realprice = findViewById(R.id.ll_realprice);
+        ll_realprice_show = findViewById(R.id.ll_realprice_show);
+        ll_realprice_noshow = findViewById(R.id.ll_realprice_noshow);
+
 
         edit_apartment = findViewById(R.id.edit_apartment);
         edit_dong = findViewById(R.id.edit_dong);
@@ -228,6 +257,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         tv_complete = findViewById(R.id.tv_complete);
         tv_movedate = findViewById(R.id.tv_movedate);
         tv_apartaddress_load = findViewById(R.id.tv_apartaddress_load);
+        tv_name_realprice = findViewById(R.id.tv_name_realprice);
+        tv_price1_realprice = findViewById(R.id.tv_price1_realprice);
+        tv_price2_realprice = findViewById(R.id.tv_price2_realprice);
 
         slider_ratio1 = findViewById(R.id.slider_ratio1);
         slider_ratio2 = findViewById(R.id.slider_ratio2);
@@ -247,6 +279,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         btn_type1.setOnClickListener(this);
         btn_type2.setOnClickListener(this);
         btn_type3.setOnClickListener(this);
+        btn_typesell.setOnClickListener(this);
+        btn_typeothers.setOnClickListener(this);
+
         chk_nego.setOnClickListener(this);
         chk_door.setOnClickListener(this);
         chk_air.setOnClickListener(this);
@@ -263,6 +298,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         residence_type = "아파트";
         sale_type = "월세";
+        realpricetype = "매매";
 
         nego = false;
         air_conditioner = false;
@@ -273,6 +309,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         price_first = -1;
         sale_price = -1L;
+        net_leaseable_area=0.0;
 
         mUser = (User) getIntent().getSerializableExtra("user");
 
@@ -394,6 +431,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     try {
                         net_leaseable_area = Double.parseDouble(edit_area1.getText().toString().trim());
                         tv_area1.setText(translateArea(net_leaseable_area));
+                        realPrice();
                     } catch (NumberFormatException e) {
                         tv_area1.setText("평수");
                         Toast.makeText(getBaseContext(), "숫자만 입력해주세요", Toast.LENGTH_SHORT).show();
@@ -589,6 +627,29 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     sale_type = "매매";
                 }
                 break;
+
+            case R.id.btn_typesell:
+                if (!realpricetype.equals("매매")) {
+                    btn_typesell.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_rectangle_blue));
+                    btn_typesell.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
+                    btn_typeothers.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_rectangle_whitegray));
+                    btn_typeothers.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
+                    realpricetype = "매매";
+                    renewlist();
+                }
+                break;
+
+            case R.id.btn_typeothers:
+                if (!realpricetype.equals("전/월세")) {
+                    btn_typesell.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_rectangle_whitegray));
+                    btn_typesell.setTextColor(AppCompatResources.getColorStateList(this, R.color.black));
+                    btn_typeothers.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_rectangle_blue));
+                    btn_typeothers.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
+                    realpricetype = "전/월세";
+                    renewlist();
+                }
+                break;
+
 
             case R.id.chk_nego:
                 if (chk_nego.isChecked()) {
@@ -972,14 +1033,181 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             //사진들 uri를 다시 저장시켜주는 과정
             Bundle bundle = getIntent().getExtras();
             for (int i = 0; i < models.size(); i++) {
-                Uri uri = bundle.getParcelable("picture"+i);
+                Uri uri = bundle.getParcelable("picture" + i);
                 if (uri != null) {
                     models.get(i).setUri(uri);
                 }
             }
 
             viewPager.setAdapter(adapter);
+
+            //실거래가를 위한 csv 파싱
+            renewlist();
+            realPrice();
+            ll_realprice.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void renewlist() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                arr = new ArrayList<>();
+                readDataFromCsv();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(arr.size()==0){
+                            ll_realprice_show.setVisibility(View.GONE);
+                            ll_realprice_noshow.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            ll_realprice_show.setVisibility(View.VISIBLE);
+                            ll_realprice_noshow.setVisibility(View.GONE);
+                            adapter_realprice = new RecyclerViewAdapter_Realprice(getApplicationContext(), arr);
+                            recyclerView.setAdapter(adapter_realprice);
+                            adapter_realprice.notifyDataSetChanged();
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
+
+    public void readDataFromCsv() {
+        if (list1 == null) {
+            InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.realprice1));
+            CSVReader reader = new CSVReader(is);
+            try {
+                list1 = reader.readAll();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+//        if(list2==null) {
+//            InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.realprice2));
+//            CSVReader reader = new CSVReader(is);
+//            try {
+//                list2 = reader.readAll();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } finally {
+//                try {
+//                    is.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        if(list3==null){
+//            list3=list1;
+//            list3.addAll(list2);
+//        }
+        if (arr.size() != 0) {
+            arr.clear();
+            list.clear();
+        }
+
+//        if (realpricetype.equals("매매")){
+//            list = list1;
+//        }
+//        else{
+//            list = list2;
+//        }
+
+        list = list1;
+
+        for (String[] str : list) {
+
+            Realprice entity = new Realprice();
+            entity.setNet_leaseable_area(str[1]);
+            entity.setContract_date(str[2] + str[3]);
+            entity.setSale_price(str[4]);
+            entity.setFloor(str[5]);
+            entity.setSale_type("매매");
+
+//            if(str.length>7){
+//                entity.setMonthly_price(str[7]);
+//                entity.setSale_type(str[8]);
+//            }
+//            else{
+//                entity.setSale_type("매매");
+//            }
+
+            if (!str[6].equals(" ")) {
+                if (address.contains(str[6])) {  // 검색어가 포함된 경우
+                    arr.add(entity); //entity 이름이 search를 포함하기 때문에 arr에 추가
+                }
+            } else {
+                adapter_realprice = null; //검색하는 것이 없다면 adapter을 null로 만드나??
+            }
+        }
+    }
+
+    public void realPrice() {
+        double sum = 0.0;
+        int num = 0;
+        tv_name_realprice.setText(residence_name +" "+ net_leaseable_area+"m²");
+        if(arr!=null) {
+            for (int i = 0; i < arr.size(); i++) {
+                int temp = changeArea(arr.get(i).getNet_leaseable_area());
+                if (temp == Integer.parseInt(String.valueOf(Math.round(net_leaseable_area)))) {
+                    sum += changePrice(arr.get(i).getSale_price());
+                    num++;
+                }
+            }
+        }
+        if(num==0){
+            tv_price1_realprice.setText("최근 1년간 매매 거래내역이 없습니다");
+            tv_price2_realprice.setText("");
+        }
+        else {
+            sum /= num;
+            setrealrPrice(sum);
+        }
+    }
+
+    public void setrealrPrice(double average) {
+        int av = (int) average;
+        int av2 = (int)(3.3*average/Integer.parseInt(String.valueOf(Math.round(net_leaseable_area))));
+        tv_price1_realprice.setText(translatePrice2(av));
+        tv_price2_realprice.setText(translatePrice2(av2));
+    }
+
+    public int changeArea(String area) {
+        Double temp = Double.parseDouble(area);
+        return Integer.parseInt(String.valueOf(Math.round(temp)));
+    }
+
+    public int changePrice(String price) {
+
+        String a = "", b = "", c = "";
+        a = price.substring(0, price.indexOf(","));
+        b = price.substring(price.indexOf(",") + 1);
+        return Integer.parseInt(a + b);
+    }
+
+    public String translatePrice2(int price) {
+
+        String a = "", b = "", c = "";
+        if (price == 0) {
+            return "0원";
+        }
+        if (price >= 10000) {
+            int price1 = price / 10000;
+            price %= 10000;
+            a = price1 + "억 ";
+        }
+        if (price > 0) {
+            b = price + "만";
+        }
+        return a + b + "원";
     }
 
     @Override

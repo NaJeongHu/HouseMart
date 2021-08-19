@@ -17,7 +17,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     private LinearLayout ll_chat, ll_logout, ll_privateinfo, ll_business, ll_broker;
     private User mUser;
-    private ImageView btn_back;
+    private ImageView btn_back_setting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void init() {
-        btn_back = findViewById(R.id.btn_back);
+        btn_back_setting = findViewById(R.id.btn_back_setting);
 
         ll_logout = findViewById(R.id.ll_logout);
         ll_chat = findViewById(R.id.ll_chatting);
@@ -37,6 +37,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         ll_business = findViewById(R.id.ll_business);
         ll_broker = findViewById(R.id.ll_broker);
 
+        btn_back_setting.setOnClickListener(this);
         ll_logout.setOnClickListener(this);
         ll_chat.setOnClickListener(this);
         ll_privateinfo.setOnClickListener(this);
@@ -48,7 +49,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_back:
+            case R.id.btn_back_setting:
                 onBackPressed();
                 break;
 
