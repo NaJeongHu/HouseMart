@@ -156,6 +156,17 @@
         android:layout_height="10dp"
         android:background="#6BCBCFBA" />
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#6BCBCFBA" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

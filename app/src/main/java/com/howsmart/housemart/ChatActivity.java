@@ -269,6 +269,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.chat_option_plus:
                 if(image_view_plus.getTag().equals("plus")){
+                    inputMethodManager.hideSoftInputFromWindow(edit_text_send.getWindowToken(), 0);
                     image_view_plus.setImageResource(R.drawable.cancel);
                     constraint_layout_option.setVisibility(View.VISIBLE);
                     image_view_plus.setTag("cancel");

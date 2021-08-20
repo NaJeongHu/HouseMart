@@ -72,6 +72,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private RangeSlider slider_ratio1, slider_ratio2;
     private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet, chk_oven, chk_induction, chk_airsystem, chk_movenow;
     private Calendar cal;
+    private com.github.mikephil.charting.charts.LineChart chart;
 
     private long price_first, price_second, price_third;
 
@@ -576,7 +577,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-
+        chart = findViewById(R.id.lineChart);
+        LineGraph lineChart = new LineGraph(UploadActivity.this, chart);
+        lineChart.createChart();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
