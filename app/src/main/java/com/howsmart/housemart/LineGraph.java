@@ -59,7 +59,6 @@ public class LineGraph implements OnChartValueSelectedListener {
             xAxis.setDrawGridLines(false);
             xAxis.setAxisMinimum(0.8f);
             xAxis.setAxisMaximum(7f);
-            xAxis.setLabelCount(7);
 
             xAxis.setAxisLineColor(Color.argb(150, 0, 0, 0));
             xAxis.setAxisLineWidth(0.7f);
@@ -76,7 +75,7 @@ public class LineGraph implements OnChartValueSelectedListener {
 
             YAxis yAxis = chart.getAxisLeft();
             yAxis.setDrawGridLines(false);
-            yAxis.setAxisMaximum(20000f);
+            yAxis.setAxisMaximum(10000f);
             yAxis.setAxisMinimum(0f);
 
             yAxis.setAxisLineColor(Color.argb(150, 0, 0, 0));

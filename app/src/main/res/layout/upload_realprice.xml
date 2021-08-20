@@ -58,12 +58,6 @@
 
         </LinearLayout>
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:layout_marginTop="20dp"/>
-
         <LinearLayout
             android:id="@+id/ll_realprice_show"
             android:visibility="visible"
@@ -180,7 +174,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
-            android:layout_margin="20dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -263,12 +258,15 @@
                     android:text="최근 1년간 매매 거래내역을 바탕으로 산출된 가격입니다\n(출처 : 국토교통부)"
                     android:textSize="10dp" />
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
 
-
-
-        </LinearLayout>
-
-
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
 </LinearLayout>
