@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sch_start_map"
+    android:background="@color/ui_navy"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_margin="20dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/sch_map_appbar"
+        android:background="@color/ui_navy"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="150dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview_main_profile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:cardCornerRadius="30dp"
+                android:layout_marginLeft="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <ImageView
+                    android:id="@+id/iv_main_userprofile"
+                    android:scaleType="fitXY"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/preview"/>
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tv_main_welcome"
@@ -22,298 +43,572 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/applesdgothicneob"
                 android:text="Welcome, JeongHu!"
-                android:textColor="@color/black"
-                android:textSize="25dp"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:layout_marginLeft="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cardview_main_profile"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardview_main_profile"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:cardCornerRadius="10dp"
+            <ImageView
+                android:id="@+id/iv_main_gosetting"
+                android:scaleType="fitXY"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" >
-
-                <ImageView
-                    android:id="@+id/iv_main_userprofile"
-                    android:scaleType="fitXY"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/preview"/>
-
-            </androidx.cardview.widget.CardView>
-
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/gosetting"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_main_sell"
-            android:layout_marginTop="40dp"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:cardBackgroundColor="@color/kakao_yellow"
-            app:cardCornerRadius="20dp">
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_margin="10dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_main_contents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/sch_map_appbar"
+        app:cardCornerRadius="30dp"
+        android:layout_marginBottom="-30dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView3"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/applesdgothicneob"
+                    android:layout_marginTop="20dp"
+                    android:text="집 내놓기"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_main_sell"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:cardBackgroundColor="@color/ui_blue"
+                    app:cardCornerRadius="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@color/ui_upblue"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="10dp">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/icon_door"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="20dp"
+                                    android:fontFamily="@font/applesdgothicneob"
+                                    android:text="하우스마트에선 매도인 중개료 0원 보장"
+                                    android:textColor="@color/white"
+                                    android:textSize="12dp"/>
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="140dp"
+                            android:orientation="vertical">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_margin="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <com.airbnb.lottie.LottieAnimationView
+                                    android:layout_width="120dp"
+                                    android:layout_height="120dp"
+                                    android:layout_marginLeft="40dp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:lottie_fileName="lottie_forsale.json"
+                                    app:lottie_autoPlay="true"
+                                    app:lottie_loop="true"
+                                    android:visibility="visible"
+                                    android:id="@+id/lottie_main_forsale"/>
+
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/card"
+                                    android:layout_width="60dp"
+                                    android:layout_height="40dp"
+                                    app:cardBackgroundColor="@color/white"
+                                    app:cardCornerRadius="15dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/icon_back"
+                                        android:rotation="180"/>
+
+                                </androidx.cardview.widget.CardView>
+
+                                <TextView
+                                    android:layout_width="60dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:fontFamily="@font/applesdgothicneob"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintBottom_toTopOf="@+id/card"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:text="매물 등록"
+                                    android:textColor="@color/white"
+                                    android:textSize="14dp"/>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/applesdgothicneob"
+                    android:layout_marginTop="60dp"
+                    android:text="집 구하기"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardview_main_buyA"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="2dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:cardBackgroundColor="@color/ui_violet"
+                        app:cardCornerRadius="20dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardView"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="70dp"
+                                android:layout_marginTop="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/icon_apart" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="아파트"
+                                android:fontFamily="@font/applesdgothicneob"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardview_main_buyO"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="10dp"
+                        app:layout_constraintStart_toEndOf="@+id/cardview_main_buyA"
+                        app:layout_constraintEnd_toStartOf="@+id/cardview_main_buyV"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:cardBackgroundColor="@color/ui_green"
+                        app:cardCornerRadius="20dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardview_office"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="70dp"
+                                android:layout_marginTop="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/icon_office" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="오피스텔"
+                                android:fontFamily="@font/applesdgothicneob"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cardview_office" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardview_main_buyV"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:cardBackgroundColor="@color/ui_pink"
+                        app:cardCornerRadius="20dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardview_villa"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="70dp"
+                                android:layout_marginTop="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/icon_villa" />
+
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="빌라"
+                                android:fontFamily="@font/applesdgothicneob"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cardview_villa" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/applesdgothicneob"
+                    android:layout_marginTop="50dp"
+                    android:text="우리동네 청약일정"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/applesdgothicneob"
-                    android:text="중개료 0원으로 매물 등록하기"
-                    android:textColor="@color/black"
-                    android:textSize="19dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/applesdgothicneob"
-                    android:text="하우스마트에선 중개료 걱정없이 집을 등록할 수 있어요"
-                    android:textColor="@color/black"
-                    android:textSize="12dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView3"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardview_main_logo"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginLeft="2dp"
+                            app:cardCornerRadius="10dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/raemian"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/raemian"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="래미안 더퍼스트"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/applesdgothicneob"
+                            android:layout_marginTop="5dp"
+                            android:textSize="15dp"
+                            app:layout_constraintStart_toEndOf="@+id/cardview_main_logo"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/raemianjuso"
+                            android:layout_marginLeft="10dp"/>
+
+                        <TextView
+                            android:id="@+id/raemianjuso"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="대구 북구 침산동"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="@color/black"
+                            android:textSize="12dp"
+                            app:layout_constraintStart_toEndOf="@+id/cardview_main_logo"
+                            app:layout_constraintTop_toBottomOf="@+id/raemian"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginLeft="10dp"/>
+
+                        <TextView
+                            android:id="@+id/raemianil"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="21.08.29 ~ 21.09.04"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginRight="10dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardview_main_wevelogo"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginLeft="2dp"
+                            app:cardCornerRadius="10dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/weve"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/weve"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="두산위브 제니스"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/applesdgothicneob"
+                            android:layout_marginTop="5dp"
+                            android:textSize="15dp"
+                            app:layout_constraintStart_toEndOf="@+id/cardview_main_wevelogo"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/wevejuso"
+                            android:layout_marginLeft="10dp"/>
+
+                        <TextView
+                            android:id="@+id/wevejuso"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="대구 북구 침산동"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="@color/black"
+                            android:textSize="12dp"
+                            app:layout_constraintStart_toEndOf="@+id/cardview_main_wevelogo"
+                            app:layout_constraintTop_toBottomOf="@+id/weve"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginLeft="10dp"/>
+
+                        <TextView
+                            android:id="@+id/weveil"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="21.08.29 ~ 21.09.04"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginRight="10dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardview_main_ziilogo"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginLeft="2dp"
+                            app:cardCornerRadius="10dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/zii"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/zii"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="자이 더포레"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/applesdgothicneob"
+                            android:layout_marginTop="5dp"
+                            android:textSize="15dp"
+                            app:layout_constraintStart_toEndOf="@+id/cardview_main_ziilogo"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/ziijuso"
+                            android:layout_marginLeft="10dp"/>
+
+                        <TextView
+                            android:id="@+id/ziijuso"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="대구 북구 침산동"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="@color/black"
+                            android:textSize="12dp"
+                            app:layout_constraintStart_toEndOf="@+id/cardview_main_ziilogo"
+                            app:layout_constraintTop_toBottomOf="@+id/zii"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginLeft="10dp"/>
+
+                        <TextView
+                            android:id="@+id/ziiil"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="21.08.29 ~ 21.09.04"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginRight="10dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/card"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="40dp"
-                    android:layout_marginRight="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/icon_back"
-                        android:rotation="180"/>
-
-                </androidx.cardview.widget.CardView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_main_buyA"
-            android:layout_marginTop="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            app:cardBackgroundColor="@color/kakao_skyblue"
-            app:cardCornerRadius="20dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:id="@+id/cardview_main_broker"
+                    android:visibility="gone"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/dolphin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="매물 직접 찾고!   중개료 낮추고!"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/applesdgothicneob"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toTopOf="@+id/cardView"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    android:layout_height="50dp"
+                    app:cardBackgroundColor="@color/kakao_gray"
+                    app:cardCornerRadius="15dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    app:cardCornerRadius="70dp"
-                    android:layout_marginBottom="40dp"
-                    app:cardBackgroundColor="@color/navy"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/icon_apart"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="중개를 기다리는 매물보기"
+                        android:layout_gravity="center"/>
 
                 </androidx.cardview.widget.CardView>
 
-                <TextView
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_main_gochat"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="아파트"
-                    android:fontFamily="@font/applesdgothicneob"
-                    android:layout_marginBottom="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardview_main_buyO"
-                android:layout_width="0dp"
-                android:layout_height="125dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/kakao_pink"
-                app:cardCornerRadius="20dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardview_office"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="70dp"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/icon_office" />
-
-                    </androidx.cardview.widget.CardView>
+                    android:layout_height="50dp"
+                    app:cardBackgroundColor="@color/kakao_gray"
+                    app:cardCornerRadius="15dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="오피스텔"
-                        android:fontFamily="@font/applesdgothicneob"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cardview_office" />
+                        android:text="이어서 채팅하기"
+                        android:layout_gravity="center"/>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
 
-            </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardview_main_buyV"
-                android:layout_width="0dp"
-                android:layout_height="125dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/kakao_mint"
-                app:cardCornerRadius="20dp">
+        </androidx.core.widget.NestedScrollView>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+    </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardview_villa"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="70dp"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/icon_villa" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="빌라"
-                        android:fontFamily="@font/applesdgothicneob"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cardview_villa" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_main_broker"
-            android:visibility="gone"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:cardBackgroundColor="@color/kakao_gray"
-            app:cardCornerRadius="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="중개를 기다리는 매물보기"
-                android:layout_gravity="center"/>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_main_gochat"
-            android:visibility="gone"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:cardBackgroundColor="@color/kakao_gray"
-            app:cardCornerRadius="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="이어서 채팅하기"
-                android:layout_gravity="center"/>
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>
 

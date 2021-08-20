@@ -15,6 +15,8 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,11 +52,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     private GPSTracker gps;
-    private CardView cardview_main_profile, cardview_main_sell, cardview_main_buyA, cardview_main_buyV, cardview_main_buyO, cardview_main_broker, cardview_main_gochat;
+    private CardView cardview_main_profile, cardview_main_sell, cardview_main_buyA, cardview_main_buyV, cardview_main_buyO, cardview_main_broker, cardview_main_gochat, cardview_main_contents;
     private double mLatitude, mLongitude;
     private String mSido, mSigungu;
     private User mUser;
-    private ImageView iv_main_userprofile;
+    private ImageView iv_main_userprofile, iv_main_gosetting;
     private TextView tv_main_welcome;
 
     private int count;
@@ -103,19 +105,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cardview_main_buyO = findViewById(R.id.cardview_main_buyO);
         cardview_main_broker = findViewById(R.id.cardview_main_broker);
         cardview_main_gochat = findViewById(R.id.cardview_main_gochat);
+        cardview_main_contents = findViewById(R.id.cardview_main_contents);
+
+        Animation anim_test;
+        anim_test = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_downtoup);
+        cardview_main_contents.startAnimation(anim_test);
 
         tv_main_welcome = findViewById(R.id.tv_main_welcome);
-        tv_main_welcome.setText("안녕하세요, " + mUser.getNickname() + "님!");
+        tv_main_welcome.setText(mUser.getNickname() + "님,\n" + "방문해주셔서 감사합니다 !");
         iv_main_userprofile = findViewById(R.id.iv_main_userprofile);
+        iv_main_gosetting = findViewById(R.id.iv_main_gosetting);
         Glide.with(this).load(mUser.getImgUrl()).into(iv_main_userprofile);
 
-        cardview_main_profile.setOnClickListener(this);
+//        cardview_main_profile.setOnClickListener(this);
         cardview_main_sell.setOnClickListener(this);
         cardview_main_buyA.setOnClickListener(this);
         cardview_main_buyV.setOnClickListener(this);
         cardview_main_buyO.setOnClickListener(this);
         cardview_main_broker.setOnClickListener(this);
         cardview_main_gochat.setOnClickListener(this);
+        iv_main_gosetting.setOnClickListener(this);
 
         setVisibility();
     }
@@ -166,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     Log.d("MainActivity","onResponse" + response.headers().get("code"));
                 }
-                tv_main_welcome.setText("안녕하세요, " + mUser.getNickname() + "님!");
+                tv_main_welcome.setText(mUser.getNickname() + "님,\n" + "방문해주셔서 감사합니다 !");
                 Glide.with(MainActivity.this).load(mUser.getImgUrl()).into(iv_main_userprofile);
             }
 
@@ -180,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.cardview_main_profile:
+            case R.id.iv_main_gosetting:
                 Intent i = new Intent(MainActivity.this, SettingActivity.class);
                 i.putExtra("user",mUser);
                 startActivity(i);

@@ -22,11 +22,6 @@
         <activity android:name=".ChangeNicknameActivity" />
         <activity android:name=".BrokerCertificationActivity" />
         <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".BrokerActivity" />
         <activity
@@ -36,7 +31,13 @@
             android:name=".MakeContractActivity"
             android:parentActivityName=".ChatActivity" />
         <activity android:name=".SearchActivity_upload" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity" />
         <activity
             android:name=".JoinActivity"

@@ -2,9 +2,12 @@ package com.howsmart.housemart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity.java";
 
     private EditText mEditEmail, mEditPassword;
-    private CardView mLoginButton;
+    private CardView mLoginButton, cardview_login_underinfo;
     private TextView mResetPassword, mJoinButton;
 
     private FirebaseAuth auth;
@@ -39,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private AlertDialog alertDialog;
     private LottieAnimationView animationView;
+    private Animation startAnim, endAnim;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +55,11 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.btn_login);
         mJoinButton = findViewById(R.id.btn_join);
         mResetPassword = findViewById(R.id.reset_password);
+
+        cardview_login_underinfo = findViewById(R.id.cardview_login_underinfo);
+        startAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_downtoup);
+        endAnim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_uptodown);
+        cardview_login_underinfo.startAnimation(startAnim);
 
         auth = FirebaseAuth.getInstance();
 
@@ -124,11 +133,17 @@ public class LoginActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENsGTH_SHORT).show();
                     // end lottie
                     alertDialog.dismiss();
+                    cardview_login_underinfo.startAnimation(endAnim);
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("user",user);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    Handler mHandler = new Handler();
+                    mHandler.postDelayed(new Runnable()  {
+                        public void run() {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("user",user);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    }, 400); // 0.5초후
                 } else {
                     Toast.makeText(getApplicationContext(),"로그인 실패 response code : " + code, Toast.LENGTH_SHORT).show();
                     // end lottie

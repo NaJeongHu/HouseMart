@@ -42,4 +42,14 @@
     <color name="chat_option_purple">#9377F2</color>
     <color name="chat_option_green">#5DAF5A</color>
     <color name="chat_option_brown">#A89680</color>
+
+    <color name="ui_navy">#312B46</color>
+    <color name="ui_violet">#F0E8FC</color>
+    <color name="ui_green">#EFFAD0</color>
+    <color name="ui_pink">#FBEEE9</color>
+    <color name="ui_skyblue">#E8FDFD</color>
+    <color name="ui_blue">#663FF5</color>
+    <color name="ui_upblue">#5836DA</color>
+    <color name="ui_orange">#FFCB39</color>
+
 </resources>
