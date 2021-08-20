@@ -3,9 +3,8 @@ package com.howsmart.housemart;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
+import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -22,13 +21,14 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LineGraph implements OnChartValueSelectedListener {
 
     private Context context;
-    private com.github.mikephil.charting.charts.LineChart chart;
+    private LineChart chart;
 
-    public LineGraph(Context context, com.github.mikephil.charting.charts.LineChart chart) {
+    public LineGraph(Context context, LineChart chart) {
         this.context = context;
         this.chart = chart;
     }
@@ -57,9 +57,9 @@ public class LineGraph implements OnChartValueSelectedListener {
             XAxis xAxis = chart.getXAxis();
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
             xAxis.setDrawGridLines(false);
-            xAxis.setAxisMinimum(0.5f);
-            xAxis.setAxisMaximum(12f);
-            xAxis.setLabelCount(12);
+            xAxis.setAxisMinimum(0.8f);
+            xAxis.setAxisMaximum(7f);
+            xAxis.setLabelCount(7);
 
             xAxis.setAxisLineColor(Color.argb(150, 0, 0, 0));
             xAxis.setAxisLineWidth(0.7f);
@@ -76,7 +76,7 @@ public class LineGraph implements OnChartValueSelectedListener {
 
             YAxis yAxis = chart.getAxisLeft();
             yAxis.setDrawGridLines(false);
-            yAxis.setAxisMaximum(1300f);
+            yAxis.setAxisMaximum(20000f);
             yAxis.setAxisMinimum(0f);
 
             yAxis.setAxisLineColor(Color.argb(150, 0, 0, 0));
@@ -88,18 +88,15 @@ public class LineGraph implements OnChartValueSelectedListener {
             // horizontal grid lines
 //            yAxis.enableGridDashedLine(10f, 10f, 0f);
         }
-
-        setData(12, 1000);
     }
 
-    private void setData(int count, float range) {
-
-        ArrayList<Entry> values = new ArrayList<>();
-        for (int i = 1; i <= count; i++) {
-            float val = (float) (Math.random() * range) + 100f;
-            Entry entry = new Entry(i, val /*, getResources().getDrawable(R.drawable.star)*/);
-            values.add(entry);
-        }
+    public void setData(ArrayList<Entry> values) {
+//        ArrayList<Entry> values = new ArrayList<>();
+//        for (int i = 1; i <= count; i++) {
+//            float val = (float) (Math.random() * range) + 100f;
+//            Entry entry = new Entry(i, val /*, getResources().getDrawable(R.drawable.star)*/);
+//            values.add(entry);
+//        }
 
         LineDataSet set1;
 
@@ -122,6 +119,8 @@ public class LineGraph implements OnChartValueSelectedListener {
             set1.setColor(Color.argb(240, 34, 101, 218));
             set1.setCircleColor(Color.argb(230, 255, 255, 255));
             set1.setCircleHoleColor(Color.argb(240, 34, 101, 218));
+
+            set1.disableDashedHighlightLine();
 
             set1.setDrawFilled(true);
             set1.setFillFormatter(new IFillFormatter() {

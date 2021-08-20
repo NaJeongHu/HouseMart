@@ -32,6 +32,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.airbnb.lottie.L;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
 import com.howsmart.housemart.Adapter.PagerAdapter_Picture;
 import com.howsmart.housemart.Adapter.RecyclerViewAdapter_Realprice;
 import com.howsmart.housemart.Model.House;
@@ -72,7 +75,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private RangeSlider slider_ratio1, slider_ratio2;
     private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet, chk_oven, chk_induction, chk_airsystem, chk_movenow;
     private Calendar cal;
-    private com.github.mikephil.charting.charts.LineChart chart;
+    private LineChart chart;
+    private LineGraph lineGraph;
 
     private long price_first, price_second, price_third;
 
@@ -158,7 +162,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     ArrayList<Realprice> arr = null;
 
     List<String[]> list = null;
-    List<String[]> list1 = null;
+    List<String[]> list1 = null; //매매
     List<String[]> list2 = null;
     List<String[]> list3 = null;
 
@@ -276,6 +280,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         chk_induction = findViewById(R.id.chk_induction);
         chk_airsystem = findViewById(R.id.chk_airsystem);
         chk_movenow = findViewById(R.id.chk_movenow);
+        chart = findViewById(R.id.lineChart);
+        lineGraph = new LineGraph(UploadActivity.this, chart);
 
         btn_back.setOnClickListener(this);
         btn_type1.setOnClickListener(this);
@@ -577,9 +583,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        chart = findViewById(R.id.lineChart);
-        LineGraph lineChart = new LineGraph(UploadActivity.this, chart);
-        lineChart.createChart();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -1062,15 +1066,35 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void run() {
                         if(arr.size()==0){
+                            chart.setVisibility(View.GONE);
                             ll_realprice_show.setVisibility(View.GONE);
                             ll_realprice_noshow.setVisibility(View.VISIBLE);
                         }
                         else{
+
                             ll_realprice_show.setVisibility(View.VISIBLE);
                             ll_realprice_noshow.setVisibility(View.GONE);
                             adapter_realprice = new RecyclerViewAdapter_Realprice(getApplicationContext(), arr);
                             adapter_realprice.notifyDataSetChanged();
                             recyclerView.setAdapter(adapter_realprice);
+
+                            int[] cnt = {0, 0, 0, 0, 0, 0, 0, 0};
+                            Float[] sum = {0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f};
+                            for(Realprice realprice : arr) {
+                                int month = Integer.parseInt(realprice.getContract_date().substring(4, 6));
+                                int price = changePrice(realprice.getSale_price());
+                                int area = changeArea(realprice.getNet_leaseable_area());
+                                ++cnt[month];
+                                sum[month] += price / (area * 0.3024f);
+                            }
+
+                            ArrayList<Entry> values = new ArrayList<>();
+                            for(int i =1; i <= 7; ++i) {
+                                values.add(new Entry(i, sum[i] / cnt[i]));
+                            }
+                            chart.setVisibility(View.VISIBLE);
+                            lineGraph.createChart();
+                            lineGraph.setData(values);
                         }
                     }
                 });
