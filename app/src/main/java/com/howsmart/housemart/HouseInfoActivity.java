@@ -42,7 +42,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
     private HouseInfoDetail houseInfoDetail;
     private int mIdx;
     private ImageView iv_houseinfo_back, iv_houseinfo_adminprice_guide, iv_houseinfo_userprofile;
-    private TextView tv_houseinfo_title, tv_houseinfo_name, tv_houseinfo_price,tv_houseinfo_dong_housecnt,
+    private TextView tv_houseinfo_title, tv_houseinfo_name, tv_houseinfo_price, tv_houseinfo_dong_housecnt,
             tv_houseinfo_uploaddate, tv_houseinfo_roomtoilet, tv_houseinfo_area, tv_houseinfo_adminprice,
             tv_houseinfo_park, tv_houseinfo_sellername, tv_houseinfo_short_description, tv_houseinfo_nego,
             tv_houseinfo_type, tv_houseinfo_type_price, tv_houseinfo_ratio, tv_houseinfo_ratio_relate,
@@ -50,14 +50,13 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
             tv_houseinfo_area_area, tv_houseinfo_room_toilet, tv_houseinfo_park_perhouse, tv_houseinfo_enterdate,
             tv_houseinfo_builddate, tv_detail_explain_apart, tv_detail_explain_livingroom, tv_detail_explain_kitchen,
             tv_detail_explain_room1, tv_detail_explain_room2, tv_detail_explain_room3, tv_detail_explain_toilet1,
-            tv_detail_explain_toilet2, tv_detail_explain_long, tv_detail_explain_intro, tv_houseinfo_adminprice2
-            ,tv_name_realprice,tv_price1_realprice,tv_price2_realprice;
+            tv_detail_explain_toilet2, tv_detail_explain_long, tv_detail_explain_intro, tv_houseinfo_adminprice2, tv_name_realprice, tv_price1_realprice, tv_price2_realprice;
     private CardView cardview_houseinfo_sellerpic;
     private LinearLayout ll_hoseinfo_middledoor, ll_hoseinfo_aircon, ll_hoseinfo_ref, ll_hoseinfo_kimchiref,
             ll_hoseinfo_clo, ll_houseinfo_apart, ll_houseinfo_livingroom, ll_houseinfo_kitchen, ll_houseinfo_room1,
             ll_houseinfo_room2, ll_houseinfo_room3, ll_houseinfo_toilet1, ll_houseinfo_toilet2, ll_hoseinfo_oven, ll_hoseinfo_induction, ll_hoseinfo_airsystem
-            ,ll_realprice_show,ll_realprice_noshow,ll_realprice;
-    private AppCompatButton btn_houseinfo_gochat,btn_typesell,btn_typeothers;
+            , ll_realprice_show, ll_realprice_noshow, ll_realprice;
+    private AppCompatButton btn_houseinfo_gochat, btn_typesell, btn_typeothers;
     private PhotoView pv_houseinfo_apart, pv_houseinfo_livingroom, pv_houseinfo_kitchen, pv_houseinfo_room1,
             pv_houseinfo_room2, pv_houseinfo_room3, pv_houseinfo_toilet1, pv_houseinfo_toilet2, pv_houseinfo_intro;
     private ViewPager viewpager_houseinfo;  // circle indicator 넣어야 함
@@ -87,7 +86,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
 
     private void setViewPagerWithCircleIndicator() {
         urls = new ArrayList<>();
-        for (int i=0;i<(houseInfoDetail.getRoom_num() + houseInfoDetail.getToilet_num() + 4);i++) {
+        for (int i = 0; i < (houseInfoDetail.getRoom_num() + houseInfoDetail.getToilet_num() + 4); i++) {
             urls.add(houseInfoDetail.getSalesOfferURLS().get(i));
         }
 
@@ -139,20 +138,24 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         String parkperhouse_fortext = String.format("%.1f", parkperhouse);
         if (houseInfoDetail.getSale_type().equals("월세")) {
             if (uk > 0) {
-                if (man == 0) tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + houseInfoDetail.getMonthly_price() / 10000 + " / " + uk + "억");
-                else tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + houseInfoDetail.getMonthly_price() / 10000 + " / " + uk + "억 " + man + "만");
+                if (man == 0)
+                    tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + houseInfoDetail.getMonthly_price() / 10000 + " / " + uk + "억");
+                else
+                    tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + houseInfoDetail.getMonthly_price() / 10000 + " / " + uk + "억 " + man + "만");
             } else {
                 tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + houseInfoDetail.getMonthly_price() / 10000 + " / " + man + "만");
             }
         } else {
             if (uk > 0) {
-                if (man == 0) tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + uk + "억");
-                else tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + uk + "억 " + man + "만");
+                if (man == 0)
+                    tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + uk + "억");
+                else
+                    tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + uk + "억 " + man + "만");
             } else {
                 tv_houseinfo_price.setText(houseInfoDetail.getSale_type() + " " + man + "만");
             }
         }
-        String upload = houseInfoDetail.getLastModifiedDate().substring(0,4) + "." + houseInfoDetail.getLastModifiedDate().substring(4,6) + "." +houseInfoDetail.getLastModifiedDate().substring(6,8) + " 등록";
+        String upload = houseInfoDetail.getLastModifiedDate().substring(0, 4) + "." + houseInfoDetail.getLastModifiedDate().substring(4, 6) + "." + houseInfoDetail.getLastModifiedDate().substring(6, 8) + " 등록";
         String pyeong = String.format("%.1f", houseInfoDetail.getLeaseable_area() / 3.3);
         tv_houseinfo_name.setText(houseInfoDetail.getResidence_name());
         tv_houseinfo_dong_housecnt.setText(houseInfoDetail.getDongri() + " · " + houseInfoDetail.getAllnumber() + "세대");
@@ -173,8 +176,10 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         tv_houseinfo_type.setText(houseInfoDetail.getSale_type());
         if (houseInfoDetail.getSale_type().equals("월세")) {
             if (uk > 0) {
-                if (man == 0) tv_houseinfo_type_price.setText(houseInfoDetail.getMonthly_price() / 10000 + " / " + uk + "억원");
-                else tv_houseinfo_type_price.setText(houseInfoDetail.getMonthly_price() / 10000 + " / " + uk + "억 " + man + "만원");
+                if (man == 0)
+                    tv_houseinfo_type_price.setText(houseInfoDetail.getMonthly_price() / 10000 + " / " + uk + "억원");
+                else
+                    tv_houseinfo_type_price.setText(houseInfoDetail.getMonthly_price() / 10000 + " / " + uk + "억 " + man + "만원");
             } else {
                 tv_houseinfo_type_price.setText(houseInfoDetail.getMonthly_price() / 10000 + " / " + man + "만원");
             }
@@ -188,17 +193,17 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         }
         tv_houseinfo_adminprice2.setText(houseInfoDetail.getAdmin_expenses() / 10000 + "만원");
         tv_houseinfo_ratio.setText(houseInfoDetail.getDown_pay_per() + "% / " + houseInfoDetail.getIntermediate_pay_per() + "% / " + houseInfoDetail.getBalance_per() + "%");
-        tv_houseinfo_ratio_relate.setText("계약금의 " + houseInfoDetail.getProvisional_down_pay_per()  + "%");
+        tv_houseinfo_ratio_relate.setText("계약금의 " + houseInfoDetail.getProvisional_down_pay_per() + "%");
         tv_houseinfo_brokerfee.setText("00만원");
 
         // detail_detail
-        String jungong = houseInfoDetail.getDate().substring(0,4) + "년 " + houseInfoDetail.getDate().substring(4,6) + "월 " + houseInfoDetail.getDate().substring(6,8) + "일";
+        String jungong = houseInfoDetail.getDate().substring(0, 4) + "년 " + houseInfoDetail.getDate().substring(4, 6) + "월 " + houseInfoDetail.getDate().substring(6, 8) + "일";
         // todo : 즉시 입주로 넘어오면 다르게 하게
         String canmove = "";
         if (houseInfoDetail.getMovedate().equals("즉시 입주")) {
             canmove = "즉시 입주";
         } else {
-            canmove = houseInfoDetail.getMovedate().substring(0,4) + "년 " + houseInfoDetail.getMovedate().substring(4,6) + "월 " + houseInfoDetail.getMovedate().substring(6,8) + "일";
+            canmove = houseInfoDetail.getMovedate().substring(0, 4) + "년 " + houseInfoDetail.getMovedate().substring(4, 6) + "월 " + houseInfoDetail.getMovedate().substring(6, 8) + "일";
         }
 
         tv_houseinfo_resitype.setText(houseInfoDetail.getResidence_type());
@@ -213,7 +218,8 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         if (houseInfoDetail.isMiddle_door()) ll_hoseinfo_middledoor.setVisibility(View.VISIBLE);
         if (houseInfoDetail.isAir_conditioner()) ll_hoseinfo_aircon.setVisibility(View.VISIBLE);
         if (houseInfoDetail.isRefrigerator()) ll_hoseinfo_ref.setVisibility(View.VISIBLE);
-        if (houseInfoDetail.isKimchi_refrigerator()) ll_hoseinfo_kimchiref.setVisibility(View.VISIBLE);
+        if (houseInfoDetail.isKimchi_refrigerator())
+            ll_hoseinfo_kimchiref.setVisibility(View.VISIBLE);
         if (houseInfoDetail.isCloset()) ll_hoseinfo_clo.setVisibility(View.VISIBLE);
         if (houseInfoDetail.isInduction()) ll_hoseinfo_induction.setVisibility(View.VISIBLE);
         if (houseInfoDetail.isOven()) ll_hoseinfo_oven.setVisibility(View.VISIBLE);
@@ -246,7 +252,9 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         mIdx = getIntent().getIntExtra("idx", -1);
 
         recyclerView = findViewById(R.id.recycler_realprice);
-        realpricetype="매매";
+        manager = new LinearLayoutManager(HouseInfoActivity.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+        realpricetype = "매매";
 
         iv_houseinfo_back = findViewById(R.id.iv_houseinfo_back);
         iv_houseinfo_adminprice_guide = findViewById(R.id.iv_houseinfo_adminprice_guide);
@@ -351,7 +359,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                 // todo : 채팅쪽으로 intent 전달 (putExtra firebase id)
                 Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                 intent.putExtra("FirebaseId", houseInfoDetail.getMember().getFirebaseId());
-                intent.putExtra("houseIdx",houseInfoDetail.getId());
+                intent.putExtra("houseIdx", houseInfoDetail.getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 break;
@@ -374,7 +382,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                     btn_typeothers.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_rectangle_blue));
                     btn_typeothers.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
                     realpricetype = "전/월세";
-                    renewlist();
+//                    renewlist();
                 }
                 break;
         }
@@ -485,8 +493,8 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
     public void realPrice() {
         double sum = 0.0;
         int num = 0;
-        tv_name_realprice.setText(houseInfoDetail.getResidence_name() +" "+ houseInfoDetail.getNet_leaseable_area()+"m²");
-        if(arr!=null) {
+        tv_name_realprice.setText(houseInfoDetail.getResidence_name() + " " + houseInfoDetail.getNet_leaseable_area() + "m²");
+        if (arr != null) {
             for (int i = 0; i < arr.size(); i++) {
                 int temp = changeArea(arr.get(i).getNet_leaseable_area());
                 if (temp == Integer.parseInt(String.valueOf(Math.round(houseInfoDetail.getNet_leaseable_area())))) {
@@ -495,11 +503,10 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                 }
             }
         }
-        if(num==0){
+        if (num == 0) {
             tv_price1_realprice.setText("최근 1년간 매매 거래내역이 없습니다");
             tv_price2_realprice.setText("");
-        }
-        else {
+        } else {
             sum /= num;
             setrealrPrice(sum);
         }
@@ -507,7 +514,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
 
     public void setrealrPrice(double average) {
         int av = (int) average;
-        int av2 = (int)(3.3*average/Integer.parseInt(String.valueOf(Math.round(houseInfoDetail.getNet_leaseable_area()))));
+        int av2 = (int) (3.3 * average / Integer.parseInt(String.valueOf(Math.round(houseInfoDetail.getNet_leaseable_area()))));
         tv_price1_realprice.setText(translatePrice2(av));
         tv_price2_realprice.setText(translatePrice2(av2));
     }

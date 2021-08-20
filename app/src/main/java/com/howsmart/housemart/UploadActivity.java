@@ -219,6 +219,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         lin_price_month = findViewById(R.id.lin_price_month);
         ll_realprice = findViewById(R.id.ll_realprice);
+        ll_realprice.setVisibility(View.GONE);
         ll_realprice_show = findViewById(R.id.ll_realprice_show);
         ll_realprice_noshow = findViewById(R.id.ll_realprice_noshow);
 
@@ -1065,8 +1066,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             ll_realprice_show.setVisibility(View.VISIBLE);
                             ll_realprice_noshow.setVisibility(View.GONE);
                             adapter_realprice = new RecyclerViewAdapter_Realprice(getApplicationContext(), arr);
-                            recyclerView.setAdapter(adapter_realprice);
                             adapter_realprice.notifyDataSetChanged();
+                            recyclerView.setAdapter(adapter_realprice);
                         }
                     }
                 });
