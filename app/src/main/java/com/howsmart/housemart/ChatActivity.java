@@ -90,7 +90,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private InputMethodManager inputMethodManager;
 
     private Long houseIdx;
-    private Long contractIdx = -1L;
+    private Long contractIdx;
     private String buyerPhone;
     private String sellerPhone;
 
@@ -293,22 +293,26 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.chat_write_contract:
-                if(sellerPhone.equals(myChatter)) {
+                if(sellerPhone.equals(myChatter.getPhone())) {
                     Intent write_intent = new Intent(ChatActivity.this, MakeContractActivity.class);
                     write_intent.putExtra("buyerPhone", buyerPhone);
                     write_intent.putExtra("sellerPhone", sellerPhone);
                     write_intent.putExtra("houseIdx", houseIdx);
                     write_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivityForResult(write_intent, WRITE_REQUEST);
+                } else{
+                    Toast.makeText(this, "매도자만 가계약서를 작성할 수 있습니다", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
             case R.id.chat_read_contract:
-                if(contractIdx != -1) {
+                if(contractIdx != null && contractIdx != -1L) {
                     Intent read_intent = new Intent(ChatActivity.this, ShowContractActivity.class);
                     read_intent.putExtra("contractIdx", contractIdx);
                     read_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivityForResult(read_intent, READ_REQUEST);
+                } else {
+                    Toast.makeText(this, "아직 작성된 가계약서가 없습니다", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -355,26 +359,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         mchat = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
-        readValueEventListener = new ValueEventListener() {
+        reference.child("houseInfo").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mchat.clear();
-                for (DataSnapshot dataSnapshot : snapshot.child("history").getChildren()) {
-                    Chat chat = dataSnapshot.getValue(Chat.class);
-                    mchat.add(chat);
-
-                    // Chats에 메시지 본 여부 체크하기
-                    if(chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(chatter.getId())) {
-                        HashMap<String, Object> isSeenHashMap = new HashMap<>();
-                        isSeenHashMap.put("isseen", true);
-                        dataSnapshot.getRef().updateChildren(isSeenHashMap);
-                    }
-                }
-
-                //get houseIdx
-                if(houseIdx == -1) {
-                    houseIdx = snapshot.child("houseInfo").child("houseIdx").getValue(Long.class);
-                } else {
+                //get houseIdx or register houseIdx
+                try {
+                    houseIdx = snapshot.child("houseIdx").getValue(Long.class);
+                } catch (Exception e) {
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("houseIdx", houseIdx);
                     hashMap.put("buyerPhone", myChatter.getPhone());
@@ -382,25 +373,49 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     snapshot.child("houseInfo").getRef().updateChildren(hashMap);
                 }
 
-                buyerPhone = snapshot.child("houseInfo").child("buyerPhone").getValue(String.class);
-                sellerPhone = snapshot.child("houseInfo").child("sellerPhone").getValue(String.class);
-                try {
-                    contractIdx = snapshot.child("houseInfo").child("contractIdx").getValue(Long.class);
-                } catch (Exception e){
-                    Log.d(TAG, "가계약서 작성 전이라 contractIdx가 존재하지 않음");
+                //get buyerPhone, sellerPhone, and contractIdx
+                buyerPhone = snapshot.child("buyerPhone").getValue(String.class);
+                sellerPhone = snapshot.child("sellerPhone").getValue(String.class);
+                contractIdx = snapshot.child("contractIdx").getValue(Long.class);
+                if(contractIdx == null){
+                    contractIdx = -1L;
                 }
 
-                chatAdapter = new ChatAdapter(ChatActivity.this, mchat, chatter.getImageURL());
-                recyclerView.setAdapter(chatAdapter);
-                recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+                //read message
+                readValueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        mchat.clear();
+                        for (DataSnapshot dataSnapshot : snapshot.child("history").getChildren()) {
+                            Chat chat = dataSnapshot.getValue(Chat.class);
+                            mchat.add(chat);
+
+                            // Chats에 메시지 본 여부 체크하기
+                            if(chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(chatter.getId())) {
+                                HashMap<String, Object> isSeenHashMap = new HashMap<>();
+                                isSeenHashMap.put("isseen", true);
+                                dataSnapshot.getRef().updateChildren(isSeenHashMap);
+                            }
+                        }
+
+                        chatAdapter = new ChatAdapter(ChatActivity.this, mchat, chatter.getImageURL());
+                        recyclerView.setAdapter(chatAdapter);
+                        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                };
+                reference.addValueEventListener(readValueEventListener);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        };
-        reference.addValueEventListener(readValueEventListener);
+        });
     }
 
     private String getSumId(String uid, String chatterid) {
@@ -548,9 +563,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         } else if(requestCode == CAMERA_REQUEST && data != null){
             //TODO : write code to capture image and add to firebase Chats history
         } else if(requestCode == WRITE_REQUEST && data != null){
-            contractIdx = data.getLongExtra("contractIdx", -1);
+            contractIdx = data.getLongExtra("contractIdx", -1L);
 
-            if(contractIdx != -1) {
+            if(contractIdx != -1L) {
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats").child(sumId);
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("contractIdx", contractIdx);
