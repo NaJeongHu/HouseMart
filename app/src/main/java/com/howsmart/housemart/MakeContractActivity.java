@@ -36,7 +36,6 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
     private final static String TAG = "MakeContractActivity";
 
     UploadActivity mUploadActivity;
-    Contract mContract;
 
     private ImageView btn_back;
     private AppCompatButton btn_upload;
@@ -57,9 +56,6 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
     private int intermediate_pay_per;//중도금 비율
     private int balance_per;//잔금 비율
 
-    // String으로 10000000원(1천만원) 이런 format으로 형식 맞춤
-    private String sale_prices;//매매가/전세금/보증금
-    private String monthly_prices;//월세
     private String down_pay;//계약금
     private String provisional_down_pay;//가계약금
     private String intermediate_pay;//중도금
@@ -213,13 +209,10 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
         tv_address_apartment.setText(address_apartment);
         tv_area.setText(area);
 
-        sale_prices = sale_price + "원(" + mUploadActivity.translatePrice(sale_price) + ")";
-        tv_price1.setText(sale_prices);
+        tv_price1.setText(sale_price + "원(" + mUploadActivity.translatePrice(sale_price) + ")");
 
-        tv_price1.setText(sale_prices);
         if (sale_type.equals("월세")) {
-            monthly_prices = monthly_price + "원(" + mUploadActivity.translatePrice(monthly_price) + ")";
-            tv_price2.setText(monthly_prices);
+            tv_price2.setText(monthly_price + "원(" + mUploadActivity.translatePrice(monthly_price) + ")");
         }
 
         price_first = sale_price * down_pay_per / 100;
@@ -307,8 +300,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
                 } else {
                     sale_price = Long.parseLong(edit_price_all.getText().toString().trim());
                     tv_price_all.setText(mUploadActivity.translatePrice(sale_price));
-                    sale_prices = sale_price + "원(" + mUploadActivity.translatePrice(sale_price) + ")";
-                    tv_price1.setText(sale_prices);
+                    tv_price1.setText(sale_price + "원(" + mUploadActivity.translatePrice(sale_price) + ")");
                     tv_price_ratio1.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
                     tv_price_ratio2.setText("슬라이더를 움직여서 상세금액을 확인해주세요");
 
@@ -334,8 +326,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
                 } else {
                     monthly_price = Long.parseLong(edit_price_month.getText().toString().trim());
                     tv_price_month.setText(mUploadActivity.translatePrice(monthly_price));
-                    monthly_prices = monthly_price + "원(" + mUploadActivity.translatePrice(monthly_price) + ")";
-                    tv_price2.setText(monthly_prices);
+                    tv_price2.setText(monthly_price + "원(" + mUploadActivity.translatePrice(monthly_price) + ")");
                 }
             }
 
@@ -461,12 +452,8 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View v) {
                 // 서버와의 통신 부분
-                mContract = new Contract(sale_type, address_apartment, purpose, area,
-                        sale_prices, monthly_prices, provisional_down_pay, down_pay, intermediate_pay, balance,
-                        special, date, name1, name2, birth1, birth2, phonenumber1, phonenumber2, id1, id2, editable);
-                
                 mRESTApi.writeContract(houseIdx, sale_type, address_apartment, purpose, area,
-                        sale_prices, monthly_prices, provisional_down_pay, down_pay, intermediate_pay, balance,
+                        sale_price, monthly_price, provisional_down_pay, down_pay, intermediate_pay, balance,
                         special, date, id1, id2).enqueue(new Callback<Long>() {
                     @Override
                     public void onResponse(Call<Long> call, Response<Long> response) {

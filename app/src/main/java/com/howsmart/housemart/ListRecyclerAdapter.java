@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.howsmart.housemart.Model.PermittedHouse;
 
 import java.util.ArrayList;
 

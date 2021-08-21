@@ -56,6 +56,9 @@ public class House {
     private String toilet2_description;//화장실2 소개
     private String movedate;//입주가능일
 
+    private String offerState;//매물 상태
+    private String createdate;//올린 날짜
+
 
     public String getPorch_description() {
         return porch_description;
@@ -186,6 +189,18 @@ public class House {
                 ", toilet2_description='" + toilet2_description + '\'' +
                 ", movedate='" + movedate + '\'' +
                 '}';
+    }
+
+    public String getOfferState() {
+        return offerState;
+    }
+
+    public void setOfferState(String offerState) {
+        this.offerState = offerState;
+    }
+
+    public String getCreatedate() {
+        return createdate;
     }
 
     public Long getIdx() {

@@ -71,6 +71,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.ll_business:
                 Intent intent2 = new Intent(SettingActivity.this, BusinessActivity.class);
+                intent2.putExtra("user",mUser);
                 startActivity(intent2);
                 break;
 

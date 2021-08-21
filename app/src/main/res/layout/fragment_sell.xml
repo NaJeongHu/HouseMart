@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".Fragment_Sell">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_sell"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="판매중인 부동산이 없습니다" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.howsmart.housemart;
+package com.howsmart.housemart.Model;
 
 import java.io.Serializable;
 

@@ -310,6 +310,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 if(contractIdx != null && contractIdx != -1L) {
                     Intent read_intent = new Intent(ChatActivity.this, ShowContractActivity.class);
                     read_intent.putExtra("contractIdx", contractIdx);
+                    read_intent.putExtra("buyerPhone", buyerPhone);
                     read_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivityForResult(read_intent, READ_REQUEST);
                 } else {

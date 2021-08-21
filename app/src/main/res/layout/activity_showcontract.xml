@@ -757,7 +757,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_upload"
+            android:id="@+id/btn_upload_showcontract"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_round_blue"

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.howsmart.housemart.Model.Filter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.howsmart.housemart.Model.PermittedHouse;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

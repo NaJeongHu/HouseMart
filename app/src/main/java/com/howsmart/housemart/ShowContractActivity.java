@@ -36,8 +36,8 @@ public class ShowContractActivity extends AppCompatActivity {
     private String area;//전용면적/공급면적
 
     // String으로 10000000원(1천만원)으로 형식 맞춤
-    private String sale_prices;//매매가/전세금/보증금
-    private String monthly_prices;//월세
+    private Long sale_prices;//매매가/전세금/보증금
+    private Long monthly_prices;//월세
     private String provisional_down_pay;//가계약금
     private String down_pay;//계약금
     private String intermediate_pay;//중도금
@@ -55,6 +55,9 @@ public class ShowContractActivity extends AppCompatActivity {
     private RESTApi mRESTApi;
 
     Long contractIdx;
+    private String buyerPhone;
+
+    private UploadActivity mUploadActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +72,9 @@ public class ShowContractActivity extends AppCompatActivity {
     }
 
     private void init() {
-        btn_upload = findViewById(R.id.btn_upload);
-        btn_upload.setText("가계약서 동의하기");
+
+        mUploadActivity = new UploadActivity();
+
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,9 +150,9 @@ public class ShowContractActivity extends AppCompatActivity {
         tv_area = findViewById(R.id.tv_area);
         tv_area.setText(area);
         tv_price1 = findViewById(R.id.tv_price1);
-        tv_price1.setText(sale_prices);
+        tv_price1.setText(sale_prices + "원(" + mUploadActivity.translatePrice(sale_prices) + ")");
         tv_price2 = findViewById(R.id.tv_price2);
-        tv_price2.setText(monthly_prices);
+        tv_price2.setText(monthly_prices + "원(" + mUploadActivity.translatePrice(monthly_prices) + ")");
         tv_provisional_down_pay = findViewById(R.id.tv_provisional_down_pay);
         tv_provisional_down_pay.setText(provisional_down_pay);
         tv_down_pay = findViewById(R.id.tv_down_pay);
@@ -179,6 +183,7 @@ public class ShowContractActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         contractIdx = intent.getLongExtra("contractIdx", -1);
+        buyerPhone = intent.getStringExtra("buyerPhone");
 
         if(contractIdx == -1) {
             Log.d(TAG, "Intent에 contractIdx가 없음");
@@ -214,6 +219,14 @@ public class ShowContractActivity extends AppCompatActivity {
 
                     editable = mContract.getEditable();
 
+                    btn_upload = findViewById(R.id.btn_upload_showcontract);
+                    btn_upload.setText("가계약서 동의하기");
+                    if(editable==true && buyerPhone.equals(phonenumber1)){
+                        btn_upload.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        btn_upload.setVisibility(View.GONE);
+                    }
                     init();
                 }
             }

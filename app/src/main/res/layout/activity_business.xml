@@ -58,16 +58,19 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:layout_below="@+id/recycler_toolbar">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_business"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 app:tabMode="fixed"
                 app:tabMaxWidth="0dp"
                 app:tabGravity="fill">
@@ -84,16 +87,12 @@
 
             </com.google.android.material.tabs.TabLayout>
 
-            <FrameLayout
-                android:id="@+id/frame_business"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_business"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/tab_business">
-            </FrameLayout>
+                android:layout_height="match_parent"/>
 
-        </RelativeLayout>
-
-
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 

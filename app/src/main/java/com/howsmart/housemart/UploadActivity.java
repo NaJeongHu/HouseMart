@@ -66,12 +66,11 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private ImageView btn_back;
     private AppCompatButton btn_type1, btn_type2, btn_type3, btn_no_dialog_upload, btn_okay_dialog_upload, btn_typesell, btn_typeothers;
-    private LinearLayout lin_price_month,ll_realprice,ll_realprice_show,ll_realprice_noshow;
+    private LinearLayout lin_price_month, ll_realprice, ll_realprice_show, ll_realprice_noshow;
     private TextInputEditText edit_dong, edit_ho, edit_area1, edit_area2, edit_price_all, edit_price_month, edit_price_manage,
             edit_introduce_short, edit_introduce_long, edit_room, edit_toilet, edit_introduce_livingroom, edit_introduce_kitchen,
             edit_introduce_room1, edit_introduce_room2, edit_introduce_room3, edit_introduce_toilet1, edit_introduce_toilet2, edit_introduce_apartment;
-    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage, tv_complete, edit_apartment, tv_movedate, tv_apartaddress_load
-            ,tv_name_realprice,tv_price1_realprice,tv_price2_realprice;
+    private TextView tv_area1, tv_area2, tv_ratio1, tv_ratio2, tv_price_ratio1, tv_price_ratio2, tv_price_type, tv_price_all, tv_price_month, tv_price_manage, tv_complete, edit_apartment, tv_movedate, tv_apartaddress_load, tv_name_realprice, tv_price1_realprice, tv_price2_realprice;
     private RangeSlider slider_ratio1, slider_ratio2;
     private CheckBox chk_nego, chk_door, chk_air, chk_ref, chk_kimchi, chk_closet, chk_oven, chk_induction, chk_airsystem, chk_movenow;
     private Calendar cal;
@@ -317,7 +316,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         price_first = -1;
         sale_price = -1L;
-        net_leaseable_area=0.0;
+        net_leaseable_area = 0.0;
 
         mUser = (User) getIntent().getSerializableExtra("user");
 
@@ -769,15 +768,21 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         if (price >= 100000000) {
             Long price1 = price / 100000000;
             price %= 100000000;
-            a = price1 + "억 ";
+            a = price1 + "억";
         }
         if (price >= 10000) {
             Long price2 = price / 10000;
             price %= 10000;
             b = price2 + "만";
+            if (!a.equals(c)) {
+                b = " " + b;
+            }
         }
         if (price > 0) {
-            c = " " + price.toString();
+            c = price.toString();
+            if (!a.equals(" ") || !b.equals(" ")) {
+                c = " " + c;
+            }
         }
         return a + b + c + "원";
     }
@@ -1065,12 +1070,11 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(arr.size()==0){
+                        if (arr.size() == 0) {
                             chart.setVisibility(View.GONE);
                             ll_realprice_show.setVisibility(View.GONE);
                             ll_realprice_noshow.setVisibility(View.VISIBLE);
-                        }
-                        else{
+                        } else {
 
                             ll_realprice_show.setVisibility(View.VISIBLE);
                             ll_realprice_noshow.setVisibility(View.GONE);
@@ -1080,7 +1084,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
                             int[] cnt = {0, 0, 0, 0, 0, 0, 0, 0};
                             Float[] sum = {0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f};
-                            for(Realprice realprice : arr) {
+                            for (Realprice realprice : arr) {
                                 int month = Integer.parseInt(realprice.getContract_date().substring(4, 6));
                                 int price = changePrice(realprice.getSale_price());
                                 int area = changeArea(realprice.getNet_leaseable_area());
@@ -1089,7 +1093,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             }
 
                             ArrayList<Entry> values = new ArrayList<>();
-                            for(int i =1; i <= 7; ++i) {
+                            for (int i = 1; i <= 7; ++i) {
                                 values.add(new Entry(i, sum[i] / cnt[i]));
                             }
                             chart.setVisibility(View.VISIBLE);
@@ -1181,8 +1185,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     public void realPrice() {
         double sum = 0.0;
         int num = 0;
-        tv_name_realprice.setText(residence_name +" "+ net_leaseable_area+"m²");
-        if(arr!=null) {
+        tv_name_realprice.setText(residence_name + " " + net_leaseable_area + "m²");
+        if (arr != null) {
             for (int i = 0; i < arr.size(); i++) {
                 int temp = changeArea(arr.get(i).getNet_leaseable_area());
                 if (temp == Integer.parseInt(String.valueOf(Math.round(net_leaseable_area)))) {
@@ -1191,11 +1195,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         }
-        if(num==0){
+        if (num == 0) {
             tv_price1_realprice.setText("최근 1년간 매매 거래내역이 없습니다");
             tv_price2_realprice.setText("");
-        }
-        else {
+        } else {
             sum /= num;
             setrealrPrice(sum);
         }
@@ -1203,7 +1206,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     public void setrealrPrice(double average) {
         int av = (int) average;
-        int av2 = (int)(3.3*average/Integer.parseInt(String.valueOf(Math.round(net_leaseable_area))));
+        int av2 = (int) (3.3 * average / Integer.parseInt(String.valueOf(Math.round(net_leaseable_area))));
         tv_price1_realprice.setText(translatePrice2(av));
         tv_price2_realprice.setText(translatePrice2(av2));
     }

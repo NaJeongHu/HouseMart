@@ -3,56 +3,88 @@ package com.howsmart.housemart;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_Sell#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.howsmart.housemart.Adapter.RecyclerViewAdapter_MySell;
+import com.howsmart.housemart.Model.MyHouse;
+import com.howsmart.housemart.Model.PermittedHouse;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Fragment_Sell extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    public Fragment_Sell() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SellFragment.
-     */
-    public static Fragment_Sell newInstance(String param1, String param2) {
-        Fragment_Sell fragment = new Fragment_Sell();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter_MySell adapter;
+    private ArrayList<MyHouse> arr = new ArrayList<>();
+    private String userId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        getDataFromServer();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sell, container, false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_sell, container, false);
+
+        recyclerView =rootView.findViewById(R.id.recycler_sell);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        return rootView;
+
+    }
+    private void getDataFromServer() {
+
+        RESTApi mRESTApi = RESTApi.retrofit.create(RESTApi.class);
+        mRESTApi.getMySellList(userId).enqueue(new Callback<List<MyHouse>>() {
+            @Override
+            public void onResponse(Call<List<MyHouse>> call, Response<List<MyHouse>> response) {
+
+                List<MyHouse> Result = (List<MyHouse>) response.body();
+
+                arr = (ArrayList) Result;
+                connectToAdapter();
+            }
+
+            @Override
+            public void onFailure(Call<List<MyHouse>> call, Throwable throwable) {
+
+            }
+        });
+    }
+
+    private void connectToAdapter() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (arr.isEmpty() == false || arr.size() != 0) {
+//                            Collections.sort(arr,new Filtering_for_ganada());
+                            adapter = new RecyclerViewAdapter_MySell(getActivity(), arr);
+                            adapter.notifyDataSetChanged();
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

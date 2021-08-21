@@ -2,6 +2,9 @@ package com.howsmart.housemart;
 
 import com.howsmart.housemart.Model.Contract;
 import com.howsmart.housemart.Model.House;
+import com.howsmart.housemart.Model.MyContract;
+import com.howsmart.housemart.Model.MyHouse;
+import com.howsmart.housemart.Model.PermittedHouse;
 import com.howsmart.housemart.Model.ProvisionalHouse;
 import com.howsmart.housemart.Model.User;
 
@@ -189,8 +192,8 @@ public interface RESTApi {
             @Query("address_apartment") String address_apartment,
             @Query("purpose") String purpose,
             @Query("area") String area,
-            @Query("sale_prices") String sale_prices,
-            @Query("monthly_prices") String monthly_prices,
+            @Query("sale_prices") Long sale_prices,
+            @Query("monthly_prices") Long monthly_prices,
             @Query("provisional_down_pay") String provisional_down_pay,
             @Query("down_pay") String down_pay,
             @Query("intermediate_pay") String intermediate_pay,
@@ -231,6 +234,13 @@ public interface RESTApi {
             @Query("userId") String userId,
             @Part MultipartBody.Part picture);
 
+    @POST("/member/get/list")
+    Call<List<MyHouse>> getMySellList(
+            @Query("userId") String userId);
+
+    @POST("/member/get/allContract")
+    Call<List<MyContract>> getAllContractList(
+            @Query("userId") String userId);
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://ec2-3-37-133-249.ap-northeast-2.compute.amazonaws.com:8080/")

@@ -2,13 +2,12 @@ package com.howsmart.housemart.Model;
 
 public class Contract {
     private String sale_type;//전세/매매/월세 타입
-    private String address_apartment;//도로명 주소 + 아파트 이름
+    private String address_apartment;//주소+
     private String purpose;//아파트 용도
     private String area;//전용면적/공급면적
 
-    // String으로 10000000원(1천만원)으로 형식 맞춤
-    private String sale_prices;//매매가/전세금/보증금
-    private String monthly_prices;//월세
+    private Long sale_prices;//매매가/전세금/보증금
+    private Long monthly_prices;//월세
     private String provisional_down_pay;//가계약금
     private String down_pay;//계약금
     private String intermediate_pay;//중도금
@@ -23,53 +22,7 @@ public class Contract {
 
     private Boolean editable;//수정가능여부
 
-    public Contract(String type, String address_apartment, String purpose, String area, String sale_prices, String monthly_prices, String provisional_down_pay, String down_pay, String intermediate_pay, String balance, String special, String date, String name1, String name2, String birth1, String birth2, String phonenumber1, String phonenumber2, Long id1, Long id2, Boolean editable) {
-        this.sale_type = type;
-        this.address_apartment = address_apartment;
-        this.purpose = purpose;
-        this.area = area;
-        this.sale_prices = sale_prices;
-        this.monthly_prices = monthly_prices;
-        this.provisional_down_pay = provisional_down_pay;
-        this.down_pay = down_pay;
-        this.intermediate_pay = intermediate_pay;
-        this.balance = balance;
-        this.special = special;
-        this.date = date;
-        this.name1 = name1;
-        this.name2 = name2;
-        this.birth1 = birth1;
-        this.birth2 = birth2;
-        this.phonenumber1 = phonenumber1;
-        this.phonenumber2 = phonenumber2;
-        this.id1 = id1;
-        this.id2 = id2;
-        this.editable = editable;
-    }
-
-    public Boolean getEditable() {
-        return editable;
-    }
-
-    public Long getId1() {
-        return id1;
-    }
-
-    public void setId1(Long id1) {
-        this.id1 = id1;
-    }
-
-    public Long getId2() {
-        return id2;
-    }
-
-    public void setId2(Long id2) {
-        this.id2 = id2;
-    }
-
-    public void setEditable(Boolean editable) {
-        this.editable = editable;
-    }
+    public Contract(){}
 
     public String getSale_type() {
         return sale_type;
@@ -103,19 +56,19 @@ public class Contract {
         this.area = area;
     }
 
-    public String getSale_prices() {
+    public Long getSale_prices() {
         return sale_prices;
     }
 
-    public void setSale_prices(String sale_prices) {
+    public void setSale_prices(Long sale_prices) {
         this.sale_prices = sale_prices;
     }
 
-    public String getMonthly_prices() {
+    public Long getMonthly_prices() {
         return monthly_prices;
     }
 
-    public void setMonthly_prices(String monthly_prices) {
+    public void setMonthly_prices(Long monthly_prices) {
         this.monthly_prices = monthly_prices;
     }
 
@@ -213,5 +166,29 @@ public class Contract {
 
     public void setPhonenumber2(String phonenumber2) {
         this.phonenumber2 = phonenumber2;
+    }
+
+    public Long getId1() {
+        return id1;
+    }
+
+    public void setId1(Long id1) {
+        this.id1 = id1;
+    }
+
+    public Long getId2() {
+        return id2;
+    }
+
+    public void setId2(Long id2) {
+        this.id2 = id2;
+    }
+
+    public Boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
     }
 }

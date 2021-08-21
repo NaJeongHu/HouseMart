@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".Fragment_Contract">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_contract"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="계약중인 부동산이 없습니다" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
