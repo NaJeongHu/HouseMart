@@ -302,7 +302,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     write_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivityForResult(write_intent, WRITE_REQUEST);
                 } else{
-                    Toast.makeText(this, "매도자만 가계약서를 작성할 수 있습니다", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "매도인만 가계약서를 작성할 수 있습니다", Toast.LENGTH_SHORT).show();
                 }
                 break;
 

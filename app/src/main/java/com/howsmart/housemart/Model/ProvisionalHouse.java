@@ -3,19 +3,20 @@ package com.howsmart.housemart.Model;
 import java.io.Serializable;
 
 public class ProvisionalHouse implements Serializable {
-    private int idx, dong, ho, leaseable_area;
-    private long sale_price, monthly_price;
+    private int dong, ho;
+    private double leaseable_area;
+    private long idx, sale_price, monthly_price;
     private String residence_name, residence_type;
     private String sido;//시도
     private String sigungoo;//시군구
     private String sale_type;
     private String dongri;
 
-    public ProvisionalHouse(int idx, int dong, int ho, int leaseable_area, long sale_price, long monthly_price, String residence_name, String residence_type, String sido, String sigungoo, String sale_type, String dongri) {
-        this.idx = idx;
+    public ProvisionalHouse(int dong, int ho, double leaseable_area, long idx, long sale_price, long monthly_price, String residence_name, String residence_type, String sido, String sigungoo, String sale_type, String dongri) {
         this.dong = dong;
         this.ho = ho;
         this.leaseable_area = leaseable_area;
+        this.idx = idx;
         this.sale_price = sale_price;
         this.monthly_price = monthly_price;
         this.residence_name = residence_name;
@@ -24,14 +25,6 @@ public class ProvisionalHouse implements Serializable {
         this.sigungoo = sigungoo;
         this.sale_type = sale_type;
         this.dongri = dongri;
-    }
-
-    public int getIdx() {
-        return idx;
-    }
-
-    public void setIdx(int idx) {
-        this.idx = idx;
     }
 
     public int getDong() {
@@ -50,12 +43,20 @@ public class ProvisionalHouse implements Serializable {
         this.ho = ho;
     }
 
-    public int getLeaseable_area() {
+    public double getLeaseable_area() {
         return leaseable_area;
     }
 
-    public void setLeaseable_area(int leaseable_area) {
+    public void setLeaseable_area(double leaseable_area) {
         this.leaseable_area = leaseable_area;
+    }
+
+    public long getIdx() {
+        return idx;
+    }
+
+    public void setIdx(long idx) {
+        this.idx = idx;
     }
 
     public long getSale_price() {

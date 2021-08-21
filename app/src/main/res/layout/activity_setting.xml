@@ -277,10 +277,54 @@
                 android:textColor="@color/black"/>
 
             <LinearLayout
+                android:id="@+id/ll_broker_register_cover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_broker_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width = "25dp"
+                        android:layout_height = "match_parent"
+                        android:src = "@drawable/icon_building"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="bottom"
+                        android:text="중개인 등록하기"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width = "30dp"
+                        android:layout_height = "15dp"
+                        android:layout_gravity="center"
+                        android:src = "@drawable/icon_arrowright"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_broker_cover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:id="@+id/ll_broker"
                     android:layout_width="match_parent"
@@ -298,7 +342,49 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:gravity="bottom"
-                        android:text="중개하기"
+                        android:text="중개 시작하기"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width = "30dp"
+                        android:layout_height = "15dp"
+                        android:layout_gravity="center"
+                        android:src = "@drawable/icon_arrowright"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_broker_list_cover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_broker_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width = "25dp"
+                        android:layout_height = "match_parent"
+                        android:src = "@drawable/contract"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="bottom"
+                        android:text="중개중인 매물"
                         android:textSize="15dp"
                         android:textColor="@color/black"/>
 

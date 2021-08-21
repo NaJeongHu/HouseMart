@@ -257,7 +257,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         realpricetype = "매매";
 
         iv_houseinfo_back = findViewById(R.id.iv_houseinfo_back);
-        iv_houseinfo_adminprice_guide = findViewById(R.id.iv_houseinfo_adminprice_guide);
+//        iv_houseinfo_adminprice_guide = findViewById(R.id.iv_houseinfo_adminprice_guide);
         iv_houseinfo_userprofile = findViewById(R.id.iv_houseinfo_userprofile);
         tv_houseinfo_title = findViewById(R.id.tv_houseinfo_title);
         tv_houseinfo_name = findViewById(R.id.tv_houseinfo_name);
@@ -339,7 +339,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         indicator_houseinfo = findViewById(R.id.indicator_houseinfo);
 
         iv_houseinfo_back.setOnClickListener(this);
-        iv_houseinfo_adminprice_guide.setOnClickListener(this);
+//        iv_houseinfo_adminprice_guide.setOnClickListener(this);
         btn_houseinfo_gochat.setOnClickListener(this);
         btn_typesell.setOnClickListener(this);
         btn_typeothers.setOnClickListener(this);
@@ -351,9 +351,6 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         switch (view.getId()) {
             case R.id.iv_houseinfo_back:
                 onBackPressed();
-                break;
-            case R.id.iv_houseinfo_adminprice_guide:
-                // todo : 관리비에 대한 설명 dialog
                 break;
             case R.id.btn_houseinfo_gochat:
                 // todo : 채팅쪽으로 intent 전달 (putExtra firebase id)

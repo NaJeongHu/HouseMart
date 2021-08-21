@@ -68,7 +68,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/custom_blue2"
+                android:background="@color/ui_navy"
                 android:orientation="horizontal">
 
                 <TextView
@@ -76,7 +76,7 @@
                     android:layout_weight="1.5"
                     android:layout_marginLeft="5dp"
                     android:gravity="left|center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:text="계약일"
                     android:layout_height="match_parent"/>
                 <TextView
@@ -84,7 +84,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
                     android:gravity="left|center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:text="유형"
                     android:layout_height="match_parent"/>
                 <TextView
@@ -92,7 +92,7 @@
                     android:layout_weight="2.7"
                     android:layout_marginLeft="5dp"
                     android:gravity="left|center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:text="거래가격"
                     android:layout_height="match_parent"/>
                 <TextView
@@ -100,7 +100,7 @@
                     android:layout_weight="1.5"
                     android:layout_marginLeft="5dp"
                     android:gravity="left|center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:text="면적"
                     android:layout_height="match_parent"/>
                 <TextView
@@ -108,7 +108,7 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
                     android:gravity="left|center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:text="층수"
                     android:layout_height="match_parent"/>
 

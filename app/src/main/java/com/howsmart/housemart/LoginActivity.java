@@ -142,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("user",user);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         }
                     }, 400); // 0.5초후
                 } else {
@@ -173,14 +174,5 @@ public class LoginActivity extends AppCompatActivity {
 
         animationView = dialogView.findViewById(R.id.lottie_progress);
         animationView.playAnimation();
-
-
-//        Button cancle_btn = dialogView.findViewById(R.id.btn_no_dialog_preupload);
-//        cancle_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                alertDialog.dismiss();
-//            }
-//        });
     }
 }

@@ -1,10 +1,10 @@
 package com.howsmart.housemart;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.howsmart.housemart.Adapter.BrokerRecyclerAdapter;
 import com.howsmart.housemart.Model.ProvisionalHouse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.howsmart.housemart.Model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,9 @@ public class BrokerActivity extends AppCompatActivity implements View.OnClickLis
     private TextView mItemCount;
     private ArrayList<ProvisionalHouse> ProvisionalList, ProvisionalList_Filterd;
     private BrokerRecyclerAdapter adapter;
+    private User mUser;
+
+    private RESTApi mRESTApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class BrokerActivity extends AppCompatActivity implements View.OnClickLis
 
     private void init() {
         mManager = new LinearLayoutManager(BrokerActivity.this, LinearLayoutManager.VERTICAL, false);
+        mRESTApi = RESTApi.retrofit.create(RESTApi.class);
 
         mRecyclerView = findViewById(R.id.recyclerview_broker);
         mToTop = findViewById(R.id.fb_totop_broker);
@@ -66,6 +72,8 @@ public class BrokerActivity extends AppCompatActivity implements View.OnClickLis
         mRegionButton.setOnClickListener(this);
         mBackButton.setOnClickListener(this);
         mTypeButton.setOnClickListener(this);
+
+        mUser = (User) getIntent().getSerializableExtra("user");
 
         mSido = MyLocation.getInstance().getSIDO();
         mSigungu = MyLocation.getInstance().getSIGUNGU();
@@ -106,6 +114,8 @@ public class BrokerActivity extends AppCompatActivity implements View.OnClickLis
                 new RecyclerViewOnItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
+                        upload_dialog2(v,ProvisionalList_Filterd.get(position).getIdx());
+                        // todo : 가계약서 정보와 중개시작하기, 취소하기 버튼 제공하는 다이얼로그로 연결
 //                        Intent intent = new Intent(getApplicationContext(), HouseInfoActivity.class);
 //                        intent.putExtra("idx",ProvisionalList.get(position).getIdx());
 //                        startActivity(intent);
@@ -242,6 +252,52 @@ public class BrokerActivity extends AppCompatActivity implements View.OnClickLis
                 connectToAdapter();
             }
         });
+    }
+
+    public void upload_dialog2(View v, Long idx) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_broker_info, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setView(dialogView);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        alertDialog.show();
+
+
+        Button no = dialogView.findViewById(R.id.btn_no_broker);
+        Button yes = dialogView.findViewById(R.id.btn_okay_broker);
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 서버에 중개시작 알림
+                mRESTApi.startContract(idx,mUser.getUserId()).enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        String code = response.headers().get("code");
+                        if(code.equals("00")){
+                            // todo : lottie로 성공 체크 보여주면 좋을 듯 / lottie 시작하면 토스트 삭제
+                            Toast.makeText(BrokerActivity.this, "중개를 시작합니다", Toast.LENGTH_SHORT).show();
+                            alertDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable throwable) {
+                        Toast.makeText(BrokerActivity.this, "서버와 연결이 불안정합니다", Toast.LENGTH_SHORT).show();
+                        alertDialog.dismiss();
+                    }
+                });
+                getDataFromServer();
+            }
+        });
+
     }
 
     private void filtering() {

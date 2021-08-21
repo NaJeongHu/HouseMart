@@ -79,7 +79,10 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -95,6 +98,8 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview_main_sell"
                     android:layout_marginTop="15dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     app:cardBackgroundColor="@color/ui_blue"
@@ -572,37 +577,43 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview_main_broker"
-                    android:visibility="gone"
-                    android:layout_marginTop="20dp"
+                    android:visibility="visible"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:cardBackgroundColor="@color/kakao_gray"
+                    app:cardBackgroundColor="@color/kakao_mint"
                     app:cardCornerRadius="15dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="중개를 기다리는 매물보기"
+                        android:fontFamily="@font/applesdgothicneob"
+                        android:text="중개 시작하기"
                         android:layout_gravity="center"/>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview_main_gochat"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:cardBackgroundColor="@color/kakao_gray"
+                    app:cardBackgroundColor="@color/ui_skyblue"
                     app:cardCornerRadius="15dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/applesdgothicneob"
                         android:text="이어서 채팅하기"
                         android:layout_gravity="center"/>
 
                 </androidx.cardview.widget.CardView>
+
 
             </LinearLayout>
 

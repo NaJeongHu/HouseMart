@@ -47,7 +47,7 @@
             android:valueFrom="0"
             android:valueTo="200"
             app:labelBehavior="gone"
-            app:thumbColor="#C4E8FA"
+            app:thumbColor="#5B3B93"
             app:tickColor="@color/custom_blue"
             app:trackColor="@color/custom_blue"
             app:values="@array/ratio6" />

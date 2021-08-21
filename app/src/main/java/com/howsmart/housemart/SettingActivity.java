@@ -15,7 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private LinearLayout ll_chat, ll_logout, ll_privateinfo, ll_business, ll_broker;
+    private LinearLayout ll_chat, ll_logout, ll_privateinfo, ll_business, ll_broker, ll_broker_register,
+            ll_broker_list, ll_broker_cover, ll_broker_register_cover, ll_broker_list_cover;
     private User mUser;
     private ImageView btn_back_setting;
 
@@ -36,6 +37,16 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         ll_privateinfo = findViewById(R.id.ll_privateinfo);
         ll_business = findViewById(R.id.ll_business);
         ll_broker = findViewById(R.id.ll_broker);
+        ll_broker_register = findViewById(R.id.ll_broker_register);
+        ll_broker_list = findViewById(R.id.ll_broker_list);
+
+        ll_broker_cover = findViewById(R.id.ll_broker_cover);
+        ll_broker_cover.setVisibility(View.GONE);
+        ll_broker_register_cover = findViewById(R.id.ll_broker_register_cover);
+        ll_broker_register_cover.setVisibility(View.GONE);
+        ll_broker_list_cover = findViewById(R.id.ll_broker_list_cover);
+        ll_broker_list_cover.setVisibility(View.GONE);
+
 
         btn_back_setting.setOnClickListener(this);
         ll_logout.setOnClickListener(this);
@@ -43,7 +54,16 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         ll_privateinfo.setOnClickListener(this);
         ll_business.setOnClickListener(this);
         ll_broker.setOnClickListener(this);
+        ll_broker_register.setOnClickListener(this);
+        ll_broker_list.setOnClickListener(this);
         mUser = (User) getIntent().getSerializableExtra("user");
+
+        if (mUser.getQualification().equals("QUALIFIED")) {
+            ll_broker_cover.setVisibility(View.VISIBLE);
+            ll_broker_list_cover.setVisibility(View.VISIBLE);
+        } else {
+            ll_broker_register_cover.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -76,14 +96,15 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.ll_broker:
-                if(mUser.getQualification().equals("QUALIFIED")){
-                    Intent intent3 = new Intent(SettingActivity.this, BrokerActivity.class);
-                    intent3.putExtra("user",mUser);
-                    startActivity(intent3);
-                }
-                else{
-                    upload_dialog2(view);
-                }
+                Intent intent3 = new Intent(SettingActivity.this, BrokerActivity.class);
+                intent3.putExtra("user",mUser);
+                startActivity(intent3);
+                break;
+            case R.id.ll_broker_register:
+                upload_dialog2(view);
+                break;
+            case R.id.ll_broker_list:
+                // todo : 거래중인 내역 부분 작업 끝나면 비슷하게 레이아웃 짜고, 자바코드 연결한 뒤에 여기서 intent 연결
                 break;
         }
     }

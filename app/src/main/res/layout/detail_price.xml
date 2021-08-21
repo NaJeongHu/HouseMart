@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="흥정 가능"
-            android:textColor="#1E3AD5"
+            android:textColor="@color/ui_navy"
             android:textSize="12dp"
             android:gravity="right"/>
 
@@ -37,12 +37,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/custom_blue2">
+        android:background="@color/ui_navy">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/custom_blue2"/>
+            android:background="@color/ui_navy"/>
 
         <TableRow
             android:layout_width="match_parent"
@@ -54,6 +54,7 @@
                 android:layout_weight="1"
                 android:layout_height="30dp"
                 android:gravity="left|center"
+                android:textColor="@color/white"
                 android:paddingLeft="10dp"
                 android:text="전세"/>
 
@@ -72,7 +73,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/custom_blue2"/>
+            android:background="@color/kakao_gray"/>
 
         <TableRow
             android:layout_width="match_parent"
@@ -88,16 +89,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:gravity="left|center"
+                    android:textColor="@color/white"
                     android:paddingLeft="10dp"
                     android:text="관리비"/>
-
-                <ImageView
-                    android:id="@+id/iv_houseinfo_adminprice_guide"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/preview"/>
 
             </LinearLayout>
 
@@ -116,7 +110,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/custom_blue2"/>
+            android:background="@color/kakao_gray"/>
 
         <TableRow
             android:layout_width="match_parent"
@@ -127,6 +121,7 @@
                 android:layout_weight="1"
                 android:layout_height="60dp"
                 android:gravity="left|center"
+                android:textColor="@color/white"
                 android:paddingLeft="10dp"
                 android:text="계약금/중도금/잔금"/>
 
@@ -145,7 +140,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/custom_blue2"/>
+            android:background="@color/kakao_gray"/>
 
         <TableRow
             android:layout_width="match_parent"
@@ -157,6 +152,7 @@
                 android:layout_height="30dp"
                 android:gravity="left|center"
                 android:paddingLeft="10dp"
+                android:textColor="@color/white"
                 android:text="가계약금"/>
 
             <TextView
@@ -174,7 +170,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/custom_blue2"/>
+            android:background="@color/kakao_gray"/>
 
         <TableRow
             android:layout_width="match_parent"
@@ -184,6 +180,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="30dp"
+                android:textColor="@color/white"
                 android:gravity="left|center"
                 android:paddingLeft="10dp"
                 android:text="중개보수"/>
@@ -203,7 +200,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/custom_blue2"/>
+            android:background="@color/ui_navy"/>
 
     </TableLayout>
 

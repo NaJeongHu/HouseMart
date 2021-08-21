@@ -1,5 +1,6 @@
 package com.howsmart.housemart;
 
+import android.animation.Animator;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.airbnb.lottie.L;
+import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.howsmart.housemart.Adapter.PagerAdapter_Picture;
@@ -165,9 +167,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     List<String[]> list2 = null;
     List<String[]> list3 = null;
 
-
     private String realpricetype;
-
+    private AlertDialog alertDialog2;
+    private LottieAnimationView animationView, lottie_upload_success;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,6 +282,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         chk_airsystem = findViewById(R.id.chk_airsystem);
         chk_movenow = findViewById(R.id.chk_movenow);
         chart = findViewById(R.id.lineChart);
+        lottie_upload_success = findViewById(R.id.lottie_upload_success);
         lineGraph = new LineGraph(UploadActivity.this, chart);
 
         btn_back.setOnClickListener(this);
@@ -823,6 +826,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             nego, short_description, long_description, models_description.get(0), models_description.get(1),
                             models_description.get(2), models_description.get(3), models_description.get(4),
                             models_description.get(5), models_description.get(6), models_description.get(7), models_description.get(8), movedate);
+                    upload_dialog2(v);
                     doRetrofit();
                 } else {
                     Toast.makeText(UploadActivity.this, "필수 사진을 등록해주세요", Toast.LENGTH_SHORT).show();
@@ -930,18 +934,50 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
 
                         if (test_code != null && test_code.equals("00")) {
-                            Toast.makeText(UploadActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(UploadActivity.this, MainActivity.class);
+                            alertDialog2.dismiss();
+
+                            lottie_upload_success.setVisibility(View.VISIBLE);
+                            lottie_upload_success.playAnimation();
+                            lottie_upload_success.addAnimatorListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animator) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animator) {
+                                    lottie_upload_success.setVisibility(View.GONE);
+                                    Intent intent = new Intent(UploadActivity.this, MainActivity.class);
 //                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animator) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animator) {
+
+                                }
+                            });
+
+////                            Toast.makeText(UploadActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(UploadActivity.this, MainActivity.class);
+////                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            startActivity(intent);
+//                            finish();
                         } else {
+                            alertDialog2.dismiss();
                             Toast.makeText(UploadActivity.this, "업로드 실패" + test_code, Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                        alertDialog2.dismiss();
                         Log.d("UploadActivity", throwable.getMessage());
                     }
                 });
@@ -1173,7 +1209,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 //            }
 
             if (!str[6].equals(" ")) {
-                if (address.contains(str[6])) {  // 검색어가 포함된 경우
+                if (address != null && address.contains(str[6])) {  // 검색어가 포함된 경우
                     arr.add(entity); //entity 이름이 search를 포함하기 때문에 arr에 추가
                 }
             } else {
@@ -1246,4 +1282,17 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         picture_clicked_position = value;
     }
 
+    public void upload_dialog2(View v) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_progress, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setView(dialogView);
+
+        alertDialog2 = builder.create();
+        alertDialog2.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        alertDialog2.show();
+
+        animationView = dialogView.findViewById(R.id.lottie_progress);
+        animationView.playAnimation();
+    }
 }

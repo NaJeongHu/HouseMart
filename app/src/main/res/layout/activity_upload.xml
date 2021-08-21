@@ -4,6 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="400dp"
+        app:lottie_fileName="lottie_success.json"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        android:visibility="gone"
+        android:id="@+id/lottie_upload_success"/>
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/recycler_toolbar"
         android:layout_width="match_parent"
