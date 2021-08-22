@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.howsmart.housemart.Model.User;
@@ -18,12 +20,21 @@ import java.util.ArrayList;
 public class BusinessActivity extends AppCompatActivity {
 
     Fragment fragment_sell, fragment_contract;
+    private ImageView btn_back_business;
     private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business);
+
+        btn_back_business = findViewById(R.id.btn_back_business);
+        btn_back_business.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         mUser = (User) getIntent().getSerializableExtra("user");
 

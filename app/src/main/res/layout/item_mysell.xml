@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/applesdgothicneob"
-                android:text="판매중"
+                android:text="땡떙중"
                 android:textColor="@color/black"
                 android:textSize="18dp" />
 
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/applesdgothicneob"
-                    android:text="침산청구타운"
+                    android:text="아파트 이름"
                     android:textColor="@color/black"
                     android:textSize="18dp" />
 
@@ -84,7 +84,7 @@
                     android:id="@+id/tv_list_info_mysell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="침산동 397평 102동 1층"
+                    android:text="떙떙동 111평 111동 111층"
                     android:textSize="12dp" />
 
                 <TextView

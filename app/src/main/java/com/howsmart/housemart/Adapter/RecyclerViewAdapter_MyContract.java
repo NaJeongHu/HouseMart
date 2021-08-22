@@ -75,6 +75,7 @@ public class RecyclerViewAdapter_MyContract extends RecyclerView.Adapter<Recycle
             if (contract != null) {
                 holder.tv_state_mycontract.setText(translateState(contract.getOfferState()));
                 holder.tv_date_mycontract.setText("등록일 " + translateDate(contract.getCreateDate()));
+                holder.tv_name_mycontract.setText(contract.getResidence_name());
                 String pyeong = String.format("%.1f", contract.getLeaseable_area() / 3.3);
                 String info = contract.getDongri() + " " + pyeong + "평 " + contract.getDong() + "동 " + contract.getHo() + "호";
                 holder.tv_list_info_mycontract.setText(info);

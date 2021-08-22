@@ -75,6 +75,7 @@ public class RecyclerViewAdapter_MySell extends RecyclerView.Adapter<RecyclerVie
             if (house != null) {
                 holder.tv_state_mysell.setText(translateState(house.getOfferState()));
                 holder.tv_date_mysell.setText("등록일 " + translateDate(house.getCreateDate()));
+                holder.tv_name_mysell.setText(house.getResidence_name());
                 String pyeong = String.format("%.1f", mList.get(position).getLeaseable_area() / 3.3);
                 String info = house.getDongri() + " " + pyeong + "평 " + house.getDong() + "동 " + house.getHo() + "호";
                 holder.tv_list_info_mysell.setText(info);
