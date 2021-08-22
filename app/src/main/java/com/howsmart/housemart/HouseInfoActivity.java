@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
 import com.howsmart.housemart.Adapter.PagerAdapter_Picture_with_circleindicator;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.howsmart.housemart.Adapter.RecyclerViewAdapter_Realprice;
@@ -63,6 +65,8 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
     private CircleIndicator indicator_houseinfo;
     private PagerAdapter_Picture_with_circleindicator adapter;
     private List<String> urls;
+    private LineChart chart;
+    private LineGraph lineGraph;
 
     private RecyclerViewAdapter_Realprice adapter_realprice;
     private RecyclerView recyclerView;
@@ -338,6 +342,9 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
         viewpager_houseinfo = findViewById(R.id.viewpager_houseinfo);
         indicator_houseinfo = findViewById(R.id.indicator_houseinfo);
 
+        chart = findViewById(R.id.lineChart);
+        lineGraph = new LineGraph(HouseInfoActivity.this, chart);
+
         iv_houseinfo_back.setOnClickListener(this);
 //        iv_houseinfo_adminprice_guide.setOnClickListener(this);
         btn_houseinfo_gochat.setOnClickListener(this);
@@ -395,6 +402,7 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                     @Override
                     public void run() {
                         if(arr.size()==0){
+                            chart.setVisibility(View.GONE);
                             ll_realprice_show.setVisibility(View.GONE);
                             ll_realprice_noshow.setVisibility(View.VISIBLE);
                         }
@@ -404,6 +412,24 @@ public class HouseInfoActivity extends AppCompatActivity implements View.OnClick
                             adapter_realprice = new RecyclerViewAdapter_Realprice(getApplicationContext(), arr);
                             recyclerView.setAdapter(adapter_realprice);
                             adapter_realprice.notifyDataSetChanged();
+
+                            int[] cnt = {0, 0, 0, 0, 0, 0, 0, 0};
+                            Float[] sum = {0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f};
+                            for (Realprice realprice : arr) {
+                                int month = Integer.parseInt(realprice.getContract_date().substring(4, 6));
+                                int price = changePrice(realprice.getSale_price());
+                                int area = changeArea(realprice.getNet_leaseable_area());
+                                ++cnt[month];
+                                sum[month] += price / (area * 0.3024f);
+                            }
+
+                            ArrayList<Entry> values = new ArrayList<>();
+                            for (int i = 1; i <= 7; ++i) {
+                                values.add(new Entry(i, sum[i] / cnt[i]));
+                            }
+                            chart.setVisibility(View.VISIBLE);
+                            lineGraph.createChart();
+                            lineGraph.setData(values);
                         }
                     }
                 });

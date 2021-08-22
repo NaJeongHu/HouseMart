@@ -185,7 +185,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         //getIntent and get Chatter
         Intent intent = getIntent();
         String chatter_id = intent.getStringExtra("FirebaseId");
-        houseIdx = intent.getLongExtra("houseIdx", -1);
+        houseIdx = intent.getLongExtra("houseIdx", -1L);
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         sumId = getSumId(fuser.getUid(), chatter_id); //get combineId(real-time/Chats child name)
@@ -365,14 +365,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //get houseIdx or register houseIdx
-                try {
+                if(houseIdx == -1L){
                     houseIdx = snapshot.child("houseIdx").getValue(Long.class);
-                } catch (Exception e) {
+                } else {
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("houseIdx", houseIdx);
                     hashMap.put("buyerPhone", myChatter.getPhone());
                     hashMap.put("sellerPhone", chatter.getPhone());
-                    snapshot.child("houseInfo").getRef().updateChildren(hashMap);
+                    snapshot.getRef().updateChildren(hashMap);
                 }
 
                 //get buyerPhone, sellerPhone, and contractIdx
