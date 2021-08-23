@@ -1,13 +1,13 @@
 package com.howsmart.housemart.Notifications;
 
 public class NotificationData {
-    private String receiverNickname;
+    private String senderNickname;
     private String message;
     private String receiverFirebaseId;
     private String senderFirebaseId;
 
-    public NotificationData(String receiverNickname, String message, String receiverFirebaseId, String senderFirebaseId) {
-        this.receiverNickname = receiverNickname;
+    public NotificationData(String senderNickname, String message, String receiverFirebaseId, String senderFirebaseId) {
+        this.senderNickname = senderNickname;
         this.message = message;
         this.receiverFirebaseId = receiverFirebaseId;
         this.senderFirebaseId = senderFirebaseId;
@@ -16,12 +16,12 @@ public class NotificationData {
     public NotificationData() {
     }
 
-    public String getReceiverNickname() {
-        return receiverNickname;
+    public String getSenderNickname() {
+        return senderNickname;
     }
 
-    public void setReceiverNickname(String receiverNickname) {
-        this.receiverNickname = receiverNickname;
+    public void setSenderNickname(String senderNickname) {
+        this.senderNickname = senderNickname;
     }
 
     public String getMessage() {
@@ -51,7 +51,7 @@ public class NotificationData {
     @Override
     public String toString() {
         return "NotificationData{" +
-                "receiverNickname='" + receiverNickname + '\'' +
+                "senderNickname='" + senderNickname + '\'' +
                 ", message='" + message + '\'' +
                 ", receiverFirebaseId='" + receiverFirebaseId + '\'' +
                 ", senderFirebaseId='" + senderFirebaseId + '\'' +

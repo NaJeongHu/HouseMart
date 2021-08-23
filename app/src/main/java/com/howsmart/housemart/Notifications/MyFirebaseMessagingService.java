@@ -50,9 +50,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(RemoteMessage remoteMessage) {
-        String nickname = remoteMessage.getData().get("receiverNickname");
+        String nickname = remoteMessage.getData().get("senderNickname");
         String message = remoteMessage.getData().get("message");
         String senderFirebaseId = remoteMessage.getData().get("senderFirebaseId");
+
+        Log.d(TAG, "senderNickname: " + nickname);
 
         Intent intent = new Intent(this, ChatActivity.class);
         intent.putExtra("FirebaseId", senderFirebaseId);

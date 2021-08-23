@@ -453,8 +453,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     private void sendNotification(String message) {
         String to = chatter.getToken();
-        NotificationData data = new NotificationData(chatter.getNickname(), message, chatter.getId(), myChatter.getId());
+        NotificationData data = new NotificationData(myChatter.getNickname(), message, chatter.getId(), myChatter.getId());
         Sender sender = new Sender(to, data);
+
+        Log.d(TAG, "send data: " + data.toString());
 
         firebaseApi = FirebaseApi.retrofit.create(FirebaseApi.class);
         firebaseApi.sendNotification(sender).enqueue(new Callback<MyResponse>() {
