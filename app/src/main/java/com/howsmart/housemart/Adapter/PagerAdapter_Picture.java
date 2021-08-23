@@ -82,7 +82,7 @@ public class PagerAdapter_Picture extends PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"팔아요" + position + "번째", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,"팔아요" + position + "번째", Toast.LENGTH_SHORT).show();
                 mCallback.onClick(position);
                 ClickedPosition = position;
                 Intent intent = new Intent();

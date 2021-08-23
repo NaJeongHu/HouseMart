@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 String code = response.headers().get("code");
 
-                Toast.makeText(getApplicationContext(),"code = "+response.headers() , Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),"code = "+response.headers() , Toast.LENGTH_SHORT).show();
 
                 if (code != null && code.equals("00")) {
                     Log.d(TAG, "code.equlas('00')");

@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         // Log and toast
                         Log.d(TAG, "FCM registration Token: " + token);
-                        Toast.makeText(MainActivity.this, "FCM registration Token: " + token, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "FCM registration Token: " + token, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -237,14 +237,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mLongitude = gps.getLongitude();
 
             if(mLatitude == 0 || mLongitude == 0){
-                Toast.makeText(getApplicationContext(), "GPS 활용 거부로 인해 초기위치값이 경북대로 설정되었습니다", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "GPS 활용 거부로 인해 초기위치값이 경북대로 설정되었습니다", Toast.LENGTH_LONG).show();
                 mLatitude = 35.887515;
                 mLongitude = 128.611553;
             }
         } else {
             gps.showSettingsAlert();
             if(mLatitude == 0 || mLongitude == 0){
-                Toast.makeText(getApplicationContext(), "GPS 활용 거부로 인해 초기위치값이 경북대로 설정되었습니다", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "GPS 활용 거부로 인해 초기위치값이 경북대로 설정되었습니다", Toast.LENGTH_LONG).show();
                 mLatitude = 35.887515;
                 mLongitude = 128.611553;
             }

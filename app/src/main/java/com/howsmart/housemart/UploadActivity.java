@@ -762,18 +762,18 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     public String translatePrice(Long price) {
 
         String a = "", b = "", c = "";
-        if (price == 0) {
+        if (price != null && price == 0) {
             return "0원";
         }
-        if (price == -1) {
+        if (price != null && price == -1) {
             return "무제한";
         }
-        if (price >= 100000000) {
+        if (price != null && price >= 100000000) {
             Long price1 = price / 100000000;
             price %= 100000000;
             a = price1 + "억";
         }
-        if (price >= 10000) {
+        if (price != null && price >= 10000) {
             Long price2 = price / 10000;
             price %= 10000;
             b = price2 + "만";
@@ -781,7 +781,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 b = " " + b;
             }
         }
-        if (price > 0) {
+        if (price != null && price > 0) {
             c = price.toString();
             if (!a.equals(" ") || !b.equals(" ")) {
                 c = " " + c;
@@ -948,9 +948,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                                 public void onAnimationEnd(Animator animator) {
                                     lottie_upload_success.setVisibility(View.GONE);
                                     Intent intent = new Intent(UploadActivity.this, MainActivity.class);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.putExtra("user",mUser);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
-                                    finish();
+//                                    finish();
                                 }
 
                                 @Override

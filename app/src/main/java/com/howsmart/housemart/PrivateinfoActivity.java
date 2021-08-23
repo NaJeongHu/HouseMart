@@ -153,7 +153,7 @@ public class PrivateinfoActivity extends AppCompatActivity implements View.OnCli
                     doRetrofit();
                 }
             } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "사진 변경 취소", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "사진 변경 취소", Toast.LENGTH_SHORT).show();
             }
         }
     }

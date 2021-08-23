@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.Animator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.howsmart.housemart.Adapter.BrokerRecyclerAdapter;
 import com.howsmart.housemart.Model.ProvisionalHouse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,6 +44,7 @@ public class BrokerActivity extends AppCompatActivity implements View.OnClickLis
     private User mUser;
 
     private RESTApi mRESTApi;
+    private LottieAnimationView lottie_upload_success;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,8 @@ public class BrokerActivity extends AppCompatActivity implements View.OnClickLis
         mBackButton = findViewById(R.id.btn_back_broker);
         mItemCount = findViewById(R.id.tv_broker_itemcount);
         mTypeButton = findViewById(R.id.btn_broker_type);
+        lottie_upload_success = findViewById(R.id.lottie_upload_success);
+
         mType = "아파트";
 
         mRecyclerView.setLayoutManager(mManager);
@@ -283,8 +288,25 @@ public class BrokerActivity extends AppCompatActivity implements View.OnClickLis
                         String code = response.headers().get("code");
                         if(code.equals("00")){
                             // todo : lottie로 성공 체크 보여주면 좋을 듯 / lottie 시작하면 토스트 삭제
-                            Toast.makeText(BrokerActivity.this, "중개를 시작합니다", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(BrokerActivity.this, "중개를 시작합니다", Toast.LENGTH_SHORT).show();
                             alertDialog.dismiss();
+                            lottie_upload_success.setVisibility(View.VISIBLE);
+                            lottie_upload_success.playAnimation();
+                            lottie_upload_success.addAnimatorListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animator) { }
+
+                                @Override
+                                public void onAnimationEnd(Animator animator) {
+                                    lottie_upload_success.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animator) { }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animator) { }
+                            });
                         }
                     }
 

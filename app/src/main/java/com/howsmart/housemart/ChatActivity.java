@@ -294,7 +294,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.chat_write_contract:
-                if(sellerPhone.equals(myChatter.getPhone())) {
+                if(sellerPhone != null && myChatter.getPhone() != null && sellerPhone.equals(myChatter.getPhone())) {
                     Intent write_intent = new Intent(ChatActivity.this, MakeContractActivity.class);
                     write_intent.putExtra("buyerPhone", buyerPhone);
                     write_intent.putExtra("sellerPhone", sellerPhone);
