@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.howsmart.housemart.Model.Contract;
 import com.howsmart.housemart.Model.House;
 import com.howsmart.housemart.Model.User;
 import com.google.android.material.slider.RangeSlider;
@@ -31,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MakeContractActivity extends AppCompatActivity implements View.OnClickListener {
+public class WriteContractActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final static String TAG = "MakeContractActivity";
 
@@ -463,7 +462,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
                         if(code.equals("00")) {
                             Long contractIdx = response.body();
 
-                            Toast.makeText(MakeContractActivity.this, "계약서를 저장했습니다", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(WriteContractActivity.this, "계약서를 저장했습니다", Toast.LENGTH_SHORT).show();
 
                             //send contract idx to ChatActivity
                             Intent intent = new Intent();
@@ -475,7 +474,7 @@ public class MakeContractActivity extends AppCompatActivity implements View.OnCl
 
                     @Override
                     public void onFailure(Call<Long> call, Throwable throwable) {
-                        Toast.makeText(MakeContractActivity.this, "서버와의 연결이 원활하지 않아 계약서를 저장하지 못했습니다", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WriteContractActivity.this, "서버와의 연결이 원활하지 않아 계약서를 저장하지 못했습니다", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

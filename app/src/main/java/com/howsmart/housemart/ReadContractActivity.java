@@ -19,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShowContractActivity extends AppCompatActivity {
+public class ReadContractActivity extends AppCompatActivity {
 
     private final static String TAG = "ShowContractActivity";
 
@@ -101,14 +101,14 @@ public class ShowContractActivity extends AppCompatActivity {
                                 Boolean body = response.body();
 
                                 if(code.equals("00")){
-                                    Toast.makeText(ShowContractActivity.this, "가계약서에 동의했습니다", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ReadContractActivity.this, "가계약서에 동의했습니다", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<Boolean> call, Throwable throwable) {
-                                Toast.makeText(ShowContractActivity.this, "서버와의 연결이 원활하지 않습니다", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReadContractActivity.this, "서버와의 연결이 원활하지 않습니다", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "onFailure...", throwable);
                             }
                         });
@@ -221,7 +221,7 @@ public class ShowContractActivity extends AppCompatActivity {
 
                     btn_upload = findViewById(R.id.btn_upload_showcontract);
                     btn_upload.setText("가계약서 동의하기");
-                    if(editable==true && buyerPhone.equals(phonenumber1)){
+                    if(editable==true && buyerPhone.equals(phonenumber2)){
                         btn_upload.setVisibility(View.VISIBLE);
                     }
                     else{
@@ -233,7 +233,7 @@ public class ShowContractActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Contract> call, Throwable throwable) {
-                Toast.makeText(ShowContractActivity.this, "가계약서 정보를 가져오지 못함", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ReadContractActivity.this, "가계약서 정보를 가져오지 못함", Toast.LENGTH_SHORT).show();
             }
         });
     }

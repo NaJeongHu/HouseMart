@@ -25,10 +25,10 @@
         </activity>
         <activity android:name=".BrokerActivity" />
         <activity
-            android:name=".ShowContractActivity"
+            android:name=".ReadContractActivity"
             android:parentActivityName=".ChatActivity" />
         <activity
-            android:name=".MakeContractActivity"
+            android:name=".WriteContractActivity"
             android:parentActivityName=".ChatActivity" />
         <activity android:name=".SearchActivity_upload" />
         <activity android:name=".LoginActivity" >

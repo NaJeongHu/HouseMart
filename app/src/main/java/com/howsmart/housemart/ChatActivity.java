@@ -1,6 +1,5 @@
 package com.howsmart.housemart;
 
-import androidx.activity.ComponentActivity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -30,9 +28,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
 import com.howsmart.housemart.Adapter.ChatAdapter;
 import com.howsmart.housemart.Model.Chat;
 import com.howsmart.housemart.Model.Chatter;
@@ -295,7 +291,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.chat_write_contract:
                 if(sellerPhone != null && myChatter.getPhone() != null && sellerPhone.equals(myChatter.getPhone())) {
-                    Intent write_intent = new Intent(ChatActivity.this, MakeContractActivity.class);
+                    Intent write_intent = new Intent(ChatActivity.this, WriteContractActivity.class);
                     write_intent.putExtra("buyerPhone", buyerPhone);
                     write_intent.putExtra("sellerPhone", sellerPhone);
                     write_intent.putExtra("houseIdx", houseIdx);
@@ -308,7 +304,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.chat_read_contract:
                 if(contractIdx != null && contractIdx != -1L) {
-                    Intent read_intent = new Intent(ChatActivity.this, ShowContractActivity.class);
+                    Intent read_intent = new Intent(ChatActivity.this, ReadContractActivity.class);
                     read_intent.putExtra("contractIdx", contractIdx);
                     read_intent.putExtra("buyerPhone", buyerPhone);
                     read_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
