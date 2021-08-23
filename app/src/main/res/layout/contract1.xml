@@ -45,12 +45,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@color/custom_blue2">
+                    android:background="@color/ui_navy">
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/ui_navy" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -62,11 +62,11 @@
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight="1"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="right|center"
                             android:paddingRight="15dp"
                             android:text="소재지"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/tv_address_apartment"
@@ -84,7 +84,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/kakao_gray" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -96,11 +96,11 @@
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight="1"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="right|center"
                             android:paddingRight="15dp"
                             android:text="건물"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -130,7 +130,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/kakao_gray" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight="1"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="left|center"
                             android:text="" />
 
@@ -174,7 +174,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/ui_navy" />
 
                 </TableLayout>
 
@@ -198,12 +198,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@color/custom_blue2">
+                    android:background="@color/ui_navy">
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#DDE7F8" />
+                        android:background="@color/ui_navy" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -216,11 +216,11 @@
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight="1"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="right|center"
                             android:paddingRight="15dp"
                             android:text="매매금액"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/tv_price1"
@@ -237,7 +237,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/kakao_gray" />
 
                     <TableRow
                         android:id="@+id/row_month"
@@ -250,11 +250,11 @@
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight="1"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="right|center"
                             android:paddingRight="15dp"
                             android:text="월세"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/tv_price2"
@@ -273,7 +273,7 @@
                         android:id="@+id/view_month"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/ui_navy" />
 
                 </TableLayout>
 
@@ -282,12 +282,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@color/custom_blue2">
+                    android:background="@color/ui_navy">
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/ui_navy" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -299,11 +299,11 @@
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight="1"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="right|center"
                             android:paddingRight="15dp"
                             android:text="가계약금"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/tv_provisional_down_pay"
@@ -321,7 +321,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/kakao_gray" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -333,11 +333,11 @@
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight="1"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="right|center"
                             android:paddingRight="15dp"
                             android:text="계약금"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/tv_down_pay"
@@ -355,7 +355,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/kakao_gray" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -367,11 +367,11 @@
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight="1"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="right|center"
                             android:paddingRight="15dp"
                             android:text="중도금"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/tv_intermediate_pay"
@@ -389,7 +389,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/kakao_gray" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -401,11 +401,11 @@
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
                             android:layout_weight="1"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="right|center"
                             android:paddingRight="15dp"
                             android:text="잔금"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/tv_balance"
@@ -423,7 +423,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue2" />
+                        android:background="@color/ui_navy" />
 
                 </TableLayout>
             </LinearLayout>
@@ -502,13 +502,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@color/custom_blue2">
+                    android:background="@color/ui_navy">
 
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue3" />
+                        android:background="@color/ui_navy" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -519,10 +519,10 @@
                             android:layout_height="40dp"
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="bottom|center"
                             android:text="매도인"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -552,7 +552,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue3" />
+                        android:background="@color/ui_navy" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -563,10 +563,10 @@
                             android:layout_height="40dp"
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="top|center"
                             android:text="(임대인)"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -619,7 +619,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue3" />
+                        android:background="@color/ui_navy" />
 
                 </TableLayout>
 
@@ -628,13 +628,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@color/custom_blue3">
+                    android:background="@color/ui_navy">
 
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue3" />
+                        android:background="@color/ui_navy" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -645,10 +645,10 @@
                             android:layout_height="40dp"
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="bottom|center"
                             android:text="매수인"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -678,7 +678,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue3" />
+                        android:background="@color/ui_navy" />
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -689,10 +689,10 @@
                             android:layout_height="40dp"
                             android:layout_marginLeft="1dp"
                             android:layout_marginRight="1dp"
-                            android:background="@color/custom_blue3"
+                            android:background="@color/ui_navy"
                             android:gravity="top|center"
                             android:text="(임차인)"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -745,7 +745,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/custom_blue3" />
+                        android:background="@color/ui_navy" />
 
                 </TableLayout>
             </LinearLayout>

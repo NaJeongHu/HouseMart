@@ -11,9 +11,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/housemartlogo"
+        android:icon="@drawable/housemartlogo_navy"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/housemartlogo"
+        android:roundIcon="@drawable/housemartlogo_navy"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
