@@ -189,6 +189,10 @@ public interface RESTApi {
     Call<List<MyContract>> getAllContractList(
             @Query("userId") String userId);
 
+    @POST("/member/get/intermediaryList")
+    Call<List<MyContract>> getBrokerContractList(
+            @Query("userId") String userId);
+
     @POST("/deal/contract/connection")
     Call<Boolean> startContract(
             @Query("idx") Long idx,

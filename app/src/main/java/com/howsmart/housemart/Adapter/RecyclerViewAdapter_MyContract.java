@@ -143,7 +143,7 @@ public class RecyclerViewAdapter_MyContract extends RecyclerView.Adapter<Recycle
         } else if (state.equals("UNRELIABLE")) {
             ret = "승인대기중";
         } else if (state.equals("RELIABLE")) {
-            ret = "판매중";
+            ret = "가계약서 작성중";
         } else if (state.equals("SOLD_OUT")) {
             ret = "계약 완료";
         } else {

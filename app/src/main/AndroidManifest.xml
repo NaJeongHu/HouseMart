@@ -24,6 +24,7 @@
         <activity android:name=".SplashActivity">
         </activity>
         <activity android:name=".BrokerActivity" />
+        <activity android:name=".BrokerlistActivity" />
         <activity
             android:name=".ReadContractActivity"
             android:parentActivityName=".ChatActivity" />

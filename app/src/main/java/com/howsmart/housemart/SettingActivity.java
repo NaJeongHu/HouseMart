@@ -104,7 +104,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 upload_dialog2(view);
                 break;
             case R.id.ll_broker_list:
-                // todo : 거래중인 내역 부분 작업 끝나면 비슷하게 레이아웃 짜고, 자바코드 연결한 뒤에 여기서 intent 연결
+                Intent intent4 = new Intent(SettingActivity.this, BrokerlistActivity.class);
+                intent4.putExtra("user",mUser);
+                startActivity(intent4);
                 break;
         }
     }

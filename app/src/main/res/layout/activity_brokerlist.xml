@@ -27,7 +27,7 @@
                 android:layout_marginRight="20dp">
 
                 <ImageView
-                    android:id="@+id/btn_back_business"
+                    android:id="@+id/btn_back_brokerlist"
                     android:layout_width="19dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
@@ -56,9 +56,35 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_view_brokerlist"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/recycler_toolbar"/>
+
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/ll_brokerlist_nothing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:background="@drawable/housemartlogo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/applesdgothicneob"
+            android:text="중개중인 매물이 없어요.."
+            android:gravity="center"
+            android:textColor="@color/custom_blue"
+            android:textSize="15dp" />
+    </LinearLayout>
 
 </RelativeLayout>
