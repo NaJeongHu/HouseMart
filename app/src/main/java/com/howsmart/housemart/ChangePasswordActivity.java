@@ -1,5 +1,6 @@
 package com.howsmart.housemart;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,8 +12,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.howsmart.housemart.Model.House;
 import com.howsmart.housemart.Model.User;
+
+import java.util.HashMap;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -86,8 +96,8 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 String test_code = response.headers().get("code");
 
                 if (test_code != null && test_code.equals("00")) {
+                    firebaseChangePassword();
                     Toast.makeText(ChangePasswordActivity.this, "비밀번호가 변경되었습니다", Toast.LENGTH_SHORT).show();
-                    finish();
                 }
                 else if(test_code.equals("12")){
                     Toast.makeText(ChangePasswordActivity.this, "기존 비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show();
@@ -103,5 +113,10 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             }
 
         });
+    }
+
+    private void firebaseChangePassword() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser.updatePassword(password3);
     }
 }

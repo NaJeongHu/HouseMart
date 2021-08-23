@@ -1,5 +1,6 @@
 package com.howsmart.housemart;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,8 +12,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.howsmart.housemart.Model.Chatter;
 import com.howsmart.housemart.Model.House;
 import com.howsmart.housemart.Model.User;
+
+import java.util.HashMap;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -61,6 +72,7 @@ public class ChangeNicknameActivity extends AppCompatActivity implements View.On
                 } else {
                     nickname = edit_nickname.getText().toString();
                     doRetrofit();
+                    firebaseChangeNickname();
                 }
         }
     }
@@ -86,6 +98,30 @@ public class ChangeNicknameActivity extends AppCompatActivity implements View.On
                 Log.e("ChangeNicknameActivity", "failure change nickname", throwable);
             }
 
+        });
+    }
+
+    private void firebaseChangeNickname() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+        HashMap hashMap = new HashMap();
+        hashMap.put("nickname", nickname);
+        reference.child("Users").child(firebaseUser.getUid()).updateChildren(hashMap);
+
+        reference.child("Chats").orderByChild("users/" + firebaseUser.getUid() + "/id").equalTo(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    Log.d("nicknameDebug", snapshot1.toString());
+                    snapshot1.child("users").child(firebaseUser.getUid()).getRef().updateChildren(hashMap);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
     }
 }
